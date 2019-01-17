@@ -8,14 +8,15 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'Insurance') }}</title>
 </head>
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <ul class="navbar-nav ml-auto">
+      <a class="navbar-brand" href="#"><img src="{{asset('img/logo.jpg')}}" alt="Insurance" height="50" /></a>
+<!--       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href="#">Home</a>
         </li>
@@ -25,7 +26,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Contact Us</a>
         </li>
-      </ul>
+      </ul> -->
     </nav>
   </header>
   <section>
@@ -44,6 +45,7 @@
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="{{ asset('js/jquery-ui.js') }}"></script>
   <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

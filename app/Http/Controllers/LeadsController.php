@@ -17,7 +17,7 @@ class LeadsController extends Controller
 	}
 
 	public function create(Request $request){
-		echo "<pre>"; print_r($request->all());echo "</pre>";
+		// echo "<pre>"; print_r($request->all());echo "</pre>";
 		$data = [];
 		return view('Insurance.urls',$data);
 	}

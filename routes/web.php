@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', 'LeadsController@new')->name('new');
+Route::get('/', 'LeadsController@new')->name('new-lead');
+Route::post('/', 'LeadsController@create')->name('save-lead');

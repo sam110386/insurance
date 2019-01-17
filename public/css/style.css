@@ -6,6 +6,7 @@
     /* Margin bottom by footer height */
     margin-bottom: 60px;
   }
+  .navbar.bg-light{background: #fff !important;}
   .footer {
     position: absolute;
     bottom: 0;
@@ -27,17 +28,23 @@
   code {
     font-size: 80%;
   }
-  .choices > label {
+  .btn,input[type='text']{border-radius: 0;}
+  .choices > label ,.months > label {
     padding-top: 15px;
     padding-bottom: 15px;
     background: #fff;
     cursor: pointer;
     font-size: 22px;
   }
-  .choices > label.bg-warning{color: #fff;}
-  .choices > label > i.fa{display: none;float: right;padding-top: 3px;}
-  .choices > label.bg-warning > i.fa{display: block;}
+  .choices > label.bg-warning,.months > label.bg-warning{color: #fff;}
+  .choices > label > i.fa,.months > label > i.fa{display: none;float: right;padding-top: 3px;}
+  .choices > label.bg-warning > i.fa,.months > label.bg-warning > i.fa{display: block;}
 
   .has-error .form-control {
     border-color: #dc3545;
   }
+
+  .ui-datepicker-inline{max-width: 280px;background:#fff;border: none !important;padding: 0; }
+  .ui-state-default {text-align: center !important;background: #fff !important;}
+  .ui-widget-header {display: none;}
+  .ui-datepicker-calendar thead{display: none;}
