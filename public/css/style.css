@@ -48,3 +48,5 @@
   .ui-state-default {text-align: center !important;background: #fff !important;}
   .ui-widget-header {display: none;}
   .ui-datepicker-calendar thead{display: none;}
+
+label.error{color: #dc3545;}

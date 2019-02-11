@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\Router;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,5 +12,14 @@
 |
 */
 
+
 Route::get('/', 'LeadsController@new')->name('new-lead');
 Route::post('/', 'LeadsController@create')->name('save-lead');
+
+
+
+Route::group([
+    'prefix'        => 'ajax'
+], function (Router $router) {
+    $router->post('/zipcode/validate/{zipcode}', 'LeadsController@validateZipcode');
+});
