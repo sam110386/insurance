@@ -44,14 +44,16 @@ $(document).ready(function(){
 		$(this).parent('.form-group').removeClass('has-error');
 		$(this).parents(".container").find("label").removeClass('bg-warning');
 		
-		if(make =='other' && (!$(this).siblings("input[type=text]").val() || $(this).siblings("input[type=text]").val() == "" )){
+		if(make =='other' && (!$(this).siblings("input.optional").val() || $(this).siblings("input[type=text]").val() == "" )){
 			$(this).parent('.form-group').addClass('has-error');
 			return false;
 		}
 		if(make != 'other'){
 			models = carModels[make];
-			$.each(models,function(mdl,model){
-				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-12 col-sm-12 col-md-6 col-lg-6 pl-2 pr-2" data-href="vehicle' + (vehicle + 1) +  '" data-current="models"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+			$.each(models,function(mdl,model){				
+				target =  'vin' + (vehicle);
+				current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
+				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-12 col-sm-12 col-md-6 col-lg-6 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 				modelsContanier.append(label);
 			});	
 			modelsContanier.parent('.col-12').show();		
@@ -95,7 +97,7 @@ $(document).ready(function(){
 		$(this).siblings('label').removeClass('bg-warning');
 		$(this).addClass('bg-warning');
 		$(this).children('input[type=radio]').prop('checked',true);
-		$(this).parents('.container').find('input[type=text]').val('');
+		$(this).parents('.container').find('input.optional').val('');
 		$(this).parents('.vehicle-makes').find('select').val($(this).parents('.container').find('select').children('option:first').val());
 		$(this).parents('.vehicle-makes').find('input[type=text]').hide();
 

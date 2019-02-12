@@ -23,8 +23,14 @@ class LeadsController extends Controller
 	}
 
 	public function create(Request $request){
-		// echo "<pre>"; print_r($request->all());echo "</pre>";
-		$data = [];
+		$lead = $request->all();
+		// dd(\Config::get('mail'));
+		// echo "<pre>"; print_r($lead);echo "</pre>";
+		\Mail::send('Emails.Lead.new', ['lead' => $lead],
+		function ($message) {
+			$message->to('masisdavidian@gmail.com')->subject('New Lead - Insurance');
+		});
+		$data = ['lead' => $lead];
 		return view('Insurance.urls',$data);
 	}
 

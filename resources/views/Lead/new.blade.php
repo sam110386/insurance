@@ -78,7 +78,7 @@
 								@endforeach
 								<option value="other">Other</option>
 							</select>
-							<input type="text" class="mt-3 form-control form-control-lg" name="make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
 						</div>
 					</div>
@@ -105,8 +105,8 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="model1-other" class="h4">Other</label>
-							<input type="text" class="form-control form-control-lg mb-3" name="model1-other" id="model1-other">
-							<a data-href="vin" class="vehicle-next btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
+							<input type="text" class="form-control form-control-lg mb-3 optional" name="model1-other" id="model1-other">
+							<a data-href="vin1" class="vehicle-next btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
 						</div>
 					</div>
 				</div>
@@ -128,7 +128,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="vin" id="vin">
+							<input type="text" class="form-control form-control-lg mb-3" name="vin1" id="vin">
 							<a data-href="vehicle2" data-current="vin1"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
@@ -220,7 +220,7 @@
 								@endforeach
 								<option value="other">Other</option>
 							</select>
-							<input type="text" class="mt-3 form-control form-control-lg" name="vehicle2-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle2-make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="vehicle2-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
 						</div>
 					</div>
@@ -247,8 +247,8 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="model2-other" class="h4">Other</label>
-							<input type="text" class="form-control form-control-lg mb-3" name="model2-other" id="model2-other">
-							<a data-href="previous-insurance" class="vehicle-next btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
+							<input type="text" class="form-control form-control-lg mb-3 optional" name="model2-other" id="model2-other">
+							<a data-href="vin2" class="vehicle-next btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
 						</div>
 					</div>
 				</div>
@@ -269,7 +269,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="vin1">
+							<input type="text" class="form-control form-control-lg mb-3" name="vin2">
 							<a data-href="previous-insurance" data-current="vin2"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
