@@ -12,16 +12,16 @@ $(document).ready(function(){
 	});
 
 	$(".vehicle-makes .choices label").on('click',function(){
+		debugger
 		var make = $(this).children('input').val();
 		var vehicle = parseInt($(this).data('vehicle'));
 		var modelsContanier = $('.models-' + vehicle);
 		modelsContanier.html('');
 		models = carModels[make];
-		debugger
 		$.each(models,function(mdl,model){
 			target =  'vin' + (vehicle);
 			current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-12 col-sm-12 col-md-6 col-lg-6 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 mr-3 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 			modelsContanier.append(label);
 		});
 		modelsContanier.parent('.col-12').show();
@@ -53,7 +53,7 @@ $(document).ready(function(){
 			$.each(models,function(mdl,model){				
 				target =  'vin' + (vehicle);
 				current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-12 col-sm-12 col-md-6 col-lg-6 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 mr-3 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 				modelsContanier.append(label);
 			});	
 			modelsContanier.parent('.col-12').show();		
@@ -192,7 +192,7 @@ $(document).ready(function(){
 		}
 		$('span.first-name-label').html($('#first_name').val());
 		$('form.lead-form > div.container').fadeOut(500);
-		$('form.lead-form > div#last-container').delay(500).fadeIn(500);
+		$('form.lead-form > div#dob-container').delay(500).fadeIn(500);
 		return false;
 	});
 
@@ -229,6 +229,69 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$('body').on('change','.dob-change',function(){
+		var i = $(this).data('dob');
+		var year = $('select.dob' + i +'-year').val();
+		var month = $('select.dob' + i +'-month').val();
+		var days = new Date(year, month, 0).getDate();
+		var dateSelect = $('select.dob'+ i +'-date');
+		dateSelect.html('');
+		for(i=1; i <=days;i++ ){
+			dateSelect.append('<option value="'+ i +'">'+i+'</option>');
+		}
+	});
 
 
+	$('.dob-submit').on('click',function(){
+		var i = $(this).data('dob');
+		var year = $('select.dob' + i +'-year').val();
+		var month = $('select.dob' + i +'-month').val();
+		var date = $('select.dob' + i +'-date').val();
+		var df = dateDiff(year + "-" + month + "-" + date);
+		$(this).siblings('.error').remove();
+		if(df.y < 15){	
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$(this).after('<label class="ml-2 error text-danger">Age should be 15+</label>');
+			return false;			
+		}else{
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+
+	$('.dl-submit').on('click',function(){
+		var dl  = $(this).siblings('input').val();
+		$(this).parents('.form-group').removeClass('has-error');
+		if(!dl){
+			$(this).parents('.form-group').addClass('has-error');
+		}else{
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+	$('.name-submit').on('click',function(){
+		var error = false;
+		$.each($('input:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
+		if(!error){
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+	function dateDiff(date) {
+		var startDate = new Date(date);
+		var diffDate = new Date(new Date() - startDate);
+		return {y: (diffDate.toISOString().slice(0, 4) - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
+	}	
 });
