@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$.each(models,function(mdl,model){
 			target =  'vin' + (vehicle);
 			current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 mr-3 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 			modelsContanier.append(label);
 		});
 		modelsContanier.parent('.col-12').show();
@@ -53,7 +53,7 @@ $(document).ready(function(){
 			$.each(models,function(mdl,model){				
 				target =  'vin' + (vehicle);
 				current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 mr-3 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4  col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 				modelsContanier.append(label);
 			});	
 			modelsContanier.parent('.col-12').show();		
@@ -231,13 +231,14 @@ $(document).ready(function(){
 
 	$('body').on('change','.dob-change',function(){
 		var i = $(this).data('dob');
-		var year = $('select.dob' + i +'-year').val();
+		var year = 2016;
 		var month = $('select.dob' + i +'-month').val();
 		var days = new Date(year, month, 0).getDate();
 		var dateSelect = $('select.dob'+ i +'-date');
 		dateSelect.html('');
 		for(i=1; i <=days;i++ ){
-			dateSelect.append('<option value="'+ i +'">'+i+'</option>');
+			var z = ('0' + i).slice(-2);
+			dateSelect.append('<option value="'+ i +'">' + z +'</option>');
 		}
 	});
 
@@ -247,8 +248,17 @@ $(document).ready(function(){
 		var year = $('select.dob' + i +'-year').val();
 		var month = $('select.dob' + i +'-month').val();
 		var date = $('select.dob' + i +'-date').val();
-		var df = dateDiff(year + "-" + month + "-" + date);
 		$(this).siblings('.error').remove();
+
+		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+		// alert(dateToCheck);
+		if(!isValidDate(dateToCheck)){
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$(this).after('<label class="ml-2 error text-danger">Invalid date</label>');
+			return false;
+		}
+		var df = dateDiff(year + "-" + month + "-" + date);
+
 		if(df.y < 15){	
 			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
 			$(this).after('<label class="ml-2 error text-danger">Age should be 15+</label>');
@@ -289,9 +299,67 @@ $(document).ready(function(){
 		}
 	});
 
+	$('.vin-submit').on('click',function(){
+		var error = false;
+		$.each($('input:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
+		if(!error){
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+
 	function dateDiff(date) {
 		var startDate = new Date(date);
 		var diffDate = new Date(new Date() - startDate);
 		return {y: (diffDate.toISOString().slice(0, 4) - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
-	}	
+	}
+
+//--------------------------------------------------------------------------
+//This function validates the date for MM/DD/YYYY format. 
+//--------------------------------------------------------------------------
+function isValidDate(dateStr) {
+	
+ // Checks for the following valid date formats:
+ // MM/DD/YYYY
+ // Also separates date into month, day, and year variables
+ var datePat = /^(\d{2,2})(\/)(\d{2,2})\2(\d{4}|\d{4})$/;
+ 
+ var matchArray = dateStr.match(datePat); // is the format ok?
+ if (matchArray == null) {
+	// alert("Date must be in MM/DD/YYYY format")
+	return false;
+ }
+ 
+ month = matchArray[1]; // parse date into variables
+ day = matchArray[3];
+ year = matchArray[4];
+ if (month < 1 || month > 12) { // check month range
+	// alert("Month must be between 1 and 12");
+	return false;
+ }
+ if (day < 1 || day > 31) {
+	// alert("Day must be between 1 and 31");
+	return false;
+ }
+ if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+	// alert("Month "+month+" doesn't have 31 days!")
+	return false;
+ }
+ if (month == 2) { // check for february 29th
+	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+	if (day>29 || (day==29 && !isleap)) {
+		// alert("February " + year + " doesn't have " + day + " days!");
+		return false;
+	}
+ }
+ return true;  // date is valid
+}	
 });

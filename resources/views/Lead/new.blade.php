@@ -35,7 +35,7 @@
 				<h4 class="mb-2">Year</h4>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 40; $i++)
-					<label for="year-{{ now()->year - $i }}" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="make" data-current="year">
+					<label for="year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="make" data-current="year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="year" value="{{ now()->year - $i }}" id="year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
@@ -61,7 +61,7 @@
 						<h4 class="mb-3">POPULAR</h4>
 						<div class="form-group choices row">
 							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="make-{{$loop->iteration}}" class="h4 col-12 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="models" data-current="make" data-vehicle="1">
+							<label for="make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="models" data-current="make" data-vehicle="1">
 								{{$popular}}
 								<input type="radio" class="d-none" name="make" value="{{$k}}" id="make-{{$loop->iteration}}" />
 								<i class="fa fa-angle-right"></i>
@@ -129,7 +129,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3" name="vin1" id="vin">
-							<a data-href="vehicle2" data-current="vin1"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="vehicle2" data-current="vin1"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle2" data-current="vin1"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -178,7 +178,7 @@
 				<h4 class="mb-2">Year</h4>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle2-year-{{ now()->year - $i }}" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle2-make" data-current="vehicle2-year">
+					<label for="vehicle2-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle2-make" data-current="vehicle2-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle2-year" value="{{ now()->year - $i }}" id="vehicle2-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
@@ -204,7 +204,7 @@
 						<h4 class="mb-3">POPULAR</h4>
 						<div class="form-group choices row">
 							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="vehicle2-make-{{$loop->iteration}}" class="h4 col-12 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle2-models" data-current="vehicle2-make" data-vehicle="2">
+							<label for="vehicle2-make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle2-models" data-current="vehicle2-make" data-vehicle="2">
 								{{$popular}}
 								<input type="radio" class="d-none" name="vehicle2-make" value="{{$k}}" id="vehicle2-make-{{$loop->iteration}}" />
 								<i class="fa fa-angle-right"></i>
@@ -271,7 +271,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3" name="vin2">
-							<a data-href="vehicle3" data-current="vin2"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="vehicle3" data-current="vin2"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle3" data-current="vin2"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -320,7 +320,7 @@
 				<h4 class="mb-2">Year</h4>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle3-year-{{ now()->year - $i }}" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle3-make" data-current="vehicle3-year">
+					<label for="vehicle3-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle3-make" data-current="vehicle3-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle3-year" value="{{ now()->year - $i }}" id="vehicle3-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
@@ -346,7 +346,7 @@
 						<h4 class="mb-3">POPULAR</h4>
 						<div class="form-group choices row">
 							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="vehicle3-make-{{$loop->iteration}}" class="h4 col-12 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle3-models" data-current="vehicle3-make" data-vehicle="3">
+							<label for="vehicle3-make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle3-models" data-current="vehicle3-make" data-vehicle="3">
 								{{$popular}}
 								<input type="radio" class="d-none" name="vehicle3-make" value="{{$k}}" id="vehicle3-make-{{$loop->iteration}}" />
 								<i class="fa fa-angle-right"></i>
@@ -413,7 +413,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3" name="vin3">
-							<a data-href="vehicle4" data-current="vin3"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="vehicle4" data-current="vin3"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle4" data-current="vin3"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -463,7 +463,7 @@
 				<h4 class="mb-2">Year</h4>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle4-year-{{ now()->year - $i }}" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle4-make" data-current="vehicle4-year">
+					<label for="vehicle4-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle4-make" data-current="vehicle4-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle4-year" value="{{ now()->year - $i }}" id="vehicle4-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
@@ -489,7 +489,7 @@
 						<h4 class="mb-4">POPULAR</h4>
 						<div class="form-group choices row">
 							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="vehicle4-make-{{$loop->iteration}}" class="h4 col-12 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle4-models" data-current="vehicle4-make" data-vehicle="4">
+							<label for="vehicle4-make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle4-models" data-current="vehicle4-make" data-vehicle="4">
 								{{$popular}}
 								<input type="radio" class="d-none" name="vehicle4-make" value="{{$k}}" id="vehicle4-make-{{$loop->iteration}}" />
 								<i class="fa fa-angle-right"></i>
@@ -556,7 +556,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-4" name="vin4">
-							<a data-href="vehicle5" data-current="vin4"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="vehicle5" data-current="vin4"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle5" data-current="vin4"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -606,7 +606,7 @@
 				<h4 class="mb-2">Year</h4>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle5-year-{{ now()->year - $i }}" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle5-make" data-current="vehicle5-year">
+					<label for="vehicle5-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle5-make" data-current="vehicle5-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle5-year" value="{{ now()->year - $i }}" id="vehicle5-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
@@ -632,7 +632,7 @@
 						<h4 class="mb-5">POPULAR</h4>
 						<div class="form-group choices row">
 							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="vehicle5-make-{{$loop->iteration}}" class="h4 col-12 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle5-models" data-current="vehicle5-make" data-vehicle="5">
+							<label for="vehicle5-make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="vehicle5-models" data-current="vehicle5-make" data-vehicle="5">
 								{{$popular}}
 								<input type="radio" class="d-none" name="vehicle5-make" value="{{$k}}" id="vehicle5-make-{{$loop->iteration}}" />
 								<i class="fa fa-angle-right"></i>
@@ -699,7 +699,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-5" name="vin5">
-							<a data-href="previous-insurance" data-current="vin5"  class="next-question btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="previous-insurance" data-current="vin5"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="previous-insurance" data-current="vin5"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -1206,19 +1206,19 @@
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="first_name" class="font-weight-bold h5 mb-3 text-warning">First Name</label>
 							<input type="text" class="form-control form-control-lg" id="first_name" name="first_name">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="last_name" class="font-weight-bold h5 mb-3 text-warning">Last Name</label>
 							<input type="text" class="form-control form-control-lg" id="last_name" name="last_name">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="email" class="font-weight-bold h5 mb-3 text-warning">Email</label>
 							<input type="text" class="form-control form-control-lg" id="email" name="email">
@@ -1247,46 +1247,47 @@
 				</p>
 				<h3 class="font-weight-bold">Birthday</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob1-year dob-change" data-dob="1" name="dob-year">
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-								<option value="january"> </option>
-							</select>
-						</div>	
-					</div>					
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob1-month dob-change" data-dob="1" name="dob-month">
-								<option value="1">January </option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
+								<option value="1">01 </option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
 							</select>
 						</div>	
 					</div>
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob1-date" name="dob-date">
 								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">{{$i}}</option>
+								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
 							</select>
 						</div>	
 					</div>	
+					<div class="col-4 col-sm-3">
+						<div class="form-group">
+							<label class="h5" for="">Year</label>
+							<select class="form-control form-control-lg dob1-year" data-dob="1" name="dob-year">
+								@for($i=1;$i<= 100;$i++)
+								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+								@endfor
+							</select>
+						</div>	
+					</div>					
+
 					<div class="col-12">
 						<a data-href="dl1" data-dob="1" class="btn dob-submit btn-lg btn-warning">Continue</a>
 					</div>				
@@ -1355,13 +1356,13 @@
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="first_name2" class="font-weight-bold h5 mb-3 text-warning">First Name</label>
 							<input type="text" class="form-control form-control-lg" id="first_name2" name="first_name2">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="last_name2" class="font-weight-bold h5 mb-3 text-warning">Last Name</label>
 							<input type="text" class="form-control form-control-lg" id="last_name2" name="last_name2">
@@ -1390,46 +1391,46 @@
 				</p>
 				<h3 class="font-weight-bold">Birthday</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob2-year dob-change" data-dob="2" name="dob-year">
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-								<option value="january"> </option>
-							</select>
-						</div>	
-					</div>					
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+				
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob2-month dob-change" data-dob="2" name="dob-month">
-								<option value="1">January </option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
+							<select class="form-control form-control-lg dob2-month dob-change" data-dob="2" name="dob2-month">
+								<option value="1">01 </option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
 							</select>
 						</div>	
 					</div>
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob2-date" name="dob-date">
+							<select class="form-control form-control-lg dob2-date" name="dob2-date">
 								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">{{$i}}</option>
+								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
 							</select>
 						</div>	
-					</div>	
+					</div>
+					<div class="col-4 col-sm-3">
+						<div class="form-group">
+							<label class="h5" for="">Year</label>
+							<select class="form-control form-control-lg dob2-year" name="dob2-year">
+								@for($i=1;$i<= 100;$i++)
+								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+								@endfor
+							</select>
+						</div>	
+					</div>							
 					<div class="col-12">
 						<a data-href="dl2" data-dob="2" class="btn dob-submit btn-lg btn-warning">Continue</a>
 					</div>				
@@ -1498,13 +1499,13 @@
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="first_name3" class="font-weight-bold h5 mb-3 text-warning">First Name</label>
 							<input type="text" class="form-control form-control-lg" id="first_name3" name="first_name3">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="last_name3" class="font-weight-bold h5 mb-3 text-warning">Last Name</label>
 							<input type="text" class="form-control form-control-lg" id="last_name3" name="last_name3">
@@ -1533,48 +1534,47 @@
 				</p>
 				<h3 class="font-weight-bold">Birthday</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob3-year dob-change" data-dob="2" name="dob-year">
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-								<option value="january"> </option>
-							</select>
-						</div>	
-					</div>					
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob3-month dob-change" data-dob="2" name="dob-month">
-								<option value="1">January </option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
+							<select class="form-control form-control-lg dob3-month dob-change" data-dob="3" name="dob3-month">
+								<option value="1">01</option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
 							</select>
 						</div>	
 					</div>
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob3-date" name="dob-date">
+							<select class="form-control form-control-lg dob3-date" name="dob3-date">
 								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">{{$i}}</option>
+								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
 							</select>
 						</div>	
-					</div>	
+					</div>
+					<div class="col-4 col-sm-3">
+						<div class="form-group">
+							<label class="h5" for="">Year</label>
+							<select class="form-control form-control-lg dob3-year" name="dob3-year">
+								@for($i=1;$i<= 100;$i++)
+								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+								@endfor
+							</select>
+						</div>	
+					</div>										
 					<div class="col-12">
-						<a data-href="dl3" data-dob="2" class="btn dob-submit btn-lg btn-warning">Continue</a>
+						<a data-href="dl3" data-dob="3" class="btn dob-submit btn-lg btn-warning">Continue</a>
 					</div>				
 				</div>
 			</div>
@@ -1641,13 +1641,13 @@
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="first_name4" class="font-weight-bold h5 mb-3 text-warning">First Name</label>
 							<input type="text" class="form-control form-control-lg" id="first_name4" name="first_name4">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="last_name4" class="font-weight-bold h5 mb-3 text-warning">Last Name</label>
 							<input type="text" class="form-control form-control-lg" id="last_name4" name="last_name4">
@@ -1676,48 +1676,47 @@
 				</p>
 				<h3 class="font-weight-bold">Birthday</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob4-year dob-change" data-dob="2" name="dob-year">
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-								<option value="january"> </option>
-							</select>
-						</div>	
-					</div>					
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob4-month dob-change" data-dob="2" name="dob-month">
-								<option value="1">January </option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
+							<select class="form-control form-control-lg dob4-month dob-change" data-dob="4" name="dob4-month">
+								<option value="1">01</option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
 							</select>
 						</div>	
 					</div>
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob4-date" name="dob-date">
+							<select class="form-control form-control-lg dob4-date" name="dob4-date">
 								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">{{$i}}</option>
+								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
 							</select>
 						</div>	
 					</div>	
+					<div class="col-4 col-sm-3">
+						<div class="form-group">
+							<label class="h5" for="">Year</label>
+							<select class="form-control form-control-lg dob4-year" name="dob4-year">
+								@for($i=1;$i<= 100;$i++)
+								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+								@endfor
+							</select>
+						</div>	
+					</div>					
 					<div class="col-12">
-						<a data-href="dl4" data-dob="2" class="btn dob-submit btn-lg btn-warning">Continue</a>
+						<a data-href="dl4" data-dob="4" class="btn dob-submit btn-lg btn-warning">Continue</a>
 					</div>				
 				</div>
 			</div>
@@ -1784,13 +1783,13 @@
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="first_name5" class="font-weight-bold h5 mb-3 text-warning">First Name</label>
 							<input type="text" class="form-control form-control-lg" id="first_name5" name="first_name5">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label for="last_name5" class="font-weight-bold h5 mb-3 text-warning">Last Name</label>
 							<input type="text" class="form-control form-control-lg" id="last_name5" name="last_name5">
@@ -1819,48 +1818,48 @@
 				</p>
 				<h3 class="font-weight-bold">Birthday</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob5-year dob-change" data-dob="2" name="dob-year">
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-								<option value="january"> </option>
-							</select>
-						</div>	
-					</div>					
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob5-month dob-change" data-dob="2" name="dob-month">
-								<option value="1">January </option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
+							<select class="form-control form-control-lg dob5-month dob-change" data-dob="5" name="dob5-month">
+								<option value="1">01</option>
+								<option value="2">02</option>
+								<option value="3">03</option>
+								<option value="4">04</option>
+								<option value="5">05</option>
+								<option value="6">06</option>
+								<option value="7">07</option>
+								<option value="8">08</option>
+								<option value="9">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
 							</select>
 						</div>	
 					</div>
-					<div class="col-12 col-sm-12 col-md-4 col-lg-3">
+					<div class="col-4 col-sm-3">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob5-date" name="dob-date">
+							<select class="form-control form-control-lg dob5-date" name="dob5-date">
 								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">{{$i}}</option>
+								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
 							</select>
 						</div>	
 					</div>	
+					<div class="col-4 col-sm-3">
+						<div class="form-group">
+							<label class="h5" for="">Year</label>
+							<select class="form-control form-control-lg dob5-year" name="dob5-year">
+								@for($i=1;$i<= 100;$i++)
+								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+								@endfor
+							</select>
+						</div>	
+					</div>					
+
 					<div class="col-12">
-						<a data-href="dl5" data-dob="2" class="btn dob-submit btn-lg btn-warning">Continue</a>
+						<a data-href="dl5" data-dob="5" class="btn dob-submit btn-lg btn-warning">Continue</a>
 					</div>				
 				</div>
 			</div>
