@@ -12,7 +12,6 @@ $(document).ready(function(){
 	});
 
 	$(".vehicle-makes .choices label").on('click',function(){
-		debugger
 		var make = $(this).children('input').val();
 		var vehicle = parseInt($(this).data('vehicle'));
 		var modelsContanier = $('.models-' + vehicle);
@@ -319,7 +318,7 @@ $(document).ready(function(){
 	function dateDiff(date) {
 		var startDate = new Date(date);
 		var diffDate = new Date(new Date() - startDate);
-		return {y: (diffDate.toISOString().slice(0, 4) - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
+		return {y: (diffDate.getFullYear() - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
 	}
 
 //--------------------------------------------------------------------------

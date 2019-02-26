@@ -5,6 +5,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="list-group">
+					<h1>Thank you for contact to us. We will contact you shortly</h1>
 					<a href="#" class="list-group-item list-group-item-action">
 						Cras justo odio
 					</a>
