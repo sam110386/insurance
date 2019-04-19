@@ -83,7 +83,7 @@ $(document).ready(function(){
 				return false;
 			}else if(!($('#zipcode').val() in zipcodes)){
 				$('#zipcode').parent('.form-group').addClass('has-error');
-				$(this).after('<label class="error font-weight-bold mt-3">Sorry! Currently we are not providing service in your area.</label>')
+				$('#zipcode').after('<label class="error font-weight-bold mt-3">Sorry! Currently we are not providing service in your area.</label>')
 				return false;
 			}
 		}
@@ -314,6 +314,22 @@ $(document).ready(function(){
 		}
 	});
 
+	$('.load-years').on('click',function(){
+		debugger
+		var label =  $(this).parent().prev('label');
+		var name = label.data('current');
+		var href = label.data('href');
+		var str = label.attr('for');
+		str =  str.split('-');
+		var year = parseInt(str[str.length-1]);
+		for(var i = 1; i<=20; i++ ){
+			var labelYear = year - i ; 
+			var labelId = name + '-' + labelYear;
+			var newLabel = '<label for="' + labelId  +'" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="'+ href + '" data-current="' + name + '">'+ labelYear + '<input type="radio" class="d-none" name="'+ name +'" value="'+ labelYear +'" id="' + labelId +'"><i class="fa fa-angle-right"></i> </label>';			
+			$(this).parent().before(newLabel);		
+		}
+		
+	})
 
 	function dateDiff(date) {
 		var startDate = new Date(date);

@@ -37,6 +37,7 @@
     background: #fff;
     cursor: pointer;
     font-size: 22px;
+    margin-bottom: 30px;
   }
   .choices > label.bg-warning,.months > label.bg-warning{color: #fff;}
   .choices > label > i.fa,.months > label > i.fa{display: none;float: right;padding-top: 3px;}
@@ -52,3 +53,12 @@
   .ui-datepicker-calendar thead{display: none;}
 
 label.error{color: #dc3545;}
+h3.font-weight-bold {
+    margin-bottom: 35px;
+}
+
+@media(max-width: 480px){
+  h3.font-weight-bold,h3.font-weight-bold > .h4{
+    font-size: 20px;
+  }
+}

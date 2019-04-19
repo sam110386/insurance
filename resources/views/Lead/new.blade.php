@@ -16,7 +16,9 @@
 					<input type="text" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="Enter Your Zipcode">
 				</div>
 				<div class="form-group">
-					<a data-href="year" data-pos="1" class="zipcode-submit btn btn-lg btn-warning btn-block change-question">Get Your Quotes</a>
+					<a data-href="year" data-pos="1" class="zipcode-submit mb-2 btn btn-lg btn-warning pull-left change-question">Get Your Quotes</a>
+
+					<a data-href="#" class="mb-2 btn btn-lg btn-warning ">Empezar</a>
 				</div>
 			</div>
 		</div>
@@ -31,16 +33,18 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Select Your Vehicle</h3>
-				<h4 class="mb-2">Year</h4>
+				<h3 class="font-weight-bold">Select Your Vehicle <span class="h4">- Year</span></h3>
 				<div class="form-group choices row">
-					@for ($i = 0; $i < 40; $i++)
-					<label for="year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="make" data-current="year">
+					@for ($i = 0; $i < 20; $i++)
+					<label for="year-{{ now()->year - $i }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="make" data-current="year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="year" value="{{ now()->year - $i }}" id="year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
+					<div class="col-12">
+						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -174,16 +178,18 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Second Vehicle</h3>
-				<h4 class="mb-2">Year</h4>
+				<h3 class="font-weight-bold">Second Vehicle <span class="h4">- Year</span></h3>
 				<div class="form-group choices row">
-					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle2-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle2-make" data-current="vehicle2-year">
+					@for ($i = 0; $i < 20; $i++)
+					<label for="vehicle2-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle2-make" data-current="vehicle2-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle2-year" value="{{ now()->year - $i }}" id="vehicle2-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
+					<div class="col-12">
+						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
+					</div>					
 				</div>
 			</div>
 		</div>
@@ -316,16 +322,18 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle</h3>
-				<h4 class="mb-2">Year</h4>
+				<h3 class="font-weight-bold">Third Vehicle <span class="h4">- Year</span></h3>
 				<div class="form-group choices row">
-					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle3-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle3-make" data-current="vehicle3-year">
+					@for ($i = 0; $i < 20; $i++)
+					<label for="vehicle3-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle3-make" data-current="vehicle3-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle3-year" value="{{ now()->year - $i }}" id="vehicle3-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
+					<div class="col-12">
+						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
+					</div>						
 				</div>
 			</div>
 		</div>
@@ -459,16 +467,18 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fourth Vehicle</h3>
-				<h4 class="mb-2">Year</h4>
+				<h3 class="font-weight-bold">Fourth Vehicle <span class="h4">- Year</span></h3>
 				<div class="form-group choices row">
-					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle4-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle4-make" data-current="vehicle4-year">
+					@for ($i = 0; $i < 20; $i++)
+					<label for="vehicle4-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle4-make" data-current="vehicle4-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle4-year" value="{{ now()->year - $i }}" id="vehicle4-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
+					<div class="col-12">
+						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
+					</div>						
 				</div>
 			</div>
 		</div>
@@ -602,16 +612,18 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fifth Vehicle</h3>
-				<h4 class="mb-2">Year</h4>
+				<h3 class="font-weight-bold">Fifth Vehicle <span class="h4">- Year</span></h3>
 				<div class="form-group choices row">
-					@for ($i = 0; $i < 40; $i++)
-					<label for="vehicle5-year-{{ now()->year - $i }}" class="h4 col-4 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle5-make" data-current="vehicle5-year">
+					@for ($i = 0; $i < 20; $i++)
+					<label for="vehicle5-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle5-make" data-current="vehicle5-year">
 						{{ now()->year - $i }}
 						<input type="radio" class="d-none" name="vehicle5-year" value="{{ now()->year - $i }}" id="vehicle5-year-{{ now()->year - $i }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
+					<div class="col-12">
+						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
+					</div>						
 				</div>
 			</div>
 		</div>
