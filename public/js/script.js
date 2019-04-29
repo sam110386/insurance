@@ -166,6 +166,7 @@ $(document).ready(function(){
 	});
 
 	$('.name-email-submit').on('click',function(e){
+		$('.error').remove();
 		var error = false;
 		var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
 		$('.form-group').removeClass('has-error');
@@ -186,12 +187,40 @@ $(document).ready(function(){
 			$('#email').after('<label class="error text-danger">Enter Valid Email</label>');
 			error = true;
 		}
+		
+		var i = $(this).data('dob');
+		var year = $('select.dob' + i +'-year').val();
+		var month = $('select.dob' + i +'-month').val();
+		var date = $('select.dob' + i +'-date').val();
+
+		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+		if(!isValidDate(dateToCheck)){
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
+			error = true;
+		}
+		var df = dateDiff(year + "-" + month + "-" + date);
+
+		if(df.y < 15){	
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+			error = true;	
+		}
+		
+		var dl  = $("#dl"+i).val();
+		if(!dl){
+			$("#dl"+i).parents('.form-group').addClass('has-error');
+			error = true;
+		}
 		if(error){
 			return false;
 		}
 		$('span.first-name-label').html($('#first_name').val());
+
+		var targetQuestion = $(this).data('href');
 		$('form.lead-form > div.container').fadeOut(500);
-		$('form.lead-form > div#dob-container').delay(500).fadeIn(500);
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		
 		return false;
 	});
 
@@ -283,6 +312,7 @@ $(document).ready(function(){
 	});
 
 	$('.name-submit').on('click',function(){
+		$('.error').remove();
 		var error = false;
 		$.each($('input:visible'),function(){
 			$(this).parents('.form-group').removeClass('has-error');
@@ -291,6 +321,25 @@ $(document).ready(function(){
 				error = true;
 			}
 		});
+		var i = $(this).data('dob');
+		var year = $('select.dob' + i +'-year').val();
+		var month = $('select.dob' + i +'-month').val();
+		var date = $('select.dob' + i +'-date').val();
+
+		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+		if(!isValidDate(dateToCheck)){
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
+			error = true;
+		}
+		var df = dateDiff(year + "-" + month + "-" + date);
+
+		if(df.y < 15){	
+			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+			error = true;	
+		}
+		
 		if(!error){
 			var targetQuestion = $(this).data('href');
 			$('form.lead-form > div.container').fadeOut(500);

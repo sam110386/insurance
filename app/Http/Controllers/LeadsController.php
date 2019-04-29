@@ -14,7 +14,8 @@ class LeadsController extends Controller
 		$data['zipcodes'] = CommonMethod::getZipcodeInfo();
 		$data['carMakes'] = CommonMethod::getCarMakes();
 		$data['carModels'] = CommonMethod::getModels();
-
+		$data['states'] = CommonMethod::getStates();
+		
 		$data['makes'] = ["ACURA","ALFA ROMEO","ASTON MARTIN","AUDI","BENTLEY","BMW",
 		"BUICK","CADILLAC","CHEVROLET","CHRYSLER","DODGE","FERRARI","FIAT","FORD"];
 		$data['models'] = ["Dodge Challenger","Dodge Challenger GT","Dodge Challenger SRT","Dodge Challenger SRT8","Dodge Charger","Dodge Charger AWD","Dodge Charger SRT","Dodge Charger SRT8","Dodge Dart","Dodge Dart Aero","Dodge Dart GT","Dodge Durango AWD","Dodge Durango RWD","Dodge Durango SRT AWD","Dodge Grand Caravan","Dodge Journey","Dodge Journey AWD","Dodge Viper","Dodge Viper SRT"];

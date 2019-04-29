@@ -8,7 +8,7 @@
 @section('content')
 <form class="lead-form" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="container pt-5 pb-5">
+	<div id="zipcode-container" class="container pt-5 pb-5" >
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<a data-href="year" data-pos="1" class="zipcode-submit mb-2 btn btn-lg btn-warning pull-left change-question">Get Your Quotes</a>
 
-					<a data-href="#" class="mb-2 btn btn-lg btn-warning ">Empezar</a>
+					<!--a data-href="#" class="mb-2 btn btn-lg btn-warning ">Empezar</a-->
 				</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">ALL</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="form-control form-control-lg" name="make-select">
 								@foreach ($carMakes['all'] as $k => $make)
 								<option value="{{$k}}">{{$make}}</option>
@@ -851,7 +851,7 @@
 				</p>
 				<h4 class="mb-2">Married?</h4>
 				<div class="form-group choices row">
-					<label for="married-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="married">
+					<label for="married-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="children" data-current="married">
 						Yes
 						<input type="radio" class="d-none" name="married" value="1" id="married-yes" />
 						<i class="fa fa-angle-right"></i>
@@ -865,6 +865,33 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="children-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-secondary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-2">Children under the age of 16?</h4>
+				<div class="form-group choices row">
+					<label for="children-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="children">
+						Yes
+						<input type="radio" class="d-none" name="children" value="1" id="children-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<label for="children-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="children">
+						No
+						<input type="radio" class="d-none" name="children" value="0" id="children-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>	
 
 	<!-- Not showing for now  -->
 	<div id="credit-container" class="container pt-5 pb-5" style="display: none;">
@@ -998,7 +1025,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Has anyone on this policy had:</h4>
+				<h4 class="mb-3">Has anyone on this policy had:</h4>
 
 				<h4 class="mb-2">
 					An at-fault accident in the past <strong>three (3) years?</strong>
@@ -1033,7 +1060,7 @@
 				</div>
 
 				<h4 class="mb-2">
-					A DUI conviction in the past <strong>three (3) years?</strong>
+					A DUI conviction in the past <strong>ten (10) years?</strong>
 				</h4>
 				<div class="form-group choices row">
 					<label for="dui-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2">
@@ -1066,6 +1093,36 @@
 				</p>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="h4">Bodily Injury</label>
+							<select class="form-control form-control-lg" name="bodily-injury">
+								<option value="15-30" selected="selected">$15k/$30k</option>
+								<option value="25-50">$25k/$50k</option>
+								<option value="30-60">$30k/$60k</option>
+								<option value="50-100">$50k/$100k</option>
+								<option value="100-200">$100k/$200k</option>
+								<option value="250-500">$250k/$500k</option>
+								<option value="500-1000">$500k/$1Mil</option>
+							</select>
+						</div>						
+						<div class="form-group">
+							<label class="h4">Deductible</label>
+							<select class="form-control form-control-lg" name="deductible">
+								<option value="250">$250</option>
+								<option value="500">$500</option>
+								<option value="1000" selected="selected">$1000</option>
+							</select>
+						</div>						
+						<div class="form-group">
+							<label class="h4">Medical</label>
+							<select class="form-control form-control-lg" name="bodily-injury">
+								<option value="0" selected="selected">$0</option>
+								<option value="5000">$5000</option>
+								<option value="10000">$10000</option>
+							</select>
+						</div>						
+					</div>		
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3">
 						<h4 class="mb-2">Uninsured</h4>						
 						<div class="form-group choices row">
 							<label for="at-fault-yes" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2">
@@ -1105,36 +1162,7 @@
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>												
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<div class="form-group">
-							<label class="h4">Bodily Injury</label>
-							<select class="form-control form-control-lg" name="bodily-injury">
-								<option value="15-30" selected="selected">$15/$30</option>
-								<option value="25-50">$25/$50</option>
-								<option value="30-60">$30/$60</option>
-								<option value="50-100">$50/$100</option>
-								<option value="100-200">$100/$200</option>
-								<option value="250-500">$250/$500</option>
-							</select>
-						</div>						
-						<div class="form-group">
-							<label class="h4">Deductible</label>
-							<select class="form-control form-control-lg" name="deductible">
-								<option value="250">$250</option>
-								<option value="500">$500</option>
-								<option value="1000" selected="selected">$1000</option>
-							</select>
-						</div>						
-						<div class="form-group">
-							<label class="h4">Medical</label>
-							<select class="form-control form-control-lg" name="bodily-injury">
-								<option value="0" selected="selected">$0</option>
-								<option value="5000">$5000</option>
-								<option value="10000">$10000</option>
-							</select>
-						</div>						
-					</div>					
+					</div>								
 				</div>
 				<div class="form-group row">
 					<a data-href="referral" data-current="extra" class="next-question btn btn-lg btn-warning">CONTINUE</a>
@@ -1207,6 +1235,7 @@
 			</div>
 		</div>
 	</div>
+
 	<div id="name-email1-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -1237,29 +1266,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-3">
-							<a class="name-email-submit btn btn-lg btn-warning next-question">CONTINUE</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div id="dob-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="name-email1" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birthday</h3>
-				<div class="row">
-					<div class="col-4 col-sm-3">
+				<div class="row dob-error-1">
+					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob1-month dob-change" data-dob="1" name="dob-month">
@@ -1279,7 +1288,7 @@
 						</div>	
 					</div>
 
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob1-date" name="dob-date">
@@ -1289,7 +1298,7 @@
 							</select>
 						</div>	
 					</div>	
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob1-year" data-dob="1" name="dob-year">
@@ -1298,70 +1307,45 @@
 								@endfor
 							</select>
 						</div>	
-					</div>					
-
-					<div class="col-12">
-						<a data-href="dl1" data-dob="1" class="btn dob-submit btn-lg btn-warning">Continue</a>
-					</div>				
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="dl1-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Drivers License Number</h3>
+					</div>			
+				</div>	
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="dl1">
-							<a data-href="driver2"  class="dl-submit btn btn-lg btn-warning">CONTINUE</a>
+							<label for="dl1" class="font-weight-bold h5 mb-3 text-warning">Drivers License Number</label>
+							<input type="text" class="form-control form-control-lg dl-field" id="dl1" name="dl1">
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
+							<select class="form-control form-control-lg" name="state1">
+								@foreach($states as $s => $state)
+								<option value="{{$s}}">{{$state}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>							
+				<div class="row mt-4">
+					<div class="form-group">
+						<div class="col-12">
+							<a data-href="last" class="name-email-submit btn btn-lg btn-warning next-question" data-dob="1">CONTINUE</a> 
+							<a data-href="name2" class="name-email-submit btn btn-lg btn-warning next-question" data-dob="1" >Add Another Driver</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>	
+
+
 	<!-- DRIVER 2 START -->
-	<div id="driver2-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dl1" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-2">Add additional driver?</h4>
-				<div class="form-group choices row">
-					<label for="driver2-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="name2" data-current="driver2">
-						Yes
-						<input type="radio" class="d-none" name="driver2" value="1" id="driver2-yes" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="driver2-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="last" data-current="driver2" >
-						No
-						<input type="radio" class="d-none" name="driver2" value="0" id="driver2-no" />
-						<i class="fa fa-angle-right"></i>
-					</label>					
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id="name2-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="driver2" class="change-question text-secondary"> 
+					<a data-href="name-email1" class="change-question text-secondary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1381,30 +1365,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-3">
-							<a data-href="dob2" class="name-submit btn btn-lg btn-warning">CONTINUE</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dob2-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="name2" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birthday</h3>
-				<div class="row">
-				
-					<div class="col-4 col-sm-3">
+				<div class="row dob-error-2">
+					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob2-month dob-change" data-dob="2" name="dob2-month">
@@ -1423,7 +1386,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob2-date" name="dob2-date">
@@ -1433,7 +1396,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob2-year" name="dob2-year">
@@ -1442,30 +1405,31 @@
 								@endfor
 							</select>
 						</div>	
-					</div>							
-					<div class="col-12">
-						<a data-href="dl2" data-dob="2" class="btn dob-submit btn-lg btn-warning">Continue</a>
-					</div>				
+					</div>			
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dl2-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob2" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Drivers License Number</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="dl2">
-							<a data-href="driver3"  class="dl-submit btn btn-lg btn-warning">CONTINUE</a>
+							<label for="dl2" class="font-weight-bold h5 mb-3 text-warning">Drivers License Number</label>
+							<input type="text" class="form-control form-control-lg " id="dl2" name="dl2">
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
+							<select class="form-control form-control-lg" name="state2">
+								@foreach($states as $s => $state)
+								<option value="{{$s}}">{{$state}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>				
+				<div class="row mt-4">
+					<div class="form-group">
+						<div class="col-12">
+							<a data-href="last" data-dob="2" class="name-submit btn btn-lg btn-warning">CONTINUE</a> 
+							<a data-href="name3" class="name-submit btn btn-lg btn-warning next-question" data-dob="2" >Add Another Driver</a>
 						</div>
 					</div>
 				</div>
@@ -1473,38 +1437,13 @@
 		</div>
 	</div>
 	<!-- DRIVER 2 END -->
+
 	<!-- DRIVER 3 START -->
-	<div id="driver3-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dl2" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-2">Add additional driver?</h4>
-				<div class="form-group choices row">
-					<label for="driver3-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="name3" data-current="driver3">
-						Yes
-						<input type="radio" class="d-none" name="driver3" value="1" id="driver3-yes" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="driver3-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="last" data-current="driver3" >
-						No
-						<input type="radio" class="d-none" name="driver3" value="0" id="driver3-no" />
-						<i class="fa fa-angle-right"></i>
-					</label>					
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id="name3-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="driver3" class="change-question text-secondary"> 
+					<a data-href="name2" class="change-question text-secondary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1524,33 +1463,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-3">
-							<a data-href="dob3" class="name-submit btn btn-lg btn-warning">CONTINUE</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dob3-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="name3" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birthday</h3>
-				<div class="row">
-					<div class="col-4 col-sm-3">
+				<div class="row dob-error-3">
+					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob3-month dob-change" data-dob="3" name="dob3-month">
-								<option value="1">01</option>
+								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
 								<option value="4">04</option>
@@ -1565,7 +1484,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob3-date" name="dob3-date">
@@ -1575,7 +1494,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob3-year" name="dob3-year">
@@ -1584,69 +1503,46 @@
 								@endfor
 							</select>
 						</div>	
-					</div>										
-					<div class="col-12">
-						<a data-href="dl3" data-dob="3" class="btn dob-submit btn-lg btn-warning">Continue</a>
-					</div>				
+					</div>			
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dl3-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob3" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Drivers License Number</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="dl3">
-							<a data-href="driver4"  class="dl-submit btn btn-lg btn-warning">CONTINUE</a>
+							<label for="dl3" class="font-weight-bold h5 mb-3 text-warning">Drivers License Number</label>
+							<input type="text" class="form-control form-control-lg " id="dl3" name="dl3">
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
+							<select class="form-control form-control-lg" name="state3">
+								@foreach($states as $s => $state)
+								<option value="{{$s}}">{{$state}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>				
+				<div class="row mt-4">
+					<div class="form-group">
+						<div class="col-12">
+							<a data-href="last" data-dob="3" class="name-submit btn btn-lg btn-warning">CONTINUE</a> 
+							<a data-href="name4" class="name-submit btn btn-lg btn-warning next-question" data-dob="3" >Add Another Driver</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>	
-	<!-- DRIVER 3 END -->
-	<!-- DRIVER 4 START -->
-	<div id="driver4-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dl3" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-2">Add additional driver?</h4>
-				<div class="form-group choices row">
-					<label for="driver4-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="name4" data-current="driver4">
-						Yes
-						<input type="radio" class="d-none" name="driver4" value="1" id="driver4-yes" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="driver4-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="last" data-current="driver4" >
-						No
-						<input type="radio" class="d-none" name="driver4" value="0" id="driver4-no" />
-						<i class="fa fa-angle-right"></i>
-					</label>					
-				</div>
-			</div>
-		</div>
 	</div>
+
+	<!-- DRIVER 3 END -->
+
+	<!-- DRIVER 4 START -->
 	<div id="name4-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="driver4" class="change-question text-secondary"> 
+					<a data-href="name3" class="change-question text-secondary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1666,33 +1562,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-3">
-							<a data-href="dob4" class="name-submit btn btn-lg btn-warning">CONTINUE</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dob4-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="name4" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birthday</h3>
-				<div class="row">
-					<div class="col-4 col-sm-3">
+				<div class="row dob-error-4">
+					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob4-month dob-change" data-dob="4" name="dob4-month">
-								<option value="1">01</option>
+								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
 								<option value="4">04</option>
@@ -1707,7 +1583,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob4-date" name="dob4-date">
@@ -1716,8 +1592,8 @@
 								@endfor
 							</select>
 						</div>	
-					</div>	
-					<div class="col-4 col-sm-3">
+					</div>
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob4-year" name="dob4-year">
@@ -1726,69 +1602,46 @@
 								@endfor
 							</select>
 						</div>	
-					</div>					
-					<div class="col-12">
-						<a data-href="dl4" data-dob="4" class="btn dob-submit btn-lg btn-warning">Continue</a>
-					</div>				
+					</div>			
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dl4-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob4" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Drivers License Number</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="dl4">
-							<a data-href="driver5"  class="dl-submit btn btn-lg btn-warning">CONTINUE</a>
+							<label for="dl4" class="font-weight-bold h5 mb-3 text-warning">Drivers License Number</label>
+							<input type="text" class="form-control form-control-lg " id="dl4" name="dl4">
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
+							<select class="form-control form-control-lg" name="state4">
+								@foreach($states as $s => $state)
+								<option value="{{$s}}">{{$state}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>				
+				<div class="row mt-4">
+					<div class="form-group">
+						<div class="col-12">
+							<a data-href="last" data-dob="4" class="name-submit btn btn-lg btn-warning">CONTINUE</a> 
+							<a data-href="name5" class="name-submit btn btn-lg btn-warning next-question" data-dob="4" >Add Another Driver</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<!-- DRIVER 4 END -->
+
 	<!-- DRIVER 5 START -->
-	<div id="driver5-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dl4" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-2">Add additional driver?</h4>
-				<div class="form-group choices row">
-					<label for="driver5-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="name5" data-current="driver5">
-						Yes
-						<input type="radio" class="d-none" name="driver5" value="1" id="driver5-yes" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="driver5-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="last" data-current="driver5" >
-						No
-						<input type="radio" class="d-none" name="driver5" value="0" id="driver5-no" />
-						<i class="fa fa-angle-right"></i>
-					</label>					
-				</div>
-			</div>
-		</div>
-	</div>
 	<div id="name5-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="driver5" class="change-question text-secondary"> 
+					<a data-href="name4" class="change-question text-secondary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1808,33 +1661,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<div class="col-3">
-							<a data-href="dob5" class="name-submit btn btn-lg btn-warning">CONTINUE</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dob5-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="name5" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birthday</h3>
-				<div class="row">
-					<div class="col-4 col-sm-3">
+				<div class="row dob-error-2">
+					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob5-month dob-change" data-dob="5" name="dob5-month">
-								<option value="1">01</option>
+								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
 								<option value="4">04</option>
@@ -1849,7 +1682,7 @@
 							</select>
 						</div>	
 					</div>
-					<div class="col-4 col-sm-3">
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob5-date" name="dob5-date">
@@ -1858,8 +1691,8 @@
 								@endfor
 							</select>
 						</div>	
-					</div>	
-					<div class="col-4 col-sm-3">
+					</div>
+					<div class="col-4 col-sm-2">
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob5-year" name="dob5-year">
@@ -1868,38 +1701,39 @@
 								@endfor
 							</select>
 						</div>	
-					</div>					
-
-					<div class="col-12">
-						<a data-href="dl5" data-dob="5" class="btn dob-submit btn-lg btn-warning">Continue</a>
-					</div>				
+					</div>			
 				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dl5-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob5" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Drivers License Number</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="dl5">
-							<a data-href="last" class="dl-submit btn btn-lg btn-warning">CONTINUE</a>
+							<label for="dl5" class="font-weight-bold h5 mb-3 text-warning">Drivers License Number</label>
+							<input type="text" class="form-control form-control-lg " id="dl5" name="dl5">
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
+							<select class="form-control form-control-lg" name="state5">
+								@foreach($states as $s => $state)
+								<option value="{{$s}}">{{$state}}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>				
+				<div class="row mt-4">
+					<div class="form-group">
+						<div class="col-12">
+							<a data-href="last" data-dob="5" class="name-submit btn btn-lg btn-warning">CONTINUE</a> 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<!-- DRIVER 5 END -->	
+
 	<div id="last-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -1914,19 +1748,19 @@
 					<div class="col-12"><h3><span class="first-name-label"></span>, Last Step!</h3></div>
 				</div>
 				<div class="row">
-					<div class="col-6 col-xs-12 ">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="street" class="font-weight-bold h5 mb-3 text-warning">Street Address</label>
 							<input type="text" class="form-control form-control-lg" id="street" name="street">
 						</div>
 					</div>
-					<div class="col-6 col-xs-12">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="phone" class="font-weight-bold h5 mb-3 text-warning">Phone Number</label>
 							<input type="text" class="form-control form-control-lg" id="phone" name="phone">
 						</div>
 					</div>
-					<div class="col-12 col-xs-12">
+					<div class="col-12">
 						<label class="h4 font-weight-bold text-warning">LOS ANGELES, CA 90001</label>
 					</div>
 				</div>
@@ -1937,132 +1771,12 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						By clicking "Get My Auto Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this Web site, our marketing and re-marketing network, and up to eight insurance companies or their affiliates at the phone number (including wireless number), email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me, using an Automatic Telephone Dialing System or prerecorded or artificial voices. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Get My Auto Quotes," I acknowledge that I have read, understand, and agree to this Web site’s <a href="">Privacy Policy.</a> 
+						By clicking "Get My Auto Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this Web site, our marketing and re-marketing network, and up to eight insurance companies or their affiliates at the phone number (including wireless number), email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me, using an Automatic Telephone Dialing System or prerecorded or artificial voices. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Get My Auto Quotes," I acknowledge that I have read, understand, and agree to this Web site’s <a href="javascript:;">Privacy Policy.</a> 
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>		
 
-	<!-- Not showing -->
-	<!--div id="dob-month-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="#" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birth Month</h3>
-				<div class="form-group months row">
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						January
-						<input type="radio" class="d-none" name="dob_month" value="1"/>
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						February
-						<input type="radio" class="d-none" name="dob_month" value="2"/>
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						March
-						<input type="radio" class="d-none" name="dob_month" value="3"/>
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						April
-						<input type="radio" class="d-none" name="dob_month" value="4"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						May
-						<input type="radio" class="d-none" name="dob_month" value="5"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						June
-						<input type="radio" class="d-none" name="dob_month" value="6"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						July
-						<input type="radio" class="d-none" name="dob_month" value="7"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						August
-						<input type="radio" class="d-none" name="dob_month" value="8"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						September
-						<input type="radio" class="d-none" name="dob_month" value="9"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						October
-						<input type="radio" class="d-none" name="dob_month" value="10"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						November
-						<input type="radio" class="d-none" name="dob_month" value="11"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-					<label class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" >
-						December
-						<input type="radio" class="d-none" name="dob_month" value="12"/>
-						<i class="fa fa-angle-right"></i>
-					</label>															
-				</div>
-			</div>
-		</div>
-	</div>	
-	<div id="dob-date-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob-month" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Birth Date</h3>
-				<div class="form-group">
-					<input type="hidden" name="dob_date" id="dob_date">
-					<div id="dob_picker"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dob-year-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="dob-date" class="change-question text-secondary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<div class="col-3 col-xs-12">
-					<div class="form-group">
-						<label for="dob_year" class="font-weight-bold h3 mb-3 text-warning">Birth Year</label>
-						<input type="text" class="form-control form-control-lg" id="dob_year" name="dob_year" placeholder="">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-3">
-						<a class="dob-year-submit btn btn-lg btn-warning next-question">CONTINUE</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div-->
-	<!-- Not showing ---->
 </form>
 @endsection
