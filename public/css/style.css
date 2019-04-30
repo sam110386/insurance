@@ -38,11 +38,14 @@
     cursor: pointer;
     font-size: 22px;
     margin-bottom: 30px;
+    line-height: unset;
   }
   .choices > label.bg-warning,.months > label.bg-warning{color: #fff;}
   .choices > label > i.fa,.months > label > i.fa{display: none;float: right;padding-top: 3px;}
   /*.choices > label.bg-warning > i.fa,.months > label.bg-warning > i.fa{display: block;}*/
 
+  .pr-15{padding-right: 15px;}
+  .pl-15{padding-left: 15px;}
   .has-error .form-control {
     border-color: #dc3545;
   }
@@ -58,7 +61,8 @@ h3.font-weight-bold {
 }
 
 @media(max-width: 480px){
-  h3.font-weight-bold,h3.font-weight-bold > .h4{
+  
+  h3,h4,h3.font-weight-bold > .h4{
     font-size: 20px;
   }
 }
@@ -75,6 +79,7 @@ h3.font-weight-bold {
 
 @media(max-width: 767px){
   .form-group.choices.row {margin-top: 20px;}
+
   #zipcode-container .h3.mb-3{font-size: 22px;}
   h3.font-weight-bold {margin-bottom: 15px;}
   .choices > label, .months > label{margin-bottom: 10px; text-align: center;font-size: 18px;}

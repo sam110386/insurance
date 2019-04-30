@@ -20,7 +20,7 @@ $(document).ready(function(){
 		$.each(models,function(mdl,model){
 			target =  'vin' + (vehicle);
 			current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
+			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model-'+ vehicle +'" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
 			modelsContanier.append(label);
 		});
 		modelsContanier.parent('.col-12').show();
@@ -42,8 +42,13 @@ $(document).ready(function(){
 
 		$(this).parent('.form-group').removeClass('has-error');
 		$(this).parents(".container").find("label").removeClass('bg-warning');
-		
-		if(make =='other' && (!$(this).siblings("input.optional").val() || $(this).siblings("input[type=text]").val() == "" )){
+		$('.error').remove();
+		if(!make){	
+			$(this).parent('.form-group').addClass('has-error');
+			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Make.</label>')
+			return false;
+		}
+		else if(make =='other' && (!$(this).siblings("input.optional").val() || $(this).siblings("input[type=text]").val() == "" )){
 			$(this).parent('.form-group').addClass('has-error');
 			return false;
 		}
@@ -92,11 +97,30 @@ $(document).ready(function(){
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 
 	});
+
+	$(".year-select-next").on('click',function(){
+		$('label.error').remove();
+		if(!$(this).siblings('select').val()){
+			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
+			return false;
+		}
+		$(this).parents('.container').find('input[type=radio]').prop('checked',false);
+		$(this).parents('.container').find('label.bg-warning').removeClass('bg-warning');
+		var targetQuestion = $(this).data('href');
+		var prevQuestion = $(this).data('current');
+		if(targetQuestion && prevQuestion){	
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+		}
+		return false;
+	});	
+
 	$('.container').on('click','.choices > label',function(e){
 		$(this).siblings('label').removeClass('bg-warning');
 		$(this).addClass('bg-warning');
 		$(this).children('input[type=radio]').prop('checked',true);
-		$(this).parents('.container').find('input.optional').val('');
+		$(this).parents('.container').find('input.optional,select.optional').val('');
 		$(this).parents('.vehicle-makes').find('select').val($(this).parents('.container').find('select').children('option:first').val());
 		$(this).parents('.vehicle-makes').find('input[type=text]').hide();
 
@@ -192,26 +216,34 @@ $(document).ready(function(){
 		var year = $('select.dob' + i +'-year').val();
 		var month = $('select.dob' + i +'-month').val();
 		var date = $('select.dob' + i +'-date').val();
+		if(year && month && date){
+			var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+			if(!isValidDate(dateToCheck)){
+				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
+				error = true;
+			}
+			var df = dateDiff(year + "-" + month + "-" + date);
 
-		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
-		if(!isValidDate(dateToCheck)){
-			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
-			error = true;
+			if(df.y < 15){	
+				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				error = true;	
+			}
 		}
-		var df = dateDiff(year + "-" + month + "-" + date);
-
-		if(df.y < 15){	
-			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
-			error = true;	
-		}
-		
-		var dl  = $("#dl"+i).val();
-		if(!dl){
-			$("#dl"+i).parents('.form-group').addClass('has-error');
-			error = true;
-		}
+		$.each($('input:visible'),function(){
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});		
+		$.each($('select:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
 		if(error){
 			return false;
 		}
@@ -264,6 +296,7 @@ $(document).ready(function(){
 		var days = new Date(year, month, 0).getDate();
 		var dateSelect = $('select.dob'+ i +'-date');
 		dateSelect.html('');
+		dateSelect.append('<option value="">DD</option>');
 		for(i=1; i <=days;i++ ){
 			var z = ('0' + i).slice(-2);
 			dateSelect.append('<option value="'+ i +'">' + z +'</option>');
@@ -321,23 +354,32 @@ $(document).ready(function(){
 				error = true;
 			}
 		});
+		$.each($('select:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
 		var i = $(this).data('dob');
 		var year = $('select.dob' + i +'-year').val();
 		var month = $('select.dob' + i +'-month').val();
 		var date = $('select.dob' + i +'-date').val();
 
-		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
-		if(!isValidDate(dateToCheck)){
-			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
-			error = true;
-		}
-		var df = dateDiff(year + "-" + month + "-" + date);
+		if(year && month && date){		
+			var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+			if(!isValidDate(dateToCheck)){
+				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
+				error = true;
+			}
+			var df = dateDiff(year + "-" + month + "-" + date);
 
-		if(df.y < 15){	
-			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-			$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
-			error = true;	
+			if(df.y < 15){	
+				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
+				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				error = true;	
+			}
 		}
 		
 		if(!error){
@@ -364,7 +406,6 @@ $(document).ready(function(){
 	});
 
 	$('.load-years').on('click',function(){
-		debugger
 		var label =  $(this).parent().prev('label');
 		var name = label.data('current');
 		var href = label.data('href');

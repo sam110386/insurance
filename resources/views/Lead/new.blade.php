@@ -8,12 +8,12 @@
 @section('content')
 <form class="lead-form" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="container pt-5 pb-5" >
+	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
-					<label for="zipcode" class="font-weight-bold h3 mb-3">Compare Your Cheapest Car Insurance Rates</label>
-					<input type="text" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="Enter Your Zipcode">
+					<label for="zipcode" class="font-weight-bold h3 mb-3">Enter your zip code to start this short and easy process.</label>
+					<input type="text" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code">
 				</div>
 				<div class="form-group">
 					<a data-href="year" data-pos="1" class="zipcode-submit mb-2 btn btn-lg btn-warning pull-left change-question">Get Your Quotes</a>
@@ -27,13 +27,13 @@
 		<div class="row">
 			<div class="col-12 col-md-10 offset-md-1">
 				<p>
-					<a data-href="zipcode" class="change-question text-secondary"> 
+					<a data-href="zipcode" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Select Your Vehicle <span class="h4">- Year</span></h3>
+				<h3 class="font-weight-bold">Select Your Vehicle Year</h3>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 20; $i++)
 					<label for="year-{{ now()->year - $i }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="make" data-current="year">
@@ -42,9 +42,19 @@
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<div class="col-12">
+					<!--div class="col-12">
 						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div>
+					</div-->
+				</div>
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < 120; $i++)
+						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@endfor
+					</select>
+					<a data-href="make" data-current="year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
 				</div>
 			</div>
 		</div>
@@ -53,13 +63,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Select Your Vehicle <span class="h4">- Make</span></h3>
+				<h3 class="font-weight-bold">Select Your Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -77,6 +87,7 @@
 						<h4 class="mb-3">ALL</h4>
 						<div class="form-group">
 							<select class="form-control form-control-lg" name="make-select">
+								<option value="">Choose one</option>								
 								@foreach ($carMakes['all'] as $k => $make)
 								<option value="{{$k}}">{{$make}}</option>
 								@endforeach
@@ -94,14 +105,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="make" class="change-question text-secondary"> 
+					<a data-href="make" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Select Your Vehicle</h3>
-				<h4 class="mb-2">Model</h4>
+				<h3 class="font-weight-bold">Select Your Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group choices row models-1"></div>
@@ -122,7 +132,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question text-secondary"> 
+					<a data-href="models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -146,20 +156,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question text-secondary"> 
+					<a data-href="models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Add Second Vehicle? (Save Additional 20%)</h4>
-				<div class="form-group choices row">
-					<label for="vehicle2-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle2-year" data-current="vehicle2">
+				<h4 class="mb-4">Add Second Vehicle? (Save Additional 20%)</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle2-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle2-year" data-current="vehicle2">
 						Yes
 						<input type="radio" class="d-none" name="vehicle2" value="1" id="vehicle2-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="vehicle2-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle2" >
+					<span class="col-2 col-sm-1 col-md-1"></span>
+					<label for="vehicle2-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle2" >
 						No
 						<input type="radio" class="d-none" name="vehicle2" value="0" id="vehicle2-no" />
 						<i class="fa fa-angle-right"></i>
@@ -172,13 +183,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Second Vehicle <span class="h4">- Year</span></h3>
+				<h3 class="font-weight-bold">Second Vehicle Year</h3>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 20; $i++)
 					<label for="vehicle2-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle2-make" data-current="vehicle2-year">
@@ -187,10 +198,20 @@
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<div class="col-12">
+					<!--div class="col-12">
 						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div>					
+					</div-->					
 				</div>
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-2">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < 120; $i++)
+						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle2-make" data-current="vehicle2-year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -198,13 +219,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Second Vehicle <span class="h4">- Make</span></h3>
+				<h3 class="font-weight-bold">Second Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -239,14 +260,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle2-make" class="change-question text-secondary"> 
+					<a data-href="vehicle2-make" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Second Vehicle</h3>
-				<h4 class="mb-2">Model</h4>
+				<h3 class="font-weight-bold">Second Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group choices row models-2"></div>
@@ -266,7 +286,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle2-models" class="change-question text-secondary"> 
+					<a data-href="vehicle2-models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -290,20 +310,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question text-secondary"> 
+					<a data-href="models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Add Third Vehicle? (Save Additional 20%)</h4>
-				<div class="form-group choices row">
-					<label for="vehicle3-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle3-year" data-current="vehicle3">
+				<h4 class="mb-4">Add Third Vehicle? (Save Additional 20%)</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle3-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle3-year" data-current="vehicle3">
 						Yes
 						<input type="radio" class="d-none" name="vehicle3" value="1" id="vehicle3-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="vehicle3-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle3" >
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle3-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle3" >
 						No
 						<input type="radio" class="d-none" name="vehicle3" value="0" id="vehicle3-no" />
 						<i class="fa fa-angle-right"></i>
@@ -316,13 +337,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle <span class="h4">- Year</span></h3>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 20; $i++)
 					<label for="vehicle3-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle3-make" data-current="vehicle3-year">
@@ -331,10 +352,20 @@
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<div class="col-12">
+					<!--div class="col-12">
 						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div>						
+					</div-->						
 				</div>
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-3">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < 120; $i++)
+						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle3-make" data-current="vehicle3-year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
+				</div>					
 			</div>
 		</div>
 	</div>
@@ -342,13 +373,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle <span class="h4">- Make</span></h3>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -383,14 +414,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle3-make" class="change-question text-secondary"> 
+					<a data-href="vehicle3-make" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle</h3>
-				<h4 class="mb-2">Model</h4>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group choices row models-3"></div>
@@ -410,7 +440,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle3-models" class="change-question text-secondary"> 
+					<a data-href="vehicle3-models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -435,20 +465,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question text-secondary"> 
+					<a data-href="models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Add Fourth Vehicle? (Save Additional 20%)</h4>
-				<div class="form-group choices row">
-					<label for="vehicle4-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle4-year" data-current="vehicle4">
+				<h4 class="mb-4">Add Fourth Vehicle? (Save Additional 20%)</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle4-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle4-year" data-current="vehicle4">
 						Yes
 						<input type="radio" class="d-none" name="vehicle4" value="1" id="vehicle4-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="vehicle4-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle4" >
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle4-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle4" >
 						No
 						<input type="radio" class="d-none" name="vehicle4" value="0" id="vehicle4-no" />
 						<i class="fa fa-angle-right"></i>
@@ -461,13 +492,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fourth Vehicle <span class="h4">- Year</span></h3>
+				<h3 class="font-weight-bold">Fourth Vehicle Year</h3>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 20; $i++)
 					<label for="vehicle4-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle4-make" data-current="vehicle4-year">
@@ -476,10 +507,20 @@
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<div class="col-12">
+					<!--div class="col-12">
 						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div>						
+					</div-->						
 				</div>
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-4">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < 120; $i++)
+						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle4-make" data-current="vehicle4-year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
+				</div>					
 			</div>
 		</div>
 	</div>
@@ -487,13 +528,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fourth Vehicle <span class="h4">- Make</span></h3>
+				<h3 class="font-weight-bold">Fourth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-4">POPULAR</h4>
@@ -511,6 +552,7 @@
 						<h4 class="mb-4">ALL</h4>
 						<div class="form-group row">
 							<select class="form-control form-control-lg" name="vehicle4-make-select">
+								<option>Choose one</option>
 								@foreach ($carMakes['all'] as $k => $make)
 								<option value="{{$k}}">{{$make}}</option>
 								@endforeach
@@ -528,14 +570,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle4-make" class="change-question text-secondary"> 
+					<a data-href="vehicle4-make" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fourth Vehicle</h3>
-				<h4 class="mb-2">Model</h4>
+				<h3 class="font-weight-bold">Fourth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group choices row models-4"></div>
@@ -555,7 +596,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle4-models" class="change-question text-secondary"> 
+					<a data-href="vehicle4-models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -580,20 +621,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question text-secondary"> 
+					<a data-href="models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Add Fifth Vehicle? (Save Additional 20%)</h4>
-				<div class="form-group choices row">
-					<label for="vehicle5-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="vehicle5-year" data-current="vehicle5">
+				<h4 class="mb-4">Add Fifth Vehicle? (Save Additional 20%)</h4>
+				<div class="form-group choices row pr-15 pl-15">
+					<label for="vehicle5-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle5-year" data-current="vehicle5">
 						Yes
 						<input type="radio" class="d-none" name="vehicle5" value="1" id="vehicle5-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="vehicle5-yes" class="h4 h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle5" >
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle5-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle5" >
 						No
 						<input type="radio" class="d-none" name="vehicle5" value="0" id="vehicle5-no" />
 						<i class="fa fa-angle-right"></i>
@@ -606,13 +648,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fifth Vehicle <span class="h4">- Year</span></h3>
+				<h3 class="font-weight-bold">Fifth Vehicle Year</h3>
 				<div class="form-group choices row">
 					@for ($i = 0; $i < 20; $i++)
 					<label for="vehicle5-year-{{ now()->year - $i }}" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle5-make" data-current="vehicle5-year">
@@ -621,10 +663,20 @@
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<div class="col-12">
+					<!--div class="col-12">
 						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div>						
+					</div-->						
 				</div>
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-5">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < 120; $i++)
+						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle5-make" data-current="vehicle5-year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
+				</div>					
 			</div>
 		</div>
 	</div>
@@ -632,13 +684,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fifth Vehicle <span class="h5">- Make</span></h3>
+				<h3 class="font-weight-bold">Fifth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-5">POPULAR</h4>
@@ -673,14 +725,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle5-make" class="change-question text-secondary"> 
+					<a data-href="vehicle5-make" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Fifth Vehicle</h3>
-				<h4 class="mb-2">Model</h4>
+				<h3 class="font-weight-bold">Fifth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group choices row models-5"></div>
@@ -700,7 +751,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle5-models" class="change-question text-secondary"> 
+					<a data-href="vehicle5-models" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -725,20 +776,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Have you had auto insurance in the past 30 days?</h4>
-				<div class="form-group choices row">
-					<label for="vehicle2-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="current-insurance" data-current="previous-insurance">
+				<h4 class="mb-4">Have you had auto insurance in the past 30 days?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle2-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="current-insurance" data-current="previous-insurance">
 						Yes
 						<input type="radio" class="d-none" name="previous-insurance" value="1" id="previous-insurance-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="vehicle2-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="married" data-current="previous-insurance">
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle2-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="married" data-current="previous-insurance">
 						No
 						<input type="radio" class="d-none" name="previous-insurance" value="0" id="previous-insurance-no" />
 						<i class="fa fa-angle-right"></i>
@@ -751,13 +803,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Current Auto Insurance</h4>
+				<h4 class="mb-4">Current Auto Insurance</h4>
 				<div class="form-group choices row">
 					@foreach ($insuranceComp as $company)
 					<label for="company-{{$loop->iteration}}" class="h4 col-6 col-sm-6 col-md-4 col-lg-3 pl-2 pr-2" data-href="current-insurance-duration" data-current="current-insurance">
@@ -774,13 +826,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">How long have you continuously had auto insurance?</h4>
+				<h4 class="mb-4">How long have you continuously had auto insurance?</h4>
 				<div class="form-group choices row">
 					<label for="duration-1" class="h4 col-12 col-sm-6 col-md-4 col-lg-3 pl-2 pr-2" data-href="married" data-current="current-insurance-duration">
 						Less than a year
@@ -811,13 +863,13 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Gender?</h4>
+				<h4 class="mb-4">Gender?</h4>
 				<div class="form-group choices row">
 					<label for="gender-male" class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" data-href="married" data-current="gender">
 						Male
@@ -843,20 +895,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Married?</h4>
-				<div class="form-group choices row">
-					<label for="married-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="children" data-current="married">
+				<h4 class="mb-4">Married?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="married-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="children" data-current="married">
 						Yes
 						<input type="radio" class="d-none" name="married" value="1" id="married-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="married-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="married">
+					<span class="col-2 col-sm-1"></span>
+					<label for="married-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="homeowner" data-current="married">
 						No
 						<input type="radio" class="d-none" name="married" value="0" id="married-no" />
 						<i class="fa fa-angle-right"></i>
@@ -870,20 +923,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Children under the age of 16?</h4>
-				<div class="form-group choices row">
-					<label for="children-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="children">
+				<h4 class="mb-4">Children under the age of 16?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="children-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="homeowner" data-current="children">
 						Yes
 						<input type="radio" class="d-none" name="children" value="1" id="children-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="children-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="homeowner" data-current="children">
+					<span class="col-2 col-sm-1"></span>
+					<label for="children-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="homeowner" data-current="children">
 						No
 						<input type="radio" class="d-none" name="children" value="0" id="children-no" />
 						<i class="fa fa-angle-right"></i>
@@ -898,7 +952,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -940,20 +994,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Do you own/rent?</h4>
-				<div class="form-group choices row">
-					<label for="owner" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="owner-bundled" data-current="homeowner">
+				<h4 class="mb-4">Do you own/rent?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="owner" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="owner-bundled" data-current="homeowner">
 						Own
 						<input type="radio" class="d-none" name="homeowner" value="owner" id="owner" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="renter" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="renter-bundled" data-current="homeowner">
+					<span class="col-2 col-sm-1"></span>
+					<label for="renter" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="renter-bundled" data-current="homeowner">
 						Rent
 						<input type="radio" class="d-none" name="homeowner" value="renter" id="renter" />
 						<i class="fa fa-angle-right"></i>
@@ -966,20 +1021,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Would you like to also receive home insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
-				<div class="form-group choices row">
-					<label for="bundled-1" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="policy-detail" data-current="owner-bundled">
+				<h4 class="mb-4">Would you like to also receive home insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
+				<div class="form-group choices row pr-15 pl-15">
+					<label for="bundled-1" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="owner-bundled">
 						Yes
 						<input type="radio" class="d-none" name="bundled" value="1" id="bundled-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="bundled-2" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="policy-detail" data-current="owner-bundled">
+					<span class="col-2 col-sm-1"></span>
+					<label for="bundled-2" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="owner-bundled">
 						No
 						<input type="radio" class="d-none" name="bundled" value="0" id="bundled-2" />
 						<i class="fa fa-angle-right"></i>
@@ -992,20 +1048,21 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-2">Would you like to also receive renters insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
-				<div class="form-group choices row">
-					<label for="bundled-1" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
+				<h4 class="mb-4">Would you like to also receive renters insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="bundled-1" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
 						Yes
 						<input type="radio" class="d-none" name="bundled" value="1" id="bundled-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="bundled-2" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
+					<span class="col-2 col-sm-1"></span>
+					<label for="bundled-2" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
 						No
 						<input type="radio" class="d-none" name="bundled" value="0" id="bundled-2" />
 						<i class="fa fa-angle-right"></i>
@@ -1019,62 +1076,65 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-3">Has anyone on this policy had:</h4>
+				<h4 class="mb-4">Has anyone on this policy had:</h4>
 
-				<h4 class="mb-2">
+				<h4 class="mb-4">
 					An at-fault accident in the past <strong>three (3) years?</strong>
 				</h4>
-				<div class="form-group choices row">
-					<label for="at-fault-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2">
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						Yes
 						<input type="radio" class="d-none" name="at_fault" value="1" id="at-fault-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="at-fault-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2 bg-warning">
+					<span class="col-2 col-sm-1"></span>
+					<label for="at-fault-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						No
-						<input type="radio" class="d-none" name="at_fault" value="0" id="at-fault-no" checked="checked" />
+						<input type="radio" class="d-none" name="at_fault" value="0" id="at-fault-no" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 				</div>
 
-				<h4 class="mb-2">
+				<h4 class="mb-4">
 					<strong>Two (2) or more tickets</strong> in the past <strong>three (3) years?</strong>
 				</h4>
-				<div class="form-group choices row">
-					<label for="tickets-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2">
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="tickets-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						Yes
 						<input type="radio" class="d-none" name="tickets" value="1" id="tickets-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="tickets-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2 bg-warning">
+					<span class="col-2 col-sm-1"></span>
+					<label for="tickets-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						No
-						<input type="radio" class="d-none" name="tickets" value="0" id="tickets-no" checked="checked" />
+						<input type="radio" class="d-none" name="tickets" value="0" id="tickets-no" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 				</div>
 
-				<h4 class="mb-2">
+				<h4 class="mb-4">
 					A DUI conviction in the past <strong>ten (10) years?</strong>
 				</h4>
-				<div class="form-group choices row">
-					<label for="dui-yes" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2">
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="dui-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						Yes
 						<input type="radio" class="d-none" name="dui" value="1" id="dui-yes" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					<label for="dui-no" class="h4 col-6 col-sm-2 col-md-2 col-lg-1 pl-2 pr-2 bg-warning">
+					<span class="col-2 col-sm-1"></span>
+					<label for="dui-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2">
 						No
-						<input type="radio" class="d-none" name="dui" value="0" id="dui-no" checked="checked" />
+						<input type="radio" class="d-none" name="dui" value="0" id="dui-no" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row pl-15 pr-15">
 					<a data-href="extra"  data-current="policy-detail" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 				</div>								
 			</div>
@@ -1085,14 +1145,14 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
-				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row ">
+					<div class="col-12 col-sm-12 col-md-5 col-lg-5 mb-3">
 						<div class="form-group">
 							<label class="h4">Bodily Injury</label>
 							<select class="form-control form-control-lg" name="bodily-injury">
@@ -1104,7 +1164,7 @@
 								<option value="250-500">$250k/$500k</option>
 								<option value="500-1000">$500k/$1Mil</option>
 							</select>
-						</div>						
+						</div>	
 						<div class="form-group">
 							<label class="h4">Deductible</label>
 							<select class="form-control form-control-lg" name="deductible">
@@ -1121,50 +1181,54 @@
 								<option value="10000">$10000</option>
 							</select>
 						</div>						
-					</div>		
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3">
+					</div>
+					<div class="d-none d-md-block col-md-2 col-lg-2 "></div>
+					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
 						<h4 class="mb-2">Uninsured</h4>						
-						<div class="form-group choices row">
-							<label for="at-fault-yes" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2">
+						<div class="form-group choices row pl-15 pr-15">
+							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
 								<input type="radio" class="d-none" name="uninsured" value="1" id="at-fault-yes" />
 								<i class="fa fa-angle-right"></i>
 							</label>
-							<label for="at-fault-no" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2 bg-warning">
+							<span class="col-2 col-sm-1"></span>
+							<label for="at-fault-no" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								No
-								<input type="radio" class="d-none" name="uninsured" value="0" id="at-fault-no" checked="checked" />
+								<input type="radio" class="d-none" name="uninsured" value="0" id="at-fault-no" />
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>
 						<h4 class="mb-2">Towing</h4>						
-						<div class="form-group choices row">
-							<label for="at-fault-yes" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2">
+						<div class="form-group choices row pl-15 pr-15">
+							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
 								<input type="radio" class="d-none" name="towing" value="1" id="at-fault-yes" />
 								<i class="fa fa-angle-right"></i>
 							</label>
-							<label for="at-fault-no" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2 bg-warning">
+							<span class="col-2 col-sm-1"></span>
+							<label for="at-fault-no" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								No
-								<input type="radio" class="d-none" name="towing" value="0" id="at-fault-no" checked="checked"/>
+								<input type="radio" class="d-none" name="towing" value="0" id="at-fault-no"/>
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>
 						<h4 class="mb-2">Rental</h4>						
-						<div class="form-group choices row">
-							<label for="at-fault-yes" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2">
+						<div class="form-group choices row pl-15 pr-15">
+							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
 								<input type="radio" class="d-none" name="rental" value="1" id="at-fault-yes" />
 								<i class="fa fa-angle-right"></i>
 							</label>
-							<label for="at-fault-no" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2 bg-warning">
+							<span class="col-2 col-sm-1"></span>
+							<label for="at-fault-no" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								No
-								<input type="radio" class="d-none" name="rental" value="0" id="at-fault-no" checked="checked"/>
+								<input type="radio" class="d-none" name="rental" value="0" id="at-fault-no"/>
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>												
 					</div>								
 				</div>
-				<div class="form-group row">
+				<div class="form-group row pl-15 pr-15 mt-2">
 					<a data-href="referral" data-current="extra" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 				</div>								
 			</div>
@@ -1175,16 +1239,16 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question text-secondary"> 
+					<a data-href="#" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
 					</a>
 				</p>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">				
+					<div class="col-12 col-sm-12 col-md-5 col-lg-5">				
 						<div class="form-group">
-							<label class="h4">What is the most important quality you look for when choosing an auto insurer?</label>
+							<label class="h5 mb-2">What is the most important quality you look for when choosing an auto insurer?</label>
 							<select class="form-control form-control-lg" name="quality">
 								<option value="provides-quality-service">Provides quality service</option>
 								<option value="guidance-with-insurance-decisions">Guidance with insurance decisions</option>
@@ -1199,24 +1263,25 @@
 								<option value="offers-face-to-face-interaction">Offers face-to-face interaction</option>
 							</select>
 						</div>
-						<h4 class="mb-2">Will it be important to you to be able to speak to your local agent in person?</h4>						
-						<div class="form-group choices row">
-							<label for="at-fault-yes" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2 bg-warning">
+						<h4 class="h5 mb-2 mt-2">Will it be important to you to be able to speak to your local agent in person?</h4>						
+						<div class="form-group choices row pr-15 pl-15">
+							<label for="at-fault-yes" class="h4 text-center border col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2">
 								Yes
-								<input type="radio" class="d-none" name="agent_in_person" value="1" id="at-fault-yes"  checked="checked"  />
+								<input type="radio" class="d-none" name="agent_in_person" value="1" id="at-fault-yes" />
 								<i class="fa fa-angle-right"></i>
 							</label>
-							<label for="at-fault-no" class="h4 col-6 col-sm-6 col-md-3 col-lg-3 pl-2 pr-2 ">
+							<span class="col-2 col-sm-1"></span>
+							<label for="at-fault-no" class="h4 text-center border col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 ">
 								No
 								<input type="radio" class="d-none" name="agent_in_person" value="0" id="at-fault-no"/>
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>
-
 					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="d-none d-md-block col-md-2 col-lg-2"></div>
+					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
 						<div class="form-group">
-							<label class="h4">How did you hear about us?</label>
+							<label class="h5 mb-2">How did you hear about us?</label>
 							<select class="form-control form-control-lg" name="referrer">
 								<option value="friend-or-family">Friend or Family</option>
 								<option value="auto-dealer">Auto Dealer</option>
@@ -1224,12 +1289,12 @@
 							</select>
 						</div>						
 						<div class="form-group">
-							<label class="h4">Referrer Name</label>
+							<label class="h5 mb-2">Referrer Name</label>
 							<input type="text" name="referrer_name" class="form-control form-control-lg">
 						</div>						
 					</div>					
 				</div>
-				<div class="form-group row">
+				<div class="form-group row pr-15 pl-15">
 					<a data-href="name-email1" data-current="referral" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 				</div>								
 			</div>
@@ -1240,7 +1305,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="referral" class="change-question text-secondary"> 
+					<a data-href="referral" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1272,6 +1337,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob1-month dob-change" data-dob="1" name="dob-month">
+								<option value="">MM </option>
 								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
@@ -1292,6 +1358,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob1-date" name="dob-date">
+								<option value="">DD </option>
 								@for($i=1;$i< 32;$i++)
 								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
@@ -1302,6 +1369,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob1-year" data-dob="1" name="dob-year">
+								<option value="">YYYY </option>
 								@for($i=1;$i<= 100;$i++)
 								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
 								@endfor
@@ -1320,6 +1388,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
 							<select class="form-control form-control-lg" name="state1">
+								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}">{{$state}}</option>
 								@endforeach
@@ -1345,7 +1414,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name-email1" class="change-question text-secondary"> 
+					<a data-href="name-email1" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1371,7 +1440,8 @@
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob2-month dob-change" data-dob="2" name="dob2-month">
-								<option value="1">01 </option>
+								<option value="">MM</option>
+								<option value="1">01</option>
 								<option value="2">02</option>
 								<option value="3">03</option>
 								<option value="4">04</option>
@@ -1390,6 +1460,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob2-date" name="dob2-date">
+								<option value="">DD</option>
 								@for($i=1;$i< 32;$i++)
 								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
@@ -1400,6 +1471,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob2-year" name="dob2-year">
+								<option value="">YYYY</option>
 								@for($i=1;$i<= 100;$i++)
 								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
 								@endfor
@@ -1418,6 +1490,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
 							<select class="form-control form-control-lg" name="state2">
+								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}">{{$state}}</option>
 								@endforeach
@@ -1443,7 +1516,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name2" class="change-question text-secondary"> 
+					<a data-href="name2" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1469,6 +1542,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob3-month dob-change" data-dob="3" name="dob3-month">
+								<option value="">MM</option>
 								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
@@ -1488,6 +1562,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob3-date" name="dob3-date">
+								<option value="">DD</option>
 								@for($i=1;$i< 32;$i++)
 								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
@@ -1498,6 +1573,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob3-year" name="dob3-year">
+								<option value="">YYYY</option>
 								@for($i=1;$i<= 100;$i++)
 								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
 								@endfor
@@ -1516,6 +1592,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
 							<select class="form-control form-control-lg" name="state3">
+								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}">{{$state}}</option>
 								@endforeach
@@ -1542,7 +1619,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name3" class="change-question text-secondary"> 
+					<a data-href="name3" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1568,6 +1645,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob4-month dob-change" data-dob="4" name="dob4-month">
+								<option value="">MM</option>
 								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
@@ -1587,6 +1665,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob4-date" name="dob4-date">
+								<option value="">DD</option>
 								@for($i=1;$i< 32;$i++)
 								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
@@ -1597,6 +1676,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob4-year" name="dob4-year">
+								<option value="">YYYY</option>
 								@for($i=1;$i<= 100;$i++)
 								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
 								@endfor
@@ -1615,6 +1695,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
 							<select class="form-control form-control-lg" name="state4">
+								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}">{{$state}}</option>
 								@endforeach
@@ -1641,7 +1722,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name4" class="change-question text-secondary"> 
+					<a data-href="name4" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
@@ -1667,6 +1748,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Month</label>
 							<select class="form-control form-control-lg dob5-month dob-change" data-dob="5" name="dob5-month">
+								<option value="">MM</option>
 								<option value="1">01 </option>
 								<option value="2">02</option>
 								<option value="3">03</option>
@@ -1686,6 +1768,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Day</label>
 							<select class="form-control form-control-lg dob5-date" name="dob5-date">
+								<option value="">DD</option>
 								@for($i=1;$i< 32;$i++)
 								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
 								@endfor
@@ -1696,6 +1779,7 @@
 						<div class="form-group">
 							<label class="h5" for="">Year</label>
 							<select class="form-control form-control-lg dob5-year" name="dob5-year">
+								<option value="">YYYY</option>
 								@for($i=1;$i<= 100;$i++)
 								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
 								@endfor
@@ -1714,6 +1798,7 @@
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
 							<select class="form-control form-control-lg" name="state5">
+								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}">{{$state}}</option>
 								@endforeach
@@ -1738,7 +1823,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="dl5" class="change-question text-secondary"> 
+					<a data-href="dl5" class="change-question text-primary"> 
 						<strong>
 							<i class="fa fa-angle-left"></i> Previous Question
 						</strong>
