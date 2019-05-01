@@ -142,7 +142,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="vin1" id="vin">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin1" id="vin">
 							<a data-href="vehicle2" data-current="vin1"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle2" data-current="vin1"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
@@ -296,7 +296,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="vin2">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin2">
 							<a data-href="vehicle3" data-current="vin2"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle3" data-current="vin2"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
@@ -450,7 +450,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-3" name="vin3">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin3">
 							<a data-href="vehicle4" data-current="vin3"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle4" data-current="vin3"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
@@ -606,7 +606,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-4" name="vin4">
+							<input type="text" class="form-control form-control-lg mb-4 not-required" name="vin4">
 							<a data-href="vehicle5" data-current="vin4"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="vehicle5" data-current="vin4"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
@@ -761,7 +761,7 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="text" class="form-control form-control-lg mb-5" name="vin5">
+							<input type="text" class="form-control form-control-lg mb-5 not-required" name="vin5">
 							<a data-href="previous-insurance" data-current="vin5"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="previous-insurance" data-current="vin5"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
@@ -1282,7 +1282,8 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
 						<div class="form-group">
 							<label class="h5 mb-2">How did you hear about us?</label>
-							<select class="form-control form-control-lg" name="referrer">
+							<select class="form-control form-control-lg not-required" name="referrer">
+								<option value="">Choose one</option>
 								<option value="friend-or-family">Friend or Family</option>
 								<option value="auto-dealer">Auto Dealer</option>
 								<option value="other">Other</option>
@@ -1290,7 +1291,7 @@
 						</div>						
 						<div class="form-group">
 							<label class="h5 mb-2">Referrer Name</label>
-							<input type="text" name="referrer_name" class="form-control form-control-lg">
+							<input type="text" name="referrer_name" class="form-control form-control-lg not-required">
 						</div>						
 					</div>					
 				</div>

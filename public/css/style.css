@@ -56,6 +56,7 @@
   .ui-datepicker-calendar thead{display: none;}
 
 label.error{color: #dc3545;}
+.choices > label.error{border-color: #dc3545 !important;}
 h3.font-weight-bold {
     margin-bottom: 35px;
 }

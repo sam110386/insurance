@@ -281,7 +281,33 @@ $(document).ready(function(){
 	$('.next-question').on('click',function(e){
 		var targetQuestion = $(this).data('href');
 		var prevQuestion = $(this).data('current');
-		if(targetQuestion && prevQuestion){	
+		if(targetQuestion && prevQuestion){
+			var error = false;
+			$('.error').removeClass('error');
+			$.each($('#' + prevQuestion + '-container input[type=radio]'),function(e){
+				var name = $(this).attr('name');
+				if(!$('input[name='+  name +']').is(':checked')){
+					$(this).parent('label').addClass('error');
+					error = true;
+				}
+			});
+			$.each($('input:visible:not(".not-required")'),function(){
+				$(this).parents('.form-group').removeClass('has-error');
+				if(!$(this).val()){
+					$(this).parents('.form-group').addClass('has-error');
+					error = true;
+				}
+			});
+			$.each($('select:visible:not(".not-required")'),function(){
+				$(this).parents('.form-group').removeClass('has-error');
+				if(!$(this).val()){
+					$(this).parents('.form-group').addClass('has-error');
+					error = true;
+				}
+			});
+
+			if(error) return;
+
 			$('form.lead-form > div.container').fadeOut(500);
 			$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
 			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
