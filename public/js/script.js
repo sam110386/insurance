@@ -81,15 +81,21 @@ $(document).ready(function(){
 	$('.change-question').on('click',function(e){
 		var targetQuestion = $(this).data('href');
 		var pos = parseInt($(this).data('pos'));
+		var zip = $('#zipcode').val();
+		zip = (zip) ? zip.trim() : "";
 		if(pos == 1){
 			$('label.error').remove();
 			if($('#zipcode').val() == ""){
 				$('#zipcode').parent('.form-group').addClass('has-error');
 				return false;
-			}else if(!($('#zipcode').val() in zipcodes)){
+			}else if(!(zip in zipcodes)){
 				$('#zipcode').parent('.form-group').addClass('has-error');
 				$('#zipcode').after('<label class="error font-weight-bold mt-3">Sorry! Currently we are not providing service in your area.</label>')
 				return false;
+			}else{
+				$("#d-city").val(zipcodes[zip]);
+				$("#d-zipcode").val(zip);
+				debugger
 			}
 		}
 		$('.form-group').removeClass('has-error');

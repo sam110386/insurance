@@ -15,6 +15,7 @@ use Illuminate\Routing\Router;
 
 Route::get('/', 'LeadsController@new')->name('new-lead');
 Route::post('/', 'LeadsController@create')->name('save-lead');
+Route::get('/privacy', 'PagesControllers@getPage')->name('privacy-page');
 
 
 
