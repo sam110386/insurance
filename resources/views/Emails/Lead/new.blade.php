@@ -165,7 +165,7 @@
 		<td>{{$lead['miles-driven-per-year-vehicle-2']}}</td>
 	</tr>
 	@endif
-	@if($lead['vehicle3']  && $lead['miles-driven-per-year-vehicle-3'])
+	@if(isset($lead['vehicle3']) && $lead['vehicle3']  && $lead['miles-driven-per-year-vehicle-3'])
 	<tr>
 		<td>3.</td>
 		<td>
@@ -197,7 +197,7 @@
 		<td>{{$lead['miles-driven-per-year-vehicle-3']}}</td>
 	</tr>
 	@endif
-	@if($lead['vehicle4']  && $lead['miles-driven-per-year-vehicle-4'])
+	@if(isset($lead['vehicle4']) && $lead['vehicle4']  && $lead['miles-driven-per-year-vehicle-4'])
 	<tr>
 		<td>4.</td>
 		<td>
@@ -229,7 +229,7 @@
 		<td>{{$lead['miles-driven-per-year-vehicle-4']}}</td>
 	</tr>
 	@endif
-	@if($lead['vehicle5']  && $lead['miles-driven-per-year-vehicle-5'])
+	@if(isset($lead['vehicle5']) && $lead['vehicle5']  && $lead['miles-driven-per-year-vehicle-5'])
 	<tr>
 		<td>5.</td>
 		<td>

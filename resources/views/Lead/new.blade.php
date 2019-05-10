@@ -1771,7 +1771,7 @@
 						</div>						
 						<div class="form-group">
 							<label class="h4">Medical</label>
-							<select class="form-control form-control-lg" name="bodily-injury">
+							<select class="form-control form-control-lg" name="medical">
 								<option value="0" selected="selected">$0</option>
 								<option value="5000">$5000</option>
 								<option value="10000">$10000</option>
