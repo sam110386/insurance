@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12 text-center">
-				<h2 class="mb-3">Thank you for your quote request. One of our agents will contact you shortly.</h2>
+				<h2 class="mb-3">We have received your request and an agent will contact you shortly. Thank you for using our service and we look forward to helping you save big on insurance!</h2>
 				<a href="/" class="btn btn-warning text-white">Start New Quote</a>
 				<!--div class="list-group">
 					<a href="#" class="list-group-item list-group-item-action">
