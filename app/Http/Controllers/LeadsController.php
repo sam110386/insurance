@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Helpers\CommonMethod;
 
 
-class LeadsController extends Controller
+class LeadsController extends BaseController
 {
 	public function new(){
 		$data['zipcodes'] = CommonMethod::getZipcodeInfo();
