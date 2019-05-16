@@ -58,53 +58,188 @@ class CommonMethod {
         'WY' => 'Wyoming'];
     }
     public static function getCarMakes(){
-        return ['popular'=>["acura" => "Acura","audi" => "Audi","bmw" => "BMW","chevrolet" => "Chevy","dodge" => "Dodge","ford" => "Ford","honda" => "Honda","infiniti" => "Infiniti","lexus" => "Lexus","mercedes-benz" => "Mercedes Benz","nissan" => "Nissan","toyota" => "Toyota"],
-        'all' => ["acura" => "Acura","audi" => "Audi","bmw" => "BMW","buick" => "Buick","cadillac" => "Cadillac","chevrolet" => "Chevrolet","chrysler" => "Chrysler","dodge" => "Dodge","fiat" => "FIAT","ford" => "Ford","gmc" => "GMC","honda" => "Honda","hummer" => "HUMMER","hyundai" => "Hyundai","infiniti" => "Infiniti","jaguar" => "Jaguar","jeep" => "Jeep","kia" => "Kia","land-rover" => "Land Rover","lexus" => "Lexus","lincoln" => "Lincoln","maserati" => "Maserati","mazda" => "Mazda","mercedes-benz" => "Mercedes Benz","mercury" => "Mercury","mini" => "MINI","mitsubishi" => "Mitsubishi","nissan" => "Nissan","pontiac" => "Pontiac","porsche" => "Porsche","ram" => "Ram","rolls-royce" => "Rolls-Royce","saab" => "Saab","saturn" => "Saturn","scion" => "Scion","smart" => "smart","subaru" => "Subaru","suzuki" => "Suzuki","tesla" => "Tesla","toyota" => "Toyota","volkswagen" => "Volkswagen","volvo" => "Volvo"]];
+        $popularMakes = ["acura" => "Acura","alfa-romeo" => "Alfa Romeo" ,"aston-martin" => "Aston Martin","audi" => "Audi","bentley" => "Bentley","bmw" => "BMW","bugatti" => "Bugatti","chevrolet" => "Chevrolet","dodge" => "Dodge","ferrari" => "Ferrari","fiat" => "FIAT","ford" => "Ford","honda" => "Honda","hummer" => "HUMMER","hyundai" => "Hyundai","jaguar" => "Jaguar","lamborghini" => "Lamborghini","land-rover" => "Land Rover","mazda" => "Mazda","mclaren" => "McLaren","mercedes-benz" => "Mercedes-Benz","mitsubishi" => "Mitsubishi","porsche" => "Porsche","rolls-royce" => "Rolls-Royce","tesla" => "Tesla"];
+        $allMakes = ["acura" => "Acura","alfa-romeo" => "Alfa Romeo","am-general" => "AM General","aston-martin" => "Aston Martin","audi" => "Audi","bentley" => "Bentley","bmw" => "BMW","bugatti" => "Bugatti","buick" => "Buick","cadillac" => "Cadillac","chevrolet" => "Chevrolet","chrysler" => "Chrysler","daewoo" => "Daewoo","dodge" => "Dodge","eagle" => "Eagle","ferrari" => "Ferrari","fiat" => "FIAT","fisker" => "Fisker","ford" => "Ford","genesis" => "Genesis","geo" => "Geo","gmc" => "GMC","honda" => "Honda","hummer" => "HUMMER","hyundai" => "Hyundai","infiniti" => "INFINITI","isuzu" => "Isuzu","jaguar" => "Jaguar","jeep" => "Jeep","kia" => "Kia","lamborghini" => "Lamborghini","land-rover" => "Land Rover","lexus" => "Lexus","lincoln" => "Lincoln","lotus" => "Lotus","maserati" => "Maserati","maybach" => "Maybach","mazda" => "Mazda","mclaren" => "McLaren","mercedes-benz" => "Mercedes-Benz","mercury" => "Mercury","mini" => "MINI","mitsubishi" => "Mitsubishi","nissan" => "Nissan","oldsmobile" => "Oldsmobile","panoz" => "Panoz","plymouth" => "Plymouth","pontiac" => "Pontiac","porsche" => "Porsche","ram" => "Ram","rolls-royce" => "Rolls-Royce","saab" => "Saab","saturn" => "Saturn","scion" => "Scion","smart" => "smart","spyker" => "Spyker","subaru" => "Subaru","suzuki" => "Suzuki","tesla" => "Tesla","toyota" => "Toyota","volkswagen" => "Volkswagen","volvo" => "Volvo"];
+
+
+
+        return [
+            'popular'   => $popularMakes,
+            'all'       => $allMakes
+        ];
     }
 
     public static function getModels(){
-        $models["acura"] = ["ilx" => "ILX","ilx-hybrid" => "ILX Hybrid","mdx" => "MDX","rdx" => "RDX","rl" => "RL","rlx" => "RLX","tl" => "TL","tlx" => "TLX","tsx" => "TSX","tsx-sport-wagon" => "TSX Sport Wagon","zdx" => "ZDX"];
-        $models["audi"] = ["a3-sedan" => "A3 Sedan","a3-hatchback" => "A3 Hatchback","a3-e-tron" => "A3 e-tron","a4" => "A4","a6" => "A6","a7" => "A7","a8" => "A8","allroad" => "Allroad","q3" => "Q3","q5" => "Q5","q7" => "Q7","rs-7" => "RS 7","s3" => "S3","s4" => "S4","s6" => "S6","s7" => "S7","s8" => "S8","sq5" => "SQ5","tt" => "TT","tts" => "TTS"];
-        $models["bmw"] = ["3-series" => "3 Series","3-series-gran-turismo" => "3 Series Gran Turismo","4-series-gran-coupe" => "4 Series Gran Coupe","5-series" => "5 Series","5-series-gran-turismo" => "5 Series Gran Turismo","6-series-gran-coupe" => "6 Series Gran Coupe","7-series" => "7 Series","activehybrid-5" => "ActiveHybrid 5","activehybrid-7" => "ActiveHybrid 7","activehybrid-x6" => "ActiveHybrid X6","alpina-b6-gran-coupe" => "ALPINA B6 Gran Coupe","alpina-b7" => "ALPINA B7","i3" => "i3","m3" => "M3","m5" => "M5","m6-gran-coupe" => "M6 Gran Coupe","x1" => "X1","x3" => "X3","x4" => "X4","x5" => "X5","x5-m" => "X5 M","x6" => "X6","x6-m" => "X6 M"];
-        $models["buick"] = ["anthem-envision" => "Anthem Envision","enclave" => "Enclave","encore" => "Encore","lacrosse" => "LaCrosse","lucerne" => "Lucerne","regal" => "Regal","verano" => "Verano"];
-        $models["cadillac"] = ["ats" => "ATS","ats-v" => "ATS-V","cts" => "CTS","cts-coupe" => "CTS Coupe","cts-wagon" => "CTS Wagon","cts-v" => "CTS-V","cts-v-coupe" => "CTS-V Coupe","cts-v-wagon" => "CTS-V Wagon","dts" => "DTS","escalade" => "Escalade","escalade-esv" => "Escalade ESV","escalade-hybrid" => "Escalade Hybrid","srx" => "SRX","sts" => "STS","xt5" => "XT5","xts" => "XTS"];
-        $models["chevrolet"] = ["aveo" => "Aveo","captiva-sport" => "Captiva Sport","city-express" => "City Express","cobalt" => "Cobalt","colorado" => "Colorado","cruze" => "Cruze","cruze-limited-sedan" => "Cruze Limited Sedan","equinox" => "Equinox","hhr" => "HHR","impala" => "Impala","impala-limited" => "Impala Limited","malibu" => "Malibu","malibu-hybrid" => "Malibu Hybrid","silverado-1500" => "Silverado 1500","silverado-2500hd" => "Silverado 2500HD","silverado-3500hd" => "Silverado 3500HD","sonic" => "Sonic","spark" => "Spark","spark-ev" => "Spark EV","ss" => "SS","suburban" => "Suburban","tahoe" => "Tahoe","tahoe-hybrid" => "Tahoe Hybrid","traverse" => "Traverse","trax" => "Trax","volt" => "Volt"];
-        $models["chrysler"] = ["200" => "200","300" => "300","pacifica" => "Pacifica","pt-cruiser" => "PT Cruiser","sebring" => "Sebring","town-and-country" => "Town and Country"];
-        $models["dodge"] = ["avenger" => "Avenger","caliber" => "Caliber","charger" => "Charger","dakota" => "Dakota","dart" => "Dart","durango" => "Durango","grand-caravan" => "Grand Caravan","journey" => "Journey","nitro" => "Nitro"];
-        $models["fiat"] = ["500" => "500","500e" => "500e","500l" => "500L"];
-        $models["ford"] = ["c-max-energi" => "C-Max Energi","c-max-hybrid" => "C-Max Hybrid","crown-victoria" => "Crown Victoria","edge" => "Edge","escape" => "Escape","escape-hybrid" => "Escape Hybrid","expedition" => "Expedition","explorer" => "Explorer","fiesta" => "Fiesta","flex" => "Flex","focus" => "Focus","focus-st" => "Focus ST","fusion" => "Fusion","fusion-energi" => "Fusion Energi","fusion-hybrid" => "Fusion Hybrid","taurus" => "Taurus","transit-connect" => "Transit Connect"];
-        $models["gmc"] = ["acadia" => "Acadia","canyon" => "Canyon","envoy" => "Envoy","sierra-1500" => "Sierra 1500","sierra-2500hd" => "Sierra 2500HD","sierra-3500hd" => "Sierra 3500HD","terrain" => "Terrain","yukon" => "Yukon","yukon-hybrid" => "Yukon Hybrid","yukon-xl" => "Yukon XL"];
-        $models["honda"] = ["accord" => "Accord","accord-crosstour" => "Accord Crosstour","accord-hybrid" => "Accord Hybrid","accord-plug-in-hybrid" => "Accord Plug-In Hybrid","civic" => "Civic","cr-v" => "CR-V","cr-z" => "CR-Z","crosstour" => "Crosstour","element" => "Element","fit" => "Fit","fit-ev" => "Fit EV","hr-v" => "HR-V","insight" => "Insight","odyssey" => "Odyssey","pilot" => "Pilot"];
-        $models["hummer"] = ["h3" => "H3"];
-        $models["hyundai"] = ["accent" => "Accent","azera" => "Azera","elantra" => "Elantra","elantra-gt" => "Elantra GT","elantra-touring" => "Elantra Touring","equus" => "Equus","genesis" => "Genesis","santa-fe" => "Santa Fe","santa-fe-sport" => "Santa Fe Sport","sonata" => "Sonata","sonata-hybrid" => "Sonata Hybrid","tucson" => "Tucson","veloster" => "Veloster","veracruz" => "Veracruz"];
-        $models["infiniti"] = ["ex" => "EX","ex35" => "EX35","fx" => "FX","fx35" => "FX35","fx50" => "FX50","g-sedan" => "G Sedan","g37-sedan" => "G37 Sedan","jx" => "JX","m" => "M","m35" => "M35","m37" => "M37","m45" => "M45","m56" => "M56","q40" => "Q40","q50" => "Q50","q70" => "Q70","qx" => "QX","qx50" => "QX50","qx56" => "QX56","qx60" => "QX60","qx70" => "QX70","qx80" => "QX80"];
-        $models["jaguar"] = ["f-pace" => "F-Pace","xf" => "XF","xj" => "XJ"];
-        $models["jeep"] = ["cherokee" => "Cherokee","commander" => "Commander","compass" => "Compass","grand-cherokee" => "Grand Cherokee","grand-cherokee-srt" => "Grand Cherokee SRT","liberty" => "Liberty","patriot" => "Patriot","renegade" => "Renegade","wrangler" => "Wrangler"];
-        $models["kia"] = ["amanti" => "Amanti","cadenza" => "Cadenza","forte" => "Forte","k900" => "K900","optima" => "Optima","optima-hybrid" => "Optima Hybrid","rio" => "Rio","sedona" => "Sedona","sorento" => "Sorento","soul" => "Soul","soul-ev" => "Soul EV","sportage" => "Sportage"];
-        $models["land-rover"] = ["discovery-sport" => "Discovery Sport","lr2" => "LR2","lr3" => "LR3","lr4" => "LR4","range-rover" => "Range Rover","range-rover-evoque" => "Range Rover Evoque","range-rover-sport" => "Range Rover Sport"];
-        $models["lexus"] = ["ct-200h" => "CT 200h","es-300h" => "ES 300h","gs-350" => "GS 350","gs-450h" => "GS 450h","gs-460" => "GS 460","gs-f" => "GS F","gx-460" => "GX 460","hs-250h" => "HS 250h","is-250" => "IS 250","is-350" => "IS 350","is-f" => "IS F","ls-460" => "LS 460","ls-600h-l" => "LS 600h L","lx-570" => "LX 570","nx-200t" => "NX 200t","nx-300h" => "NX 300h","rx-350" => "RX 350","rx-450h" => "RX 450h"];
-        $models["lincoln"] = ["mkc" => "MKC","mks" => "MKS","mkt" => "MKT","mkx" => "MKX","mkz" => "MKZ","mkz-hybrid" => "MKZ Hybrid","navigator" => "Navigator","town-car" => "Town Car"];
-        $models["maserati"] = ["ghibli" => "Ghibli","quattroporte" => "Quattroporte"];
-        $models["mazda"] = ["cx-5" => "CX-5","cx-7" => "CX-7","cx-9" => "CX-9","mazda2" => "Mazda2","mazda3" => "Mazda3","mazda5" => "Mazda5","mazda6" => "Mazda6","mazdaspeed3" => "Mazdaspeed3","tribute" => "Tribute"];
-        $models["mercedes-benz"] = ["b-class-electric-drive" => "B-Class Electric Drive","c-class" => "C-Class","cla-class" => "CLA-Class","cls-class" => "CLS-Class","e-class-sedan" => "E-Class Sedan","e-class-wagon" => "E-Class Wagon","g-class" => "G-Class","gl-class" => "GL-Class","gla-class" => "GLA-Class","glc-class" => "GLC-Class","gle-class" => "GLE-Class","glk-class" => "GLK-Class","m-class" => "M-Class","metris-passenger-van" => "Metris Passenger Van","r-class" => "R-Class","s-class" => "S-Class"];
-        $models["mercury"] = ["grand-marquis" => "Grand Marquis","mariner" => "Mariner","mariner-hybrid" => "Mariner Hybrid","milan" => "Milan","milan-hybrid" => "Milan Hybrid","mountaineer" => "Mountaineer","sable" => "Sable"];
-        $models["mini"] = ["cooper" => "Cooper","cooper-clubman" => "Cooper Clubman","cooper-countryman" => "Cooper Countryman","cooper-coupe" => "Cooper Coupe","cooper-paceman" => "Cooper Paceman"];
-        $models["mitsubishi"] = ["eclipse" => "Eclipse","endeavor" => "Endeavor","galant" => "Galant","i-miev" => "i-MiEV","lancer" => "Lancer","lancer-evolution" => "Lancer Evolution","lancer-sportback" => "Lancer Sportback","mirage" => "Mirage","outlander" => "Outlander","outlander-sport" => "Outlander Sport"];
-        $models["nissan"] = ["altima" => "Altima","altima-hybrid" => "Altima Hybrid","armada" => "Armada","cube" => "Cube","juke" => "Juke","leaf" => "Leaf","maxima" => "Maxima","murano" => "Murano","murano-crosscabriolet" => "Murano CrossCabriolet","nv200" => "NV200","pathfinder" => "Pathfinder","quest" => "Quest","rogue-select" => "Rogue Select","sentra" => "Sentra","versa" => "Versa","versa-note" => "Versa Note","xterra" => "Xterra"];
-        $models["pontiac"] = ["g6" => "G6","g8" => "G8","torrent" => "Torrent","vibe" => "Vibe"];
-        $models["porsche"] = ["cayenne" => "Cayenne","macan" => "Macan","panamera" => "Panamera"];
-        $models["ram"] = ["cargo-van" => "Cargo Van","cv-tradesman" => "C/V Tradesman","cv-tradesman" => "CV Tradesman","dakota" => "Dakota","promaster-city" => "ProMaster City"];
-        $models["rolls-royce"] = ["ghost" => "Ghost","phantom" => "Phantom"];
-        $models["saab"] = ["9-3-griffin" => "9-3 Griffin","9-4x" => "9-4X","9-7x" => "9-7X"];
-        $models["saturn"] = ["vue" => "Vue"];
-        $models["scion"] = ["iq" => "iQ","tc" => "tC","xb" => "xB","xd" => "xD"];
-        $models["smart"] = ["fortwo" => "Fortwo"];
-        $models["subaru"] = ["forester" => "Forester","impreza" => "Impreza","impreza-wrx" => "Impreza WRX","legacy" => "Legacy","outback" => "Outback","tribeca" => "Tribeca","wrx" => "WRX","xv-crosstrek" => "XV Crosstrek"];
-        $models["suzuki"] = ["equator" => "Equator","grand-vitara" => "Grand Vitara","kizashi" => "Kizashi","sx4" => "SX4"];
-        $models["tesla"] = ["model-s" => "Model S","model-x" => "Model X"];
-        $models["toyota"] = ["4runner" => "4Runner","avalon" => "Avalon","avalon-hybrid" => "Avalon Hybrid","camry" => "Camry","camry-hybrid" => "Camry Hybrid","corolla" => "Corolla","fj-cruiser" => "FJ Cruiser","highlander" => "Highlander","highlander-hybrid" => "Highlander Hybrid","land-cruiser" => "Land Cruiser","matrix" => "Matrix","mirai" => "Mirai","prius" => "Prius","prius-c" => "Prius c","prius-v" => "Prius v","rav4" => "RAV4","rav4-ev" => "RAV4 EV","sequoia" => "Sequoia","sienna" => "Sienna","tacoma" => "Tacoma","tundra" => "Tundra","venza" => "Venza","yaris" => "Yaris"];
-        $models["volkswagen"] = ["beetle" => "Beetle","cc" => "CC","e-golf" => "e-Golf","gli" => "GLI","golf" => "Golf","golf-r" => "Golf R","golf-sportwagen" => "Golf SportWagen","gti" => "GTI","jetta" => "Jetta","jetta-gli" => "Jetta GLI","jetta-hybrid" => "Jetta Hybrid","jetta-sportwagen" => "Jetta SportWagen","new-beetle" => "New Beetle","passat" => "Passat","routan" => "Routan","tiguan" => "Tiguan","touareg" => "Touareg"];
-        $models["volvo"] = ["c30" => "C30","s40" => "S40","s60" => "S60","s80" => "S80","v50" => "V50","v60" => "V60","v70" => "V70","xc60" => "XC60","xc70" => "XC70","xc90" => "XC90"];
+        $models['acura'] = ["cl" => "CL","ilx" => "ILX","ilx-hybrid" => "ILX Hybrid","integra" => "Integra","legend" => "Legend","mdx" => "MDX","nsx" => "NSX","rdx" => "RDX","rl" => "RL","rlx" => "RLX","rsx" => "RSX","slx" => "SLX","tl" => "TL","tlx" => "TLX","tsx" => "TSX","tsx-sport-wagon" => "TSX Sport Wagon","vigor" => "Vigor","zdx" => "ZDX"];
+
+
+        $models["alfa-romeo"]       =  ["4c" => "4C","giulia" => "Giulia","stelvio" => "Stelvio"];
+
+
+        $models["am-general"]       = ["hummer" => "Hummer"];
+
+
+        $models["aston-martin"] = ["db11" => "DB11","db7" => "DB7","db9" => "DB9","db9-gt" => "DB9 GT","dbs" => "DBS","rapide" => "Rapide","rapide-s" => "Rapide S","v12-vanquish" => "V12 Vanquish","v12-vantage" => "V12 Vantage","v12-vantage-s" => "V12 Vantage S","v8-vantage" => "V8 Vantage","vanquish" => "Vanquish","vanquish-s" => "Vanquish S","vantage" => "Vantage","virage" => "Virage"];
+
+
+        $models["audi"]         = ["100" => "100","200" => "200","80" => "80","90" => "90","a3" => "A3","a3-sportback-e-tron" => "A3 Sportback e-tron","a4" => "A4","a4-allroad" => "A4 allroad","a5" => "A5","a6" => "A6","a7" => "A7","a8" => "A8","allroad" => "allroad","allroad-quattro" => "allroad quattro","cabriolet" => "Cabriolet","coupe" => "Coupe","q3" => "Q3","q5" => "Q5","q7" => "Q7","r8" => "R8","rs-3" => "RS 3","rs-4" => "RS 4","rs-5" => "RS 5","rs-6" => "RS 6","rs-7" => "RS 7","s3" => "S3","s4" => "S4","s5" => "S5","s6" => "S6","s7" => "S7","s8" => "S8","sq5" => "SQ5","tt" => "TT","tt-rs" => "TT RS","tts" => "TTS","v8" => "V8"];
+
+
+        $models["bentley"]          = ["arnage" => "Arnage","azure" => "Azure","bentayga" => "Bentayga","brooklands" => "Brooklands","continental" => "Continental","continental-flying-spur" => "Continental Flying Spur","continental-flying-spur-speed" => "Continental Flying Spur Speed","continental-gt" => "Continental GT","continental-gt-speed" => "Continental GT Speed","continental-gt-speed-convertible" => "Continental GT Speed Convertible","continental-gt3-r" => "Continental GT3-R","continental-gtc" => "Continental GTC","continental-gtc-speed" => "Continental GTC Speed","continental-supersports" => "Continental Supersports","continental-supersports-convertible" => "Continental Supersports Convertible","flying-spur" => "Flying Spur","mulsanne" => "Mulsanne","supersports-convertible-isr" => "Supersports Convertible ISR",];
+
+
+        $models["bmw"]              = ["1-series" => "1 Series","2-series" => "2 Series","3-series" => "3 Series","3-series-gran-turismo" => "3 Series Gran Turismo","4-series" => "4 Series","4-series-gran-coupe" => "4 Series Gran Coupe","5-series" => "5 Series","5-series-gran-turismo" => "5 Series Gran Turismo","6-series" => "6 Series","6-series-gran-coupe" => "6 Series Gran Coupe","6-series-gran-turismo" => "6 Series Gran Turismo","7-series" => "7 Series","8-series" => "8 Series","activehybrid-5" => "ActiveHybrid 5","activehybrid-7" => "ActiveHybrid 7","activehybrid-x6" => "ActiveHybrid X6","alpina" => "Alpina","alpina-b6-gran-coupe" => "ALPINA B6 Gran Coupe","alpina-b7" => "ALPINA B7","i3" => "i3","i8" => "i8","x1" => "X1","x3" => "X3","x4" => "X4","x5" => "X5","x6" => "X6","z3" => "Z3","z4" => "Z4","z8" => "Z8"];
+
+
+        $models["bugatti"]          = ["veyron-16.4"=>"Veyron 16.4"];
+
+
+        $models["buick"]            = ["cascada" => "Cascada","century" => "Century","electra" => "Electra","enclave" => "Enclave","encore" => "Encore","envision" => "Envision","estate-wagon" => "Estate Wagon","lacrosse" => "LaCrosse","lesabre" => "LeSabre","lucerne" => "Lucerne","park-avenue" => "Park Avenue","rainier" => "Rainier","reatta" => "Reatta","regal" => "Regal","regal-sportback" => "Regal Sportback","regal-tourx" => "Regal TourX","rendezvous" => "Rendezvous","riviera" => "Riviera","roadmaster" => "Roadmaster","skylark" => "Skylark","terraza" => "Terraza","verano" => "Verano",];
+
+
+
+        $models["cadillac"]     = ["allante" => "Allante","ats" => "ATS","ats-coupe" => "ATS Coupe","ats-v" => "ATS-V","brougham" => "Brougham","catera" => "Catera","ct6" => "CT6","cts" => "CTS","cts-coupe" => "CTS Coupe","cts-wagon" => "CTS Wagon","cts-v" => "CTS-V","cts-v-coupe" => "CTS-V Coupe","cts-v-wagon" => "CTS-V Wagon","deville" => "DeVille","dts" => "DTS","eldorado" => "Eldorado","elr" => "ELR","escalade" => "Escalade","escalade-esv" => "Escalade ESV","escalade-ext" => "Escalade EXT","escalade-hybrid" => "Escalade Hybrid","fleetwood" => "Fleetwood","seville" => "Seville","sixty-special" => "Sixty Special","srx" => "SRX","sts" => "STS","sts-v" => "STS-V","xlr" => "XLR","xlr-v" => "XLR-V","xt4" => "XT4","xt5" => "XT5","xts" => "XTS",];
+
+
+
+        $models["chevrolet"]        = ["astro" => "Astro","astro-cargo" => "Astro Cargo","avalanche" => "Avalanche","aveo" => "Aveo","beretta" => "Beretta","black-diamond-avalanche" => "Black Diamond Avalanche","blazer" => "Blazer","bolt-ev" => "Bolt EV","c/k-1500-series" => "C/K 1500 Series","c/k-2500-series" => "C/K 2500 Series","c/k-3500-series" => "C/K 3500 Series","camaro" => "Camaro","caprice" => "Caprice","captiva-sport" => "Captiva Sport","cavalier" => "Cavalier","celebrity" => "Celebrity","chevy-van" => "Chevy Van","chevy-van-classic" => "Chevy Van Classic","city-express" => "City Express","classic" => "Classic","cobalt" => "Cobalt","colorado" => "Colorado","corsica" => "Corsica","corvette" => "Corvette","cruze" => "Cruze","cruze-limited" => "Cruze Limited","equinox" => "Equinox","express" => "Express","express-cargo" => "Express Cargo","hhr" => "HHR","impala" => "Impala","impala-limited" => "Impala Limited","lumina" => "Lumina","lumina-minivan" => "Lumina Minivan","malibu" => "Malibu","malibu-classic" => "Malibu Classic","malibu-hybrid" => "Malibu Hybrid","malibu-limited" => "Malibu Limited","malibu-maxx" => "Malibu Maxx","metro" => "Metro","monte-carlo" => "Monte Carlo","prizm" => "Prizm","r/v-3500-series" => "R/V 3500 Series","s-10" => "S-10","s-10-blazer" => "S-10 Blazer","silverado-1500" => "Silverado 1500","silverado-1500-classic" => "Silverado 1500 Classic","silverado-1500-hybrid" => "Silverado 1500 Hybrid","silverado-1500hd" => "Silverado 1500HD","silverado-1500hd-classic" => "Silverado 1500HD Classic","silverado-2500" => "Silverado 2500","silverado-2500hd" => "Silverado 2500HD","silverado-2500hd-classic" => "Silverado 2500HD Classic","silverado-3500" => "Silverado 3500","silverado-3500-classic" => "Silverado 3500 Classic","silverado-3500hd" => "Silverado 3500HD","sonic" => "Sonic","spark" => "Spark","spark-ev" => "Spark EV","sportvan" => "Sportvan","ss" => "SS","ssr" => "SSR","suburban" => "Suburban","tahoe" => "Tahoe","tahoe-hybrid" => "Tahoe Hybrid","tracker" => "Tracker","trailblazer" => "TrailBlazer","trailblazer-ext" => "TrailBlazer EXT","traverse" => "Traverse","trax" => "Trax","uplander" => "Uplander","venture" => "Venture","volt" => "Volt",];
+
+
+        $models["chrysler"]     = ["200" => "200","300" => "300","300m" => "300M","aspen" => "Aspen","cirrus" => "Cirrus","concorde" => "Concorde","crossfire" => "Crossfire","grand-voyager" => "Grand Voyager","imperial" => "Imperial","le-baron" => "Le Baron","lhs" => "LHS","new-yorker" => "New Yorker","pacifica" => "Pacifica","pacifica-hybrid" => "Pacifica Hybrid","prowler" => "Prowler","pt-cruiser" => "PT Cruiser","sebring" => "Sebring","tc" => "TC","town-and-country" => "Town and Country","voyager" => "Voyager",];
+
+
+        $models["daewoo"]           = ["lanos" => "Lanos","leganza" => "Leganza","nubira" => "Nubira",];
+
+
+        $models["dodge"]            = ["avenger" => "Avenger","caliber" => "Caliber","caravan" => "Caravan","challenger" => "Challenger","charger" => "Charger","colt" => "Colt","dakota" => "Dakota","dart" => "Dart","daytona" => "Daytona","durango" => "Durango","dynasty" => "Dynasty","grand-caravan" => "Grand Caravan","intrepid" => "Intrepid","journey" => "Journey","magnum" => "Magnum","monaco" => "Monaco","neon" => "Neon","nitro" => "Nitro","omni" => "Omni","ram-150" => "RAM 150","ram-250" => "RAM 250","ram-350" => "RAM 350","ram-50-pickup" => "Ram 50 Pickup","ram-cargo" => "Ram Cargo","ram-pickup-1500" => "Ram Pickup 1500","ram-pickup-2500" => "Ram Pickup 2500","ram-pickup-3500" => "Ram Pickup 3500","ram-van" => "Ram Van","ram-wagon" => "Ram Wagon","ramcharger" => "Ramcharger","shadow" => "Shadow","spirit" => "Spirit","sprinter" => "Sprinter","sprinter-cargo" => "Sprinter Cargo","srt-viper" => "SRT Viper","stealth" => "Stealth","stratus" => "Stratus","viper" => "Viper",];
+
+
+        $models["eagle"]            = ["premier" => "Premier","summit" => "Summit","talon" => "Talon","vision" => "Vision"];
+
+
+
+        $models["ferrari"]      = ["360" => "360","430-scuderia" => "430 Scuderia","456m" => "456M","458-italia" => "458 Italia","488-gtb" => "488 GTB","488-spider" => "488 Spider","550" => "550","575m" => "575M","599" => "599","612-scaglietti" => "612 Scaglietti","california" => "California","california-t" => "California T","enzo" => "Enzo","f12-berlinetta" => "F12 Berlinetta","f430" => "F430","ff" => "FF","gtc4lusso" => "GTC4Lusso","portofino" => "Portofino","superamerica" => "Superamerica"];
+
+
+        $models["fiat"]         = ["124-spider" => "124 Spider","500" => "500","500e" => "500e","500l" => "500L","500x" => "500X"];
+
+
+
+        $models["fisker"]           = ["karma" => "Karma"];
+
+
+        $models["ford"]     = ["aerostar" => "Aerostar","aspire" => "Aspire","bronco" => "Bronco","bronco-ii" => "Bronco II","c-max-energi" => "C-Max Energi","c-max-hybrid" => "C-Max Hybrid","contour" => "Contour","crown-victoria" => "Crown Victoria","e-150" => "E-150","e-250" => "E-250","e-350" => "E-350","e-series-van" => "E-Series Van","e-series-wagon" => "E-Series Wagon","econoline-cargo" => "Econoline Cargo","econoline-wagon" => "Econoline Wagon","ecosport" => "EcoSport","edge" => "Edge","escape" => "Escape","escape-hybrid" => "Escape Hybrid","escort" => "Escort","excursion" => "Excursion","expedition" => "Expedition","expedition-el" => "Expedition EL","explorer" => "Explorer","explorer-sport" => "Explorer Sport","explorer-sport-trac" => "Explorer Sport Trac","f-150" => "F-150","f-150-heritage" => "F-150 Heritage","f-250" => "F-250","f-250-super-duty" => "F-250 Super Duty","f-350" => "F-350","f-350-super-duty" => "F-350 Super Duty","f-450-super-duty" => "F-450 Super Duty","festiva" => "Festiva","fiesta" => "Fiesta","five-hundred" => "Five Hundred","flex" => "Flex","focus" => "Focus","freestar" => "Freestar","freestyle" => "Freestyle","fusion" => "Fusion","fusion-energi" => "Fusion Energi","fusion-hybrid" => "Fusion Hybrid","gt" => "GT","ltd-crown-victoria" => "LTD Crown Victoria","mustang" => "Mustang","probe" => "Probe","ranger" => "Ranger","shelby-gt350" => "Shelby GT350","shelby-gt500" => "Shelby GT500","taurus" => "Taurus","taurus-x" => "Taurus X","tempo" => "Tempo","thunderbird" => "Thunderbird","transit-connect" => "Transit Connect","transit-van" => "Transit Van","transit-wagon" => "Transit Wagon","windstar" => "Windstar","windstar-cargo" => "Windstar Cargo"];
+
+
+        $models["genesis"] = ["g70" => "G70","g80" => "G80","g90" => "G90"];
+
+        $models["geo"] = ["metro" => "Metro","prizm" => "Prizm","storm" => "Storm","tracker" => "Tracker"];
+
+        $models["gmc"] = ["acadia" => "Acadia","canyon" => "Canyon","envoy" => "Envoy","envoy-xl" => "Envoy XL","envoy-xuv" => "Envoy XUV","jimmy" => "Jimmy","r/v-3500-series" => "R/V 3500 Series","rally-wagon" => "Rally Wagon","s-15" => "S-15","s-15-jimmy" => "S-15 Jimmy","safari" => "Safari","safari-cargo" => "Safari Cargo","savana" => "Savana","savana-cargo" => "Savana Cargo","sierra-1500" => "Sierra 1500","sierra-1500-classic" => "Sierra 1500 Classic","sierra-1500hd" => "Sierra 1500HD","sierra-1500hd-classic" => "Sierra 1500HD Classic","sierra-1500-hybrid" => "Sierra 1500 Hybrid","sierra-2500" => "Sierra 2500","sierra-2500hd" => "Sierra 2500HD","sierra-2500hd-classic" => "Sierra 2500HD Classic","sierra-3500" => "Sierra 3500","sierra-3500-classic" => "Sierra 3500 Classic","sierra-3500hd" => "Sierra 3500HD","sierra-c3" => "Sierra C3","sierra-classic-1500" => "Sierra Classic 1500","sierra-classic-2500" => "Sierra Classic 2500","sierra-classic-3500" => "Sierra Classic 3500","sonoma" => "Sonoma","suburban" => "Suburban","syclone" => "Syclone","terrain" => "Terrain","typhoon" => "Typhoon","vandura" => "Vandura","yukon" => "Yukon","yukon-hybrid" => "Yukon Hybrid","yukon-xl" => "Yukon XL"];
+
+        $models["honda"] = ["accord" => "Accord","accord-crosstour" => "Accord Crosstour","accord-hybrid" => "Accord Hybrid","accord-plug-in-hybrid" => "Accord Plug-In Hybrid","civic" => "Civic","civic-crx" => "Civic CRX","civic-del-sol" => "Civic del Sol","clarity" => "Clarity","crosstour" => "Crosstour","cr-v" => "CR-V","cr-z" => "CR-Z","element" => "Element","fit" => "Fit","fit-ev" => "Fit EV","hr-v" => "HR-V","insight" => "Insight","odyssey" => "Odyssey","passport" => "Passport","pilot" => "Pilot","prelude" => "Prelude","ridgeline" => "Ridgeline","s2000" => "S2000"];
+
+        $models["hummer"] = ["h1" => "H1","h1-alpha" => "H1 Alpha","h2" => "H2","h2-sut" => "H2 SUT","h3" => "H3","h3t" => "H3T"];
+
+        $models["hyundai"] = ["accent" => "Accent","azera" => "Azera","elantra" => "Elantra","elantra-coupe" => "Elantra Coupe","elantra-gt" => "Elantra GT","elantra-touring" => "Elantra Touring","entourage" => "Entourage","equus" => "Equus","excel" => "Excel","genesis" => "Genesis","genesis-coupe" => "Genesis Coupe","ioniq-electric" => "Ioniq Electric","ioniq-hybrid" => "Ioniq Hybrid","ioniq-plug-in-hybrid" => "Ioniq Plug-In Hybrid","kona" => "Kona","santa-fe" => "Santa Fe","santa-fe-sport" => "Santa Fe Sport","scoupe" => "Scoupe","sonata" => "Sonata","sonata-hybrid" => "Sonata Hybrid","sonata-plug-in-hybrid" => "Sonata Plug-in Hybrid","tiburon" => "Tiburon","tucson" => "Tucson","veloster" => "Veloster","veracruz" => "Veracruz","xg300" => "XG300","xg350" => "XG350"];
+
+        $models["infiniti"] = ["ex" => "EX","fx" => "FX","g" => "G","g-convertible" => "G Convertible","g-coupe" => "G Coupe","g-sedan" => "G Sedan","i" => "I","j" => "J","jx" => "JX","m" => "M","q" => "Q","q40" => "Q40","q50" => "Q50","q60-convertible" => "Q60 Convertible","q60-coupe" => "Q60 Coupe","q60" => "Q60","q70" => "Q70","qx" => "QX","qx4" => "QX4","qx30" => "QX30","qx50" => "QX50","qx60" => "QX60","qx70" => "QX70","qx80" => "QX80"];
+
+        $models["isuzu"] = ["amigo" => "Amigo","ascender" => "Ascender","axiom" => "Axiom","hombre" => "Hombre","i-series" => "i-Series","impulse" => "Impulse","oasis" => "Oasis","pickup" => "Pickup","rodeo" => "Rodeo","rodeo-sport" => "Rodeo Sport","stylus" => "Stylus","trooper" => "Trooper","vehicross" => "VehiCROSS"];
+
+        $models["jaguar"] = ["e-pace" => "E-PACE","f-pace" => "F-PACE","f-type" => "F-TYPE","i-pace" => "I-PACE","s-type" => "S-Type","x-type" => "X-Type","xe" => "XE","xf" => "XF","xj-series" => "XJ-Series","xk-series" => "XK-Series","xk" => "XK"];
+
+
+        $models["jeep"] = ["cherokee" => "Cherokee","comanche" => "Comanche","commander" => "Commander","compass" => "Compass","grand-cherokee" => "Grand Cherokee","grand-wagoneer" => "Grand Wagoneer","liberty" => "Liberty","patriot" => "Patriot","renegade" => "Renegade","wagoneer" => "Wagoneer","wrangler" => "Wrangler","wrangler-jk" => "Wrangler JK"];
+
+
+        $models["kia"] = ["amanti" => "Amanti","borrego" => "Borrego","cadenza" => "Cadenza","forte" => "Forte","k900" => "K900","niro" => "Niro","niro-plug-in-hybrid" => "Niro Plug-In Hybrid","optima" => "Optima","optima-hybrid" => "Optima Hybrid","optima-plug-in-hybrid" => "Optima Plug-In Hybrid","rio" => "Rio","rondo" => "Rondo","sedona" => "Sedona","sephia" => "Sephia","sorento" => "Sorento","soul" => "Soul","soul-ev" => "Soul EV","spectra" => "Spectra","sportage" => "Sportage","stinger" => "Stinger"];
+
+
+        $models["lamborghini"] = ["aventador" => "Aventador","diablo" => "Diablo","gallardo" => "Gallardo","huracan" => "Huracan","murcielago" => "Murcielago","reventon" => "Reventon"];
+
+
+        $models["land-rover"] = ["defender" => "Defender","discovery" => "Discovery","discovery-sport" => "Discovery Sport","freelander" => "Freelander","lr2" => "LR2","lr3" => "LR3","lr4" => "LR4","range-rover" => "Range Rover","range-rover-evoque" => "Range Rover Evoque","range-rover-sport" => "Range Rover Sport","range-rover-velar" => "Range Rover Velar"];
+
+
+        $models["lexus"] = ["ct" => "CT","es" => "ES","gs" => "GS","gx" => "GX","hs" => "HS","is" => "IS","lc" => "LC","lfa" => "LFA","ls" => "LS","lx" => "LX","nx" => "NX","rc" => "RC","rx" => "RX","sc" => "SC"];
+
+        $models["lincoln"] = ["aviator" => "Aviator","blackwood" => "Blackwood","continental" => "Continental","ls" => "LS","mark-lt" => "Mark LT","mark-vii" => "Mark VII","mark-viii" => "Mark VIII","mkc" => "MKC","mks" => "MKS","mkt" => "MKT","mkx" => "MKX","mkz" => "MKZ","nautilus" => "Nautilus","navigator" => "Navigator","navigator-l" => "Navigator L","town-car" => "Town Car","zephyr" => "Zephyr"];
+
+
+        $models["lotus"] = ["elise" => "Elise","esprit" => "Esprit","evora" => "Evora","evora-400" => "Evora 400","exige" => "Exige"];
+
+
+        $models["maserati"] = ["coupe" => "Coupe","ghibli" => "Ghibli","gransport" => "GranSport","granturismo" => "GranTurismo","granturismo-convertible" => "GranTurismo Convertible","levante" => "Levante","quattroporte" => "Quattroporte","spyder" => "Spyder"];
+
+        $models["maybach"] = ["57" => "57","62" => "62","landaulet" => "Landaulet"];
+
+
+        $models["mazda"] = ["2" => "2","3" => "3","323" => "323","5" => "5","6" => "6","626" => "626","929" => "929","b-series-pickup" => "B-Series Pickup","b-series-truck" => "B-Series Truck","cx-3" => "CX-3","cx-5" => "CX-5","cx-7" => "CX-7","cx-9" => "CX-9","mazdaspeed-3" => "Mazdaspeed 3","mazdaspeed-6" => "Mazdaspeed 6","mazdaspeed-mx-5-miata" => "Mazdaspeed MX-5 Miata","mazdaspeed-protege" => "Mazdaspeed Protege","millenia" => "Millenia","mpv" => "MPV","mx-3" => "MX-3","mx-5-miata" => "MX-5 Miata","mx-5-miata-rf" => "MX-5 Miata RF","mx-6" => "MX-6","navajo" => "Navajo","protege" => "Protege","protege5" => "Protege5","rx-7" => "RX-7","rx-8" => "RX-8","tribute" => "Tribute","tribute-hybrid" => "Tribute Hybrid","truck" => "Truck"];
+
+        $models["mclaren"] = ["570gt" => "570GT","570s" => "570S","650s-coupe" => "650S Coupe","650s-spider" => "650S Spider","675lt-coupe" => "675LT Coupe","675lt-spider" => "675LT Spider","mp4-12c" => "MP4-12C","mp4-12c-spider" => "MP4-12C Spider"];
+
+
+        $models["mercedes-benz"] = ["w124-(e-class-predecessor)" => "W124 (E-Class predecessor)","w126-(s-class-predecessor)" => "W126 (S-Class predecessor)","w140-(s-class-predecessor)" => "W140 (S-Class predecessor)","w201-190-(c-class-predecessor)" => "W201 190 (C-Class predecessor)","r129-(sl-class-predecessor)" => "R129 (SL-Class predecessor)","amg-gt" => "AMG GT","b-class-electric-drive" => "B-Class Electric Drive","c-class" => "C-Class","cl-class" => "CL-Class","cla-class" => "CLA-Class","clk-class" => "CLK-Class","cls-class" => "CLS-Class","e-class" => "E-Class","g-class" => "G-Class","gl-class" => "GL-Class","gla-class" => "GLA-Class","glc-class" => "GLC-Class","glc-class-coupe" => "GLC-Class Coupe","gle-class" => "GLE-Class","gle-class-coupe" => "GLE-Class Coupe","glk-class" => "GLK-Class","gls-class" => "GLS-Class","maybach" => "Maybach","metris" => "Metris","m-class" => "M-Class","r-class" => "R-Class","s-class" => "S-Class","sl-class" => "SL-Class","slc-class" => "SLC-Class","slk-class" => "SLK-Class","slr-mclaren" => "SLR McLaren","sls-amg" => "SLS AMG","sls-amg-gt" => "SLS AMG GT","sls-amg-gt-final-edition" => "SLS AMG GT Final Edition","sprinter" => "Sprinter","sprinter-worker" => "Sprinter Worker"];
+
+
+        $models["mercury"] = ["capri" => "Capri","cougar" => "Cougar","grand-marquis" => "Grand Marquis","marauder" => "Marauder","mariner" => "Mariner","mariner-hybrid" => "Mariner Hybrid","milan" => "Milan","milan-hybrid" => "Milan Hybrid","montego" => "Montego","monterey" => "Monterey","mountaineer" => "Mountaineer","mystique" => "Mystique","sable" => "Sable","topaz" => "Topaz","tracer" => "Tracer","villager" => "Villager"];
+
+        $models["mini"] = ["clubman" => "Clubman","convertible" => "Convertible","cooper" => "Cooper","cooper-clubman" => "Cooper Clubman","cooper-countryman" => "Cooper Countryman","cooper-coupe" => "Cooper Coupe","cooper-paceman" => "Cooper Paceman","cooper-roadster" => "Cooper Roadster","countryman" => "Countryman","hardtop-2-door" => "Hardtop 2 Door","hardtop-4-door" => "Hardtop 4 Door"];
+
+
+        $models["mitsubishi"] = ["3000gt" => "3000GT","diamante" => "Diamante","eclipse" => "Eclipse","eclipse-cross" => "Eclipse Cross","eclipse-spyder" => "Eclipse Spyder","endeavor" => "Endeavor","expo" => "Expo","galant" => "Galant","i-miev" => "i-MiEV","lancer" => "Lancer","lancer-evolution" => "Lancer Evolution","lancer-sportback" => "Lancer Sportback","mighty-max-pickup" => "Mighty Max Pickup","mirage" => "Mirage","mirage-g4" => "Mirage G4","montero" => "Montero","montero-sport" => "Montero Sport","outlander" => "Outlander","outlander-phev" => "Outlander PHEV","outlander-sport" => "Outlander Sport","precis" => "Precis","raider" => "Raider","sigma" => "Sigma","vanwagon" => "Vanwagon"];
+
+        $models["nissan"] = ["200sx" => "200SX","240sx" => "240SX","300zx" => "300ZX","350z" => "350Z","370z" => "370Z","altima" => "Altima","altima-hybrid" => "Altima Hybrid","armada" => "Armada","axxess" => "Axxess","cube" => "Cube","frontier" => "Frontier","gt-r" => "GT-R","juke" => "Juke","kicks" => "Kicks","leaf" => "Leaf","maxima" => "Maxima","murano" => "Murano","murano-crosscabriolet" => "Murano CrossCabriolet","nv-cargo" => "NV Cargo","nv-passenger" => "NV Passenger","nv200" => "NV200","nx" => "NX","pathfinder" => "Pathfinder","pulsar" => "Pulsar","quest" => "Quest","rogue" => "Rogue","rogue-select" => "Rogue Select","rogue-sport" => "Rogue Sport","sentra" => "Sentra","stanza" => "Stanza","titan" => "Titan","titan-xd" => "Titan XD","truck" => "Truck","van" => "Van","versa" => "Versa","versa-note" => "Versa Note","xterra" => "Xterra"];
+
+
+        $models["oldsmobile"] = ["achieva" => "Achieva","alero" => "Alero","aurora" => "Aurora","bravada" => "Bravada","ciera" => "Ciera","custom-cruiser" => "Custom Cruiser","cutlass" => "Cutlass","cutlass-calais" => "Cutlass Calais","cutlass-ciera" => "Cutlass Ciera","cutlass-supreme" => "Cutlass Supreme","eighty-eight" => "Eighty-Eight","eighty-eight-royale" => "Eighty-Eight Royale","intrigue" => "Intrigue","lss" => "LSS","ninety-eight" => "Ninety-Eight","regency" => "Regency","silhouette" => "Silhouette","toronado" => "Toronado"];
+
+
+        $models["oldsmobile"] = ["achieva" => "Achieva","alero" => "Alero","aurora" => "Aurora","bravada" => "Bravada","ciera" => "Ciera","custom-cruiser" => "Custom Cruiser","cutlass" => "Cutlass","cutlass-calais" => "Cutlass Calais","cutlass-ciera" => "Cutlass Ciera","cutlass-supreme" => "Cutlass Supreme","eighty-eight" => "Eighty-Eight","eighty-eight-royale" => "Eighty-Eight Royale","intrigue" => "Intrigue","lss" => "LSS","ninety-eight" => "Ninety-Eight","regency" => "Regency","silhouette" => "Silhouette","toronado" => "Toronado"];
+
+
+        $models["panoz"] = ["esperante" => "Esperante"];
+
+        $models["plymouth"] = ["acclaim" => "Acclaim","breeze" => "Breeze","colt" => "Colt","grand-voyager" => "Grand Voyager","horizon" => "Horizon","laser" => "Laser","neon" => "Neon","prowler" => "Prowler","sundance" => "Sundance","voyager" => "Voyager"];
+
+
+        $models["pontiac"] = ["6000" => "6000","aztek" => "Aztek","bonneville" => "Bonneville","firebird" => "Firebird","g3" => "G3","g5" => "G5","g6" => "G6","g8" => "G8","grand-am" => "Grand Am","grand-prix" => "Grand Prix","gto" => "GTO","le-mans" => "Le Mans","montana" => "Montana","montana-sv6" => "Montana SV6","solstice" => "Solstice","sunbird" => "Sunbird","sunfire" => "Sunfire","torrent" => "Torrent","trans-sport" => "Trans Sport","vibe" => "Vibe"];
+
+
+        $models["porsche"] = ["718-boxster" => "718 Boxster","718-cayman" => "718 Cayman","911" => "911","918-spyder" => "918 Spyder","928" => "928","944" => "944","968" => "968","boxster" => "Boxster","carrera-gt" => "Carrera GT","cayenne" => "Cayenne","cayman" => "Cayman","macan" => "Macan","panamera" => "Panamera"];
+
+        $models["ram"] = ["1500" => "1500","1500-classic" => "1500 Classic","2500" => "2500","3500" => "3500","c/v" => "C/V","dakota" => "Dakota","promaster-cargo-van" => "Promaster Cargo Van","promaster-city" => "Promaster City","promaster-window-van" => "Promaster Window Van"];
+
+
+        $models["rolls-royce"] = ["corniche" => "Corniche","dawn" => "Dawn","ghost" => "Ghost","park-ward" => "Park Ward","phantom" => "Phantom","phantom-coupe" => "Phantom Coupe","phantom-drophead-coupe" => "Phantom Drophead Coupe","silver-seraph" => "Silver Seraph","wraith" => "Wraith"];
+
+        $models["saab"] = ["9-2x" => "9-2X","9-3" => "9-3","9-3-griffin" => "9-3 Griffin","9-4x" => "9-4X","9-5" => "9-5","9-7x" => "9-7X","900" => "900","9000" => "9000"];
+
+
+        $models["saturn"] = ["astra" => "Astra","aura" => "Aura","aura-hybrid" => "Aura Hybrid","ion" => "ION","l-series" => "L-Series","outlook" => "Outlook","relay" => "Relay","s-series" => "S-Series","sky" => "Sky","vue" => "VUE","vue-hybrid" => "VUE Hybrid"];
+
+
+        $models["scion"] = ["fr-s" => "FR-S","ia" => "iA","im" => "iM","iq" => "iQ","tc" => "tC","xa" => "xA","xb" => "xB","xd" => "xD"];
+
+        $models["smart"] = ["fortwo" => "fortwo"];
+
+        $models["spyker"] = ["c8" => "C8"];
+
+
+        $models["subaru"] = ["ascent" => "Ascent","b9-tribeca" => "B9 Tribeca","baja" => "Baja","brz" => "BRZ","forester" => "Forester","impreza" => "Impreza","impreza-wrx" => "Impreza WRX","justy" => "Justy","legacy" => "Legacy","loyale" => "Loyale","outback" => "Outback","svx" => "SVX","tribeca" => "Tribeca","xt" => "XT","xv-crosstrek" => "XV Crosstrek"];
+
+        $models["suzuki"] = ["aerio" => "Aerio","equator" => "Equator","esteem" => "Esteem","forenza" => "Forenza","grand-vitara" => "Grand Vitara","kizashi" => "Kizashi","reno" => "Reno","samurai" => "Samurai","sidekick" => "Sidekick","swift" => "Swift","sx4" => "SX4","verona" => "Verona","vitara" => "Vitara","x-90" => "X-90","xl-7" => "XL-7","xl7" => "XL7"];
+
+        $models["tesla"] = ["model-3" => "Model 3","model-s" => "Model S","model-x" => "Model X","roadster" => "Roadster"];
+
+        $models["toyota"] = ["4runner" => "4Runner","86" => "86","avalon" => "Avalon","avalon-hybrid" => "Avalon Hybrid","c-hr" => "C-HR","camry" => "Camry","camry-hybrid" => "Camry Hybrid","camry-solara" => "Camry Solara","celica" => "Celica","corolla" => "Corolla","corolla-hatchback" => "Corolla Hatchback","corolla-im" => "Corolla iM","cressida" => "Cressida","echo" => "ECHO","fj-cruiser" => "FJ Cruiser","highlander" => "Highlander","highlander-hybrid" => "Highlander Hybrid","land-cruiser" => "Land Cruiser","matrix" => "Matrix","mirai" => "Mirai","mr2" => "MR2","mr2-spyder" => "MR2 Spyder","paseo" => "Paseo","pickup" => "Pickup","previa" => "Previa","prius" => "Prius","prius-c" => "Prius c","prius-plug-in" => "Prius Plug-in","prius-prime" => "Prius Prime","prius-v" => "Prius v","rav4" => "RAV4","rav4-ev" => "RAV4 EV","rav4-hybrid" => "RAV4 Hybrid","sequoia" => "Sequoia","sienna" => "Sienna","supra" => "Supra","t100" => "T100","tacoma" => "Tacoma","tercel" => "Tercel","tundra" => "Tundra","venza" => "Venza","yaris" => "Yaris","yaris-ia" => "Yaris iA"];
+
+
+
+        $models["atlas"] = ["atlas" => "Atlas","beetle" => "Beetle","beetle-convertible" => "Beetle Convertible","cabrio" => "Cabrio","cabriolet" => "Cabriolet","cc" => "CC","corrado" => "Corrado","e-golf" => "e-Golf","eos" => "Eos","eurovan" => "EuroVan","fox" => "Fox","golf" => "Golf","golf-alltrack" => "Golf Alltrack","golf-gti" => "Golf GTI","rabbit-gti" => "Rabbit GTI","golf-r32" => "Golf R32","golf-r" => "Golf R","golf-sportwagen" => "Golf SportWagen","jetta" => "Jetta","jetta-gli" => "Jetta GLI","jetta-hybrid" => "Jetta Hybrid","jetta-sportwagen" => "Jetta SportWagen","new-beetle" => "New Beetle","passat" => "Passat","phaeton" => "Phaeton","rabbit" => "Rabbit","rabbit-r32" => "Rabbit R32","routan" => "Routan","tiguan" => "Tiguan","tiguan-limited" => "Tiguan Limited","touareg" => "Touareg","vanagon" => "Vanagon"];
+
+        $models["volvo"] = ["240" => "240","740" => "740","760" => "760","780" => "780","850" => "850","940" => "940","960" => "960","c30" => "C30","c70" => "C70","coupe" => "Coupe","s40" => "S40","s60" => "S60","s60-cross-country" => "S60 Cross Country","s70" => "S70","s80" => "S80","s90" => "S90","v40" => "V40","v50" => "V50","v60" => "V60","v60-cross-country" => "V60 Cross Country","v70" => "V70","v90" => "V90","v90-cross-country" => "V90 Cross Country","xc" => "XC","xc40" => "XC40","xc60" => "XC60","xc70" => "XC70","xc90" => "XC90"];        
 
         return $models;
     }

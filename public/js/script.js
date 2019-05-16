@@ -77,6 +77,39 @@ $(document).ready(function(){
 		$('form.lead-form > div.container').fadeOut(500);
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
 	});
+	$('.model-search').on('blur',function(){
+		$(this).siblings('.models-list').slideUp();
+	});
+	$('.model-search').on('focus',function(){
+		$(this).siblings('.models-list').slideDown();
+	});	
+	$('.model-search').on('keyup',function(){
+		var list = $(this).siblings('.models-list');		
+		list.html('').hide();
+
+		var s = $(this).val();
+		if(!s) return;
+
+		var regex = new RegExp('(' + RegExp.escape(s) + ')', 'ig');		
+		$.each(models,function(i,m){
+			if(regex.test(m)){
+				mOrg = m;
+				m = m.replace(regex, '<strong class="">$1</strong>');
+				list.append('<a href="javascript:;" data-value="' + mOrg + '" class="list-group-item list-group-item-action">'+ m +'</a>');
+			}
+		});	
+		list.show();
+	});
+	
+	if (!RegExp.escape) {
+	  RegExp.escape = function(value) {
+	    return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+	  };
+	}
+	$('.models-list').on('click','a',function(){
+		$(this).parent().siblings('.model-search').val($(this).data('value'));
+		$(this).parent('.models-list').html();
+	})
 
 	$('.change-question').on('click',function(e){
 		var targetQuestion = $(this).data('href');

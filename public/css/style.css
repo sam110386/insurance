@@ -60,7 +60,7 @@ label.error{color: #dc3545;}
 h3.font-weight-bold {
     margin-bottom: 35px;
 }
-
+.model-search{margin-bottom: 0 !important;}
 @media(max-width: 480px){
   
   h3,h4,h3.font-weight-bold > .h4{
