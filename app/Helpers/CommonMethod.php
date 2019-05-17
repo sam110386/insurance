@@ -1,6 +1,7 @@
 <?php 
 namespace App\Helpers;
 use App\Helpers\CommonMethod;
+use App\Models\Vehicle;
 
 class CommonMethod {
 
@@ -57,7 +58,35 @@ class CommonMethod {
         'WI' => 'Wisconsin',
         'WY' => 'Wyoming'];
     }
+
+    private static function getModelsByMake($make){
+        return Vehicle::select('vmodel')->where('make',$make)->distinct()->get();
+    }
+
+    private static function getMakesByYear($year){
+        $models = [];
+        $makes =  Vehicle::select('make')->where('year',$year)->distinct()->get();
+        foreach ($makes as $make) {
+            $modelArr = static::getModelsByMake($make->make);
+            $models[$make->make] = $modelArr;
+        }
+        return $models;
+    }
+
+    public static function getVehicles(){
+        $makes = [];
+        $years = Vehicle::select('year')->distinct()->get();
+
+        foreach ($years as $year) {
+            $makesArr = static::getMakesByYear($year->year);
+            $makes[$year->year] = $makesArr;
+        }
+        return $makes; 
+    }
+
     public static function getCarMakes(){
+ 
+
         $popularMakes = ["acura" => "Acura","alfa-romeo" => "Alfa Romeo" ,"aston-martin" => "Aston Martin","audi" => "Audi","bentley" => "Bentley","bmw" => "BMW","bugatti" => "Bugatti","chevrolet" => "Chevrolet","dodge" => "Dodge","ferrari" => "Ferrari","fiat" => "FIAT","ford" => "Ford","honda" => "Honda","hummer" => "HUMMER","hyundai" => "Hyundai","jaguar" => "Jaguar","lamborghini" => "Lamborghini","land-rover" => "Land Rover","mazda" => "Mazda","mclaren" => "McLaren","mercedes-benz" => "Mercedes-Benz","mitsubishi" => "Mitsubishi","porsche" => "Porsche","rolls-royce" => "Rolls-Royce","tesla" => "Tesla"];
         $allMakes = ["acura" => "Acura","alfa-romeo" => "Alfa Romeo","am-general" => "AM General","aston-martin" => "Aston Martin","audi" => "Audi","bentley" => "Bentley","bmw" => "BMW","bugatti" => "Bugatti","buick" => "Buick","cadillac" => "Cadillac","chevrolet" => "Chevrolet","chrysler" => "Chrysler","daewoo" => "Daewoo","dodge" => "Dodge","eagle" => "Eagle","ferrari" => "Ferrari","fiat" => "FIAT","fisker" => "Fisker","ford" => "Ford","genesis" => "Genesis","geo" => "Geo","gmc" => "GMC","honda" => "Honda","hummer" => "HUMMER","hyundai" => "Hyundai","infiniti" => "INFINITI","isuzu" => "Isuzu","jaguar" => "Jaguar","jeep" => "Jeep","kia" => "Kia","lamborghini" => "Lamborghini","land-rover" => "Land Rover","lexus" => "Lexus","lincoln" => "Lincoln","lotus" => "Lotus","maserati" => "Maserati","maybach" => "Maybach","mazda" => "Mazda","mclaren" => "McLaren","mercedes-benz" => "Mercedes-Benz","mercury" => "Mercury","mini" => "MINI","mitsubishi" => "Mitsubishi","nissan" => "Nissan","oldsmobile" => "Oldsmobile","panoz" => "Panoz","plymouth" => "Plymouth","pontiac" => "Pontiac","porsche" => "Porsche","ram" => "Ram","rolls-royce" => "Rolls-Royce","saab" => "Saab","saturn" => "Saturn","scion" => "Scion","smart" => "smart","spyker" => "Spyker","subaru" => "Subaru","suzuki" => "Suzuki","tesla" => "Tesla","toyota" => "Toyota","volkswagen" => "Volkswagen","volvo" => "Volvo"];
 

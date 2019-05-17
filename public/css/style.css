@@ -6,7 +6,7 @@
     /* Margin bottom by footer height */
     margin-bottom: 60px;
   }
-  .navbar.bg-light{background: #fff !important;}
+  .navbar.bg-light{background: #fff !important;box-shadow: 0 0 3px 0px #ccc;}
   .footer {
     position: absolute;
     bottom: 0;
@@ -20,11 +20,11 @@
     padding: 60px 15px 0;
   }
 
+  .lead-form{background-color:#efefef; background-image: url('../img/overlay.svg'); background-size: cover; }
   .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
   }
-
   code {
     font-size: 80%;
   }
@@ -34,7 +34,7 @@
     padding-bottom: 15px;*/
     padding-top: 5px;
     padding-bottom: 5px;    
-    background: #fff;
+    /*background: #fff; */
     cursor: pointer;
     font-size: 22px;
     margin-bottom: 30px;
@@ -85,4 +85,7 @@ h3.font-weight-bold {
   h3.font-weight-bold {margin-bottom: 15px;}
   .choices > label, .months > label{margin-bottom: 10px; text-align: center;font-size: 18px;}
   label + div.col-12{margin-top:20px;}
+}
+@media(min-width: 1023px){
+  .lead-form{min-height: 300px;}
 }

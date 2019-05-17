@@ -85,9 +85,9 @@ class VehiclesController extends Controller
         $grid->year(trans('Year'));
         $grid->make(trans('Make'));
         $grid->vmodel(trans('Model'));
+        $grid->trim_1(trans('Trim New'));
+        $grid->trim_2(trans('Trim Old'));
         $grid->created_at(trans('Created at'));
-        $grid->updated_at(trans('Updated at'));
-
         return $grid;
     }
 
@@ -105,6 +105,7 @@ class VehiclesController extends Controller
         $show->year(trans('Year'));
         $show->make(trans('Make'));
         $show->vmodel(trans('Model'));
+        $show->trim_1(trans('Trim New'));
         $show->created_at(trans('Created at'));
         $show->updated_at(trans('Updated at'));
 

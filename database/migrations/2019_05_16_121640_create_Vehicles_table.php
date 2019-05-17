@@ -17,7 +17,7 @@ class CreateVehiclesTable extends Migration
             $table->increments('id');
             $table->integer('year');
             $table->string('make');
-            $table->string('model');
+            $table->string('vmodel');
             $table->string('trim_1')->comment('New Trim')->nullable();
             $table->string('trim_2')->comment('Old Trim')->nullable();
             $table->text('description')->nullable();

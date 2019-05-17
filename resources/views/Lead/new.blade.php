@@ -3,10 +3,11 @@
 <script type="text/javascript">
 	var zipcodes = @json($zipcodes);
 	var carModels = @json($carModels);
+	var vehicles = @json($vehicles);
 </script>
 @endpush
 @section('content')
-<form class="lead-form" action="{{route('save-lead')}}" method="POST">
+<form class="lead-form row" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
 	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
@@ -2522,7 +2523,7 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						By clicking "Submit For Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a href="/privacy">Privacy Policy.</a> 
+						By clicking "Submit For Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a href="{{ route('privacy') }}">Privacy Policy.</a> 
 					</div>
 				</div>
 			</div>

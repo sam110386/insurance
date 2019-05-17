@@ -1,4 +1,34 @@
+/* Brand Carousel Start */
+$(document).ready(function() {
+	var owl = $('.owl-carousel');
+	owl.owlCarousel({
+		items: 5,
+		loop: true,
+		margin: 10,
+		autoplay: true,
+		autoplayTimeout: 1000,
+		autoplayHoverPause: true,
+		dots: false,
+		responsive:{
+			0:{
+				items:1,
+				nav:true
+			},
+			600:{
+				items:3,
+				nav:false
+			},
+			1000:{
+				items:5,
+				nav:false
+			}
+		}		
+	});
+})
+/* Brand Carousel End */
+
 $(document).ready(function(){
+
 	$('#zipcode').on('keypress',function(e){
 		if (e.keyCode == 13) {
 			$("a.zipcode-submit").click();
@@ -102,9 +132,9 @@ $(document).ready(function(){
 	});
 	
 	if (!RegExp.escape) {
-	  RegExp.escape = function(value) {
-	    return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-	  };
+		RegExp.escape = function(value) {
+			return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+		};
 	}
 	$('.models-list').on('click','a',function(){
 		$(this).parent().siblings('.model-search').val($(this).data('value'));
@@ -506,30 +536,30 @@ function isValidDate(dateStr) {
  if (matchArray == null) {
 	// alert("Date must be in MM/DD/YYYY format")
 	return false;
- }
- 
+}
+
  month = matchArray[1]; // parse date into variables
  day = matchArray[3];
  year = matchArray[4];
  if (month < 1 || month > 12) { // check month range
 	// alert("Month must be between 1 and 12");
 	return false;
- }
- if (day < 1 || day > 31) {
+}
+if (day < 1 || day > 31) {
 	// alert("Day must be between 1 and 31");
 	return false;
- }
- if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+}
+if ((month==4 || month==6 || month==9 || month==11) && day==31) {
 	// alert("Month "+month+" doesn't have 31 days!")
 	return false;
- }
+}
  if (month == 2) { // check for february 29th
-	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
-	if (day>29 || (day==29 && !isleap)) {
+ 	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+ 	if (day>29 || (day==29 && !isleap)) {
 		// alert("February " + year + " doesn't have " + day + " days!");
 		return false;
 	}
- }
+}
  return true;  // date is valid
 }	
 });
