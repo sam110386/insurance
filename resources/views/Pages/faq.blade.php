@@ -94,7 +94,10 @@
 				</div>
 			</div>
 		</div>		
-	</div>		
+	</div>
+	<div class="row mt-5">
+		<div class="col-12"><a class="btn btn-lg btn-warning" href="{{ route('new-lead') }}">Get your Quotes</a></div>
+	</div>			
 </div>
 
 

@@ -27,4 +27,8 @@ Route::group([
     'prefix'        => 'ajax'
 ], function (Router $router) {
     $router->post('/zipcode/validate/{zipcode}', 'LeadsController@validateZipcode');
+    $router->get('/years','AjaxController@getYears');
+    $router->get('/makes/{year}','AjaxController@getMakes');
+    $router->get('/models/{year}/{make}','AjaxController@getModels');
+    $router->get('/trims/{year}/{make}/{model}','AjaxController@getTrims');
 });

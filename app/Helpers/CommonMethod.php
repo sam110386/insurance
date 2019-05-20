@@ -83,6 +83,10 @@ class CommonMethod {
         }
         return $makes; 
     }
+    
+    public static function getYears(){
+        return Vehicle::select('year')->distinct()->orderby('year','desc')->get();
+    }
 
     public static function getCarMakes(){
  

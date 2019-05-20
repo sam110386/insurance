@@ -2,24 +2,29 @@
 $(document).ready(function() {
 	var owl = $('.owl-carousel');
 	owl.owlCarousel({
-		items: 5,
+		items: 6,
 		loop: true,
 		margin: 10,
 		autoplay: true,
-		autoplayTimeout: 1000,
+		autoplayTimeout: 1200,
 		autoplayHoverPause: true,
 		dots: false,
+		autoHeight:true,
 		responsive:{
 			0:{
-				items:1,
-				nav:true
+				items:2,
+				nav:false
+			},
+			480:{
+				items:3,
+				nav: false
 			},
 			600:{
-				items:3,
+				items:5,
 				nav:false
 			},
 			1000:{
-				items:5,
+				items:8,
 				nav:false
 			}
 		}		
@@ -28,7 +33,10 @@ $(document).ready(function() {
 /* Brand Carousel End */
 
 $(document).ready(function(){
-
+	var models = [];
+	var vMake = "";
+	var vYear = 0;
+	var vModel = "";
 	$('#zipcode').on('keypress',function(e){
 		if (e.keyCode == 13) {
 			$("a.zipcode-submit").click();
@@ -41,20 +49,69 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".vehicle-makes .choices label").on('click',function(){
+
+	$(".get-make.choices").on('click',"label",function(){
+		var year = $(this).data('year');
+		var href = $(this).data('models');
+		var current = $(this).data('make');
+		var vehicle = $(this).data('vehicle');
+		var label = "";
+		vYear =  year;
+		$("#"+current + "-container .choices").html("");
+		$("#"+current + "-container select").html("");
+		$.ajax({
+			type: "GET",
+			url: '/ajax/makes/' + year
+		}).done(function( res ) {
+			if(res){
+				$("#"+current + "-container select").append("<option value=''>Choose one</option>");
+				$.each(res,function(i,mk){
+					make = mk.make;
+					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
+					$("#"+current + "-container select").append(select);
+					if(i<10){
+						label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="make" value="'+ make+ '" /></label>';
+						$("#"+current + "-container .choices").append(label);
+					}
+				});
+				$("#"+current + "-container select").append("<option value='other'>Other</option>");
+			}
+		});
+
+	})
+
+	$(".vehicle-makes .choices").on('click','label',function(){
 		var make = $(this).children('input').val();
 		var vehicle = parseInt($(this).data('vehicle'));
+		var year = parseInt($(this).data('year'));
 		var modelsContanier = $('.models-' + vehicle);
-		modelsContanier.html('');
-		models = carModels[make];
-		$.each(models,function(mdl,model){
-			target =  'vin' + (vehicle);
-			current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-			label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model-'+ vehicle +'" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
-			modelsContanier.append(label);
-		});
+		vMake = make;
+		printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
 		modelsContanier.parent('.col-12').show();
 	});
+
+	function printModels(modelsContanier,data){
+		var vehicle = data.vehicle;
+		var make =  data.make;
+		var year =  data.year;
+		modelsContanier.html('');
+		models = [];
+		$.ajax({
+			type: "GET",
+			url: '/ajax/models/' + year + '/' + make
+		}).done(function( res ) {
+			if(res){
+				$.each(res,function(mdl,model){
+					target =  'trims' + (vehicle);
+					current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
+					label = '<label data-make="'+ make +'" data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model.vmodel + '<input type="radio" class="d-none" name="model-'+ vehicle +'" value="'+ model.vmodel +'" /><i class="fa fa-angle-right"></i></label>';
+					modelsContanier.append(label);
+					models.push(model.vmodel);
+				});
+			}
+		});
+	}
+
 	$(".vehicle-makes select").on('change',function(){
 		var make = $(this).val();
 		if(make  == 'other' ){
@@ -68,7 +125,9 @@ $(document).ready(function(){
 		var make = $(this).siblings("select").val();
 		var vehicle = parseInt($(this).data('vehicle'));
 		var modelsContanier = $('.models-' + vehicle);
-		modelsContanier.html('').parent('.col-12').hide();			
+		var year = $(this).siblings("select").children("option:selected").data("year");
+		vMake = make;
+		modelsContanier.html('').parent('.col-12').hide();	
 
 		$(this).parent('.form-group').removeClass('has-error');
 		$(this).parents(".container").find("label").removeClass('bg-warning');
@@ -83,30 +142,12 @@ $(document).ready(function(){
 			return false;
 		}
 		if(make != 'other'){
-			models = carModels[make];
-			$.each(models,function(mdl,model){				
-				target =  'vin' + (vehicle);
-				current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-				label = '<label for="model-' + vehicle +  '-' + mdl + '" class="h4  col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model + '<input type="radio" class="d-none" name="model" value="'+ mdl +'" id="model-' + vehicle +  '-' + mdl + '" /><i class="fa fa-angle-right"></i></label>';
-				modelsContanier.append(label);
-			});	
+			printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
 			modelsContanier.parent('.col-12').show();		
 		}
 		$('form.lead-form > div.container').fadeOut(500);
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 	});	
-	$('a.vehicle-next').on('click',function(){
-		$(this).parents(".container").find("label").removeClass('bg-warning');
-		$(this).parents(".container").find('input[type=radio]').prop('checked',false);
-		var targetQuestion = $(this).data('href');
-		$(this).parent('.form-group').removeClass('has-error');
-		if(!$(this).siblings('input').val()){
-			$(this).parent('.form-group').addClass('has-error');
-			return false;
-		}
-		$('form.lead-form > div.container').fadeOut(500);
-		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
-	});
 	$('.model-search').on('blur',function(){
 		$(this).siblings('.models-list').slideUp();
 	});
@@ -139,7 +180,52 @@ $(document).ready(function(){
 	$('.models-list').on('click','a',function(){
 		$(this).parent().siblings('.model-search').val($(this).data('value'));
 		$(this).parent('.models-list').html();
-	})
+	});
+	$('a.vehicle-next').on('click',function(){
+		$(this).parents(".container").find("label").removeClass('bg-warning');
+		$(this).parents(".container").find('input[type=radio]').prop('checked',false);
+		var targetQuestion = $(this).data('href');
+		$(this).parent('.form-group').removeClass('has-error');
+		if(!$(this).siblings('input').val()){
+			$(this).parent('.form-group').addClass('has-error');
+			return false;
+		}
+		var vehicle = parseInt($(this).data('vehicle'));
+		var trimContanier = $('.trims-' + vehicle);
+		printTrims(trimContanier,{year: vYear, model: $(this).siblings('input').val(), make:vMake,vehicle: vehicle});
+		$('form.lead-form > div.container').fadeOut(500);
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
+	});
+	function printTrims(trimContanier,data){
+		var vehicle = data.vehicle;
+		var make =  data.make;
+		var year =  data.year;
+		var model =  data.model;
+		trimContanier.html('');
+		$.ajax({
+			type: "GET",
+			url: '/ajax/trims/' + year + '/' + make + '/' + model
+		}).done(function( res ) {
+			if(res){
+				$.each(res,function(i,trim){
+					target =  'vin' + (vehicle);
+					current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
+					trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
+					trimContanier.append(trimHtml);
+				});
+			}
+		});
+	}
+	$(".vehicle-models .choices").on('click','label',function(){
+		var model = $(this).children('input').val();
+		var vehicle = parseInt($(this).data('vehicle'));
+		var year = parseInt($(this).data('year'));
+		var make = $(this).data('make');
+		var trimContanier = $('.trims-' + vehicle);
+		vModel = model;
+		printTrims(trimContanier,{year: year, make: make, model: model, vehicle: vehicle});
+		trimContanier.parent('.col-12').show();
+	});
 
 	$('.change-question').on('click',function(e){
 		var targetQuestion = $(this).data('href');

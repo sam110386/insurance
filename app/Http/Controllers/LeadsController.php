@@ -11,8 +11,7 @@ use App\Helpers\CommonMethod;
 class LeadsController extends BaseController
 {
 	public function new(){
-		// $data['vehicles'] = CommonMethod::getVehicles();
-		$data['vehicles'] = [];
+		$data['years'] = CommonMethod::getYears();
 		$data['zipcodes'] = CommonMethod::getZipcodeInfo();
 		$data['carMakes'] = CommonMethod::getCarMakes();
 		$data['carModels'] = CommonMethod::getModels();

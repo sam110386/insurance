@@ -2,14 +2,13 @@
 @push('scripts')
 <script type="text/javascript">
 	var zipcodes = @json($zipcodes);
-	var carModels = @json($carModels);
-	var vehicles = @json($vehicles);
+	var years = @json($years);
 </script>
 @endpush
 @section('content')
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
+	<div id="zipcode-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -24,7 +23,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="year-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="year-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
 			<div class="col-12 col-md-10 offset-md-1">
 				<p>
@@ -35,28 +34,30 @@
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Year</h3>
-				<div class="form-group choices row">
-					@for ($i = 0; $i < 20; $i++)
-					<label for="year-{{ now()->year - $i }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="make" data-current="year">
-						{{ now()->year - $i }}
-						<input type="radio" class="d-none" name="year" value="{{ now()->year - $i }}" id="year-{{ now()->year - $i }}" />
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="make" data-current="year" data-year="{{ $years[$i]->year }}" data-vehicle="1" data-models="models" data-make="make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="year" value="{{ $years[$i]->year }}" id="year-{{ $years[$i]->year }}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					@endfor
-					<!--div class="col-12">
-						<a href="javascript:;" class="btn btn-secondary load-years">Select Previous Year</a>
-					</div-->
 				</div>
+				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
 					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year">
 						<option value="">Choose one</option>
-						@for ($i = 20; $i < 120; $i++)
-						<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
 					</select>
-					<a data-href="make" data-current="year" class="mt-4 year-select-next btn btn-lg btn-warning">CONTINUE</a>
+					<a data-href="make" data-current="year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle-year" >CONTINUE</a>
 				</div>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -75,24 +76,12 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
 						<div class="form-group choices row">
-							@foreach ($carMakes['popular'] as $k => $popular)
-							<label for="make-{{$loop->iteration}}" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="models" data-current="make" data-vehicle="1">
-								{{$popular}}
-								<input type="radio" class="d-none" name="make" value="{{$k}}" id="make-{{$loop->iteration}}" />
-								<i class="fa fa-angle-right"></i>
-							</label>
-							@endforeach
 						</div>						
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">ALL</h4>
 						<div class="form-group">
 							<select class="form-control form-control-lg" name="make-select">
-								<option value="">Choose one</option>								
-								@foreach ($carMakes['all'] as $k => $make)
-								<option value="{{$k}}">{{$make}}</option>
-								@endforeach
-								<option value="other">Other</option>
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
@@ -102,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="models-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
@@ -119,15 +108,34 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search m-0" name="model1-other" id="model1-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
-							<a data-href="vin1" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
+							<a data-href="trims1" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
 						</div>
-
 						<div class="form-group choices row models-1"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div id="trims1-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 
 	<div id="vin1-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">

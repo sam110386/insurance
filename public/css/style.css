@@ -28,7 +28,7 @@
   code {
     font-size: 80%;
   }
-  .btn,input[type='text']{border-radius: 0;}
+  .btn,input[type='text'],textarea{border-radius: 0 !important;}
   .choices > label ,.months > label {
     /*padding-top: 15px;
     padding-bottom: 15px;*/
