@@ -6,7 +6,7 @@ $(document).ready(function() {
 		loop: true,
 		margin: 10,
 		autoplay: true,
-		autoplayTimeout: 1200,
+		autoplayTimeout: 3000,
 		autoplayHoverPause: true,
 		dots: false,
 		autoHeight:true,
@@ -64,15 +64,18 @@ $(document).ready(function(){
 			url: '/ajax/makes/' + year
 		}).done(function( res ) {
 			if(res){
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				$.each(popMakes,function(i,mk){
+					make = mk.make;
+					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
+					$("#"+current + "-container .choices").append(label);
+				})
+
 				$("#"+current + "-container select").append("<option value=''>Choose one</option>");
 				$.each(res,function(i,mk){
 					make = mk.make;
 					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
 					$("#"+current + "-container select").append(select);
-					if(i<10){
-						label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="make" value="'+ make+ '" /></label>';
-						$("#"+current + "-container .choices").append(label);
-					}
 				});
 				$("#"+current + "-container select").append("<option value='other'>Other</option>");
 			}
@@ -259,6 +262,36 @@ $(document).ready(function(){
 			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
 			return false;
 		}
+		var year = $(this).siblings('select').val();
+		var href = $(this).data('models');
+		var current = $(this).data('make');
+		var vehicle = $(this).data('vehicle');
+		var label = "";
+		vYear =  year;
+		$("#"+current + "-container .choices").html("");
+		$("#"+current + "-container select").html("");
+		$.ajax({
+			type: "GET",
+			url: '/ajax/makes/' + year
+		}).done(function( res ) {
+			if(res){
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				$.each(popMakes,function(i,mk){
+					make = mk.make;
+					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
+					$("#"+current + "-container .choices").append(label);
+				})
+				
+				$("#"+current + "-container select").append("<option value=''>Choose one</option>");
+				$.each(res,function(i,mk){
+					make = mk.make;
+					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
+					$("#"+current + "-container select").append(select);
+				});
+				$("#"+current + "-container select").append("<option value='other'>Other</option>");
+			}
+		});
+
 		$(this).parents('.container').find('input[type=radio]').prop('checked',false);
 		$(this).parents('.container').find('label.bg-warning').removeClass('bg-warning');
 		var targetQuestion = $(this).data('href');

@@ -24,6 +24,7 @@
 	.lead tr.bg-red{background-color: #f44336;}
 	.lead tr.bg-red td{color: #FFF;}
 </style>
+
 <div class="table">
 	<table class="lead">
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
@@ -104,12 +105,13 @@
 <div class="table">
 	<!-- Vehicles Details -->
 	<table class="lead">
-		<tr><th colspan="8">VEHICLE DETAILS</th></tr>
+		<tr><th colspan="9">VEHICLE DETAILS</th></tr>
 		<tr>
 			<td><strong>#</strong></td>
 			<td><strong>Year</strong></td>
 			<td><strong>Make</strong></td>
 			<td><strong>Model</strong></td>
+			<td><strong>Trim</strong></td>
 			<td><strong>Vin</strong></td>
 			<td><strong>Ownership</strong></td>
 			<td><strong>Uses</strong></td>
@@ -138,6 +140,11 @@
 				{{$lead['model1-other']}}
 				@else
 				{{$lead['model-1']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-1']))
+					{{$lead['trim-1']}}
 				@endif
 			</td>
 			<td>{{$lead['vin1']}}</td>
@@ -171,6 +178,11 @@
 				{{$lead['model-2']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-2']))
+					{{$lead['trim-2']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin2']}}</td>
 			<td>{{$lead['ownership-vehicle-2']}}</td>
 			<td>{{$lead['primary-use-vehicle-2']}}</td>
@@ -203,6 +215,11 @@
 				{{$lead['model-3']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-3']))
+					{{$lead['trim-3']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin3']}}</td>
 			<td>{{$lead['ownership-vehicle-3']}}</td>
 			<td>{{$lead['primary-use-vehicle-3']}}</td>
@@ -235,6 +252,11 @@
 				{{$lead['model-4']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-4']))
+					{{$lead['trim-4']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin4']}}</td>
 			<td>{{$lead['ownership-vehicle-4']}}</td>
 			<td>{{$lead['primary-use-vehicle-4']}}</td>
@@ -267,6 +289,11 @@
 				{{$lead['model-5']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-5']))
+					{{$lead['trim-5']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin5']}}</td>
 			<td>{{$lead['ownership-vehicle-5']}}</td>
 			<td>{{$lead['primary-use-vehicle-5']}}</td>
