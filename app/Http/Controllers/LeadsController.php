@@ -68,28 +68,28 @@ class LeadsController extends BaseController
 		$data['second_driver_first_name'] 	= (isset($lead['first_name2'])) ? $lead['first_name2']  : "";
 		$data['second_driver_last_name'] 	= (isset($lead['last_name2'])) ? $lead['last_name2']  : "";
 		$data['second_driver_dob'] 			= (isset($lead['dob2-year']) && isset($lead['dob2-month']) && isset($lead['dob2-date']) ) ? $lead['dob2-year']. "-" . $lead['dob2-month']. "-" .$lead['dob2-date']  : null;
-		$data['second_driver_gender'] 		= (isset($lead['gender-2'])) ? $lead['gender-2']  : 0;
+		$data['second_driver_gender'] 		= (isset($lead['gender-2'])) ? $lead['gender-2']  : "";
 		$data['second_driver_dl'] 			= (isset($lead['dl2'])) ? $lead['dl2']  : "";
 		$data['second_driver_state'] 		= (isset($lead['state2'])) ? $states[$lead['state2']]  : "";
 
 		$data['third_driver_first_name'] 	= (isset($lead['first_name3'])) ? $lead['first_name3']  : "";
 		$data['third_driver_last_name'] 	= (isset($lead['last_name3'])) ? $lead['last_name3']  : "";
 		$data['third_driver_dob'] 			= (isset($lead['dob3-year']) && isset($lead['dob3-month']) && isset($lead['dob3-date']) ) ? $lead['dob3-year']. "-" . $lead['dob3-month']. "-" .$lead['dob3-date']  : null;
-		$data['third_driver_gender'] 		= (isset($lead['gender-3'])) ? $lead['gender-3']  : 0;
+		$data['third_driver_gender'] 		= (isset($lead['gender-3'])) ? $lead['gender-3']  : "";
 		$data['third_driver_dl'] 			= (isset($lead['dl3'])) ? $lead['dl3']  : "";
 		$data['third_driver_state'] 		= (isset($lead['state3'])) ? $states[$lead['state3']]  : "";
 
 		$data['fourth_driver_first_name'] 	= (isset($lead['first_name4'])) ? $lead['first_name4']  : "";
 		$data['fourth_driver_last_name'] 	= (isset($lead['last_name4'])) ? $lead['last_name4']  : "";
 		$data['fourth_driver_dob'] 			= (isset($lead['dob4-year']) && isset($lead['dob4-month']) && isset($lead['dob4-date']) ) ? $lead['dob4-year']. "-" . $lead['dob4-month']. "-" .$lead['dob4-date']  : null;
-		$data['fourth_driver_gender'] 		= (isset($lead['gender-4'])) ? $lead['gender-4']  : 0;
+		$data['fourth_driver_gender'] 		= (isset($lead['gender-4'])) ? $lead['gender-4']  : "";
 		$data['fourth_driver_dl'] 			= (isset($lead['dl4'])) ? $lead['dl4']  : "";
 		$data['fourth_driver_state'] 		= (isset($lead['state4'])) ? $states[$lead['state4']]  : "";
 
 		$data['fifth_driver_first_name'] 	= (isset($lead['first_name5'])) ? $lead['first_name5']  : "";
 		$data['fifth_driver_last_name'] 	= (isset($lead['last_name5'])) ? $lead['last_name5']  : "";
 		$data['fifth_driver_dob'] 			= (isset($lead['dob5-year']) && isset($lead['dob5-month']) && isset($lead['dob5-date']) ) ? $lead['dob5-year']. "-" . $lead['dob5-month']. "-" .$lead['dob5-date']  : null;
-		$data['fifth_driver_gender'] 		= (isset($lead['gender-5'])) ? $lead['gender-5']  : 0;
+		$data['fifth_driver_gender'] 		= (isset($lead['gender-5'])) ? $lead['gender-5']  : "";
 		$data['fifth_driver_dl'] 			= (isset($lead['dl5'])) ? $lead['dl5']  : "";
 		$data['fifth_driver_state'] 		= (isset($lead['state5'])) ? $states[$lead['state5']]  : "";
 
@@ -201,7 +201,7 @@ class LeadsController extends BaseController
 		$data['rental'] 					= $lead['rental'];
 		$data['previous_insurance'] 		= $lead['previous-insurance'];
 		$data['current_insurance'] 			= (isset($lead['current-insurance'])) ? $lead['current-insurance'] : "NA" ;
-		$data['duration'] 					= (isset($lead['current-insurance-duration'])) ? $lead['current-insurance-duration']."Years" : "NA";
+		$data['duration'] 					= (isset($lead['current-insurance-duration'])) ? $lead['current-insurance-duration']." Years" : "NA";
 		$data['at_fault'] 					= $lead['at_fault'];
 		$data['tickets'] 					= $lead['tickets'];
 		$data['dui'] 						= $lead['dui'];
@@ -210,13 +210,7 @@ class LeadsController extends BaseController
 		$data['referrer'] 		= $lead['referrer'];
 		$data['referrer_name'] 				= $lead['referrer_name'];
 		$data['ip_address'] 				= $request['ip'];		
-		echo $data['first_driver_dob'];
-		echo "<br>";
-		echo date('Y-m-d',strtotime($data['first_driver_dob']));
-		// dd($data);
-
-		$lead = Lead::create($data);
-		dd($lead);
+		return Lead::create($data);
 	}
 
 
