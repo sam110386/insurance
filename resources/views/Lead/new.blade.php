@@ -392,7 +392,7 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model2-other" id="model2-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
-							<a data-href="vin2" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
+							<a data-href="trims2" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
 						</div>
 						<div class="form-group choices row models-2"></div>
 					</div>
@@ -677,7 +677,7 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model3-other" id="model3-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
-							<a data-href="vin3" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="3">CONTINUE</a>
+							<a data-href="trims3" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="3">CONTINUE</a>
 						</div>
 						<div class="form-group choices row models-3"></div>
 					</div>
@@ -961,7 +961,7 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model4-other" id="model4-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
-							<a data-href="vin4" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="4">CONTINUE</a>
+							<a data-href="trims4" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="4">CONTINUE</a>
 						</div>
 						<div class="form-group choices row models-4"></div>
 					</div>
@@ -1245,7 +1245,7 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model5-other" id="model5-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
-							<a data-href="vin5" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="5">CONTINUE</a>
+							<a data-href="trims5" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="5">CONTINUE</a>
 						</div>
 						<div class="form-group choices row models-5"></div>
 					</div>

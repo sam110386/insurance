@@ -13,8 +13,8 @@ use Illuminate\Routing\Router;
 */
 
 
-Route::get('/', 'LeadsController@new')->name('new-lead');
-Route::post('/', 'LeadsController@create')->name('save-lead');
+Route::get('/', 'LeadsController@newLead')->name('new-lead');
+Route::post('/', 'LeadsController@saveLead')->name('save-lead');
 Route::get('/privacy', 'PagesControllers@getPage')->name('privacy');
 Route::get('/faq', 'PagesControllers@getPage')->name('faq');
 Route::get('/about', 'PagesControllers@getPage')->name('about');

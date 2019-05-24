@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Vehicle;
+use App\Models\Lead;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class VehiclesController extends Controller
+class AdminLeadsController extends Controller
 {
     use HasResourceActions;
 
@@ -23,7 +23,7 @@ class VehiclesController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Vehicle')
+            ->header('Lead')
             ->description('List')
             ->body($this->grid());
     }
@@ -38,8 +38,8 @@ class VehiclesController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Vehicle')
-            ->description('Description')
+            ->header('Detail')
+            ->description('description')
             ->body($this->detail($id));
     }
 
@@ -53,8 +53,8 @@ class VehiclesController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Vehicle')
-            ->description('Edit')
+            ->header('Edit')
+            ->description('description')
             ->body($this->form()->edit($id));
     }
 
@@ -67,8 +67,8 @@ class VehiclesController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Vehicle')
-            ->description('Create')
+            ->header('Create')
+            ->description('description')
             ->body($this->form());
     }
 
@@ -79,14 +79,14 @@ class VehiclesController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Vehicle);
+        $grid = new Grid(new Lead);
 
         $grid->id('ID');
-        $grid->year(trans('Year'));
-        $grid->make(trans('Make'));
-        $grid->vmodel(trans('Model'));
-        $grid->trim_1(trans('Trim New'));
-        $grid->trim_2(trans('Trim Old'));
+        $grid->first_name(trans('First Name'));
+        $grid->last_name(trans('Last Name'));
+        $grid->email(trans('Email'));
+        $grid->first_name(trans('Phone'));
+        $grid->ip_address(trans('IP Address'));
         $grid->created_at(trans('Created at'));
         return $grid;
     }

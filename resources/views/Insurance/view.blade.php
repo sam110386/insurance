@@ -17,12 +17,14 @@
 		padding-top: 12px;
 		padding-bottom: 12px;
 		text-align: left;
-		background-color: #4CAF50;
+		background-color: #007bff;
 		color: white;
 	}
 	.lead th span{font-weight: normal;}
-	.lead tr.bg-red{background-color: #f44336;}
+	.lead tr.bg-red{background-color: #dc3545;}
 	.lead tr.bg-red td{color: #FFF;}
+	.lead td.bg-green{color: #fff; background-color: #28a745;}
+	.lead td.bg-red{color: #fff; background-color: #dc3545;}
 </style>
 
 <div class="table">
@@ -34,10 +36,10 @@
 		<tr><td><strong>Phone</strong></td><td>{{$lead['phone']}}</td></tr>
 		<tr><td><strong>Email</strong></td><td>{{$lead['email']}}</td></tr>
 
-		<tr><td><strong>Married</strong></td><td>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>
-		<tr><td><strong>Children</strong></td><td>@if(isset($lead['children']) && $lead['children']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Married</strong></td><td class=@if($lead['married']){{"bg-green"}}@endif>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Children</strong></td><td class=@if($lead['children']){{"bg-green"}}@endif>@if(isset($lead['children']) && $lead['children']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Homeowner</strong></td><td>{{$lead['homeowner']}}</td></tr>
-		<tr><td><strong>Bundled</strong></td><td>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Bundled</strong></td><td  class=@if($lead['bundled']){{"bg-green"}}@endif>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 	</table>
 </div>
 <!-- Drivers Details -->
@@ -321,7 +323,7 @@
 		<tr><th colspan="2">HISTORY DETAILS</th></tr>
 		<tr>
 			<td><strong>Previous Insurance</strong></td>
-			<td>@if($lead['previous-insurance']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td class=@if(!$lead['previous-insurance']){{"bg-red"}}@endif>@if($lead['previous-insurance']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 		<tr>
 			<td><strong>Current Insurance</strong></td>
@@ -341,7 +343,7 @@
 		</tr>
 		<tr @if($lead["dui"]) class="bg-red" @endif>
 			<td><strong>DUI</strong></td>
-			<td class="bg-red">@if($lead['dui']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td>@if($lead['dui']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 	</table>
 </div>
