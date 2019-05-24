@@ -30,12 +30,12 @@ class LeadsController extends BaseController
 		$city = CommonMethod::getZipcodeInfo($lead['zipcode']);
 		$data = ['lead' => $lead,'ip' => $ip, 'city' => $city, 'states' => CommonMethod::getStates()];
 		$this->storeLead($data);
-		// \Mail::send('Emails.Lead.new', $data,
-		// function ($message) {
-		// 	$message->to('masisdavidian@gmail.com')->subject('New Lead - Insurance');
-		// });
-		// return view('Insurance.urls',$data);
-		return view('Insurance.view',$data);
+		\Mail::send('Emails.Lead.new', $data,
+		function ($message) {
+			$message->to('masisdavidian@gmail.com')->subject('New Lead - Insurance');
+		});
+		return view('Insurance.urls',$data);
+		// return view('Insurance.view',$data);
 	}
 
 	private function storeLead($request=[]){
