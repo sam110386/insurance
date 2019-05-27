@@ -17,13 +17,16 @@
 		padding-top: 12px;
 		padding-bottom: 12px;
 		text-align: left;
-		background-color: #4CAF50;
+		background-color: #007bff;
 		color: white;
 	}
 	.lead th span{font-weight: normal;}
-	.lead tr.bg-red{background-color: #f44336;}
+	.lead tr.bg-red{background-color: #dc3545;}
 	.lead tr.bg-red td{color: #FFF;}
+	.lead td.bg-green{color: #fff; background-color: #28a745;}
+	.lead td.bg-red{color: #fff; background-color: #dc3545;}
 </style>
+
 <div class="table">
 	<table class="lead">
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
@@ -33,10 +36,10 @@
 		<tr><td><strong>Phone</strong></td><td>{{$lead['phone']}}</td></tr>
 		<tr><td><strong>Email</strong></td><td>{{$lead['email']}}</td></tr>
 
-		<tr><td><strong>Married</strong></td><td>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>
-		<tr><td><strong>Children</strong></td><td>@if(isset($lead['children']) && $lead['children']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Married</strong></td><td class=@if($lead['married']){{"bg-green"}}@endif>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Children</strong></td><td class=@if(isset($lead['children']) && $lead['children']){{"bg-green"}}@endif>@if(isset($lead['children']) && $lead['children']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Homeowner</strong></td><td>{{$lead['homeowner']}}</td></tr>
-		<tr><td><strong>Bundled</strong></td><td>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
+		<tr><td><strong>Bundled</strong></td><td  class=@if($lead['bundled']){{"bg-green"}}@endif>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 	</table>
 </div>
 <!-- Drivers Details -->
@@ -104,12 +107,13 @@
 <div class="table">
 	<!-- Vehicles Details -->
 	<table class="lead">
-		<tr><th colspan="8">VEHICLE DETAILS</th></tr>
+		<tr><th colspan="9">VEHICLE DETAILS</th></tr>
 		<tr>
 			<td><strong>#</strong></td>
 			<td><strong>Year</strong></td>
 			<td><strong>Make</strong></td>
 			<td><strong>Model</strong></td>
+			<td><strong>Trim</strong></td>
 			<td><strong>Vin</strong></td>
 			<td><strong>Ownership</strong></td>
 			<td><strong>Uses</strong></td>
@@ -138,6 +142,11 @@
 				{{$lead['model1-other']}}
 				@else
 				{{$lead['model-1']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-1']))
+					{{$lead['trim-1']}}
 				@endif
 			</td>
 			<td>{{$lead['vin1']}}</td>
@@ -171,6 +180,11 @@
 				{{$lead['model-2']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-2']))
+					{{$lead['trim-2']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin2']}}</td>
 			<td>{{$lead['ownership-vehicle-2']}}</td>
 			<td>{{$lead['primary-use-vehicle-2']}}</td>
@@ -203,6 +217,11 @@
 				{{$lead['model-3']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-3']))
+					{{$lead['trim-3']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin3']}}</td>
 			<td>{{$lead['ownership-vehicle-3']}}</td>
 			<td>{{$lead['primary-use-vehicle-3']}}</td>
@@ -235,6 +254,11 @@
 				{{$lead['model-4']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-4']))
+					{{$lead['trim-4']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin4']}}</td>
 			<td>{{$lead['ownership-vehicle-4']}}</td>
 			<td>{{$lead['primary-use-vehicle-4']}}</td>
@@ -267,6 +291,11 @@
 				{{$lead['model-5']}}
 				@endif
 			</td>
+			<td>
+				@if(isset($lead['trim-5']))
+					{{$lead['trim-5']}}
+				@endif
+			</td>			
 			<td>{{$lead['vin5']}}</td>
 			<td>{{$lead['ownership-vehicle-5']}}</td>
 			<td>{{$lead['primary-use-vehicle-5']}}</td>
@@ -294,7 +323,7 @@
 		<tr><th colspan="2">HISTORY DETAILS</th></tr>
 		<tr>
 			<td><strong>Previous Insurance</strong></td>
-			<td>@if($lead['previous-insurance']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td class=@if(!$lead['previous-insurance']){{"bg-red"}}@endif>@if($lead['previous-insurance']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 		<tr>
 			<td><strong>Current Insurance</strong></td>
@@ -314,7 +343,7 @@
 		</tr>
 		<tr @if($lead["dui"]) class="bg-red" @endif>
 			<td><strong>DUI</strong></td>
-			<td class="bg-red">@if($lead['dui']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td>@if($lead['dui']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 	</table>
 </div>

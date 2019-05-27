@@ -53,6 +53,8 @@ class LeadsController extends BaseController
 
 		if(isset($lead['married'])){
 			$data['married'] = $lead['married'];
+		}
+		if(isset($lead['children'])){
 			$data['children'] = $lead['children'];
 		}
 
@@ -112,23 +114,26 @@ class LeadsController extends BaseController
 		$data['first_vehicle_mileage'] 		= $lead['miles-driven-per-year-vehicle-1'];
 
 
-		if($lead['vehicle2'] && $lead['miles-driven-per-year-vehicle-2'])
-			$data['second_vehicle_year'] 		= ($lead['vehicle-year-2']) ? $lead['vehicle-year-2'] : $lead['vehicle2-year'];
-		if($lead['vehicle2-make-other']){
-			$data['second_vehicle_make'] 		= $lead['vehicle2-make-other'];
-		}elseif($lead['vehicle2-make-select']){
-			$data['second_vehicle_make'] 		= $lead['vehicle2-make-select'];
-		}else{
-			$data['second_vehicle_make'] 		= $lead['vehicle2-make'];
-		}
+		if(isset($lead['vehicle2']) && $lead['vehicle2'] && $lead['miles-driven-per-year-vehicle-2'])
+		{
 
-		$data['second_vehicle_model'] 		= ($lead['model2-other']) ? $lead['model2-other'] : $lead['model-2'];
-		$data['second_vehicle_trim'] 		= (isset($lead['trim-2'])) ? $lead['trim-2'] : "";
-		$data['second_vehicle_vin'] 		= $lead['vin2'];
-		$data['second_vehicle_owenership'] 	= $lead['ownership-vehicle-2'];
-		$data['second_vehicle_uses'] 		= $lead['primary-use-vehicle-2'];
-		$data['second_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-2'];
+			$data['second_vehicle_year'] = ($lead['vehicle-year-2']) ? $lead['vehicle-year-2'] : $lead['vehicle2-year'];
+			if($lead['vehicle2-make-other']){
+				$data['second_vehicle_make'] 		= $lead['vehicle2-make-other'];
+			}elseif($lead['vehicle2-make-select']){
+				$data['second_vehicle_make'] 		= $lead['vehicle2-make-select'];
+			}else{
+				$data['second_vehicle_make'] 		= $lead['vehicle2-make'];
+			}
 
+			$data['second_vehicle_model'] 		= ($lead['model2-other']) ? $lead['model2-other'] : $lead['model-2'];
+			$data['second_vehicle_trim'] 		= (isset($lead['trim-2'])) ? $lead['trim-2'] : "";
+			$data['second_vehicle_vin'] 		= $lead['vin2'];
+			$data['second_vehicle_owenership'] 	= $lead['ownership-vehicle-2'];
+			$data['second_vehicle_uses'] 		= $lead['primary-use-vehicle-2'];
+			$data['second_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-2'];
+
+		}	
 
 		if(isset($lead['vehicle3']) && $lead['vehicle3'] && $lead['miles-driven-per-year-vehicle-3'])
 		{
