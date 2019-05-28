@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Carbon\Carbon;
 
 class AdminLeadsController extends Controller
 {
@@ -95,7 +96,31 @@ class AdminLeadsController extends Controller
             $tools->batch(function (Grid\Tools\BatchActions $actions) {
                 $actions->disableDelete();
             });
-        });                        
+        });
+        $grid->filter(function($filter){ 
+            $filter->disableIdFilter(); 
+
+            $filter->where(function ($query) {
+                $query->where('first_name', 'like', "%{$this->input}%")
+                ->orWhere('phone', 'like', "%{$this->input}%")
+                ->orWhere('email', 'like', "%{$this->input}%")
+                ->orWhere('last_name', 'like', "%{$this->input}%")
+                ->orWhere('first_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_dl', 'like', "%{$this->input}%");
+
+            }, 'Search')->placeholder('Enter First name,Last name,Email,Phone or Drivers license');
+        });   
         return $grid;
     }
 
@@ -257,7 +282,8 @@ class AdminLeadsController extends Controller
             $tools->disableEdit();
             $tools->disableDelete();
         });
-        return $show;
+        // return $show;
+        return view('Admin.Lead.view',['lead' => Lead::find($id)]);
     }
 
     /**
@@ -268,23 +294,34 @@ class AdminLeadsController extends Controller
     protected function form()
     {
         $form = new Form(new Lead);
-        $form->row(function ($row) use ( $form) {
-            $row->width(2)->text('year', trans('Year'))->rules('required|numeric');
-            $row->width(2)->text('make', trans('Make'))->rules('required');
-            $row->width(3)->text('vmodel', trans('Model'))->rules('required');
-        });
+        // $form->row(function ($row) use ( $form) {
+        //     $row->width(2)->text('year', trans('Year'))->rules('required|numeric');
+        //     $row->width(2)->text('make', trans('Make'))->rules('required');
+        //     $row->width(3)->text('vmodel', trans('Model'))->rules('required');
+        // });
 
-        $form->row(function ($row) use ( $form) {
-            $row->width(8)->text('trim_1', trans('Trim (new)'));
-        });
+        // $form->row(function ($row) use ( $form) {
+        //     $row->width(8)->text('trim_1', trans('Trim (new)'));
+        // });
 
-        $form->row(function ($row) use ( $form) {
-            $row->width(8)->text('trim_2', trans('Trim (old)'));
-        });
+        // $form->row(function ($row) use ( $form) {
+        //     $row->width(8)->text('trim_2', trans('Trim (old)'));
+        // });
 
-        $form->row(function ($row) use ( $form) {
-            $row->width(8)->textarea('description', trans('Description'));
-        });
+        // $form->row(function ($row) use ( $form) {
+        //     $row->width(8)->textarea('description', trans('Description'));
+        // });
         return $form;
+    }
+
+
+    public static function getLeadCounts(){
+        $leads['today'] = Lead::whereDate('created_at', Carbon::today())->get()->count();
+        
+        $leads['week'] = Lead::where('created_at', ">", Carbon::today()->subDays(7))->get()->count();
+        $leads['month'] = Lead::where('created_at', ">", Carbon::today()->subDays(30))->get()->count();
+        $leads['year'] = Lead::whereYear('created_at', date('Y'))->get()->count();
+        $leads['total'] = Lead::get()->count();
+        return $leads;
     }
 }

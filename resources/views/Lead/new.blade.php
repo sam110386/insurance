@@ -6,6 +6,7 @@
 </script>
 @endpush
 @section('content')
+
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
 	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
@@ -2582,4 +2583,5 @@
 	</div>		
 
 </form>
+
 @endsection

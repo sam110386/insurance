@@ -333,13 +333,13 @@
 			<td><strong>Duration</strong></td>
 			<td>@if(isset($lead['current-insurance-duration'])){{$lead['current-insurance-duration']}} Years @else{{"NA"}}@endif</td>
 		</tr>
-		<tr @if($lead["at_fault"]) class="bg-red" @endif>
+		<tr >
 			<td><strong>At Fault</strong></td>
-			<td>@if($lead['at_fault']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td @if($lead["at_fault"]) class="bg-red" @endif>@if($lead['at_fault']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
-		<tr @if($lead["tickets"]) class="bg-red" @endif>
+		<tr>
 			<td><strong>Tickets</strong></td>
-			<td>@if($lead['tickets']){{"Yes"}}@else{{"No"}}@endif</td>
+			<td @if($lead["tickets"]) class="bg-red" @endif>@if($lead['tickets']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 		<tr @if($lead["dui"]) class="bg-red" @endif>
 			<td><strong>DUI</strong></td>
