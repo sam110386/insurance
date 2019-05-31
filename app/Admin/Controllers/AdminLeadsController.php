@@ -10,6 +10,9 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Carbon\Carbon;
+use App\Helpers\CommonMethod;
+use Encore\Admin\Admin;
+use Encore\Admin\Widgets\Tab;
 
 class AdminLeadsController extends Controller
 {
@@ -56,7 +59,7 @@ class AdminLeadsController extends Controller
         return $content
         ->header('Edit')
         ->description('description')
-        ->body($this->form()->edit($id));
+        ->body($this->form($id)->edit($id));
     }
 
     /**
@@ -67,9 +70,16 @@ class AdminLeadsController extends Controller
      */
     public function create(Content $content)
     {
+        // $data['years'] = CommonMethod::getYears();
+        // $data['zipcodes'] = CommonMethod::getZipcodeInfo();
+        // $data['carMakes'] = CommonMethod::getCarMakes();
+        // $data['carModels'] = CommonMethod::getModels();
+        // $data['states'] = CommonMethod::getStates();
+        // $data['insuranceComp'] = ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];
         return $content
         ->header('Create')
         ->description('description')
+        // ->body(view('Admin.Lead.new',$data));
         ->body($this->form());
     }
 
@@ -291,26 +301,115 @@ class AdminLeadsController extends Controller
      *
      * @return Form
      */
-    protected function form()
+    protected function form($id=0)
     {
+        $zipcodes = CommonMethod::getZipcodeInfo();
+        $zipJson = json_encode($zipcodes);
+        $script = <<<SCRIPT
+                    var zipcodes = $zipJson;
+                    $('#zipcode').change(function(e){
+                        $("#city").val("");
+                        if($(this).val()){
+                            $("#city").val(zipcodes[$(this).val()]);
+                        }
+                    });
+                    
+                    $("select[select_class=year]").on("change",function(){
+                        var parent = $(this).closest('.row');
+                        var year =  $(this).val();
+                        var target= $(this).data('target');
+                        parent.find("select[select_class=" + target + "]").find("option").remove();
+                        $.get("/ajax/makes/"+year).then(function(data){
+                            var options = $.map(data, function (d) {
+                                d.id = d.make;
+                                d.text = d.make;
+                                return d;
+                            })
+                            parent.find("select[select_class=" + target + "]").select2({data: options});
+                        })
+                    });
+                    $("select[select_class=make]").on("change",function(e){
+                        var parent = $(this).closest('.row');
+                        var make = $(this).val();
+                        var year =  parent.find("select[select_class=year]").val();
+                        var target= $(this).data('target');
+                        parent.find("select[select_class=" + target + "]").find("option").remove();
+                        $.get("/ajax/models/"+year+"/" + make).then(function(data){
+                            var options = $.map(data, function (d) {
+                                d.id = d.vmodel;
+                                d.text = d.vmodel;
+                                return d;
+                            })
+                            parent.find("select[select_class=" + target + "]").select2({data: options});
+                        })
+                    });
+                    $("select[select_class=model]").on("change",function(e){
+                        var parent = $(this).closest('.row');
+                        var model = $(this).val();
+                        var year =  parent.find("select[select_class=year]").val();
+                        var make =  parent.find("select[select_class=make]").val();
+                        var target= $(this).data('target');
+                        parent.find("select[select_class=" + target + "]").find("option").remove();
+                        $.get("/ajax/trims/" + year + "/" + make + "/" + model).then(function(data){
+                            debugger
+                            var options = $.map(data, function (d) {
+                                d.id = d.trim_1;
+                                d.text = d.trim_1;
+                                return d;
+                            })
+                            parent.find("select[select_class=" + target + "]").select2({data: options});
+                        })
+                    });                      
+
+SCRIPT;
+
+        Admin::script($script);
+
+        $zipcodes = array_keys($zipcodes);
+        $yr = CommonMethod::getYears();
+        foreach ($yr as $y) {
+            $years[$y->year] = $y->year;
+        }
+        if($id>0){
+            $lead = Lead::findOrFail($id);
+            $fv['make']=[$lead['first_vehicle_make']];
+            $fv['model']=[$lead['first_vehicle_model']];
+            $fv['trim']=[$lead['first_vehicle_trim']];
+        }
+
         $form = new Form(new Lead);
-        // $form->row(function ($row) use ( $form) {
-        //     $row->width(2)->text('year', trans('Year'))->rules('required|numeric');
-        //     $row->width(2)->text('make', trans('Make'))->rules('required');
-        //     $row->width(3)->text('vmodel', trans('Model'))->rules('required');
-        // });
-
-        // $form->row(function ($row) use ( $form) {
-        //     $row->width(8)->text('trim_1', trans('Trim (new)'));
-        // });
-
-        // $form->row(function ($row) use ( $form) {
-        //     $row->width(8)->text('trim_2', trans('Trim (old)'));
-        // });
-
-        // $form->row(function ($row) use ( $form) {
-        //     $row->width(8)->textarea('description', trans('Description'));
-        // });
+        $form->tab('CONTACT INFORMATION', function ($form) use($zipcodes) {
+            $form->row(function($row){
+                $row->width(6)->text('first_name', trans('First Name'))->rules('required');
+                $row->width(6)->text('last_name', trans('Last Name'))->rules('required');
+            });
+            $form->row(function($row){
+                $row->width(6)->text('phone', trans('Phone'))->rules('required|numeric');
+                $row->width(6)->email('email', trans('Email'))->rules('required');
+            });
+            $form->row(function($row) use($zipcodes){
+                $row->width(6)->text('street', trans('Street'))->rules('required');
+                $row->width(6)->select('zip', trans('Zipcode'))->attribute(["id"=>"zipcode"])->options(array_combine($zipcodes, $zipcodes))->rules('required');
+            });                
+            $form->row(function($row) use($zipcodes){
+                $row->width(6)->text('city', trans('City'))->attribute(["id" =>"city", 'readonly'=>'readonly','disabled' => "disabled"])->rules('required');
+                $row->width(6)->text('state', trans('State'))->attribute(['readonly'=>'readonly','disabled' => "disabled",'value' => "California"])->rules('required');
+            });
+        })->tab('VEHICLE INFORMATION', function ($form) use($years,$fv){
+            $form->row(function($row) use($years,$fv){
+                $row->width(12)->html(
+                    "<div class='box-header with-border'><h3 class='box-title text-upper box-header'>First Vehicle</h3></div>"
+                );
+                $row->width(6)->select('first_vehicle_year', trans('Year'))->options($years)->rules('required')->attribute(['select_class'=>"year", 'data-target' => "make"]);
+                $row->width(6)->select('first_vehicle_make', trans('Make'))->options($fv['make'])->rules('required')->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('first_vehicle_model', trans('Model'))->options($fv['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"])->rules('required');
+                $row->width(6)->select('first_vehicle_trim', trans('Trim'))->options($fv['trim'])->attribute(['select_class'=>"trim"])->rules('required');
+                $row->width(6)->text('first_vehicle_vin',trans('Vin'))->rules("required");
+                $row->width(12)->radio('first_vehicle_owenership',trans('Owenership'))->options(['Owned','Financed','Leased'])->rules("required");
+                $row->width(12)->radio('first_vehicle_uses',trans('Owenership'))->options(['Commute','Pleasure','Business','Farm'])->rules("required");
+                $row->width(12)->radio('first_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000','5,000-10,000','10,000-15,000','15,000-20,000','More than 20,000'])->rules("required");
+            });
+        });
         return $form;
     }
 

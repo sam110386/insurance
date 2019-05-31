@@ -26,6 +26,7 @@ Route::post('/contact', 'PagesControllers@getPage')->name('contact');
 Route::group([
     'prefix'        => 'ajax'
 ], function (Router $router) {
+	$router->get('/admin/make',"AjaxController@getAdminMake");
     $router->post('/zipcode/validate/{zipcode}', 'LeadsController@validateZipcode');
     $router->get('/years','AjaxController@getYears');
     $router->get('/makes/{year}','AjaxController@getMakes');

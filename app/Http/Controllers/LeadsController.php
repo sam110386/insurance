@@ -17,8 +17,8 @@ class LeadsController extends BaseController
 	public function newLead(){
 		$data['years'] = CommonMethod::getYears();
 		$data['zipcodes'] = CommonMethod::getZipcodeInfo();
-		$data['carMakes'] = CommonMethod::getCarMakes();
-		$data['carModels'] = CommonMethod::getModels();
+		// $data['carMakes'] = CommonMethod::getCarMakes();
+		// $data['carModels'] = CommonMethod::getModels();
 		$data['states'] = CommonMethod::getStates();
 		$data['insuranceComp'] = ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];
 		return view('Lead.new',$data);
