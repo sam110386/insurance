@@ -184,9 +184,9 @@
 	<table class="lead-view">
 		<tr><th colspan="2">COVERAGE DETAILS:</th></tr>
 		<tr><td><strong>Liability</strong></td><td>{{$lead['liability']}}</td></tr>
-		<tr><td><strong>Body Injury ($)</strong></td><td>{{$lead['body_injury']}}</td></tr>
-		<tr><td><strong>Deduct ($)</strong></td><td>{{$lead['deduct']}}</td></tr>
-		<tr><td><strong>Medical ($)</strong></td><td>{{$lead['medical']}}</td></tr>
+		<tr><td><strong>Body Injury</strong></td><td>$<?= str_replace("-","k-$",$lead['body_injury']) ?>k</td></tr>
+		<tr><td><strong>Deduct</strong></td><td>${{$lead['deduct']}}</td></tr>
+		<tr><td><strong>Medical</strong></td><td>${{$lead['medical']}}</td></tr>
 		<tr><td><strong>Towing</strong></td><td>@if($lead['towing']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Uninsured</strong></td><td>@if($lead['uninsured']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Rental</strong></td><td>@if($lead['rental']){{"Yes"}}@else{{"No"}}@endif</td></tr>
@@ -205,7 +205,7 @@
 		</tr>
 		<tr>
 			<td><strong>Duration</strong></td>
-			<td>@if(isset($lead['duration'])){{$lead['duration']}}@else{{"NA"}}@endif</td>
+			<td>@if(isset($lead['duration'])){{$lead['duration']}}Years @else{{"NA"}}@endif</td>
 		</tr>
 		<tr >
 			<td><strong>At Fault</strong></td>

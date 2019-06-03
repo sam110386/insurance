@@ -70,16 +70,9 @@ class AdminLeadsController extends Controller
      */
     public function create(Content $content)
     {
-        // $data['years'] = CommonMethod::getYears();
-        // $data['zipcodes'] = CommonMethod::getZipcodeInfo();
-        // $data['carMakes'] = CommonMethod::getCarMakes();
-        // $data['carModels'] = CommonMethod::getModels();
-        // $data['states'] = CommonMethod::getStates();
-        // $data['insuranceComp'] = ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];
         return $content
         ->header('Create')
         ->description('description')
-        // ->body(view('Admin.Lead.new',$data));
         ->body($this->form());
     }
 
@@ -370,11 +363,19 @@ SCRIPT;
         foreach ($yr as $y) {
             $years[$y->year] = $y->year;
         }
+        $first_v = ['make' => [], 'model' => [],'trim' => []];
+        $second_v = ['make' => [], 'model' => [],'trim' => []];
+        $third_v = ['make' => [], 'model' => [],'trim' => []];
+        $fourth_v = ['make' => [], 'model' => [],'trim' => []];
+        $fifth_v = ['make' => [], 'model' => [],'trim' => []];
+
         if($id>0){
             $lead = Lead::findOrFail($id);
-            $fv['make']=[$lead['first_vehicle_make']];
-            $fv['model']=[$lead['first_vehicle_model']];
-            $fv['trim']=[$lead['first_vehicle_trim']];
+            $first_v = ['make' => [$lead['first_vehicle_make']], 'model' => [$lead['first_vehicle_model']],'trim' => [$lead['first_vehicle_trim']]];
+            $second_v = ['make' => [$lead['second_vehicle_make']], 'model' => [$lead['second_vehicle_model']],'trim' => [$lead['second_vehicle_trim']]];
+            $third_v = ['make' => [$lead['third_vehicle_make']], 'model' => [$lead['third_vehicle_model']],'trim' => [$lead['third_vehicle_trim']]];
+            $fourth_v = ['make' => [$lead['fourth_vehicle_make']], 'model' => [$lead['fourth_vehicle_model']],'trim' => [$lead['fourth_vehicle_trim']]];
+            $fifth_v = ['make' => [$lead['fifth_vehicle_make']], 'model' => [$lead['fifth_vehicle_model']],'trim' => [$lead['fifth_vehicle_trim']]];
         }
 
         $form = new Form(new Lead);
@@ -391,24 +392,172 @@ SCRIPT;
                 $row->width(6)->text('street', trans('Street'))->rules('required');
                 $row->width(6)->select('zip', trans('Zipcode'))->attribute(["id"=>"zipcode"])->options(array_combine($zipcodes, $zipcodes))->rules('required');
             });                
-            $form->row(function($row) use($zipcodes){
+            $form->row(function($row){
                 $row->width(6)->text('city', trans('City'))->attribute(["id" =>"city", 'readonly'=>'readonly','disabled' => "disabled"])->rules('required');
                 $row->width(6)->text('state', trans('State'))->attribute(['readonly'=>'readonly','disabled' => "disabled",'value' => "California"])->rules('required');
             });
-        })->tab('VEHICLE INFORMATION', function ($form) use($years,$fv){
-            $form->row(function($row) use($years,$fv){
+            $form->row(function($row){
+                $row->width(6)->radio('married',trans('Married'))->options([1=>'Yes',0=>'No'])->rules("required");
+                $row->width(6)->radio('children',trans('Children'))->options([1=>'Yes',0=>'No'])->rules("required");
+                $row->width(6)->radio('homeowner',trans('Homeowner'))->options(['owner'=>'Owner','renter'=>'Renter'])->rules("required");
+                $row->width(6)->radio('bundled',trans('Bundled'))->options([1=>'yes',0=>'No'])->rules("required"); 
+            });       
+        })->tab('VEHICLES', function ($form) use($years,$first_v,$second_v,$third_v,$fourth_v,$fifth_v){
+            $form->row(function($row) use($years,$first_v){
                 $row->width(12)->html(
-                    "<div class='box-header with-border'><h3 class='box-title text-upper box-header'>First Vehicle</h3></div>"
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>First Vehicle</h4></div>"
                 );
                 $row->width(6)->select('first_vehicle_year', trans('Year'))->options($years)->rules('required')->attribute(['select_class'=>"year", 'data-target' => "make"]);
-                $row->width(6)->select('first_vehicle_make', trans('Make'))->options($fv['make'])->rules('required')->attribute(['select_class'=>"make", 'data-target' => "model"]);
-                $row->width(6)->select('first_vehicle_model', trans('Model'))->options($fv['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"])->rules('required');
-                $row->width(6)->select('first_vehicle_trim', trans('Trim'))->options($fv['trim'])->attribute(['select_class'=>"trim"])->rules('required');
-                $row->width(6)->text('first_vehicle_vin',trans('Vin'))->rules("required");
-                $row->width(12)->radio('first_vehicle_owenership',trans('Owenership'))->options(['Owned','Financed','Leased'])->rules("required");
-                $row->width(12)->radio('first_vehicle_uses',trans('Owenership'))->options(['Commute','Pleasure','Business','Farm'])->rules("required");
-                $row->width(12)->radio('first_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000','5,000-10,000','10,000-15,000','15,000-20,000','More than 20,000'])->rules("required");
+                $row->width(6)->select('first_vehicle_make', trans('Make'))->options($first_v['make'])->rules('required')->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('first_vehicle_model', trans('Model'))->options($first_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"])->rules('required');
+                $row->width(6)->select('first_vehicle_trim', trans('Trim'))->options($first_v['trim'])->attribute(['select_class'=>"trim"])->rules('required');
+                $row->width(6)->text('first_vehicle_vin',trans('Vin'));
+                $row->width(12)->radio('first_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased'])->rules("required");
+                $row->width(12)->radio('first_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm'])->rules("required");
+                $row->width(12)->radio('first_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000'])->rules("required");
             });
+            $form->row(function($row) use($years,$second_v){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Second Vehicle</h4></div>"
+                );
+                $row->width(6)->select('second_vehicle_year', trans('Year'))->options($years)->attribute(['select_class'=>"year", 'data-target' => "make"]);
+                $row->width(6)->select('second_vehicle_make', trans('Make'))->options($second_v['make'])->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('second_vehicle_model', trans('Model'))->options($second_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"]);
+                $row->width(6)->select('second_vehicle_trim', trans('Trim'))->options($second_v['trim'])->attribute(['select_class'=>"trim"]);
+                $row->width(6)->text('second_vehicle_vin',trans('Vin'));
+                $row->width(12)->radio('second_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
+                $row->width(12)->radio('second_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('second_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+            });
+            $form->row(function($row) use($years,$third_v){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Third Vehicle</h4></div>"
+                );
+                $row->width(6)->select('third_vehicle_year', trans('Year'))->options($years)->attribute(['select_class'=>"year", 'data-target' => "make"]);
+                $row->width(6)->select('third_vehicle_make', trans('Make'))->options($third_v['make'])->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('third_vehicle_model', trans('Model'))->options($third_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"]);
+                $row->width(6)->select('third_vehicle_trim', trans('Trim'))->options($third_v['trim'])->attribute(['select_class'=>"trim"]);
+                $row->width(6)->text('third_vehicle_vin',trans('Vin'));
+                $row->width(12)->radio('third_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
+                $row->width(12)->radio('third_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('third_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+            });            
+            $form->row(function($row) use($years,$fourth_v){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fourth Vehicle</h4></div>"
+                );
+                $row->width(6)->select('fourth_vehicle_year', trans('Year'))->options($years)->attribute(['select_class'=>"year", 'data-target' => "make"]);
+                $row->width(6)->select('fourth_vehicle_make', trans('Make'))->options($fourth_v['make'])->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('fourth_vehicle_model', trans('Model'))->options($fourth_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"]);
+                $row->width(6)->select('fourth_vehicle_trim', trans('Trim'))->options($fourth_v['trim'])->attribute(['select_class'=>"trim"]);
+                $row->width(6)->text('fourth_vehicle_vin',trans('Vin'));
+                $row->width(12)->radio('fourth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
+                $row->width(12)->radio('fourth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('fourth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+            }); 
+            $form->row(function($row) use($years,$fifth_v){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fifth Vehicle</h4></div>"
+                );
+                $row->width(6)->select('fifth_vehicle_year', trans('Year'))->options($years)->attribute(['select_class'=>"year", 'data-target' => "make"]);
+                $row->width(6)->select('fifth_vehicle_make', trans('Make'))->options($fifth_v['make'])->attribute(['select_class'=>"make", 'data-target' => "model"]);
+                $row->width(6)->select('fifth_vehicle_model', trans('Model'))->options($fifth_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"]);
+                $row->width(6)->select('fifth_vehicle_trim', trans('Trim'))->options($fifth_v['trim'])->attribute(['select_class'=>"trim"]);
+                $row->width(6)->text('fifth_vehicle_vin',trans('Vin'))->rules("required");
+                $row->width(12)->radio('fifth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
+                $row->width(12)->radio('fifth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('fifth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+            });                      
+        })->tab('DRIVERS', function ($form){
+            $st = CommonMethod::getStates();
+            $states = array_combine($st,$st);
+            $form->row(function($row) use($states){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>First Driver</h4></div>"
+                );
+                $row->width(6)->text('first_driver_first_name',trans('First Name'))->rules('required');
+                $row->width(6)->text('first_driver_last_name',trans('Last Name'))->rules('required');
+                $row->width(6)->text('first_driver_dl',trans('Driving License Number'))->rules('required');
+
+                $row->width(3)->date('first_driver_dob',trans('Date Of Birth'))->rules("required");
+                $row->width(3)->radio('first_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary'])->rules("required");
+                $row->width(6)->select('first_driver_state', trans("State"))->options($states)->rules('required');
+            });
+            $form->row(function($row) use($states){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Second Driver</h4></div>"
+                );
+                $row->width(6)->text('second_driver_second_name',trans('First Name'));
+                $row->width(6)->text('second_driver_last_name',trans('Last Name'));
+                $row->width(6)->text('second_driver_dl',trans('Driving License Number'));
+
+                $row->width(3)->date('second_driver_dob',trans('Date Of Birth'))->rules("required");
+                $row->width(3)->radio('second_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(6)->select('second_driver_state', trans("State"))->options($states);
+            });
+            $form->row(function($row) use($states){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Third Driver</h4></div>"
+                );
+                $row->width(6)->text('third_driver_third_name',trans('First Name'));
+                $row->width(6)->text('third_driver_last_name',trans('Last Name'));
+                $row->width(6)->text('third_driver_dl',trans('Driving License Number'));
+
+                $row->width(3)->date('third_driver_dob',trans('Date Of Birth'));
+                $row->width(3)->radio('third_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(6)->select('third_driver_state', trans("State"))->options($states);
+            });
+            $form->row(function($row) use($states){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fourth Driver</h4></div>"
+                );
+                $row->width(6)->text('fourth_driver_fourth_name',trans('First Name'));
+                $row->width(6)->text('fourth_driver_last_name',trans('Last Name'));
+                $row->width(6)->text('fourth_driver_dl',trans('Driving License Number'));
+
+                $row->width(3)->date('fourth_driver_dob',trans('Date Of Birth'));
+                $row->width(3)->radio('fourth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(6)->select('fourth_driver_state', trans("State"))->options($states);
+            });
+            $form->row(function($row) use($states){
+                $row->width(12)->html(
+                    "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fifth Driver</h4></div>"
+                );
+                $row->width(6)->text('fifth_driver_fifth_name',trans('First Name'));
+                $row->width(6)->text('fifth_driver_last_name',trans('Last Name'));
+                $row->width(6)->text('fifth_driver_dl',trans('Driving License Number'));
+
+                $row->width(3)->date('fifth_driver_dob',trans('Date Of Birth'));
+                $row->width(3)->radio('fifth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(6)->select('fifth_driver_state', trans("State"))->options($states);
+            });                                                
+        })->tab('COVERAGE', function ($form){
+            $form->row(function($row){
+                $row->width(4)->select('body_injury',trans('Bodily Injury'))->options(["15-30" =>"$15k/$30k","25-50"=>"$25k/$50k","30-60"=>"$30k/$60k","50-100"=>"$50k/$100k","100-300"=>"$100k/$300k","250-500"=>"$250k/$500k","500-1000"=>"$500k/$1Mil"])->rules('required');
+                $row->width(4)->select('deduct',trans('Deductible'))->options(["250" => "$250", "500" => "$500", "1000" => "$1000"])->rules('required');
+                $row->width(4)->select('medical',trans('Medical'))->options(["0" => "$0", "5000" => "$5000", "10000" => "$10000"])->rules('required');
+            });
+            $form->row(function($row){
+                $row->width(4)->radio('towing',trans('Towing'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+                $row->width(4)->radio('uninsured',trans('Uninsured'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+                $row->width(4)->radio('rental',trans('Rental'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+            });            
+        })->tab('HISTORY', function ($form){
+            $form->row(function($row){
+                $insuranceComp =  CommonMethod::getInsuranceCompanies();
+                $row->width(4)->radio('previous_insurance',trans('Have you had auto insurance in the past 30 days?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+                $row->width(4)->select('duration',trans('How long have you continuously had auto insurance?'))->options(["0-1" => "Less than a year", "1-2" => "1 to 2 years","2-3"=>"2 to 3 years",'4+'=>"4+ years"])->default("")->attribute(["id"=>"duration"]);
+                $row->width(4)->select('current_insurance',trans('Current Auto Insurance'))->options(array_combine($insuranceComp, $insuranceComp))->attribute(["id"=>"current_insurance"]);
+            });
+            $form->row(function($row){
+                $row->width(12)->html("<h4 class='col-xs-12'>Has anyone on this policy had:</h4>");
+                $row->width(12)->radio('at_fault',trans('An at-fault accident in the past three (3) years?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+                $row->width(12)->radio('tickets',trans('Two (2) or more tickets in the past three (3) years?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+                $row->width(12)->radio('dui',trans('A DUI conviction in the past ten (10) years?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
+            });
+
+        })->tab('PREFERENCE', function ($form){
+
         });
         return $form;
     }

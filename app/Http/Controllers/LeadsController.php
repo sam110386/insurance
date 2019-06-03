@@ -20,7 +20,7 @@ class LeadsController extends BaseController
 		// $data['carMakes'] = CommonMethod::getCarMakes();
 		// $data['carModels'] = CommonMethod::getModels();
 		$data['states'] = CommonMethod::getStates();
-		$data['insuranceComp'] = ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];
+		$data['insuranceComp'] = CommonMethod::getInsuranceCompanies();
 		return view('Lead.new',$data);
 	}
 
@@ -206,7 +206,7 @@ class LeadsController extends BaseController
 		$data['rental'] 					= $lead['rental'];
 		$data['previous_insurance'] 		= $lead['previous-insurance'];
 		$data['current_insurance'] 			= (isset($lead['current-insurance'])) ? $lead['current-insurance'] : "NA" ;
-		$data['duration'] 					= (isset($lead['current-insurance-duration'])) ? $lead['current-insurance-duration']." Years" : "NA";
+		$data['duration'] 					= (isset($lead['current-insurance-duration'])) ? $lead['current-insurance-duration'] : "NA";
 		$data['at_fault'] 					= $lead['at_fault'];
 		$data['tickets'] 					= $lead['tickets'];
 		$data['dui'] 						= $lead['dui'];
