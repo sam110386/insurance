@@ -93,7 +93,7 @@ class AdminLeadsController extends Controller
         $grid->created_at(trans('Created at'));
         $grid->actions(function ($actions) {
             $actions->disableDelete();
-            $actions->disableEdit();
+            // $actions->disableEdit();
         });
         $grid->tools(function (Grid\Tools $tools) {
             $tools->batch(function (Grid\Tools\BatchActions $actions) {
@@ -282,7 +282,7 @@ class AdminLeadsController extends Controller
         $show->created_at(trans('Created at'));
         $show->panel()
         ->tools(function ($tools) {
-            $tools->disableEdit();
+            // $tools->disableEdit();
             $tools->disableDelete();
         });
         // return $show;
@@ -463,7 +463,7 @@ SCRIPT;
                 $row->width(6)->select('fifth_vehicle_make', trans('Make'))->options($fifth_v['make'])->attribute(['select_class'=>"make", 'data-target' => "model"]);
                 $row->width(6)->select('fifth_vehicle_model', trans('Model'))->options($fifth_v['model'])->attribute(['select_class'=>"model", 'data-target' => "trim"]);
                 $row->width(6)->select('fifth_vehicle_trim', trans('Trim'))->options($fifth_v['trim'])->attribute(['select_class'=>"trim"]);
-                $row->width(6)->text('fifth_vehicle_vin',trans('Vin'))->rules("required");
+                $row->width(6)->text('fifth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('fifth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
                 $row->width(12)->radio('fifth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
                 $row->width(12)->radio('fifth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
@@ -487,11 +487,11 @@ SCRIPT;
                 $row->width(12)->html(
                     "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Second Driver</h4></div>"
                 );
-                $row->width(6)->text('second_driver_second_name',trans('First Name'));
+                $row->width(6)->text('second_driver_first_name',trans('First Name'));
                 $row->width(6)->text('second_driver_last_name',trans('Last Name'));
                 $row->width(6)->text('second_driver_dl',trans('Driving License Number'));
 
-                $row->width(3)->date('second_driver_dob',trans('Date Of Birth'))->rules("required");
+                $row->width(3)->date('second_driver_dob',trans('Date Of Birth'));
                 $row->width(3)->radio('second_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
                 $row->width(6)->select('second_driver_state', trans("State"))->options($states);
             });
@@ -499,7 +499,7 @@ SCRIPT;
                 $row->width(12)->html(
                     "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Third Driver</h4></div>"
                 );
-                $row->width(6)->text('third_driver_third_name',trans('First Name'));
+                $row->width(6)->text('third_driver_first_name',trans('First Name'));
                 $row->width(6)->text('third_driver_last_name',trans('Last Name'));
                 $row->width(6)->text('third_driver_dl',trans('Driving License Number'));
 
@@ -511,7 +511,7 @@ SCRIPT;
                 $row->width(12)->html(
                     "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fourth Driver</h4></div>"
                 );
-                $row->width(6)->text('fourth_driver_fourth_name',trans('First Name'));
+                $row->width(6)->text('fourth_driver_first_name',trans('First Name'));
                 $row->width(6)->text('fourth_driver_last_name',trans('Last Name'));
                 $row->width(6)->text('fourth_driver_dl',trans('Driving License Number'));
 
@@ -523,7 +523,7 @@ SCRIPT;
                 $row->width(12)->html(
                     "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Fifth Driver</h4></div>"
                 );
-                $row->width(6)->text('fifth_driver_fifth_name',trans('First Name'));
+                $row->width(6)->text('fifth_driver_first_name',trans('First Name'));
                 $row->width(6)->text('fifth_driver_last_name',trans('Last Name'));
                 $row->width(6)->text('fifth_driver_dl',trans('Driving License Number'));
 
@@ -557,7 +557,14 @@ SCRIPT;
             });
 
         })->tab('PREFERENCE', function ($form){
-
+            $form->row(function($row){
+                $row->width(6)->select('quality_provides',trans('What is the most important quality you look for when choosing an auto insurer?'))->options(["provides-quality-service"=>"Provides quality service","guidance-with-insurance-decisions"=>"Guidance with insurance decisions","provides-a-local-presence"=>"Provides a local presence","is-a-reputable-company"=>"Is a reputable company","provides-general-representatives-for-customer-care"=>"Provides general representatives for customer care","offers-a-low-price-and-discounts"=>"Offers a low price and discounts","provides-24/7-access-to-insurance-information"=>"Provides 24/7 access to insurance information","provides-an-accountable-point-of-contact"=>"Provides an accountable point of contact","offers-a-thorough-review-of-the-coverage"=>"Offers a thorough review of the coverage","provides-hassle-free-process"=>"Provides hassle-free process","offers-face-to-face-interaction"=>"Offers face-to-face interaction"]);
+                $row->width(6)->radio('agent_in_person',trans('Will it be important to you to be able to speak to your local agent in person?'))->options(["1"=> "Yes","0" => "No"]);
+            });
+            $form->row(function($row){
+                $row->width(6)->select('referrer',trans('How did you hear about us?'))->options(["friend-or-family" => "Friend or Family", "auto-dealer" => "Auto Dealer","other"=>"Other"])->default("");
+                $row->width(6)->text('referrer_name',trans('Referrer Name'));
+            });                        
         });
         return $form;
     }
