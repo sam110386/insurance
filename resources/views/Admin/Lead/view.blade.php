@@ -1,5 +1,5 @@
 <style>
-	.table{max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px 15px 0 15px; }
+	.table{max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px; }
 	.lead-view,h2 {
 		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 		border-collapse: collapse;
@@ -25,9 +25,33 @@
 	.lead-view tr.bg-red td{color: #FFF;}
 	.lead-view td.bg-green{color: #fff; background-color: #28a745;}
 	.lead-view td.bg-red{color: #fff; background-color: #dc3545;}
+	.mb-10{margin-bottom: 10px;}
+	.alert-success {
+		color: #3c763d !important;
+		background-color: #dff0d8 !important;
+		border-color: #d6e9c6;
+	}	
+	.alert-danger {
+		color: #a94442 !important;
+		background-color: #f2dede !important;
+		border-color: #ebccd1;
+	}
+	.p-10{padding: 10px;}
 </style>
 
 <div class="table">
+	<div class="row mb-10">
+		<div class="col-xs-12 text-right">
+			<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
+				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
+				@if($lead['status'] === null)
+				{!! csrf_field() !!}
+				<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Approve" />&nbsp;
+				<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="Deny" />
+				@endif
+			</form>
+		</div>
+	</div>
 	<table class="lead-view">
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
@@ -41,8 +65,7 @@
 		<tr><td><strong>Homeowner</strong></td><td>{{$lead['homeowner']}}</td></tr>
 		<tr><td><strong>Bundled</strong></td><td  class=@if($lead['bundled']){{"bg-green"}}@endif>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 	</table>
-
-<!-- Drivers Details -->
+	<!-- Drivers Details -->
 	<table class="lead-view">
 		<tr><th colspan="6">DRIVER DETAILS</th></tr>
 		<tr>
@@ -62,44 +85,44 @@
 			<td>{{$lead['first_driver_state']}}</td>
 		</tr>
 		@if($lead['second_driver_second_name'])
-			<tr>
-				<td>2.</td>
-				<td>{{$lead['second_driver_second_name']}} {{$lead['second_driver_last_name']}}</td> 
-				<td>{{$lead['second_driver_dob']}}</td>
-				<td>{{$lead['second_driver_gender']}}</td>
-				<td>{{$lead['second_driver_dl']}}</td>
-				<td>{{$lead['second_driver_state']}}</td>
-			</tr>
+		<tr>
+			<td>2.</td>
+			<td>{{$lead['second_driver_second_name']}} {{$lead['second_driver_last_name']}}</td> 
+			<td>{{$lead['second_driver_dob']}}</td>
+			<td>{{$lead['second_driver_gender']}}</td>
+			<td>{{$lead['second_driver_dl']}}</td>
+			<td>{{$lead['second_driver_state']}}</td>
+		</tr>
 		@endif	
 		@if($lead['third_driver_third_name'])
-			<tr>
-				<td>3.</td>
-				<td>{{$lead['third_driver_third_name']}} {{$lead['third_driver_last_name']}}</td> 
-				<td>{{$lead['third_driver_dob']}}</td>
-				<td>{{$lead['third_driver_gender']}}</td>
-				<td>{{$lead['third_driver_dl']}}</td>
-				<td>{{$lead['third_driver_state']}}</td>
-			</tr>
+		<tr>
+			<td>3.</td>
+			<td>{{$lead['third_driver_third_name']}} {{$lead['third_driver_last_name']}}</td> 
+			<td>{{$lead['third_driver_dob']}}</td>
+			<td>{{$lead['third_driver_gender']}}</td>
+			<td>{{$lead['third_driver_dl']}}</td>
+			<td>{{$lead['third_driver_state']}}</td>
+		</tr>
 		@endif
 		@if($lead['fourth_driver_fourth_name'])
-			<tr>
-				<td>4.</td>
-				<td>{{$lead['fourth_driver_fourth_name']}} {{$lead['fourth_driver_last_name']}}</td> 
-				<td>{{$lead['fourth_driver_dob']}}</td>
-				<td>{{$lead['fourth_driver_gender']}}</td>
-				<td>{{$lead['fourth_driver_dl']}}</td>
-				<td>{{$lead['fourth_driver_state']}}</td>
-			</tr>
+		<tr>
+			<td>4.</td>
+			<td>{{$lead['fourth_driver_fourth_name']}} {{$lead['fourth_driver_last_name']}}</td> 
+			<td>{{$lead['fourth_driver_dob']}}</td>
+			<td>{{$lead['fourth_driver_gender']}}</td>
+			<td>{{$lead['fourth_driver_dl']}}</td>
+			<td>{{$lead['fourth_driver_state']}}</td>
+		</tr>
 		@endif
 		@if($lead['fifth_driver_fifth_name'])
-			<tr>
-				<td>5.</td>
-				<td>{{$lead['fifth_driver_fifth_name']}} {{$lead['fifth_driver_last_name']}}</td> 
-				<td>{{$lead['fifth_driver_dob']}}</td>
-				<td>{{$lead['fifth_driver_gender']}}</td>
-				<td>{{$lead['fifth_driver_dl']}}</td>
-				<td>{{$lead['fifth_driver_state']}}</td>
-			</tr>
+		<tr>
+			<td>5.</td>
+			<td>{{$lead['fifth_driver_fifth_name']}} {{$lead['fifth_driver_last_name']}}</td> 
+			<td>{{$lead['fifth_driver_dob']}}</td>
+			<td>{{$lead['fifth_driver_gender']}}</td>
+			<td>{{$lead['fifth_driver_dl']}}</td>
+			<td>{{$lead['fifth_driver_state']}}</td>
+		</tr>
 		@endif							
 	</table>
 	<!-- Vehicles Details -->
@@ -180,7 +203,7 @@
 		</tr>
 		@endif		
 	</table>
-<!-- Coverage Details -->
+	<!-- Coverage Details -->
 	<table class="lead-view">
 		<tr><th colspan="2">COVERAGE DETAILS:</th></tr>
 		<tr><td><strong>Liability</strong></td><td>{{$lead['liability']}}</td></tr>
@@ -192,7 +215,7 @@
 		<tr><td><strong>Rental</strong></td><td>@if($lead['rental']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 	</table>
 
-<!-- History Details -->
+	<!-- History Details -->
 	<table class="lead-view">
 		<tr><th colspan="2">HISTORY DETAILS</th></tr>
 		<tr>
@@ -220,7 +243,7 @@
 			<td @if($lead["dui"]) class="bg-red" @endif>@if($lead['dui']){{"Yes"}}@else{{"No"}}@endif</td>
 		</tr>
 	</table>
-<!-- Preference Details: -->
+	<!-- Preference Details: -->
 	<table class="lead-view">
 		<tr><th colspan="2">PREFERENCE DETAILS:</th></tr>
 		<tr><td><strong>Quality Provides</strong></td><td>{!! ucwords(str_replace('-', ' ', $lead['quality_provides'])) !!}</td></tr>
@@ -242,4 +265,32 @@
 			<span>{{ $lead['created_at']->format('h:i:s A') }}</span>
 		</th>
 	</table>
+	<h3 class="p-10 bg-primary"><i class="fa fa-stack-exchange"></i> Admin Notes.</h3>
+	@if($lead->notes)
+
+	@else
+		<h4>No note found.</h4>
+	@endif
+	@if($lead['status'] === 1)
+	<div class="alert alert-success fa-lg" role="alert"><strong><i class="fa fa-check"></i> Low Risk</strong> </div>
+
+	@elseif($lead['status'] ===0)
+	<div class="alert alert-danger fa-lg" role="alert"><strong><i class="fa fa-warning"></i> High Risk</strong></div>
+	@endif
+
+	<div class="row">
+		<div class="col-xs-12">
+			<form action="{{route('lead.notes.add',$lead['id'])}}" method="POST">
+				<div class="form-group">
+					{!! csrf_field() !!}
+					<label for="note">Add Notes</label>
+					<textarea id="note" name="notes" class="form-control" rows="3" placeholder="Enter notes..." required ></textarea>				
+				</div>
+				@if ($errors->any())
+				        {!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
+				@endif				
+				<button type="submit" class="btn btn-primary">SAVE NOTES</button>
+			</form>
+		</div>
+	</div>
 </div>

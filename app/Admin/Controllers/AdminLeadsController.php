@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Lead;
+use App\Models\Note;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -13,7 +14,7 @@ use Carbon\Carbon;
 use App\Helpers\CommonMethod;
 use Encore\Admin\Admin;
 use Encore\Admin\Widgets\Tab;
-
+use Illuminate\Http\Request;
 class AdminLeadsController extends Controller
 {
     use HasResourceActions;
@@ -89,6 +90,16 @@ class AdminLeadsController extends Controller
         $grid->last_name(trans('Last Name'));
         $grid->email(trans('Email'));
         $grid->phone(trans('Phone'));
+        $grid->status(trans('Risk'))->display(function($risk){
+            if($risk === 1){
+                $str = "<span class='text-success'><i class='fa fa-circle'></i> Low</span>";
+            }elseif ($risk === 0) {
+                $str = "<span class='text-danger'><i class='fa fa-circle'></i> High</span>";
+            }else{
+                $str = "N/A";
+            }
+            return $str;
+        });
         $grid->ip_address(trans('IP Address'));
         $grid->created_at(trans('Created at'));
         $grid->actions(function ($actions) {
@@ -578,5 +589,33 @@ SCRIPT;
         $leads['year'] = Lead::whereYear('created_at', date('Y'))->get()->count();
         $leads['total'] = Lead::get()->count();
         return $leads;
+    }
+
+    public function updateStatus($id,Request $request){
+        if(isset($request->approve) || isset($request->deny)){
+            $lead = Lead::findOrFail($id);
+            if($lead['status']){
+                admin_error('Error','Request not allowed.');
+            }else{                
+                $lead['status'] = (isset($request->approve)) ? 1 : 0;
+                if($lead->update()){
+                    admin_success('Success','Record has been updated.');
+                }else{
+                    admin_error('Error','Record not updated! Please try again.');
+                }
+            }
+        }else{
+            admin_error('Error','Unautorized request.');
+        }
+        return redirect()->route('leads.show',[$id]);
+    }
+
+
+    public function addNotes($lead,Request $request){
+        // dd($request->all());
+        $valid = request()->validate([
+            'notes' => 'required',
+        ]);
+        return back();        
     }
 }

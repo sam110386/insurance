@@ -11,6 +11,8 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');
     $router->resource('leads', 'AdminLeadsController');
+    $router->post("/leads/update/status/{id}","AdminLeadsController@updateStatus")->name('lead.status.update');
     $router->resource('vehicles', 'VehiclesController');
 });
