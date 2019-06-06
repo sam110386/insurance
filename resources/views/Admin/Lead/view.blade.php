@@ -26,12 +26,12 @@
 	.lead-view td.bg-green{color: #fff; background-color: #28a745;}
 	.lead-view td.bg-red{color: #fff; background-color: #dc3545;}
 	.mb-10{margin-bottom: 10px;}
-	.alert-success {
+	.alert-success.light-bg {
 		color: #3c763d !important;
 		background-color: #dff0d8 !important;
 		border-color: #d6e9c6;
 	}	
-	.alert-danger {
+	.alert-danger.light-bg {
 		color: #a94442 !important;
 		background-color: #f2dede !important;
 		border-color: #ebccd1;
@@ -272,10 +272,10 @@
 		<h4>No note found.</h4>
 	@endif
 	@if($lead['status'] === 1)
-	<div class="alert alert-success fa-lg" role="alert"><strong><i class="fa fa-check"></i> Low Risk</strong> </div>
+	<div class="alert alert-success light-bg fa-lg" role="alert"><strong><i class="fa fa-check"></i> Low Risk</strong> </div>
 
 	@elseif($lead['status'] ===0)
-	<div class="alert alert-danger fa-lg" role="alert"><strong><i class="fa fa-warning"></i> High Risk</strong></div>
+	<div class="alert alert-danger light-bg fa-lg" role="alert"><strong><i class="fa fa-warning"></i> High Risk</strong></div>
 	@endif
 
 	<div class="row">

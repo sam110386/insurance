@@ -14,8 +14,8 @@ class Lead extends Model
 	/**
      * Get the comments for the blog post.
      */
-	public function comments()
+	public function notes()
 	{
-		return $this->hasMany('App\Comment');
+		return $this->hasMany('App\Models\Note');
 	}
 }

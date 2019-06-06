@@ -15,6 +15,9 @@ use App\Helpers\CommonMethod;
 use Encore\Admin\Admin;
 use Encore\Admin\Widgets\Tab;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 class AdminLeadsController extends Controller
 {
     use HasResourceActions;
@@ -616,6 +619,16 @@ SCRIPT;
         $valid = request()->validate([
             'notes' => 'required',
         ]);
-        return back();        
+        $data['user_ip'] = $_SERVER['REMOTE_ADDR'];
+        $data['user_id'] = Auth::guard('admin')->user()->id;
+        $data['lead_id'] = $lead;
+        $data['notes'] = $request->notes;
+
+        if(Note::create($data)){
+            admin_success('Success','Notes has been saved.');
+        }else{
+            admin_error('Error','Notes not saved! Please try again.');
+        }
+        return back();
     }
 }
