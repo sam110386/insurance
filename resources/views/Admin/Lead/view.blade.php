@@ -37,18 +37,34 @@
 		border-color: #ebccd1;
 	}
 	.p-10{padding: 10px;}
+	.comment-wrapper .panel-body {
+		max-height:650px;
+		overflow:auto;
+	}
+
+	.comment-wrapper .media-list .media img {
+		width:64px;
+		height:64px;
+		border:2px solid #e5e7e8;
+	}
+
+	.comment-wrapper .media-list .media {
+		border-bottom:1px dashed #efefef;
+		margin-bottom:25px;
+	}
+
 </style>
 
 <div class="table">
 	<div class="row mb-10">
 		<div class="col-xs-12 text-right">
 			<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
-				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
 				@if($lead['status'] === null)
 				{!! csrf_field() !!}
-				<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Approve" />&nbsp;
-				<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="Deny" />
+				<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
+				<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
 				@endif
+				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
 			</form>
 		</div>
 	</div>
@@ -265,32 +281,71 @@
 			<span>{{ $lead['created_at']->format('h:i:s A') }}</span>
 		</th>
 	</table>
-	<h3 class="p-10 bg-primary"><i class="fa fa-stack-exchange"></i> Admin Notes.</h3>
-	@if($lead->notes)
-
-	@else
-		<h4>No note found.</h4>
-	@endif
+	
+	<!-- RISK HTML START -->
 	@if($lead['status'] === 1)
-	<div class="alert alert-success light-bg fa-lg" role="alert"><strong><i class="fa fa-check"></i> Low Risk</strong> </div>
-
+	<div class="alert alert-success light-bg fa-lg" role="alert">
+		<strong><i class="fa fa-check"></i> Low Risk</strong> 
+	</div>
 	@elseif($lead['status'] ===0)
-	<div class="alert alert-danger light-bg fa-lg" role="alert"><strong><i class="fa fa-warning"></i> High Risk</strong></div>
+	<div class="alert alert-danger light-bg fa-lg" role="alert">
+		<strong><i class="fa fa-warning"></i> High Risk</strong>
+	</div>
 	@endif
+	<!-- RISK HTML END -->
 
-	<div class="row">
-		<div class="col-xs-12">
-			<form action="{{route('lead.notes.add',$lead['id'])}}" method="POST">
-				<div class="form-group">
-					{!! csrf_field() !!}
-					<label for="note">Add Notes</label>
-					<textarea id="note" name="notes" class="form-control" rows="3" placeholder="Enter notes..." required ></textarea>				
+	<!-- NOTES HTML START -->
+	<div class="row bootstrap snippets">
+		<div class="col-md-12 ">
+			<div class="comment-wrapper">
+				<div class="panel panel-primary">
+					<div class="panel-heading bg-primary">
+						<i class="fa fa-stack-exchange"></i> Admin Notes.
+						<span class="pull-right"> Total Notes {{count($lead->notes)}}</span>
+					</div>
+					<div class="panel-body">
+						<ul class="media-list">
+							@if(count($lead->notes))
+								@foreach($lead->notes as $note)
+									<li class="media">
+										<div class="media-body">
+											<span class="text-muted pull-right">
+												<small class="text-muted">
+													{{$note->created_at->diffForHumans()}}
+												</small>
+											</span>
+											<strong class="text-success">
+												<i class="fa fa-user-circle"></i> {{$note->user->name}}
+											</strong> &nbsp;&nbsp;&nbsp; 
+											<strong><i class="fa fa-map-marker"></i> {{$note->user_ip}}</strong>
+											<p>{!! $note->notes !!}</p>
+										</div>
+									</li>
+								@endforeach
+							@else
+							<li>No note found.</li>
+							@endif
+						</ul>
+						<form action="{{route('lead.notes.add',$lead['id'])}}" method="POST">
+							<div class="form-group">
+								{!! csrf_field() !!}
+								<label for="note">Add Notes</label>
+								<textarea id="note" name="notes" class="form-control" rows="3" placeholder="Enter notes..." required ></textarea>				
+							</div>
+							@if ($errors->any())
+							{!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
+							@endif				
+							<button type="submit" class="btn btn-primary">SAVE NOTES</button>
+						</form>						
+					</div>
 				</div>
-				@if ($errors->any())
-				        {!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
-				@endif				
-				<button type="submit" class="btn btn-primary">SAVE NOTES</button>
-			</form>
+			</div>
+
 		</div>
 	</div>
+	<!-- NOTES HTML END -->
+
+
+
+
 </div>
