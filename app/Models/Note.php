@@ -14,6 +14,6 @@ class Note extends Model
     }
     public function user()
     {
-        return $this->belongsTo('App\Models\AdminUser','lead_id','id');
+        return $this->belongsTo('App\Models\AdminUser','user_id','id');
     }
 }
