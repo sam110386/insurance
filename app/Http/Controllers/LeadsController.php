@@ -32,8 +32,8 @@ class LeadsController extends BaseController
 		$this->storeLead($data);
 		\Mail::send('Emails.Lead.new', $data,
 		function ($message) {
-			// $message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
-			$message->to('vbmourya123@gmail.com')->bcc('sgstest2505@gmail.com')->subject('New Lead - Insurance');
+			$message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
+			// $message->to('vbmourya123@gmail.com')->bcc('sgstest2505@gmail.com')->subject('New Lead - Insurance');
 		});
 		return view('Insurance.urls',$data);
 		// return view('Insurance.view',$data);
