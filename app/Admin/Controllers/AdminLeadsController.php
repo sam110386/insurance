@@ -4,7 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Models\Lead;
 use App\Models\Note;
+use App\Models\AdminUser;
 use App\Http\Controllers\Controller;
+use App\Admin\Extensions\Tools\BulkEmailLead;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -107,12 +109,48 @@ class AdminLeadsController extends Controller
         $grid->created_at(trans('Created at'));
         $grid->actions(function ($actions) {
             $actions->disableDelete();
-            // $actions->disableEdit();
+            // $actions->disableEdit();            
         });
         $grid->tools(function (Grid\Tools $tools) {
-            $tools->batch(function (Grid\Tools\BatchActions $actions) {
-                $actions->disableDelete();
+            $tools->batch(function (Grid\Tools\BatchActions $batch) {
+                $batch->disableDelete();
+                $batch->add("Send Leads", new BulkEmailLead());
             });
+            $users= AdminUser::select(['id','name'])->get();
+            $options= "";
+            foreach ($users as $user) {
+                $options .= "<option value='". $user->id ."'>". $user->name ."</option>";
+            }
+            $tools->append('<div class="modal fade" id="bulkMail" data-controls-modal="bulkMail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="bulkMail">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button id="cancelSmallBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Send Leads Email</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.bulk.email").'" method="POST">
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
+
+                                      <div class="form-group">
+                                        <label for="user">Select User</label>
+                                        <select id="admin_users" class="c-select form-control" name="user">' .$options . '
+                                        </select>
+                                      </div>
+                                      <div class="form-group text-center">
+                                        <h4>OR</h4>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="email">Enter Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
+                                        <small>Note: This field will override above selected User.</small>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');            
         });
         $grid->filter(function($filter){ 
             $filter->disableIdFilter(); 
@@ -149,157 +187,6 @@ class AdminLeadsController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Lead::findOrFail($id));
-
-        $show->id('ID');
-        $show->first_name(trans('First Name'));
-        $show->last_name(trans('Last Name'));
-        $show->email(trans('Email'));
-        $show->phone(trans('Phone'));
-        $show->street(trans('Street'));  
-        $show->city(trans('City'));    
-        $show->state(trans('State'));   
-        $show->zip(trans('Zipcode'));         
-        $show->married(trans('Married'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });
-        $show->children(trans('Children'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });
-
-        $show->homeowner(trans('Homeowner'));
-        $show->bundled(trans('Bundled'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });
-        $show->first_driver_first_name(trans('First Driver First Name')); 
-        $show->first_driver_last_name(trans('First Driver Last Name'));  
-        $show->first_driver_dob(trans('First Driver Dob'));        
-        $show->first_driver_gender(trans('First Driver Gender'));     
-        $show->first_driver_dl(trans('First Driver DL No.'));         
-        $show->first_driver_state(trans('First Driver State'));      
-
-        $show->second_driver_first_name(trans('Second Driver First Name')); 
-        $show->second_driver_last_name(trans('Second Driver Last Name'));  
-        $show->second_driver_dob(trans('Second Driver Dob'));
-        $show->second_driver_gender(trans('Second Driver Gender'));
-        $show->second_driver_dl(trans('Second Driver DL No'));     
-        $show->second_driver_state(trans('Second Driver State')); 
-
-        $show->third_driver_first_name(trans('Third Driver First Name'));    
-        $show->third_driver_last_name(trans('Third Driver Last Name'));     
-        $show->third_driver_dob(trans('Third Driver Dob'));           
-        $show->third_driver_gender(trans('Third Driver Gender'));        
-        $show->third_driver_dl(trans('Third Driver DL No'));            
-        $show->third_driver_state(trans('Third Driver State'));         
-
-        $show->fourth_driver_first_name(trans('Fourth Driver First Name')); 
-        $show->fourth_driver_last_name(trans('Fourth Driver Last Name'));
-        $show->fourth_driver_dob(trans('Fourth Driver Dob'));
-        $show->fourth_driver_gender(trans('Fourth Driver Gender'));
-        $show->fourth_driver_dl(trans('Fourth Driver DL No'));
-        $show->fourth_driver_state(trans('Fourth Driver State'));
-
-        $show->fifth_driver_first_name(trans('Fifth Driver First Name')); 
-        $show->fifth_driver_last_name(trans('Fifth Driver Last Name'));
-        $show->fifth_driver_dob(trans('Fifth Driver Dob'));
-        $show->fifth_driver_gender(trans('Fifth Driver Gender'));
-        $show->fifth_driver_dl(trans('Fifth Driver DL No'));
-        $show->fifth_driver_state(trans('Fifth Driver State'));
-
-        $show->first_vehicle_year(trans('First Vehicle Year'));
-        $show->first_vehicle_make(trans('First Vehicle Make'));
-
-        $show->first_vehicle_model(trans('First Vehicle Model'));      
-        $show->first_vehicle_trim(trans('First Vehicle Trim'));      
-        $show->first_vehicle_vin(trans('First Vehicle Vim'));       
-        $show->first_vehicle_owenership(trans('First Vehicle Owenership'));
-        $show->first_vehicle_uses(trans('First Vehicle Uses'));      
-        $show->first_vehicle_mileage(trans('First Vehicle Mileage'));   
-
-
-        $show->second_vehicle_year(trans('Second Vehicle Year'));
-        $show->second_vehicle_make(trans('Second Vehicle Make'));
-        $show->second_vehicle_model(trans('Second Vehicle Model'));     
-        $show->second_vehicle_trim(trans('Second Vehicle Trim'));     
-        $show->second_vehicle_vin(trans('Second Vehicle Vim'));       
-        $show->second_vehicle_owenership(trans('Second Vehicle Owenership'));
-        $show->second_vehicle_uses(trans('Second Vehicle Uses'));     
-        $show->second_vehicle_mileage(trans('Second Vehicle Mileage'));   
-
-
-        $show->third_vehicle_year(trans('Third Vehicle Year'));
-        $show->third_vehicle_make(trans('Third Vehicle Make'));
-        $show->third_vehicle_model(trans('Third Vehicle Model'));     
-        $show->third_vehicle_trim(trans('Third Vehicle Trim'));     
-        $show->third_vehicle_vin(trans('Third Vehicle Vim'));       
-        $show->third_vehicle_owenership(trans('Third Vehicle Owenership'));
-        $show->third_vehicle_uses(trans('Third Vehicle Uses'));     
-        $show->third_vehicle_mileage(trans('Third Vehicle Mileage'));   
-
-        $show->fourth_vehicle_year(trans('Fourth Vehicle Year'));
-        $show->fourth_vehicle_make(trans('Fourth Vehicle Make'));
-        $show->fourth_vehicle_model(trans('Fourth Vehicle Model'));     
-        $show->fourth_vehicle_trim(trans('Fourth Vehicle Trim'));     
-        $show->fourth_vehicle_vin(trans('Fourth Vehicle Vim'));       
-        $show->fourth_vehicle_owenership(trans('Fourth Vehicle Owenership'));
-        $show->fourth_vehicle_uses(trans('Fourth Vehicle Uses'));     
-        $show->fourth_vehicle_mileage(trans('Fourth Vehicle Mileage'));   
-
-        $show->fifth_vehicle_year(trans('Fifth Vehicle Year'));
-        $show->fifth_vehicle_make(trans('Fifth Vehicle Make'));
-        $show->fifth_vehicle_model(trans('Fifth Vehicle Model'));     
-        $show->fifth_vehicle_trim(trans('Fifth Vehicle Trim'));     
-        $show->fifth_vehicle_vin(trans('Fifth Vehicle Vim'));       
-        $show->fifth_vehicle_owenership(trans('Fifth Vehicle Owenership'));
-        $show->fifth_vehicle_uses(trans('Fifth Vehicle Uses'));     
-        $show->fifth_vehicle_mileage(trans('Fifth Vehicle Mileage'));   
-
-
-
-        $show->liability(trans('Liability'));           
-        $show->body_injury(trans('Body Injury'))->as(function($val){
-            return $val." $";
-        });         
-        $show->deduct(trans('Deduct'));              
-        $show->medical(trans('Medical'));             
-        $show->towing(trans('Towing'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });              
-        $show->uninsured(trans('Uninsured'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });           
-        $show->rental(trans('Rental'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });              
-        $show->previous_insurance(trans('Previous Insurance'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });  
-        $show->current_insurance(trans('Current Insurance'));   
-        $show->duration(trans('Duration'));            
-        $show->at_fault(trans('At Fault'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });            
-        $show->tickets(trans('Tickets'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });             
-        $show->dui(trans('Dui'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });                 
-        $show->quality_provides(trans('Quality Provides'));    
-        $show->agent_in_person(trans('Agent In Person'))->as(function($val){
-            return ($val) ? "Yes" : "No";
-        });    
-        $show->referrer(trans('Referrer')); 
-        $show->referrer_name(trans('Referrer Name'));       
-        $show->ip_address(trans('Ip Address'));          
-
-        $show->created_at(trans('Created at'));
-        $show->panel()
-        ->tools(function ($tools) {
-            // $tools->disableEdit();
-            $tools->disableDelete();
-        });
-        // return $show;
         return view('Admin.Lead.view',['lead' => Lead::find($id)]);
     }
 
@@ -327,11 +214,13 @@ class AdminLeadsController extends Controller
                         var target= $(this).data('target');
                         parent.find("select[select_class=" + target + "]").find("option").remove();
                         $.get("/ajax/makes/"+year).then(function(data){
+
                             var options = $.map(data, function (d) {
                                 d.id = d.make;
                                 d.text = d.make;
                                 return d;
-                            })
+                            });
+                            options = [{"id": "", "text": "Select Make"}].concat(options);
                             parent.find("select[select_class=" + target + "]").select2({data: options});
                         })
                     });
@@ -347,6 +236,7 @@ class AdminLeadsController extends Controller
                                 d.text = d.vmodel;
                                 return d;
                             })
+                            options = [{"id": "", "text": "Select Model"}].concat(options);
                             parent.find("select[select_class=" + target + "]").select2({data: options});
                         })
                     });
@@ -358,12 +248,12 @@ class AdminLeadsController extends Controller
                         var target= $(this).data('target');
                         parent.find("select[select_class=" + target + "]").find("option").remove();
                         $.get("/ajax/trims/" + year + "/" + make + "/" + model).then(function(data){
-                            debugger
                             var options = $.map(data, function (d) {
                                 d.id = d.trim_1;
                                 d.text = d.trim_1;
                                 return d;
                             })
+                            options = [{"id": "", "text": "Select Trim"}].concat(options);
                             parent.find("select[select_class=" + target + "]").select2({data: options});
                         })
                     });                      
@@ -614,8 +504,36 @@ SCRIPT;
     }
 
 
+    public function sendBulkEmail(Request $request){
+
+        $lead_ids = $request->lead_ids;
+        
+        if(!$request->lead_ids){
+            admin_error('Error','Select atleast one record.');
+            return back();
+        }
+        if($request->email){
+            $email = $request->email;
+        }else{
+            $email = AdminUser::select('email')->where('id',$request->user)->get()->first();
+            $email = ($email) ? $email->email : $email;
+        }
+        if($email){
+            $leads = Lead::whereIn('id',explode(',', $lead_ids))->get();
+            foreach ($leads as $lead) {
+                \Mail::send('Admin.Lead.email', ['lead' => $lead],
+                function ($message) use($email){
+                    $message->to($email)->subject('New Lead - Insurance');
+                });            
+            }
+            admin_success('Success','Email sent.');
+        }else{
+            admin_error('Error','User not found.');
+        }
+        return back();
+    }
+
     public function addNotes($lead,Request $request){
-        // dd($request->all());
         $valid = request()->validate([
             'notes' => 'required',
         ]);

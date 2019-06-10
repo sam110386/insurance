@@ -1,5 +1,5 @@
 <style>
-	.table{max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px; }
+	.table{font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px; border:1px solid #cfcfcf; margin-bottom: 20px;}
 	.lead-view,h2 {
 		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 		border-collapse: collapse;
@@ -26,6 +26,7 @@
 	.lead-view td.bg-green{color: #fff; background-color: #28a745;}
 	.lead-view td.bg-red{color: #fff; background-color: #dc3545;}
 	.mb-10{margin-bottom: 10px;}
+	.alert{padding: 15px; margin-bottom: 10px;}
 	.alert-success.light-bg {
 		color: #3c763d !important;
 		background-color: #dff0d8 !important;
@@ -37,6 +38,7 @@
 		border-color: #ebccd1;
 	}
 	.p-10{padding: 10px;}
+
 	.comment-wrapper .media-list .media img {
 		width:64px;
 		height:64px;
@@ -47,22 +49,37 @@
 		border-bottom:1px dashed #efefef;
 		margin-bottom:25px;
 	}
-
+	.pull-right{float: right;}
+	.panel-primary > .panel-heading {
+		color: #fff;
+		background-color: #337ab7;
+		border-color: #337ab7;
+	}
+	.panel-heading {
+		padding: 10px 15px;
+		border-bottom: 1px solid transparent;
+		border-bottom-color: transparent;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+	}
+	.panel {
+		margin-bottom: 20px;
+		background-color: #fff;
+		border: 1px solid transparent;
+		border-top-color: transparent;
+		border-right-color: transparent;
+		border-bottom-color: transparent;
+		border-left-color: transparent;
+		border-radius: 4px;
+		-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+		box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	}	
+	.panel-primary {border-color: #337ab7;}
+	.media-list {list-style: none; padding-left: 0;}
+	.panel-body {padding: 15px;}	
 </style>
 
 <div class="table">
-	<div class="row mb-10">
-		<div class="col-xs-12 text-right">
-			<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
-				@if($lead['status'] === null)
-				{!! csrf_field() !!}
-				<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
-				<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
-				@endif
-				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
-			</form>
-		</div>
-	</div>
 	<table class="lead-view">
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
@@ -301,37 +318,23 @@
 					<div class="panel-body">
 						<ul class="media-list">
 							@if(count($lead->notes))
-								@foreach($lead->notes as $note)
-									<li class="media">
-										<div class="media-body">
-											<span class="text-muted pull-right">
-												<small class="text-muted">
-													{{$note->created_at->diffForHumans()}}
-												</small>
-											</span>
-											<strong class="text-success">
-												<i class="fa fa-user-circle"></i> {{$note->user->name}}
-											</strong> &nbsp;&nbsp;&nbsp; 
-											<strong><i class="fa fa-map-marker"></i> {{$note->user_ip}}</strong>
-											<p>{!! $note->notes !!}</p>
-										</div>
-									</li>
-								@endforeach
+							@foreach($lead->notes as $note)
+							<li class="media">
+								<div class="media-body">
+									<span class="text-muted pull-right">
+										<small class="text-muted">
+											{{$note->created_at->diffForHumans()}}
+										</small>
+									</span>
+									<strong class="text-success">{{$note->user->name}}</strong>@<strong>{{$note->user_ip}}</strong>
+									<p>{!! $note->notes !!}</p>
+								</div>
+							</li>
+							@endforeach
 							@else
 							<li>No note found.</li>
 							@endif
-						</ul>
-						<form action="{{route('lead.notes.add',$lead['id'])}}" method="POST">
-							<div class="form-group">
-								{!! csrf_field() !!}
-								<label for="note">Add Notes</label>
-								<textarea id="note" name="notes" class="form-control" rows="3" placeholder="Enter notes..." required ></textarea>				
-							</div>
-							@if ($errors->any())
-							{!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
-							@endif				
-							<button type="submit" class="btn btn-primary">SAVE NOTES</button>
-						</form>						
+						</ul>						
 					</div>
 				</div>
 			</div>
@@ -339,8 +342,4 @@
 		</div>
 	</div>
 	<!-- NOTES HTML END -->
-
-
-
-
 </div>
