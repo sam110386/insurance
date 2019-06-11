@@ -50,6 +50,7 @@
 			<td><strong>#</strong></td>
 			<td><strong>Name</strong></td>
 			<td><strong>Date of Birth</strong></td>
+			<td><strong>Age</strong></td>
 			<td><strong>Gender</strong></td>
 			<td><strong>Drivers License Number</strong></td>
 			<td><strong>State</strong></td>
@@ -58,6 +59,10 @@
 			<td>1.</td>
 			<td>{{$lead['first_name']}} {{$lead['last_name']}}</td> 
 			<td>{{$lead['dob-month']}}-{{$lead['dob-date']}}-{{$lead['dob-year']}}</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['dob-year'].
+				'-'.$lead['dob-month'].'-'.$lead['dob-date'])->diffForHumans(null,true) }} old
+			</td>
 			<td>{{$lead['gender']}}</td>
 			<td>{{$lead['dl1']}}</td>
 			<td>{{$states[$lead['state1']]}}</td>
@@ -67,6 +72,10 @@
 			<td>2.</td>
 			<td>{{$lead['first_name2']}} {{$lead['last_name2']}}</td> 
 			<td>{{$lead['dob2-month']}}-{{$lead['dob2-date']}}-{{$lead['dob2-year']}}</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['dob2-year'].
+				'-'.$lead['dob2-month'].'-'.$lead['dob2-date'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['gender-2']}}</td>
 			<td>{{$lead['dl2']}}</td>
 			<td>{{$states[$lead['state2']]}}</td>
@@ -77,6 +86,10 @@
 			<td>3.</td>
 			<td>{{$lead['first_name3']}} {{$lead['last_name3']}}</td> 
 			<td>{{$lead['dob3-month']}}-{{$lead['dob3-date']}}-{{$lead['dob3-year']}}</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['dob3-year'].
+				'-'.$lead['dob3-month'].'-'.$lead['dob3-date'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['gender-3']}}</td>
 			<td>{{$lead['dl3']}}</td>
 			<td>{{$states[$lead['state3']]}}</td>
@@ -87,6 +100,10 @@
 			<td>4.</td>
 			<td>{{$lead['first_name4']}} {{$lead['last_name4']}}</td> 
 			<td>{{$lead['dob4-month']}}-{{$lead['dob4-date']}}-{{$lead['dob4-year']}}</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['dob4-year'].
+				'-'.$lead['dob4-month'].'-'.$lead['dob4-date'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['gender-4']}}</td>
 			<td>{{$lead['dl4']}}</td>
 			<td>{{$states[$lead['state4']]}}</td>
@@ -97,6 +114,10 @@
 			<td>5.</td>
 			<td>{{$lead['first_name5']}} {{$lead['last_name5']}}</td> 
 			<td>{{$lead['dob5-month']}}-{{$lead['dob5-date']}}-{{$lead['dob5-year']}}</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['dob5-year'].
+				'-'.$lead['dob5-month'].'-'.$lead['dob5-date'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['gender-5']}}</td>
 			<td>{{$lead['dl5']}}</td>
 			<td>{{$states[$lead['state5']]}}</td>

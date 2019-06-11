@@ -15,6 +15,8 @@ use Encore\Admin\Show;
 use Carbon\Carbon;
 use App\Helpers\CommonMethod;
 use Encore\Admin\Admin;
+use Encore\Admin\Facades\Admin as LoginAdmin;
+use Encore\Admin\Auth\Permission;
 use Encore\Admin\Widgets\Tab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +64,10 @@ class AdminLeadsController extends Controller
      */
     public function edit($id, Content $content)
     {
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }
         return $content
         ->header('Edit')
         ->description('description')
@@ -76,6 +82,10 @@ class AdminLeadsController extends Controller
      */
     public function create(Content $content)
     {
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
         return $content
         ->header('Create')
         ->description('description')
@@ -109,13 +119,16 @@ class AdminLeadsController extends Controller
         $grid->created_at(trans('Created at'));
         $grid->actions(function ($actions) {
             $actions->disableDelete();
-            // $actions->disableEdit();            
+            if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+                $actions->disableEdit();            
+            }
         });
         $grid->tools(function (Grid\Tools $tools) {
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
             });
+
             $users= AdminUser::select(['id','name'])->get();
             $options= "";
             foreach ($users as $user) {
@@ -187,7 +200,7 @@ class AdminLeadsController extends Controller
      */
     protected function detail($id)
     {
-        return view('Admin.Lead.view',['lead' => Lead::find($id)]);
+        return view('Admin.Lead.view',['lead' => Lead::find($id),'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
     }
 
     /**
@@ -197,6 +210,10 @@ class AdminLeadsController extends Controller
      */
     protected function form($id=0)
     {
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
         $zipcodes = CommonMethod::getZipcodeInfo();
         $zipJson = json_encode($zipcodes);
         $script = <<<SCRIPT
@@ -485,6 +502,10 @@ SCRIPT;
     }
 
     public function updateStatus($id,Request $request){
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
         if(isset($request->approve) || isset($request->deny)){
             $lead = Lead::findOrFail($id);
             if($lead['status']){
@@ -505,7 +526,10 @@ SCRIPT;
 
 
     public function sendBulkEmail(Request $request){
-
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }
         $lead_ids = $request->lead_ids;
         
         if(!$request->lead_ids){
@@ -534,6 +558,10 @@ SCRIPT;
     }
 
     public function addNotes($lead,Request $request){
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
         $valid = request()->validate([
             'notes' => 'required',
         ]);

@@ -53,14 +53,18 @@
 <div class="table">
 	<div class="row mb-10">
 		<div class="col-xs-12 text-right">
-			<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
-				@if($lead['status'] === null)
-				{!! csrf_field() !!}
-				<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
-				<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
-				@endif
+			@if($updateStatus)
+				<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
+					@if($lead['status'] === null)
+					{!! csrf_field() !!}
+					<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
+					<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
+					@endif
+					<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
+				</form>
+			@else
 				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
-			</form>
+			@endif
 		</div>
 	</div>
 	<table class="lead-view">
@@ -78,11 +82,12 @@
 	</table>
 	<!-- Drivers Details -->
 	<table class="lead-view">
-		<tr><th colspan="6">DRIVER DETAILS</th></tr>
+		<tr><th colspan="7">DRIVER DETAILS</th></tr>
 		<tr>
 			<td><strong>#</strong></td>
 			<td><strong>Name</strong></td>
 			<td><strong>Date of Birth</strong></td>
+			<td><strong>Age</strong></td>
 			<td><strong>Gender</strong></td>
 			<td><strong>Drivers License Number</strong></td>
 			<td><strong>State</strong></td>
@@ -90,46 +95,71 @@
 		<tr>
 			<td>1.</td>
 			<td>{{$lead['first_driver_first_name']}} {{$lead['first_driver_last_name']}}</td> 
-			<td>{{$lead['first_driver_dob']}}</td>
+			<td>
+				{{date('m-d-Y', strtotime($lead['first_driver_dob']))}}
+			</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['first_driver_dob'])->diffForHumans(null,true) }} old
+			</td>
 			<td>{{$lead['first_driver_gender']}}</td>
 			<td>{{$lead['first_driver_dl']}}</td>
 			<td>{{$lead['first_driver_state']}}</td>
 		</tr>
-		@if($lead['second_driver_second_name'])
+		@if($lead['second_driver_first_name'])
 		<tr>
 			<td>2.</td>
-			<td>{{$lead['second_driver_second_name']}} {{$lead['second_driver_last_name']}}</td> 
-			<td>{{$lead['second_driver_dob']}}</td>
+			<td>{{$lead['second_driver_first_name']}} {{$lead['second_driver_last_name']}}</td> 
+			<td>
+				{{date('m-d-Y', strtotime($lead['second_driver_dob']))}}
+			</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['second_driver_dob'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['second_driver_gender']}}</td>
 			<td>{{$lead['second_driver_dl']}}</td>
 			<td>{{$lead['second_driver_state']}}</td>
 		</tr>
 		@endif	
-		@if($lead['third_driver_third_name'])
+		@if($lead['third_driver_first_name'])
 		<tr>
 			<td>3.</td>
-			<td>{{$lead['third_driver_third_name']}} {{$lead['third_driver_last_name']}}</td> 
-			<td>{{$lead['third_driver_dob']}}</td>
+			<td>{{$lead['third_driver_first_name']}} {{$lead['third_driver_last_name']}}</td> 
+			<td>
+				{{date('m-d-Y', strtotime($lead['third_driver_dob']))}}
+			</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['third_driver_dob'])->diffForHumans(null,true) }} old
+			</td>				
 			<td>{{$lead['third_driver_gender']}}</td>
 			<td>{{$lead['third_driver_dl']}}</td>
 			<td>{{$lead['third_driver_state']}}</td>
 		</tr>
 		@endif
-		@if($lead['fourth_driver_fourth_name'])
+		@if($lead['fourth_driver_first_name'])
 		<tr>
 			<td>4.</td>
-			<td>{{$lead['fourth_driver_fourth_name']}} {{$lead['fourth_driver_last_name']}}</td> 
-			<td>{{$lead['fourth_driver_dob']}}</td>
+			<td>{{$lead['fourth_driver_first_name']}} {{$lead['fourth_driver_last_name']}}</td> 
+			<td>
+				{{date('m-d-Y', strtotime($lead['fourth_driver_dob']))}}
+			</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['fourth_driver_dob'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['fourth_driver_gender']}}</td>
 			<td>{{$lead['fourth_driver_dl']}}</td>
 			<td>{{$lead['fourth_driver_state']}}</td>
 		</tr>
 		@endif
-		@if($lead['fifth_driver_fifth_name'])
+		@if($lead['fifth_driver_first_name'])
 		<tr>
 			<td>5.</td>
-			<td>{{$lead['fifth_driver_fifth_name']}} {{$lead['fifth_driver_last_name']}}</td> 
-			<td>{{$lead['fifth_driver_dob']}}</td>
+			<td>{{$lead['fifth_driver_first_name']}} {{$lead['fifth_driver_last_name']}}</td>
+			<td>
+				{{date('m-d-Y', strtotime($lead['fifth_driver_dob']))}}
+			</td>
+			<td>
+				{{ $diff = Carbon\Carbon::parse($lead['fifth_driver_dob'])->diffForHumans(null,true) }} old
+			</td>			
 			<td>{{$lead['fifth_driver_gender']}}</td>
 			<td>{{$lead['fifth_driver_dl']}}</td>
 			<td>{{$lead['fifth_driver_state']}}</td>
@@ -321,6 +351,7 @@
 							<li>No note found.</li>
 							@endif
 						</ul>
+						@if($addNotes)
 						<form action="{{route('lead.notes.add',$lead['id'])}}" method="POST">
 							<div class="form-group">
 								{!! csrf_field() !!}
@@ -331,7 +362,8 @@
 							{!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
 							@endif				
 							<button type="submit" class="btn btn-primary">SAVE NOTES</button>
-						</form>						
+						</form>		
+						@endif				
 					</div>
 				</div>
 			</div>

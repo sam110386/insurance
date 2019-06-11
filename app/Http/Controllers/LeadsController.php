@@ -215,7 +215,10 @@ class LeadsController extends BaseController
 		$data['agent_in_person'] 			= $lead['agent_in_person'];
 		$data['referrer'] 		= $lead['referrer'];
 		$data['referrer_name'] 				= $lead['referrer_name'];
-		$data['ip_address'] 				= $request['ip'];		
+		$data['ip_address'] 				= $request['ip'];
+		if($lead['at_fault'] == 1 || $lead['tickets']  == 1 || $lead['dui'] == 1){
+			$lead['status'] = 0;
+		}		
 		return Lead::create($data);
 	}
 
