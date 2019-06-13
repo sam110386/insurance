@@ -52,6 +52,11 @@ class AdminLeadsController extends Controller
         return $content
         ->header('Detail')
         ->description('description')
+        // ->breadcrumb(
+        //     ['text' => 'Dashboard', 'url' => '/admin'],
+        //     ['text' => 'Leads', 'url' => '/admin/leads'],
+        //     ['text' => 'Details']
+        // )        
         ->body($this->detail($id));
     }
 

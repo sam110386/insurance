@@ -33,6 +33,15 @@ $(document).ready(function() {
 /* Brand Carousel End */
 
 $(document).ready(function(){
+	if($("input.masked-dob").length) $("input.masked-dob").inputmask({
+	 	"onincomplete": function(){
+	 		$(this).next('.error').remove();
+	  		$(this).after('<label class="error text-danger">Invalid Date</label>');
+	  	},
+	  	"oncomplete": function(){ 
+	 		$(this).next('.error').remove();
+	  	}
+	});
 	var models = [];
 	var vMake = "";
 	var vYear = 0;
@@ -401,24 +410,21 @@ $(document).ready(function(){
 		}
 		
 		var i = $(this).data('dob');
-		var year = $('select.dob' + i +'-year').val();
-		var month = $('select.dob' + i +'-month').val();
-		var date = $('select.dob' + i +'-date').val();
-		if(year && month && date){
-			var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
-			if(!isValidDate(dateToCheck)){
-				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
-				error = true;
-			}
-			var df = dateDiff(year + "-" + month + "-" + date);
+		var dob = $('input.dob' + i).val();
+		debugger
+		if(dob){
+			dob = dob.split('/');
+			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
 
 			if(df.y < 15){	
-				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				$('input.dob' + i).parent('.form-group').addClass('has-error');
+				$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
 				error = true;	
 			}
+		}else{
+			$('input.dob' + i).parent('.form-group').addClass('has-error');
 		}
+		
 		$.each($('input:visible'),function(){
 			if(!$(this).val()){
 				$(this).parents('.form-group').addClass('has-error');
@@ -576,24 +582,22 @@ $(document).ready(function(){
 			}
 		});
 		var i = $(this).data('dob');
-		var year = $('select.dob' + i +'-year').val();
-		var month = $('select.dob' + i +'-month').val();
-		var date = $('select.dob' + i +'-date').val();
-
-		if(year && month && date){		
-			var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
-			if(!isValidDate(dateToCheck)){
-				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Invalid date</label>');
-				error = true;
-			}
-			var df = dateDiff(year + "-" + month + "-" + date);
+		// var year = $('select.dob' + i +'-year').val();
+		// var month = $('select.dob' + i +'-month').val();
+		// var date = $('select.dob' + i +'-date').val();
+		var dob = $('input.dob' + i).val();
+		debugger
+		if(dob){
+			dob = dob.split('/');
+			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
 
 			if(df.y < 15){	
-				$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
-				$('.dob-error-'+i).append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				$('input.dob' + i).parent('.form-group').addClass('has-error');
+				$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
 				error = true;	
 			}
+		}else{
+			$('input.dob' + i).parent('.form-group').addClass('has-error');
 		}
 		
 		if(!error){

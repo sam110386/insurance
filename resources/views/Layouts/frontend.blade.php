@@ -93,6 +93,7 @@ crossorigin="anonymous"></script>
 <script src="{{ asset('js/jquery-ui.js') }}"></script>
 <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 @stack('scripts')
+<script src="{{ asset('js/jquery.inputmask.bundle.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

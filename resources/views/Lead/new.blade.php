@@ -1979,53 +1979,15 @@
 					</div>
 				</div>
 				<div class="row dob-error-1">
-					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>
-					<div class="col-4 col-sm-2">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob1-month dob-change" data-dob="1" name="dob-month">
-								<option value="">MM </option>
-								<option value="1">01 </option>
-								<option value="2">02</option>
-								<option value="3">03</option>
-								<option value="4">04</option>
-								<option value="5">05</option>
-								<option value="6">06</option>
-								<option value="7">07</option>
-								<option value="8">08</option>
-								<option value="9">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>	
-					</div>
-
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob1-date" name="dob-date">
-								<option value="">DD </option>
-								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
-								@endfor
-							</select>
-						</div>	
-					</div>	
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob1-year" data-dob="1" name="dob-year">
-								<option value="">YYYY </option>
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-							</select>
-						</div>	
+							<label class="font-weight-bold h5 mb-3 text-warning" for="dob">Birthday</label>
+							<input type="text" class="form-control form-control-lg masked-dob dob1 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob" id="dob">
+						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold" for="">Gender</label>
+							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
 							<select class="form-control form-control-lg " name="gender">
 								<option value="">Choose one</option>
 								<option value="Male">Male</option>
@@ -2093,53 +2055,16 @@
 					</div>
 				</div>
 				<div class="row dob-error-2">
-					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
-					<div class="col-4 col-sm-2">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob2-month dob-change" data-dob="2" name="dob2-month">
-								<option value="">MM</option>
-								<option value="1">01</option>
-								<option value="2">02</option>
-								<option value="3">03</option>
-								<option value="4">04</option>
-								<option value="5">05</option>
-								<option value="6">06</option>
-								<option value="7">07</option>
-								<option value="8">08</option>
-								<option value="9">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob2-date" name="dob2-date">
-								<option value="">DD</option>
-								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
-								@endfor
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob2-year" name="dob2-year">
-								<option value="">YYYY</option>
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-							</select>
-						</div>	
+							<label class="font-weight-bold h5 mb-3 text-warning" for="dob2">Birthday</label>
+							<input type="text" class="form-control form-control-lg masked-dob dob2 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob2" id="dob2">
+						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold" for="">Gender</label>
-							<select class="form-control form-control-lg " name="gender-2">
+							<label class="h5 text-warning font-weight-bold  mb-3" for="">Gender</label>
+							<select class="form-control form-control-lg" name="gender-2">
 								<option value="">Choose one</option>
 								<option value="Male">Male</option>
 								<option value="Female">Female</option>
@@ -2206,52 +2131,15 @@
 					</div>
 				</div>
 				<div class="row dob-error-3">
-					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
-					<div class="col-4 col-sm-2">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob3-month dob-change" data-dob="3" name="dob3-month">
-								<option value="">MM</option>
-								<option value="1">01 </option>
-								<option value="2">02</option>
-								<option value="3">03</option>
-								<option value="4">04</option>
-								<option value="5">05</option>
-								<option value="6">06</option>
-								<option value="7">07</option>
-								<option value="8">08</option>
-								<option value="9">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob3-date" name="dob3-date">
-								<option value="">DD</option>
-								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
-								@endfor
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob3-year" name="dob3-year">
-								<option value="">YYYY</option>
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-							</select>
-						</div>	
+							<label class="font-weight-bold h5 mb-3 text-warning" for="dob3">Birthday</label>
+							<input type="text" class="form-control form-control-lg masked-dob dob3 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob3" id="dob3">
+						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold" for="">Gender</label>
+							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
 							<select class="form-control form-control-lg " name="gender-3">
 								<option value="">Choose one</option>
 								<option value="Male">Male</option>
@@ -2320,53 +2208,16 @@
 					</div>
 				</div>
 				<div class="row dob-error-4">
-					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
-					<div class="col-4 col-sm-2">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob4-month dob-change" data-dob="4" name="dob4-month">
-								<option value="">MM</option>
-								<option value="1">01 </option>
-								<option value="2">02</option>
-								<option value="3">03</option>
-								<option value="4">04</option>
-								<option value="5">05</option>
-								<option value="6">06</option>
-								<option value="7">07</option>
-								<option value="8">08</option>
-								<option value="9">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob4-date" name="dob4-date">
-								<option value="">DD</option>
-								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
-								@endfor
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob4-year" name="dob4-year">
-								<option value="">YYYY</option>
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-							</select>
-						</div>	
+							<label class="font-weight-bold h5 mb-3 text-warning" for="dob3">Birthday</label>
+							<input type="text" class="form-control form-control-lg masked-dob dob4 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob4" id="dob4">
+						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold" for="">Gender</label>
-							<select class="form-control form-control-lg " name="gender-4">
+							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
+							<select class="form-control form-control-lg" name="gender-4">
 								<option value="">Choose one</option>
 								<option value="Male">Male</option>
 								<option value="Female">Female</option>
@@ -2433,54 +2284,17 @@
 						</div>
 					</div>
 				</div>
-				<div class="row dob-error-2">
-					<div class="col-12"><label class="font-weight-bold h5 mb-3 text-warning">Birthday</label></div>					
-					<div class="col-4 col-sm-2">
+				<div class="row dob-error-5">
+					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5" for="">Month</label>
-							<select class="form-control form-control-lg dob5-month dob-change" data-dob="5" name="dob5-month">
-								<option value="">MM</option>
-								<option value="1">01 </option>
-								<option value="2">02</option>
-								<option value="3">03</option>
-								<option value="4">04</option>
-								<option value="5">05</option>
-								<option value="6">06</option>
-								<option value="7">07</option>
-								<option value="8">08</option>
-								<option value="9">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Day</label>
-							<select class="form-control form-control-lg dob5-date" name="dob5-date">
-								<option value="">DD</option>
-								@for($i=1;$i< 32;$i++)
-								<option value="{{$i}}">@if($i<10)0{{$i}}@else{{$i}}@endif</option>
-								@endfor
-							</select>
-						</div>	
-					</div>
-					<div class="col-4 col-sm-2">
-						<div class="form-group">
-							<label class="h5" for="">Year</label>
-							<select class="form-control form-control-lg dob5-year" name="dob5-year">
-								<option value="">YYYY</option>
-								@for($i=1;$i<= 100;$i++)
-								<option value="{{ now()->year - $i }}">{{ now()->year - $i }}</option>
-								@endfor
-							</select>
-						</div>	
+							<label class="font-weight-bold h5 mb-3 text-warning" for="dob5">Birthday</label>
+							<input type="text" class="form-control form-control-lg masked-dob dob5 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob5" id="dob5">
+						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold" for="">Gender</label>
-							<select class="form-control form-control-lg " name="gender-5">
+							<label class="h5 text-warning font-weight-bold mb-3 " for="">Gender</label>
+							<select class="form-control form-control-lg" name="gender-5">
 								<option value="">Choose one</option>
 								<option value="Male">Male</option>
 								<option value="Female">Female</option>
