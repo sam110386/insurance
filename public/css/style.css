@@ -89,3 +89,8 @@ h3.font-weight-bold {
 @media(min-width: 1023px){
   .lead-form{min-height: 300px;}
 }
+
+.choices > label.error-label {
+    border-color: #dc3545 !important;
+    color: #dc3545;
+}

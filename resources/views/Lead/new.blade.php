@@ -9,7 +9,7 @@
 
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
+	<div id="zipcode-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -1504,7 +1504,7 @@
 		</div>
 	</div>
 	<!-- Not Showing for now-->
-	<div id="gender-container" class="container pt-5 pb-5" style="display: none;">
+	<!--div id="gender-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
@@ -1534,7 +1534,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div-->
 
 	<div id="married-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -1948,7 +1948,7 @@
 		</div>
 	</div>
 
-	<div id="name-email1-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="name-email1-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
@@ -1988,13 +1988,26 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
-							<select class="form-control form-control-lg " name="gender">
-								<option value="">Choose one</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Non-Binary">Non-Binary</option>
-							</select>
-						</div>						
+							<div class="choices">
+								<label class="h4 text-center border d-inline pl-2 pr-2 mr-3">
+									Male
+									<input type="radio" class="d-none" name="gender" value="Male">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
+									Female
+									<input type="radio" class="d-none" name="gender" value="Female">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
+									Non-Binary
+									<input type="radio" class="d-none" name="gender" value="Non-Binary">
+									<i class="fa fa-angle-right"></i>
+								</label>							
+							</div>
+						</div>
 					</div>			
 				</div>	
 				<div class="row">
@@ -2063,14 +2076,27 @@
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold  mb-3" for="">Gender</label>
-							<select class="form-control form-control-lg" name="gender-2">
-								<option value="">Choose one</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Non-Binary">Non-Binary</option>
-							</select>
-						</div>						
+							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
+							<div class="choices">
+								<label class="h4 text-center border d-inline pl-2 pr-2 mr-3">
+									Male
+									<input type="radio" class="d-none" name="gender-2" value="Male">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
+									Female
+									<input type="radio" class="d-none" name="gender-2" value="Female">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
+									Non-Binary
+									<input type="radio" class="d-none" name="gender-2" value="Non-Binary">
+									<i class="fa fa-angle-right"></i>
+								</label>							
+							</div>
+						</div>					
 					</div>							
 				</div>
 				<div class="row">
@@ -2140,13 +2166,26 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
-							<select class="form-control form-control-lg " name="gender-3">
-								<option value="">Choose one</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Non-Binary">Non-Binary</option>
-							</select>
-						</div>						
+							<div class="choices">
+								<label class="h4 text-center border d-inline pl-2 pr-2 mr-3">
+									Male
+									<input type="radio" class="d-none" name="gender-3" value="Male">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
+									Female
+									<input type="radio" class="d-none" name="gender-3" value="Female">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
+									Non-Binary
+									<input type="radio" class="d-none" name="gender-3" value="Non-Binary">
+									<i class="fa fa-angle-right"></i>
+								</label>							
+							</div>
+						</div>					
 					</div>							
 				</div>
 				<div class="row">
@@ -2217,13 +2256,26 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
-							<select class="form-control form-control-lg" name="gender-4">
-								<option value="">Choose one</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Non-Binary">Non-Binary</option>
-							</select>
-						</div>						
+							<div class="choices">
+								<label class="h4 text-center border d-inline pl-2 pr-2 mr-3">
+									Male
+									<input type="radio" class="d-none" name="gender-4" value="Male">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
+									Female
+									<input type="radio" class="d-none" name="gender-4" value="Female">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
+									Non-Binary
+									<input type="radio" class="d-none" name="gender-4" value="Non-Binary">
+									<i class="fa fa-angle-right"></i>
+								</label>							
+							</div>
+						</div>					
 					</div>										
 				</div>
 				<div class="row">
@@ -2293,14 +2345,27 @@
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label class="h5 text-warning font-weight-bold mb-3 " for="">Gender</label>
-							<select class="form-control form-control-lg" name="gender-5">
-								<option value="">Choose one</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Non-Binary">Non-Binary</option>
-							</select>
-						</div>						
+							<label class="h5 text-warning font-weight-bold mb-3" for="">Gender</label>
+							<div class="choices">
+								<label class="h4 text-center border d-inline pl-2 pr-2 mr-3">
+									Male
+									<input type="radio" class="d-none" name="gender-5" value="Male">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
+									Female
+									<input type="radio" class="d-none" name="gender-5" value="Female">
+									<i class="fa fa-angle-right"></i>
+								</label>
+
+								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
+									Non-Binary
+									<input type="radio" class="d-none" name="gender-5" value="Non-Binary">
+									<i class="fa fa-angle-right"></i>
+								</label>							
+							</div>
+						</div>					
 					</div>							
 				</div>
 				<div class="row">

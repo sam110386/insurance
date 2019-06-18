@@ -256,11 +256,11 @@ $(document).ready(function(){
 			}else{
 				$("#d-city").val(zipcodes[zip]);
 				$("#d-zipcode").val(zip);
-				debugger
 			}
 		}
 		$('.form-group').removeClass('has-error');
 		$('form.lead-form > div.container').fadeOut(500);
+		$('.brand-carousel').slideUp();
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 
 	});
@@ -391,6 +391,7 @@ $(document).ready(function(){
 		var error = false;
 		var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
 		$('.form-group').removeClass('has-error');
+		$('.error-label').removeClass('error-label');
 		if($('#first_name').val() == "" || $.trim($('#first_name').val()) == ""){
 			$('#first_name').parent('.form-group').addClass('has-error');
 			error = true;
@@ -411,7 +412,6 @@ $(document).ready(function(){
 		
 		var i = $(this).data('dob');
 		var dob = $('input.dob' + i).val();
-		debugger
 		if(dob){
 			dob = dob.split('/');
 			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
@@ -428,6 +428,15 @@ $(document).ready(function(){
 		$.each($('input:visible'),function(){
 			if(!$(this).val()){
 				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
+		debugger
+		var cId = $(this).parents('.container').attr('id');
+		$.each($('#' + cId + ' input[type=radio]'),function(e){
+			var name = $(this).attr('name');
+			if(!$('input[name='+  name +']').is(':checked')){
+				$('input[name='+  name +']').parent('label').addClass('error-label');
 				error = true;
 			}
 		});		
@@ -581,12 +590,17 @@ $(document).ready(function(){
 				error = true;
 			}
 		});
+		$('.error-label').removeClass('error-label');
+		var cId = $(this).parents('.container').attr('id');
+		$.each($('#' + cId + ' input[type=radio]'),function(e){
+			var name = $(this).attr('name');
+			if(!$('input[name='+  name +']').is(':checked')){
+				$('input[name='+  name +']').parent('label').addClass('error-label');
+				error = true;
+			}
+		});
 		var i = $(this).data('dob');
-		// var year = $('select.dob' + i +'-year').val();
-		// var month = $('select.dob' + i +'-month').val();
-		// var date = $('select.dob' + i +'-date').val();
 		var dob = $('input.dob' + i).val();
-		debugger
 		if(dob){
 			dob = dob.split('/');
 			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
