@@ -9,7 +9,7 @@
 
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST">
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -1948,7 +1948,7 @@
 		</div>
 	</div>
 
-	<div id="name-email1-container" class="container pt-5 pb-5" style="display: block;">
+	<div id="name-email1-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
