@@ -205,7 +205,7 @@ class AdminLeadsController extends Controller
      */
     protected function detail($id)
     {
-        return view('Admin.Lead.view',['lead' => Lead::find($id),'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
+        return view('Admin.Lead.view',['lead' => Lead::find($id),'showIp'=> LoginAdmin::user()->inRoles(['administrator']) , 'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
     }
 
     /**

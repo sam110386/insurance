@@ -44,6 +44,7 @@
 	}
 
 	.comment-wrapper .media-list .media {
+		padding-bottom: 10px;
 		border-bottom:1px dashed #efefef;
 		margin-bottom:25px;
 	}
@@ -333,6 +334,9 @@
 							@if(count($lead->notes))
 								@foreach($lead->notes as $note)
 									<li class="media">
+										<div class="media-left">
+											<img class="media-object img-circle" src="{{Storage::disk('admin')->url(($note->user->avatar) ? $note->user->avatar : 'images/default-user.png' )}}" alt="...">
+										</div>
 										<div class="media-body">
 											<span class="text-muted pull-right">
 												<small class="text-muted">
@@ -340,9 +344,11 @@
 												</small>
 											</span>
 											<strong class="text-success">
-												<i class="fa fa-user-circle"></i> {{$note->user->name}}
+												{{$note->user->name}}
 											</strong> &nbsp;&nbsp;&nbsp; 
+											@if($showIp)
 											<strong><i class="fa fa-map-marker"></i> {{$note->user_ip}}</strong>
+											@endif
 											<p>{!! $note->notes !!}</p>
 										</div>
 									</li>

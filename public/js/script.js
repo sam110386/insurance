@@ -29,7 +29,30 @@ $(document).ready(function() {
 			}
 		}		
 	});
+
 })
+
+jQuery(document).ready( function($) {
+ 
+    // Disable scroll when focused on a number input.
+    $('.lead-form').on('focus', 'input[type=number]', function(e) {
+        $(this).on('wheel', function(e) {
+            e.preventDefault();
+        });
+    });
+ 
+    // Restore scroll on number inputs.
+    $('.lead-form').on('blur', 'input[type=number]', function(e) {
+        $(this).off('wheel');
+    });
+ 
+    // Disable up and down keys.
+    $('.lead-form').on('keydown', 'input[type=number]', function(e) {
+        if ( e.which == 38 || e.which == 40 )
+            e.preventDefault();
+    });  
+      
+});
 /* Brand Carousel End */
 
 $(document).ready(function(){
