@@ -14,7 +14,7 @@
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
 					<!--label for="zipcode" class="font-weight-bold h3 mb-3">Enter your zip code to start this short and easy process.</label-->
-					<input type="number" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code">
+					<input type="number" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code" pattern="[0-9]*">
 				</div>
 				<div class="form-group">
 					<a data-href="year" data-pos="1" class="zipcode-submit mb-2 btn btn-lg btn-warning pull-left change-question">Get Your Quotes</a>
