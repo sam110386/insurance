@@ -50,7 +50,7 @@
 				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
-					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year">
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year">
 						<option value="">Choose one</option>
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
@@ -82,7 +82,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">ALL</h4>
 						<div class="form-group">
-							<select class="form-control form-control-lg" name="make-select">
+							<select class="auto-select form-control form-control-lg" name="make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
@@ -334,7 +334,7 @@
 				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
-					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-2">
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-2">
 						<option value="">Choose one</option>
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
@@ -366,7 +366,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">ALL</h4>
 						<div class="form-group row">
-							<select class="form-control form-control-lg" name="vehicle2-make-select">
+							<select class="auto-select form-control form-control-lg" name="vehicle2-make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle2-make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="vehicle2-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
@@ -617,7 +617,7 @@
 				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
-					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-3">
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-3">
 						<option value="">Choose one</option>
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
@@ -650,7 +650,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">ALL</h4>
 						<div class="form-group row">
-							<select class="form-control form-control-lg" name="vehicle3-make-select">
+							<select class="auto-select form-control form-control-lg" name="vehicle3-make-select">
 
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle3-make-other" placeholder="Enter Vehicle Make" style="display: none;">
@@ -903,7 +903,7 @@
 				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
-					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-4">
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-4">
 						<option value="">Choose one</option>
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
@@ -935,7 +935,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-4">ALL</h4>
 						<div class="form-group row">
-							<select class="form-control form-control-lg" name="vehicle4-make-select">
+							<select class="auto-select form-control form-control-lg" name="vehicle4-make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle4-make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="vehicle4-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="4">CONTINUE</a>
@@ -1186,7 +1186,7 @@
 				@if(count($years) > 20)
 				<div class="form-group">
 					<h3>OTHER</h3>
-					<select class="form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-5">
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-5">
 						<option value="">Choose one</option>
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
@@ -1218,7 +1218,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-5">ALL</h4>
 						<div class="form-group row">
-							<select class="form-control form-control-lg" name="vehicle5-make-select">
+							<select class="auto-select form-control form-control-lg" name="vehicle5-make-select">
 
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle5-make-other" placeholder="Enter Vehicle Make" style="display: none;">

@@ -34,6 +34,17 @@ $(document).ready(function() {
 
 jQuery(document).ready( function($) {
  
+
+ 	// year select on change trigger next quesiton
+ 	$('.lead-form').on('change','select.auto-select',function(){
+ 		$(this).siblings('a').trigger('click');
+ 	})
+
+ 	// change question on policy question
+	$('input[name=dui],input[name=rental]').parent('label').on('click',function(){
+ 		$('a.next-question:visible').trigger('click');
+ 	})
+ 	
     // Disable scroll when focused on a number input.
     $('.lead-form').on('focus', 'input[type=number]', function(e) {
         $(this).on('wheel', function(e) {
@@ -215,6 +226,7 @@ $(document).ready(function(){
 	$('.models-list').on('click','a',function(){
 		$(this).parent().siblings('.model-search').val($(this).data('value'));
 		$(this).parent('.models-list').html();
+		$(this).parent().siblings('a').trigger('click');
 	});
 	$('a.vehicle-next').on('click',function(){
 		$(this).parents(".container").find("label").removeClass('bg-warning');
