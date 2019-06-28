@@ -1982,7 +1982,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning" for="dob">Birthday</label>
-							<input type="text" class="form-control form-control-lg masked-dob dob1 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob" id="dob">
+							<input type="tel" pattern="[0-9\/]*"  class="form-control form-control-lg masked-dob dob1 " name="dob" id="dob">
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
@@ -2071,7 +2071,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning" for="dob2">Birthday</label>
-							<input type="text" class="form-control form-control-lg masked-dob dob2 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob2" id="dob2">
+							<input type="tel" pattern="[0-9\/]*"  class="form-control form-control-lg masked-dob dob2 " name="dob2" id="dob2">
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
@@ -2160,7 +2160,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning" for="dob3">Birthday</label>
-							<input type="text" class="form-control form-control-lg masked-dob dob3 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob3" id="dob3">
+							<input type="tel" pattern="[0-9\/]*"  class="form-control form-control-lg masked-dob dob3 " name="dob3" id="dob3">
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
@@ -2250,7 +2250,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning" for="dob3">Birthday</label>
-							<input type="text" class="form-control form-control-lg masked-dob dob4 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob4" id="dob4">
+							<input type="tel" pattern="[0-9\/]*" class="form-control form-control-lg masked-dob dob4 " name="dob4" id="dob4">
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
@@ -2340,7 +2340,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning" for="dob5">Birthday</label>
-							<input type="text" class="form-control form-control-lg masked-dob dob5 " data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-inputmask-placeholder="MM/DD/YYYY" name="dob5" id="dob5">
+							<input type="tel" pattern="[0-9\/]*"  class="form-control form-control-lg masked-dob dob5 "  name="dob5" id="dob5">
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
