@@ -2423,26 +2423,26 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="phone" class="font-weight-bold h5 mb-3 text-warning">Phone Number</label>
-							<input type="text" class="form-control form-control-lg" id="phone" name="phone">
+							<input type="tel" class="form-control form-control-lg" id="phone" name="phone" pattern="[0-9]*">
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label for="phone" class="font-weight-bold h5 mb-3 text-mute">City</label>
+							<label for="d-city" class="font-weight-bold h5 mb-3 text-mute">City</label>
 							<input type="text" class="form-control form-control-lg" id="d-city" disabled="disabled" readonly/>
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label for="phone" class="font-weight-bold h5 mb-3 text-mute">State</label>
+							<label for="d-state" class="font-weight-bold h5 mb-3 text-mute">State</label>
 							<input type="text" class="form-control form-control-lg" value="California" id="d-state" disabled="disabled" readonly />
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
-							<label for="phone" class="font-weight-bold h5 mb-3 text-mute">Zipcode</label>
+							<label for="d-zipcode" class="font-weight-bold h5 mb-3 text-mute">Zipcode</label>
 							<input type="text" class="form-control form-control-lg" id="d-zipcode" disabled="disabled" readonly/>
 						</div>
 					</div>										

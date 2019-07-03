@@ -94,7 +94,7 @@ $(document).ready(function(){
 		}		
 	});
 
-
+	$("input#phone").inputmask("(999) 999-9999",{placeholder: "(xxx) xxx-xxxx"});
 
 	// if($("input.masked-dob").length) $("input.masked-dob").inputmask({
 	// 	"onincomplete": function(){
