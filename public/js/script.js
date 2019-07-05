@@ -96,15 +96,6 @@ $(document).ready(function(){
 
 	$("input#phone").inputmask("(999) 999-9999",{placeholder: "(xxx) xxx-xxxx"});
 
-	// if($("input.masked-dob").length) $("input.masked-dob").inputmask({
-	// 	"onincomplete": function(){
-	// 		$(this).next('.error').remove();
-	// 		$(this).after('<label class="error text-danger">Invalid Date</label>');
-	// 	},
-	// 	"oncomplete": function(){ 
-	// 		$(this).next('.error').remove();
-	// 	}
-	// });
 		var models = [];
 		var vMake = "";
 		var vYear = 0;

@@ -2400,7 +2400,7 @@
 
 	<!-- DRIVER 5 END -->	
 
-	<div id="last-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="last-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
@@ -2423,7 +2423,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="phone" class="font-weight-bold h5 mb-3 text-warning">Phone Number</label>
-							<input type="tel" class="form-control form-control-lg" id="phone" name="phone" pattern="[0-9]*">
+							<input type="number" class="form-control form-control-lg" id="phone" name="phone" pattern="[0-9]*">
 						</div>
 					</div>
 				</div>
