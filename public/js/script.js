@@ -33,8 +33,6 @@ $(document).ready(function() {
 })
 
 jQuery(document).ready( function($) {
-
-
  	// year select on change trigger next quesiton
  	$('.lead-form').on('change','select.auto-select',function(){
  		$(this).siblings('a').trigger('click');

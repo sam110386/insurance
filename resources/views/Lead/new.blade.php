@@ -291,7 +291,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-4">Add Second Vehicle? (Save Additional 20%)</h4>
+				<h4 class="mb-4">Add Additional Vehicle? (Save an Additional 20%)</h4>
 				<div class="form-group choices row pl-15 pr-15">
 					<label for="vehicle2-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle2-year" data-current="vehicle2">
 						Yes
@@ -574,7 +574,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-4">Add Third Vehicle?</h4>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
 				<div class="form-group choices row pl-15 pr-15">
 					<label for="vehicle3-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle3-year" data-current="vehicle3">
 						Yes
@@ -860,7 +860,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-4">Add Fourth Vehicle?</h4>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
 				<div class="form-group choices row pl-15 pr-15">
 					<label for="vehicle4-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle4-year" data-current="vehicle4">
 						Yes
@@ -1143,7 +1143,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-4">Add Fifth Vehicle?</h4>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
 				<div class="form-group choices row pr-15 pl-15">
 					<label for="vehicle5-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle5-year" data-current="vehicle5">
 						Yes
@@ -1699,7 +1699,7 @@
 						</strong>
 					</a>
 				</p>
-				<h4 class="mb-4">Would you like to also receive renters insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
+				<h4 class="mb-4">Would you like to also receive <span class="font-weight-bold">Renters Insurance</span> policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
 				<div class="form-group choices row pl-15 pr-15">
 					<label for="bundled-1" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
 						Yes
@@ -1799,7 +1799,7 @@
 				<div class="row ">
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 mb-3">
 						<div class="form-group">
-							<label class="h4">Bodily Injury</label>
+							<label class="h4">Bodily Injury Liability &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#bodilyPopup"></i></label>
 							<select class="form-control form-control-lg" name="bodily-injury">
 								<option value="15-30" selected="selected">$15k/$30k</option>
 								<option value="25-50">$25k/$50k</option>
@@ -1811,7 +1811,9 @@
 							</select>
 						</div>	
 						<div class="form-group">
-							<label class="h4">Deductible</label>
+							<label class="h4">
+								Comprehensive Deductible &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#deductiblePopup"></i>
+							</label>
 							<select class="form-control form-control-lg" name="deductible">
 								<option value="250">$250</option>
 								<option value="500">$500</option>
@@ -1819,7 +1821,7 @@
 							</select>
 						</div>						
 						<div class="form-group">
-							<label class="h4">Medical</label>
+							<label class="h4">Medical Coverage &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#medicalPopup"></i></label>
 							<select class="form-control form-control-lg" name="medical">
 								<option value="0" selected="selected">$0</option>
 								<option value="5000">$5000</option>
@@ -1829,7 +1831,7 @@
 					</div>
 					<div class="d-none d-md-block col-md-2 col-lg-2 "></div>
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
-						<h4 class="mb-2">Uninsured</h4>						
+						<h4 class="mb-2">Uninsured Motorist &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#uninsuredPopup"></i></h4>						
 						<div class="form-group choices row pl-15 pr-15">
 							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
@@ -1843,7 +1845,7 @@
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>
-						<h4 class="mb-2">Towing</h4>						
+						<h4 class="mb-2">Road Side &amp; Towing &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#towingPopup"></i></h4>						
 						<div class="form-group choices row pl-15 pr-15">
 							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
@@ -1857,7 +1859,7 @@
 								<i class="fa fa-angle-right"></i>
 							</label>
 						</div>
-						<h4 class="mb-2">Rental</h4>						
+						<h4 class="mb-2">Rental Car &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#rentalPopup"></i></h4>						
 						<div class="form-group choices row pl-15 pr-15">
 							<label for="at-fault-yes" class="h4 border text-center col-5 col-sm-5 col-md-3 col-lg-3 pl-2 pr-2 mb-0">
 								Yes
@@ -1947,7 +1949,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="name-email1-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -2040,8 +2041,6 @@
 			</div>
 		</div>
 	</div>	
-
-
 	<!-- DRIVER 2 START -->
 	<div id="name2-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -2130,7 +2129,6 @@
 		</div>
 	</div>
 	<!-- DRIVER 2 END -->
-
 	<!-- DRIVER 3 START -->
 	<div id="name3-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -2218,9 +2216,7 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- DRIVER 3 END -->
-
 	<!-- DRIVER 4 START -->
 	<div id="name4-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -2308,9 +2304,7 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- DRIVER 4 END -->
-
 	<!-- DRIVER 5 START -->
 	<div id="name5-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -2397,9 +2391,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- DRIVER 5 END -->	
-
+	<!-- DRIVER 5 END -->
 	<div id="last-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -2460,7 +2452,107 @@
 			</div>
 		</div>
 	</div>		
-
 </form>
-
+<div class="modal fade" id="bodilyPopup" tabindex="-1" role="dialog" aria-labelledby="bodilyPopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bodilyPopupTtitle">Bodily Injury Liability</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="rentalPopup" tabindex="-1" role="dialog" aria-labelledby="rentalPopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rentalPopupTtitle">Rental Car</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="towingPopup" tabindex="-1" role="dialog" aria-labelledby="towingPopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="towingPopupTtitle">Road Side &amp; Towing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="uninsuredPopup" tabindex="-1" role="dialog" aria-labelledby="uninsuredPopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uninsuredPopupTtitle">Uninsured Motorist</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="medicalPopup" tabindex="-1" role="dialog" aria-labelledby="medicalPopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="medicalPopupTtitle">Medical Coverage</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deductiblePopup" tabindex="-1" role="dialog" aria-labelledby="deductiblePopupTtitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deductiblePopupTtitle">Comprehensive Deductible</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		<p>Why do we use it?</p>
+		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
