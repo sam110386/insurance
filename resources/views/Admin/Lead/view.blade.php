@@ -73,7 +73,7 @@
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
 		<tr><td><strong>Street</strong></td><td>{{$lead['street']}}</td></tr>
 		<tr><td><strong>City</strong></td><td>{{$lead['city']}},California,{{$lead['zip']}}</td></tr>
-		<tr><td><strong>Phone</strong></td><td>{{$lead['phone']}}</td></tr>
+		<tr><td><strong>Phone</strong></td><td>{{$lead->phoneNumber($lead['phone'])}}</td></tr>
 		<tr><td><strong>Email</strong></td><td>{{$lead['email']}}</td></tr>
 
 		<tr><td><strong>Married</strong></td><td class=@if($lead['married']){{"bg-green"}}@endif>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>

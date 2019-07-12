@@ -5,7 +5,10 @@ use App\Models\Vehicle;
 
 class CommonMethod {
 
-
+    public static function phoneNumber($phoneNumber) {
+        return "(".substr($phoneNumber, 0, 3).") ".substr($phoneNumber, 3, 3)." ".substr($phoneNumber,6);
+    }
+    
     public static function getInsuranceCompanies(){
         return ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];        
     }

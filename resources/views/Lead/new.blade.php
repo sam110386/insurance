@@ -6,8 +6,33 @@
 </script>
 @endpush
 @section('content')
-
-<form class="lead-form row" action="{{route('save-lead')}}" method="POST">
+<div class="row pt-3 pb-3 progress-container">
+<!-- 	<div class="col-12">
+		<h4 class="text-center">Progress</h4>
+	</div> -->
+	<div class="col-12 text-center">
+		<div class="q-progress">
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<hr class="after" />
+						<i class="far fa-circle"></i>
+					</td>
+					<td>
+						<hr class="before"/>
+						<i class="far fa-circle"></i>
+						<hr class="after" />
+					</td>
+					<td>
+						<hr class="before"/>
+						<i class="far fa-circle"></i>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<form class="lead-form row" action="{{route('save-lead')}}" method="POST" novalidate>
 	{{ csrf_field() }}
 	<div id="zipcode-container" class="container pt-5 pb-5" style="display: block;">
 		<div class="row">
@@ -1382,31 +1407,31 @@
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven5-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven5">
+					<label for="miles-driven5-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="Less than 5,000" id="miles-driven5-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven5" >
+					<label for="miles-driven5-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="5,000-10,000" id="miles-driven5-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven5" >
+					<label for="miles-driven5-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="10,000-15,000" id="miles-driven5-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven5" >
+					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="15,000-20,000" id="miles-driven5-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven5" >
+					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="More than 20,000" id="miles-driven5-5" />
 						<i class="fa fa-angle-right"></i>
@@ -1416,7 +1441,1436 @@
 		</div>
 	</div>	
 	<!-- 5 VEHICLE END -->
+	<!-- 6 VEHICLE START -->
+	<div id="vehicle6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="miles-driven5" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle6-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle6-year" data-current="vehicle6">
+						Yes
+						<input type="radio" class="d-none" name="vehicle6" value="1" id="vehicle6-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle6-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle6" >
+						No
+						<input type="radio" class="d-none" name="vehicle6" value="0" id="vehicle6-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="vehicle6-year-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="vehicle6-year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle6-make" data-current="vehicle6-year" data-year="{{ $years[$i]->year }}" data-vehicle="6" data-models="vehicle6-models" data-make="vehicle6-make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="vehicle6-year" value="{{ $years[$i]->year }}" id="vehicle6-year-{{ $years[$i]->year }}" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					@endfor
+				</div>
+				@if(count($years) > 20)
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-6">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle6-make" data-current="vehicle6-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle6-year" data-vehicle="6" data-models="vehicle6-models" data-make="vehicle6-make" >CONTINUE</a>
+				</div>
+				@endif					
+			</div>
+		</div>
+	</div>
+	<div id="vehicle6-make-container" class="vehicle-makes container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">POPULAR</h4>
+						<div class="form-group choices row">
 
+						</div>						
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">ALL</h4>
+						<div class="form-group row">
+							<select class="auto-select form-control form-control-lg" name="vehicle6-make-select">
+
+							</select>
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle6-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<a data-href="vehicle6-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="6">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="vehicle6-models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle6-make" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model6-other" id="model6-other" placeholder="search model...">
+							<div class="list-group models-list">
+							</div>
+							<a data-href="trims6" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="6">CONTINUE</a>
+						</div>
+						<div class="form-group choices row models-6"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trims6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle6-models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-6"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div id="vin6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="trims3" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin6">
+							<a data-href="ownership6" data-current="vin6"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership6" data-current="vin6"  class="next-question btn btn-lg btn-info">SKIP</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ownership6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vin2" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Ownership</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="ownership6-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6">
+						Owned
+						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Owned" id="ownership6-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership6-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
+						Financed
+						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Financed" id="ownership6-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership6-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
+						Leased
+						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Leased" id="ownership6-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>									
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="primary6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="ownership6" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Primary Use of Vehicle</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="primary6-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6">
+						Commute
+						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Commute" id="primary6-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary6-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+						Pleasure
+						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Pleasure" id="primary6-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary6-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+						Business
+						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Business" id="primary6-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary6-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+						Farm
+						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Farm" id="primary6-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="miles-driven6-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="primary6" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Miles Driven Per Year</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven6-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6">
+						Less than 5,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="Less than 5,000" id="miles-driven6-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven6-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+						5,000-10,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="5,000-10,000" id="miles-driven6-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven6-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+						10,000-15,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="10,000-15,000" id="miles-driven6-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+						15,000-20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="15,000-20,000" id="miles-driven6-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+						More than 20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="More than 20,000" id="miles-driven6-5" />
+						<i class="fa fa-angle-right"></i>
+					</label>						
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- 6 VEHICLE END -->
+	<!-- 7 VEHICLE START -->
+	<div id="vehicle7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="miles-driven6" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle7-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle7-year" data-current="vehicle7">
+						Yes
+						<input type="radio" class="d-none" name="vehicle7" value="1" id="vehicle7-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle7-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle7" >
+						No
+						<input type="radio" class="d-none" name="vehicle7" value="0" id="vehicle7-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="vehicle7-year-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="vehicle7-year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle7-make" data-current="vehicle7-year" data-year="{{ $years[$i]->year }}" data-vehicle="7" data-models="vehicle7-models" data-make="vehicle7-make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="vehicle7-year" value="{{ $years[$i]->year }}" id="vehicle7-year-{{ $years[$i]->year }}" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					@endfor
+				</div>
+				@if(count($years) > 20)
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-7">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle7-make" data-current="vehicle7-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle7-year" data-vehicle="7" data-models="vehicle7-models" data-make="vehicle7-make" >CONTINUE</a>
+				</div>
+				@endif					
+			</div>
+		</div>
+	</div>
+	<div id="vehicle7-make-container" class="vehicle-makes container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">POPULAR</h4>
+						<div class="form-group choices row">
+
+						</div>						
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">ALL</h4>
+						<div class="form-group row">
+							<select class="auto-select form-control form-control-lg" name="vehicle7-make-select">
+
+							</select>
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle7-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<a data-href="vehicle7-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="7">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="vehicle7-models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle7-make" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model7-other" id="model7-other" placeholder="search model...">
+							<div class="list-group models-list">
+							</div>
+							<a data-href="trims7" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="7">CONTINUE</a>
+						</div>
+						<div class="form-group choices row models-7"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trims7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle7-models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-7"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div id="vin7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="trims3" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin7">
+							<a data-href="ownership7" data-current="vin7"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership7" data-current="vin7"  class="next-question btn btn-lg btn-info">SKIP</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ownership7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vin2" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Ownership</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="ownership7-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7">
+						Owned
+						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Owned" id="ownership7-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership7-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
+						Financed
+						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Financed" id="ownership7-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership7-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
+						Leased
+						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Leased" id="ownership7-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>									
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="primary7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="ownership7" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Primary Use of Vehicle</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="primary7-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7">
+						Commute
+						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Commute" id="primary7-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary7-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+						Pleasure
+						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Pleasure" id="primary7-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary7-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+						Business
+						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Business" id="primary7-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary7-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+						Farm
+						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Farm" id="primary7-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="miles-driven7-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="primary7" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Miles Driven Per Year</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven7-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7">
+						Less than 5,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="Less than 5,000" id="miles-driven7-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven7-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+						5,000-10,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="5,000-10,000" id="miles-driven7-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven7-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+						10,000-15,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="10,000-15,000" id="miles-driven7-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+						15,000-20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="15,000-20,000" id="miles-driven7-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+						More than 20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="More than 20,000" id="miles-driven7-5" />
+						<i class="fa fa-angle-right"></i>
+					</label>						
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- 7 VEHICLE END -->	
+	<!-- 8 VEHICLE START -->
+	<div id="vehicle8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="miles-driven7" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle8-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle8-year" data-current="vehicle8">
+						Yes
+						<input type="radio" class="d-none" name="vehicle8" value="1" id="vehicle8-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle8-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle8" >
+						No
+						<input type="radio" class="d-none" name="vehicle8" value="0" id="vehicle8-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="vehicle8-year-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="vehicle8-year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle8-make" data-current="vehicle8-year" data-year="{{ $years[$i]->year }}" data-vehicle="8" data-models="vehicle8-models" data-make="vehicle8-make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="vehicle8-year" value="{{ $years[$i]->year }}" id="vehicle8-year-{{ $years[$i]->year }}" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					@endfor
+				</div>
+				@if(count($years) > 20)
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-8">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle8-make" data-current="vehicle8-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle8-year" data-vehicle="8" data-models="vehicle8-models" data-make="vehicle8-make" >CONTINUE</a>
+				</div>
+				@endif					
+			</div>
+		</div>
+	</div>
+	<div id="vehicle8-make-container" class="vehicle-makes container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">POPULAR</h4>
+						<div class="form-group choices row">
+
+						</div>						
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">ALL</h4>
+						<div class="form-group row">
+							<select class="auto-select form-control form-control-lg" name="vehicle8-make-select">
+
+							</select>
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle8-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<a data-href="vehicle8-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="8">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="vehicle8-models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle8-make" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model8-other" id="model8-other" placeholder="search model...">
+							<div class="list-group models-list">
+							</div>
+							<a data-href="trims8" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="8">CONTINUE</a>
+						</div>
+						<div class="form-group choices row models-8"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trims8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle8-models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-8"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div id="vin8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="trims3" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin8">
+							<a data-href="ownership8" data-current="vin8"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership8" data-current="vin8"  class="next-question btn btn-lg btn-info">SKIP</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ownership8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vin2" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Ownership</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="ownership8-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8">
+						Owned
+						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Owned" id="ownership8-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership8-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
+						Financed
+						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Financed" id="ownership8-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership8-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
+						Leased
+						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Leased" id="ownership8-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>									
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="primary8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="ownership8" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Primary Use of Vehicle</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="primary8-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8">
+						Commute
+						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Commute" id="primary8-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary8-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+						Pleasure
+						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Pleasure" id="primary8-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary8-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+						Business
+						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Business" id="primary8-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary8-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+						Farm
+						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Farm" id="primary8-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="miles-driven8-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="primary8" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Miles Driven Per Year</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven8-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8">
+						Less than 5,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="Less than 5,000" id="miles-driven8-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven8-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+						5,000-10,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="5,000-10,000" id="miles-driven8-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven8-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+						10,000-15,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="10,000-15,000" id="miles-driven8-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+						15,000-20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="15,000-20,000" id="miles-driven8-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+						More than 20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="More than 20,000" id="miles-driven8-5" />
+						<i class="fa fa-angle-right"></i>
+					</label>						
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- 8 VEHICLE END -->	
+	<!-- 9 VEHICLE START -->
+	<div id="vehicle9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="miles-driven8" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle9-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle9-year" data-current="vehicle9">
+						Yes
+						<input type="radio" class="d-none" name="vehicle9" value="1" id="vehicle9-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle9-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle9" >
+						No
+						<input type="radio" class="d-none" name="vehicle9" value="0" id="vehicle9-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="vehicle9-year-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="vehicle9-year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle9-make" data-current="vehicle9-year" data-year="{{ $years[$i]->year }}" data-vehicle="9" data-models="vehicle9-models" data-make="vehicle9-make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="vehicle9-year" value="{{ $years[$i]->year }}" id="vehicle9-year-{{ $years[$i]->year }}" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					@endfor
+				</div>
+				@if(count($years) > 20)
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-9">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle9-make" data-current="vehicle9-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle9-year" data-vehicle="9" data-models="vehicle9-models" data-make="vehicle9-make" >CONTINUE</a>
+				</div>
+				@endif					
+			</div>
+		</div>
+	</div>
+	<div id="vehicle9-make-container" class="vehicle-makes container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">POPULAR</h4>
+						<div class="form-group choices row">
+
+						</div>						
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">ALL</h4>
+						<div class="form-group row">
+							<select class="auto-select form-control form-control-lg" name="vehicle9-make-select">
+
+							</select>
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle9-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<a data-href="vehicle9-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="9">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="vehicle9-models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle9-make" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model9-other" id="model9-other" placeholder="search model...">
+							<div class="list-group models-list">
+							</div>
+							<a data-href="trims9" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="9">CONTINUE</a>
+						</div>
+						<div class="form-group choices row models-9"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trims9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle9-models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-9"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div id="vin9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="trims3" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin9">
+							<a data-href="ownership9" data-current="vin9"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership9" data-current="vin9"  class="next-question btn btn-lg btn-info">SKIP</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ownership9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vin2" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Ownership</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="ownership9-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9">
+						Owned
+						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Owned" id="ownership9-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership9-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
+						Financed
+						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Financed" id="ownership9-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership9-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
+						Leased
+						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Leased" id="ownership9-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>									
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="primary9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="ownership9" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Primary Use of Vehicle</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="primary9-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9">
+						Commute
+						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Commute" id="primary9-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary9-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+						Pleasure
+						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Pleasure" id="primary9-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary9-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+						Business
+						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Business" id="primary9-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary9-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+						Farm
+						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Farm" id="primary9-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="miles-driven9-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="primary9" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Miles Driven Per Year</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven9-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9">
+						Less than 5,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="Less than 5,000" id="miles-driven9-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven9-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+						5,000-10,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="5,000-10,000" id="miles-driven9-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven9-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+						10,000-15,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="10,000-15,000" id="miles-driven9-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+						15,000-20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="15,000-20,000" id="miles-driven9-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+						More than 20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="More than 20,000" id="miles-driven9-5" />
+						<i class="fa fa-angle-right"></i>
+					</label>						
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- 9 VEHICLE END -->	
+	<!-- 10 VEHICLE START -->
+	<div id="vehicle10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="miles-driven9" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Add Additional Vehicle?</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="vehicle10-yes" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle10-year" data-current="vehicle10">
+						Yes
+						<input type="radio" class="d-none" name="vehicle10" value="1" id="vehicle10-yes" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="col-2 col-sm-1"></span>
+					<label for="vehicle10-no" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="previous-insurance" data-current="vehicle10" >
+						No
+						<input type="radio" class="d-none" name="vehicle10" value="0" id="vehicle10-no" />
+						<i class="fa fa-angle-right"></i>
+					</label>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="vehicle10-year-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<div class="form-group choices row get-make">
+					@php
+						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
+					@endphp
+					@for ($i = 0; $i < $yearLoop; $i++)
+					<label for="vehicle10-year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="vehicle10-make" data-current="vehicle10-year" data-year="{{ $years[$i]->year }}" data-vehicle="10" data-models="vehicle10-models" data-make="vehicle10-make">
+						{{ $years[$i]->year }}
+						<input type="radio" class="d-none" name="vehicle10-year" value="{{ $years[$i]->year }}" id="vehicle10-year-{{ $years[$i]->year }}" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					@endfor
+				</div>
+				@if(count($years) > 20)
+				<div class="form-group">
+					<h3>OTHER</h3>
+					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year-10">
+						<option value="">Choose one</option>
+						@for ($i = 20; $i < count($years); $i++)
+						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
+						@endfor
+					</select>
+					<a data-href="vehicle10-make" data-current="vehicle10-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle10-year" data-vehicle="10" data-models="vehicle10-models" data-make="vehicle10-make" >CONTINUE</a>
+				</div>
+				@endif					
+			</div>
+		</div>
+	</div>
+	<div id="vehicle10-make-container" class="vehicle-makes container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="#" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">POPULAR</h4>
+						<div class="form-group choices row">
+
+						</div>						
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<h4 class="mb-3">ALL</h4>
+						<div class="form-group row">
+							<select class="auto-select form-control form-control-lg" name="vehicle10-make-select">
+
+							</select>
+							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle10-make-other" placeholder="Enter Vehicle Make" style="display: none;">
+							<a data-href="vehicle10-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="10">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+	<div id="vehicle10-models-container" class="container vehicle-models pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle10-make" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model10-other" id="model10-other" placeholder="search model...">
+							<div class="list-group models-list">
+							</div>
+							<a data-href="trims10" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="10">CONTINUE</a>
+						</div>
+						<div class="form-group choices row models-10"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="trims10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vehicle10-models" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<div class="form-group choices row trims-10"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<div id="vin10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="trims3" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin10">
+							<a data-href="ownership10" data-current="vin10"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership10" data-current="vin10"  class="next-question btn btn-lg btn-info">SKIP</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="ownership10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="vin2" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Ownership</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="ownership10-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10">
+						Owned
+						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Owned" id="ownership10-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership10-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
+						Financed
+						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Financed" id="ownership10-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="ownership10-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
+						Leased
+						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Leased" id="ownership10-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>									
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="primary10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="ownership10" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Primary Use of Vehicle</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="primary10-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10">
+						Commute
+						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Commute" id="primary10-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary10-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+						Pleasure
+						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Pleasure" id="primary10-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary10-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+						Business
+						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Business" id="primary10-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="primary10-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+						Farm
+						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Farm" id="primary10-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="miles-driven10-container" class="container pt-5 pb-5" style="display: none;">
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<p>
+					<a data-href="primary10" class="change-question text-primary"> 
+						<strong>
+							<i class="fa fa-angle-left"></i> Previous Question
+						</strong>
+					</a>
+				</p>
+				<h4 class="mb-4">Miles Driven Per Year</h4>
+				<div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven10-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10">
+						Less than 5,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="Less than 5,000" id="miles-driven10-1" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven10-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10" >
+						5,000-10,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="5,000-10,000" id="miles-driven10-2" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven10-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10" >
+						10,000-15,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="10,000-15,000" id="miles-driven10-3" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven10-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10" >
+						15,000-20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="15,000-20,000" id="miles-driven10-4" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+					<span class="mr-4"></span>
+					<label for="miles-driven10-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10" >
+						More than 20,000
+						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="More than 20,000" id="miles-driven10-5" />
+						<i class="fa fa-angle-right"></i>
+					</label>						
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- 10 VEHICLE END -->					
 	<div id="previous-insurance-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -1503,38 +2957,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Not Showing for now-->
-	<!--div id="gender-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="#" class="change-question text-primary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-4">Gender?</h4>
-				<div class="form-group choices row">
-					<label for="gender-male" class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" data-href="married" data-current="gender">
-						Male
-						<input type="radio" class="d-none" name="gender" value="male" id="gender-male" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="gender-female" class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" data-href="married" data-current="gender">
-						Female
-						<input type="radio" class="d-none" name="gender" value="female" id="gender-female" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="gender-non-binary" class="h4 col-6 col-sm-4 col-md-3 col-lg-2 pl-2 pr-2" data-href="married" data-current="gender">
-						Non-Binary
-						<input type="radio" class="d-none" name="gender" value="non-binary" id="gender-non-binary" />
-						<i class="fa fa-angle-right"></i>
-					</label>												
-				</div>
-			</div>
-		</div>
-	</div-->
 
 	<div id="married-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -1587,49 +3009,6 @@
 						<input type="radio" class="d-none" name="children" value="0" id="children-no" />
 						<i class="fa fa-angle-right"></i>
 					</label>					
-				</div>
-			</div>
-		</div>
-	</div>	
-
-	<!-- Not showing for now  -->
-	<div id="credit-container" class="container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-md-10 offset-md-1">
-				<p>
-					<a data-href="#" class="change-question text-primary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
-					</a>
-				</p>
-				<h4 class="mb-2">Credit Score?</h4>
-				<div class="form-group choices row">
-					<label for="credit-1" class="h4 col-6 col-sm-6 col-md-6 col-lg-4 pl-2 pr-2" data-href="homeowner" data-current="credit">
-						Not Sure (that's okay!)
-						<input type="radio" class="d-none" name="credit" value="0" id="credit-1" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="credit-2" class="h4 col-6 col-sm-6 col-md-6 col-lg-4 pl-2 pr-2" data-href="homeowner" data-current="credit">
-						Poor (below 580)
-						<input type="radio" class="d-none" name="credit" value="1-579" id="credit-2" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="credit-3" class="h4 col-6 col-sm-6 col-md-6 col-lg-4 pl-2 pr-2" data-href="homeowner" data-current="credit">
-						Fair/Average (580-679)
-						<input type="radio" class="d-none" name="credit" value="580-679" id="credit-3" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="credit-4" class="h4 col-6 col-sm-6 col-md-6 col-lg-4 pl-2 pr-2" data-href="homeowner" data-current="credit">
-						Good (680-719)
-						<input type="radio" class="d-none" name="credit" value="680-719" id="credit-4" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					<label for="credit-5" class="h4 col-6 col-sm-6 col-md-6 col-lg-4 pl-2 pr-2" data-href="homeowner" data-current="credit">
-						Excellent (720+)
-						<input type="radio" class="d-none" name="credit" value="720+" id="credit-5" />
-						<i class="fa fa-angle-right"></i>
-					</label>															
 				</div>
 			</div>
 		</div>
@@ -2415,7 +3794,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="phone" class="font-weight-bold h5 mb-3 text-warning">Phone Number</label>
-							<input type="number" class="form-control form-control-lg" id="phone" name="phone" pattern="[0-9]*">
+							<input type="tel" class="form-control form-control-lg" id="phone" name="phone" pattern="[0-9()]*" novalidate>
 						</div>
 					</div>
 				</div>
@@ -2463,9 +3842,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        <p>This coverage pays for damages due to bodily injury and property damage to others for which you are responsible. If you are sued, it also pays for your defense and court costs. Medical expenses, pain and suffering, and lost wages are some examples of bodily injury damages. Property damage includes damage to property and loss of its use.</p>
+		<p><strong>How high should my limits be?</strong></p>
+		<p>Nobody can tell you the most you would have to pay if you were to cause an accident. Consider how you would pay any damages that exceed your limits. The higher your limits are, the more likely it is that we will be able to pay all of the damages for you.</p>
       </div>
     </div>
   </div>
@@ -2474,15 +3853,21 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="rentalPopupTtitle">Rental Car</h5>
+        <h5 class="modal-title" id="rentalPopupTtitle">Car Rental and Travel Expenses</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+
+		<p><strong>This coverage pays for the following expenses:</strong></p>
+		<p><strong>Car Rental Expense</strong> - Pays up to the amount you choose, from the options shown below, when you rent a car while your car is not drivable due to a loss that would be payable under Comprehensive or Collision Coverage.</p>
+		<p><strong>Limit Options</strong></p>
+
+		<p><strong>Travel Expenses</strong> - Pays up to $400 total for the following incurred expenses for all persons when your car is not drivable as a result of a loss that occurs more than 50 miles from home: meals, lodging, and transportation home or on to your destination and the return trip to pick up your car.</p>
+
+		<p><strong>Rental Car</strong> - Repayment of Deductible Amount Expense: Pays up to $400 for a deductible for which you may be responsible if you have an accident in a rental car.</p>
+        
       </div>
     </div>
   </div>
@@ -2491,15 +3876,24 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="towingPopupTtitle">Road Side &amp; Towing</h5>
+        <h5 class="modal-title" id="towingPopupTtitle">Emergency Road Service</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+		<p><strong>This coverage pays the fair cost for the following emergency services for a covered car:</strong></p>
+
+		<ul>
+			<li>Mechanical labor for up to one hour at the place of its breakdown.</li>
+			<li>Towing to the nearest place where repairs can be made.</li>
+			<li>Towing the car out if it is stuck on or next to a public road.</li>
+			<li>Delivery of gas, oil, battery, or change of tire, but not the cost of such items.</li>
+			<li>Locksmith labor for up to one hour to unlock a covered car if its key is lost, stolen, or locked inside the car.</li>
+		</ul>
+		<p><strong>Whom do I call when I need help?</strong></p>
+
+		<p>You may call any service provider in the area. State Farm's Emergency Road Service Coverage lets you choose who comes to your aid.</p>
       </div>
     </div>
   </div>
@@ -2514,9 +3908,28 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+		<p>Uninsured Motor Vehicle Coverage pays for damages when an insured is injured in a car accident caused by another person who does not have any liability insurance, or who does not have enough to pay your damages.</p>
+
+		<p>Why should I buy Uninsured Motor Vehicle Coverage?</p>
+
+		<p>Doing so lets you decide how much coverage is available to pay your damages. Without Uninsured Motor Vehicle Coverage, you must rely upon whatever liability limits, if any, are carried by the other driver to pay your damages.</p>
+
+		<ul>
+			<li>No Coverage</li>
+			<li>$15,000/$30,000</li>
+			<li>$25,000/$50,000 </li>
+			<li>$30,000/$60,000 </li>
+			<li>$50,000/$100,000 </li>
+			<li>$100,00/$300,000</li>
+		</ul>
+
+		<p>Uninsured Motor Vehicle - Property Damage</p>
+
+		<p>Uninsured Motor Vehicle – Property Damage Coverage pays for property damages to your car resulting from an accident caused by an uninsured driver. If you have Collision Coverage, Uninsured Motor Vehicle Coverage - Property Damage pays damages up to the amount of your Collision Coverage deductible. lf you do not have Collision Coverage, Uninsured Motor Vehicle Coverage - Property Damage pays damages up to $3,500.</p>
+
+		<p><strong>Why should I buy this coverage?</strong></p>
+
+		<p>Doing so lets you decide how much coverage is available to pay your damages. Without this, your only option is to try to get the other driver to pay your damages out of their own pocket.</p>
       </div>
     </div>
   </div>
@@ -2525,15 +3938,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="medicalPopupTtitle">Medical Coverage</h5>
+        <h5 class="modal-title" id="medicalPopupTtitle">Medical Payments</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+		<p>This coverage pays medical and funeral expenses for bodily injury sustained by a covered person in a car accident. Medical expenses must be reasonable, necessary, and for services furnished within three years after the accident. The most we will pay for funeral expenses is the lower of your limit or $3,000.</p>
+
+		<p><strong>Why should I buy Medical Payments Coverage?</strong></p>
+
+		<p>Medical Payments Coverage pays covered expenses regardless of who’s at fault in an accident. Each person occupying your car is covered for up to the limit you choose. Because there are no deductibles or coinsurance requirements, we will pay beginning with the first dollar of incurred expenses. Medical Payments Coverage provides an unbeatable combination of great coverage and an affordable price.</p>
       </div>
     </div>
   </div>
@@ -2542,15 +3957,32 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deductiblePopupTtitle">Comprehensive Deductible</h5>
+        <h5 class="modal-title" id="deductiblePopupTtitle">Comprehensive Coverage</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-		<p>Why do we use it?</p>
-		<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+		<p>Comprehensive Coverage pays for a covered car that's stolen or damaged by causes other than collision or upset. For example, damage caused by the following is covered:</p>
+
+		<ul>
+			<li>Fire</li>
+			<li>Wind</li>
+			<li>Hail</li>
+			<li>Flood</li>
+			<li>Earthquake</li>
+			<li>Theft</li>
+			<li>Vandalism</li>
+			<li>Hitting a bird or animal</li>
+		</ul>
+
+		<p>Comprehensive Coverage will also pay for substitute transportation expenses of up to $25 a day if your car is stolen. Payments will be made beginning when you tell us of the theft. A deductible is not required.</p>
+
+		<p>Please note that if you lease or have a lien on your covered vehicle, your lessor or lienholder may require you to buy this coverage.</p>
+
+		<p>Should I carry a deductible even though I don't have to?</p>
+
+		<p>Higher deductibles will lower your premium but increase the amount you must pay out of your own pocket if a loss occurs. Ask yourself how much you're willing to pay in order to save money on premiums.</p>
       </div>
     </div>
   </div>

@@ -197,6 +197,106 @@ class LeadsController extends BaseController
 
 		}
 
+		if(isset($lead['vehicle6']) && $lead['vehicle6'] && $lead['miles-driven-per-year-vehicle-6'])
+		{
+			$data['sixth_vehicle_year'] 		= ($lead['vehicle-year-6']) ? $lead['vehicle-year-6'] : $lead['vehicle6-year'];
+			if($lead['vehicle6-make-other']){
+				$data['sixth_vehicle_make'] 		= $lead['vehicle6-make-other'];
+			}elseif($lead['vehicle6-make-select']){
+				$data['sixth_vehicle_make'] 		= $lead['vehicle6-make-select'];
+			}else{
+				$data['sixth_vehicle_make'] 		= $lead['vehicle6-make'];
+			}
+
+			$data['sixth_vehicle_model'] 		= ($lead['model6-other']) ? $lead['model6-other'] : $lead['model-6'];
+			$data['sixth_vehicle_trim'] 		= (isset($lead['trim-6'])) ? $lead['trim-6'] : "";
+			$data['sixth_vehicle_vin'] 		= $lead['vin6'];
+			$data['sixth_vehicle_owenership'] 	= $lead['ownership-vehicle-6'];
+			$data['sixth_vehicle_uses'] 		= $lead['primary-use-vehicle-6'];
+			$data['sixth_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-6'];
+
+		}
+
+		if(isset($lead['vehicle7']) && $lead['vehicle7'] && $lead['miles-driven-per-year-vehicle-7'])
+		{
+			$data['seventh_vehicle_year'] 		= ($lead['vehicle-year-7']) ? $lead['vehicle-year-7'] : $lead['vehicle7-year'];
+			if($lead['vehicle7-make-other']){
+				$data['seventh_vehicle_make'] 		= $lead['vehicle7-make-other'];
+			}elseif($lead['vehicle7-make-select']){
+				$data['seventh_vehicle_make'] 		= $lead['vehicle7-make-select'];
+			}else{
+				$data['seventh_vehicle_make'] 		= $lead['vehicle7-make'];
+			}
+
+			$data['seventh_vehicle_model'] 		= ($lead['model7-other']) ? $lead['model7-other'] : $lead['model-7'];
+			$data['seventh_vehicle_trim'] 		= (isset($lead['trim-7'])) ? $lead['trim-7'] : "";
+			$data['seventh_vehicle_vin'] 		= $lead['vin7'];
+			$data['seventh_vehicle_owenership'] 	= $lead['ownership-vehicle-7'];
+			$data['seventh_vehicle_uses'] 		= $lead['primary-use-vehicle-7'];
+			$data['seventh_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-7'];
+
+		}
+
+		if(isset($lead['vehicle8']) && $lead['vehicle8'] && $lead['miles-driven-per-year-vehicle-8'])
+		{
+			$data['eighth_vehicle_year'] 		= ($lead['vehicle-year-8']) ? $lead['vehicle-year-8'] : $lead['vehicle8-year'];
+			if($lead['vehicle8-make-other']){
+				$data['eighth_vehicle_make'] 		= $lead['vehicle8-make-other'];
+			}elseif($lead['vehicle8-make-select']){
+				$data['eighth_vehicle_make'] 		= $lead['vehicle8-make-select'];
+			}else{
+				$data['eighth_vehicle_make'] 		= $lead['vehicle8-make'];
+			}
+
+			$data['eighth_vehicle_model'] 		= ($lead['model8-other']) ? $lead['model8-other'] : $lead['model-8'];
+			$data['eighth_vehicle_trim'] 		= (isset($lead['trim-8'])) ? $lead['trim-8'] : "";
+			$data['eighth_vehicle_vin'] 		= $lead['vin8'];
+			$data['eighth_vehicle_owenership'] 	= $lead['ownership-vehicle-8'];
+			$data['eighth_vehicle_uses'] 		= $lead['primary-use-vehicle-8'];
+			$data['eighth_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-8'];
+
+		}
+
+		if(isset($lead['vehicle9']) && $lead['vehicle9'] && $lead['miles-driven-per-year-vehicle-9'])
+		{
+			$data['ninth_vehicle_year'] 		= ($lead['vehicle-year-9']) ? $lead['vehicle-year-9'] : $lead['vehicle9-year'];
+			if($lead['vehicle9-make-other']){
+				$data['ninth_vehicle_make'] 		= $lead['vehicle9-make-other'];
+			}elseif($lead['vehicle9-make-select']){
+				$data['ninth_vehicle_make'] 		= $lead['vehicle9-make-select'];
+			}else{
+				$data['ninth_vehicle_make'] 		= $lead['vehicle9-make'];
+			}
+
+			$data['ninth_vehicle_model'] 		= ($lead['model9-other']) ? $lead['model9-other'] : $lead['model-9'];
+			$data['ninth_vehicle_trim'] 		= (isset($lead['trim-9'])) ? $lead['trim-9'] : "";
+			$data['ninth_vehicle_vin'] 		= $lead['vin9'];
+			$data['ninth_vehicle_owenership'] 	= $lead['ownership-vehicle-9'];
+			$data['ninth_vehicle_uses'] 		= $lead['primary-use-vehicle-9'];
+			$data['ninth_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-9'];
+
+		}
+
+		if(isset($lead['vehicle10']) && $lead['vehicle10'] && $lead['miles-driven-per-year-vehicle-10'])
+		{
+			$data['tenth_vehicle_year'] 		= ($lead['vehicle-year-10']) ? $lead['vehicle-year-10'] : $lead['vehicle10-year'];
+			if($lead['vehicle10-make-other']){
+				$data['tenth_vehicle_make'] 		= $lead['vehicle10-make-other'];
+			}elseif($lead['vehicle10-make-select']){
+				$data['tenth_vehicle_make'] 		= $lead['vehicle10-make-select'];
+			}else{
+				$data['tenth_vehicle_make'] 		= $lead['vehicle10-make'];
+			}
+
+			$data['tenth_vehicle_model'] 		= ($lead['model10-other']) ? $lead['model10-other'] : $lead['model-10'];
+			$data['tenth_vehicle_trim'] 		= (isset($lead['trim-10'])) ? $lead['trim-10'] : "";
+			$data['tenth_vehicle_vin'] 		= $lead['vin10'];
+			$data['tenth_vehicle_owenership'] 	= $lead['ownership-vehicle-10'];
+			$data['tenth_vehicle_uses'] 		= $lead['primary-use-vehicle-10'];
+			$data['tenth_vehicle_mileage'] 	= $lead['miles-driven-per-year-vehicle-10'];
+
+		}										
+
 
 		$data['liability'] 					= "";
 		$data['body_injury'] 				= $lead['bodily-injury'];

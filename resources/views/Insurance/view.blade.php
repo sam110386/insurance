@@ -57,7 +57,7 @@
 		<tr>
 			<td>1.</td>
 			<td>{{$lead['first_name']}} {{$lead['last_name']}}</td> 
-			<td>{{$lead['dob-month']}}-{{$lead['dob-date']}}-{{$lead['dob-year']}}</td>
+			<td>{{$lead['dob']}}</td>
 			<td>{{$lead['gender']}}</td>
 			<td>{{$lead['dl1']}}</td>
 			<td>{{$states[$lead['state1']]}}</td>
@@ -66,7 +66,7 @@
 		<tr>
 			<td>2.</td>
 			<td>{{$lead['first_name2']}} {{$lead['last_name2']}}</td> 
-			<td>{{$lead['dob2-month']}}-{{$lead['dob2-date']}}-{{$lead['dob2-year']}}</td>
+			<td>{{$lead['dob2']}}</td>
 			<td>{{$lead['gender-2']}}</td>
 			<td>{{$lead['dl2']}}</td>
 			<td>{{$states[$lead['state2']]}}</td>
@@ -76,7 +76,7 @@
 		<tr>
 			<td>3.</td>
 			<td>{{$lead['first_name3']}} {{$lead['last_name3']}}</td> 
-			<td>{{$lead['dob3-month']}}-{{$lead['dob3-date']}}-{{$lead['dob3-year']}}</td>
+			<td>{{$lead['dob3']}}</td>
 			<td>{{$lead['gender-3']}}</td>
 			<td>{{$lead['dl3']}}</td>
 			<td>{{$states[$lead['state3']]}}</td>
@@ -86,7 +86,7 @@
 		<tr>
 			<td>4.</td>
 			<td>{{$lead['first_name4']}} {{$lead['last_name4']}}</td> 
-			<td>{{$lead['dob4-month']}}-{{$lead['dob4-date']}}-{{$lead['dob4-year']}}</td>
+			<td>{{$lead['dob4']}}</td>
 			<td>{{$lead['gender-4']}}</td>
 			<td>{{$lead['dl4']}}</td>
 			<td>{{$states[$lead['state4']]}}</td>
@@ -96,7 +96,7 @@
 		<tr>
 			<td>5.</td>
 			<td>{{$lead['first_name5']}} {{$lead['last_name5']}}</td> 
-			<td>{{$lead['dob5-month']}}-{{$lead['dob5-date']}}-{{$lead['dob5-year']}}</td>
+			<td>{{$lead['dob5']}}</td>
 			<td>{{$lead['gender-5']}}</td>
 			<td>{{$lead['dl5']}}</td>
 			<td>{{$states[$lead['state5']]}}</td>
@@ -302,6 +302,191 @@
 			<td>{{$lead['miles-driven-per-year-vehicle-5']}}</td>
 		</tr>
 		@endif
+		@if(isset($lead['vehicle6']) && $lead['vehicle6']  && $lead['miles-driven-per-year-vehicle-6'])
+		<tr>
+			<td>6.</td>
+			<td>
+				@if($lead['vehicle-year-6'])
+				{{$lead['vehicle-year-6']}}
+				@else
+				{{$lead['vehicle6-year']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['vehicle6-make-other'])
+				{{$lead['vehicle6-make-other']}}
+				@elseif($lead['vehicle6-make-select'])
+				{{$lead['vehicle6-make-select']}}
+				@else
+				{{$lead['vehicle6-make']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['model6-other'])
+				{{$lead['model6-other']}}
+				@else
+				{{$lead['model-6']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-6']))
+					{{$lead['trim-6']}}
+				@endif
+			</td>			
+			<td>{{$lead['vin6']}}</td>
+			<td>{{$lead['ownership-vehicle-6']}}</td>
+			<td>{{$lead['primary-use-vehicle-6']}}</td>
+			<td>{{$lead['miles-driven-per-year-vehicle-6']}}</td>
+		</tr>
+		@endif
+		@if(isset($lead['vehicle7']) && $lead['vehicle7']  && $lead['miles-driven-per-year-vehicle-7'])
+		<tr>
+			<td>7.</td>
+			<td>
+				@if($lead['vehicle-year-7'])
+				{{$lead['vehicle-year-7']}}
+				@else
+				{{$lead['vehicle7-year']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['vehicle7-make-other'])
+				{{$lead['vehicle7-make-other']}}
+				@elseif($lead['vehicle7-make-select'])
+				{{$lead['vehicle7-make-select']}}
+				@else
+				{{$lead['vehicle7-make']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['model7-other'])
+				{{$lead['model7-other']}}
+				@else
+				{{$lead['model-7']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-7']))
+					{{$lead['trim-7']}}
+				@endif
+			</td>			
+			<td>{{$lead['vin7']}}</td>
+			<td>{{$lead['ownership-vehicle-7']}}</td>
+			<td>{{$lead['primary-use-vehicle-7']}}</td>
+			<td>{{$lead['miles-driven-per-year-vehicle-7']}}</td>
+		</tr>
+		@endif
+		@if(isset($lead['vehicle8']) && $lead['vehicle8']  && $lead['miles-driven-per-year-vehicle-8'])
+		<tr>
+			<td>8.</td>
+			<td>
+				@if($lead['vehicle-year-8'])
+				{{$lead['vehicle-year-8']}}
+				@else
+				{{$lead['vehicle8-year']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['vehicle8-make-other'])
+				{{$lead['vehicle8-make-other']}}
+				@elseif($lead['vehicle8-make-select'])
+				{{$lead['vehicle8-make-select']}}
+				@else
+				{{$lead['vehicle8-make']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['model8-other'])
+				{{$lead['model8-other']}}
+				@else
+				{{$lead['model-8']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-8']))
+					{{$lead['trim-8']}}
+				@endif
+			</td>			
+			<td>{{$lead['vin8']}}</td>
+			<td>{{$lead['ownership-vehicle-8']}}</td>
+			<td>{{$lead['primary-use-vehicle-8']}}</td>
+			<td>{{$lead['miles-driven-per-year-vehicle-8']}}</td>
+		</tr>
+		@endif
+		@if(isset($lead['vehicle9']) && $lead['vehicle9']  && $lead['miles-driven-per-year-vehicle-9'])
+		<tr>
+			<td>9.</td>
+			<td>
+				@if($lead['vehicle-year-9'])
+				{{$lead['vehicle-year-9']}}
+				@else
+				{{$lead['vehicle9-year']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['vehicle9-make-other'])
+				{{$lead['vehicle9-make-other']}}
+				@elseif($lead['vehicle9-make-select'])
+				{{$lead['vehicle9-make-select']}}
+				@else
+				{{$lead['vehicle9-make']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['model9-other'])
+				{{$lead['model9-other']}}
+				@else
+				{{$lead['model-9']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-9']))
+					{{$lead['trim-9']}}
+				@endif
+			</td>			
+			<td>{{$lead['vin9']}}</td>
+			<td>{{$lead['ownership-vehicle-9']}}</td>
+			<td>{{$lead['primary-use-vehicle-9']}}</td>
+			<td>{{$lead['miles-driven-per-year-vehicle-9']}}</td>
+		</tr>
+		@endif
+		@if(isset($lead['vehicle10']) && $lead['vehicle10']  && $lead['miles-driven-per-year-vehicle-10'])
+		<tr>
+			<td>10.</td>
+			<td>
+				@if($lead['vehicle-year-10'])
+				{{$lead['vehicle-year-10']}}
+				@else
+				{{$lead['vehicle10-year']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['vehicle10-make-other'])
+				{{$lead['vehicle10-make-other']}}
+				@elseif($lead['vehicle10-make-select'])
+				{{$lead['vehicle10-make-select']}}
+				@else
+				{{$lead['vehicle10-make']}}
+				@endif
+			</td>
+			<td>
+				@if($lead['model10-other'])
+				{{$lead['model10-other']}}
+				@else
+				{{$lead['model-10']}}
+				@endif
+			</td>
+			<td>
+				@if(isset($lead['trim-10']))
+					{{$lead['trim-10']}}
+				@endif
+			</td>			
+			<td>{{$lead['vin10']}}</td>
+			<td>{{$lead['ownership-vehicle-10']}}</td>
+			<td>{{$lead['primary-use-vehicle-10']}}</td>
+			<td>{{$lead['miles-driven-per-year-vehicle-10']}}</td>
+		</tr>
+		@endif										
 	</table>
 </div>
 <!-- Coverage Details -->

@@ -17,7 +17,7 @@
     background-color: #f5f5f5;
   }
   body > section {
-    padding: 60px 15px 0;
+    padding: 77px 15px 0;
   }
 
   .lead-form{background-color:#efefef; background-image: url('../img/overlay.svg'); background-size: cover; }
@@ -112,4 +112,14 @@ input[type="number"] {
     font-size: 18px;
 }
 .c-pointer{cursor: pointer;}
-
+.progress-container{display: none;}
+.q-progress span.bar{position: absolute;width:100%;height: 2px; background: #ccc; width: 100%;}
+.q-progress table tr td{text-align: center;vertical-align: middle;}
+.q-progress table tr td i{font-size:6px;color: #ccc;float: left;}
+.q-progress table tr td hr{width: calc(50% - 5px);margin:2px 0 0 0;
+  border: 1px solid #ccc;
+  float: left;}
+.q-progress table tr td.question-done i{color: #4BBD4E;}
+.q-progress table tr td.question-done hr{border-color: #4BBD4E;}
+.q-progress table tr td.question-done.recent-done hr.after {border-color: #ccc;}
+.q-progress table tr td:first-child hr,.q-progress table tr td:first-child i{float: right;}

@@ -109,7 +109,9 @@ class AdminLeadsController extends Controller
         $grid->first_name(trans('First Name'));
         $grid->last_name(trans('Last Name'));
         $grid->email(trans('Email'));
-        $grid->phone(trans('Phone'));
+        $grid->phone(trans('Phone'))->display(function($phone){
+            return CommonMethod::phoneNumber($phone);
+        });
         $grid->status(trans('Risk'))->display(function($risk){
             if($risk === 1){
                 $str = "<span class='text-success'><i class='fa fa-circle'></i> Low</span>";

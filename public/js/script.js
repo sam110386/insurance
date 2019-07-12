@@ -32,7 +32,39 @@ $(document).ready(function() {
 
 })
 
+
+$.each(['fadeIn'], function (i, ev) {
+var el = $.fn[ev];
+$.fn[ev] = function () {
+  this.trigger(ev);
+  return el.apply(this, arguments);
+};
+});
+
 jQuery(document).ready( function($) {
+	var quesitonCount = $('form.lead-form > .container').length;
+	$(".q-progress table tr").html('');
+	$(".q-progress table tr").append('<td><hr class="after" /><i class="fa fa-circle"></i></td>');
+	for(var b=0; b < quesitonCount-2; b++){
+		$(".q-progress table tr").append('<td><hr class="before"/><i class="fa fa-circle"></i><hr class="after" /></td>');
+	}
+	$(".q-progress table tr").append('<td><hr class="before" /><i class="fa fa-circle"></i></td>');
+
+	$('form.lead-form > .container').on('fadeIn', function() {
+		$('.q-progress table tr td').removeClass('question-done');
+		$('.q-progress table tr td').removeClass('recent-done');
+	    var prevQuestionsNew = $(this).prevAll('div.container').length-1;
+	    var prevQuestionsOld = $('.q-progress table tr td.question-done').length;
+	    if(prevQuestionsNew && prevQuestionsNew !== prevQuestionsOld){
+	    	for(var s = 1; s <= prevQuestionsNew; s++){
+	    		var classAdd = (s==prevQuestionsNew) ? "recent-done question-done" : "question-done";
+	    		$('.q-progress table tr td:nth-child(' + s + ')').addClass(classAdd);	
+	    	}
+	    }
+	});
+
+
+
  	// year select on change trigger next quesiton
  	$('.lead-form').on('change','select.auto-select',function(){
  		$(this).siblings('a').trigger('click');
@@ -309,13 +341,13 @@ $(document).ready(function(){
 				}else{
 					$("#d-city").val(zipcodes[zip]);
 					$("#d-zipcode").val(zip);
+					$(".progress-container").slideDown(500);
 				}
 			}
 			$('.form-group').removeClass('has-error');
 			$('form.lead-form > div.container').fadeOut(500);
 			$('.brand-carousel').slideUp();
 			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
-
 		});
 
 		$(".year-select-next").on('click',function(){
@@ -514,8 +546,10 @@ $(document).ready(function(){
 
 		$('.final-submit').on('click',function(e){
 			var error = false;
-			var phoneRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+			var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 			$('.form-group').removeClass('has-error');
+			$('.error:visible').remove();
+
 			if($('#street').val() == "" || $.trim($('#street').val()) == ""){
 				$('#street').parent('.form-group').addClass('has-error');
 				error = true;
@@ -526,7 +560,7 @@ $(document).ready(function(){
 			}
 			if($('#phone').val() && !phoneRegex.test($('#phone').val())){
 				$('#phone').parent('.form-group').addClass('has-error');
-				$('#phone').after('<label class="error text-danger">Enter Valid Phone Numberyy</label>');
+				$('#phone').after('<label class="error text-danger">Enter Valid Phone Number</label>');
 				error = true;
 			}
 			if(error){
