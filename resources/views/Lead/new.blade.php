@@ -1479,7 +1479,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<h3 class="font-weight-bold">Sixth Vehicle Year</h3>
 				<div class="form-group choices row get-make">
 					@php
 						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
@@ -1517,7 +1517,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<h3 class="font-weight-bold">Sixth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -1549,7 +1549,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<h3 class="font-weight-bold">Sixth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group">
@@ -1765,7 +1765,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<h3 class="font-weight-bold">Seventh Vehicle Year</h3>
 				<div class="form-group choices row get-make">
 					@php
 						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
@@ -1803,7 +1803,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<h3 class="font-weight-bold">Seventh Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -1835,7 +1835,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<h3 class="font-weight-bold">Seventh Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group">
@@ -2051,7 +2051,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<h3 class="font-weight-bold">Eighth Vehicle Year</h3>
 				<div class="form-group choices row get-make">
 					@php
 						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
@@ -2089,7 +2089,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<h3 class="font-weight-bold">Eighth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -2121,7 +2121,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<h3 class="font-weight-bold">Eighth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group">
@@ -2337,7 +2337,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<h3 class="font-weight-bold">Ninth Vehicle Year</h3>
 				<div class="form-group choices row get-make">
 					@php
 						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
@@ -2375,7 +2375,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<h3 class="font-weight-bold">Ninth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -2407,7 +2407,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<h3 class="font-weight-bold">Ninth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group">
@@ -2623,7 +2623,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Year</h3>
+				<h3 class="font-weight-bold">Tenth Vehicle Year</h3>
 				<div class="form-group choices row get-make">
 					@php
 						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
@@ -2661,7 +2661,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Make</h3>
+				<h3 class="font-weight-bold">Tenth Vehicle Make</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<h4 class="mb-3">POPULAR</h4>
@@ -2693,7 +2693,7 @@
 						</strong>
 					</a>
 				</p>
-				<h3 class="font-weight-bold">Third Vehicle Model</h3>
+				<h3 class="font-weight-bold">Tenth Vehicle Model</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group">

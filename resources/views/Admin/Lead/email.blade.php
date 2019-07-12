@@ -255,7 +255,73 @@
 			<td>{{$lead['fifth_vehicle_uses']}}</td>
 			<td>{{$lead['fifth_vehicle_mileage']}}</td>
 		</tr>
-		@endif		
+		@endif
+		@if($lead['sixth_vehicle_year'])
+		<tr>
+			<td>6.</td>
+			<td>{{$lead['sixth_vehicle_year']}}</td>
+			<td>{{$lead['sixth_vehicle_make']}}</td>
+			<td>{{$lead['sixth_vehicle_model']}}</td>
+			<td>{{$lead['sixth_vehicle_trim']}}</td>
+			<td>{{$lead['sixth_vehicle_vin']}}</td>
+			<td>{{$lead['sixth_vehicle_owenership']}}</td>
+			<td>{{$lead['sixth_vehicle_uses']}}</td>
+			<td>{{$lead['sixth_vehicle_mileage']}}</td>
+		</tr>
+		@endif
+		@if($lead['seventh_vehicle_year'])
+		<tr>
+			<td>7.</td>
+			<td>{{$lead['seventh_vehicle_year']}}</td>
+			<td>{{$lead['seventh_vehicle_make']}}</td>
+			<td>{{$lead['seventh_vehicle_model']}}</td>
+			<td>{{$lead['seventh_vehicle_trim']}}</td>
+			<td>{{$lead['seventh_vehicle_vin']}}</td>
+			<td>{{$lead['seventh_vehicle_owenership']}}</td>
+			<td>{{$lead['seventh_vehicle_uses']}}</td>
+			<td>{{$lead['seventh_vehicle_mileage']}}</td>
+		</tr>
+		@endif
+		@if($lead['eighth_vehicle_year'])
+		<tr>
+			<td>8.</td>
+			<td>{{$lead['eighth_vehicle_year']}}</td>
+			<td>{{$lead['eighth_vehicle_make']}}</td>
+			<td>{{$lead['eighth_vehicle_model']}}</td>
+			<td>{{$lead['eighth_vehicle_trim']}}</td>
+			<td>{{$lead['eighth_vehicle_vin']}}</td>
+			<td>{{$lead['eighth_vehicle_owenership']}}</td>
+			<td>{{$lead['eighth_vehicle_uses']}}</td>
+			<td>{{$lead['eighth_vehicle_mileage']}}</td>
+		</tr>
+		@endif
+		@if($lead['ninth_vehicle_year'])
+		<tr>
+			<td>9.</td>
+			<td>{{$lead['ninth_vehicle_year']}}</td>
+			<td>{{$lead['ninth_vehicle_make']}}</td>
+			<td>{{$lead['ninth_vehicle_model']}}</td>
+			<td>{{$lead['ninth_vehicle_trim']}}</td>
+			<td>{{$lead['ninth_vehicle_vin']}}</td>
+			<td>{{$lead['ninth_vehicle_owenership']}}</td>
+			<td>{{$lead['ninth_vehicle_uses']}}</td>
+			<td>{{$lead['ninth_vehicle_mileage']}}</td>
+		</tr>
+		@endif
+		@if($lead['tenth_vehicle_year'])
+		<tr>
+			<td>10.</td>
+			<td>{{$lead['tenth_vehicle_year']}}</td>
+			<td>{{$lead['tenth_vehicle_make']}}</td>
+			<td>{{$lead['tenth_vehicle_model']}}</td>
+			<td>{{$lead['tenth_vehicle_trim']}}</td>
+			<td>{{$lead['tenth_vehicle_vin']}}</td>
+			<td>{{$lead['tenth_vehicle_owenership']}}</td>
+			<td>{{$lead['tenth_vehicle_uses']}}</td>
+			<td>{{$lead['tenth_vehicle_mileage']}}</td>
+		</tr>
+		@endif											
+				
 	</table>
 	<!-- Coverage Details -->
 	<table class="lead-view">
