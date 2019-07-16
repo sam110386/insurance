@@ -29,6 +29,7 @@ class LeadsController extends BaseController
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$city = CommonMethod::getZipcodeInfo($lead['zipcode']);
 		$data = ['lead' => $lead,'ip' => $ip, 'city' => $city, 'states' => CommonMethod::getStates()];
+		// dd($lead);
 		$this->storeLead($data);
 		\Mail::send('Emails.Lead.new', $data,
 		function ($message) {
@@ -300,6 +301,8 @@ class LeadsController extends BaseController
 
 		$data['liability'] 					= "";
 		$data['body_injury'] 				= $lead['bodily-injury'];
+		$data['property_damage'] 				= $lead['property-damage'];
+		$data['collision_deductible'] 				= $lead['collision-deductible'];
 		$data['deduct'] 					= $lead['deductible'];
 		$data['medical'] 					= $lead['medical'];
 		$data['towing'] 					= $lead['towing'];
@@ -318,7 +321,8 @@ class LeadsController extends BaseController
 		$data['ip_address'] 				= $request['ip'];
 		if($lead['at_fault'] == 1 || $lead['tickets']  == 1 || $lead['dui'] == 1){
 			$lead['status'] = 0;
-		}		
+		}
+		// dd($data);
 		return Lead::create($data);
 	}
 

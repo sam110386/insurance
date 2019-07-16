@@ -42,18 +42,19 @@ $.fn[ev] = function () {
 });
 
 jQuery(document).ready( function($) {
-	var quesitonCount = $('form.lead-form > .container').length;
+	var quesitonCount = $('form.lead-form > .container.step').length;
 	$(".q-progress table tr").html('');
-	$(".q-progress table tr").append('<td><hr class="after" /><i class="fa fa-circle"></i></td>');
+	$(".q-progress table tr").append('<td class="recent-done question-done"><hr class="after" /><i class="fa fa-circle"></i></td>');
 	for(var b=0; b < quesitonCount-2; b++){
 		$(".q-progress table tr").append('<td><hr class="before"/><i class="fa fa-circle"></i><hr class="after" /></td>');
 	}
 	$(".q-progress table tr").append('<td><hr class="before" /><i class="fa fa-circle"></i></td>');
 
 	$('form.lead-form > .container').on('fadeIn', function() {
+		$(this).addClass('answered');
 		$('.q-progress table tr td').removeClass('question-done');
 		$('.q-progress table tr td').removeClass('recent-done');
-	    var prevQuestionsNew = $(this).prevAll('div.container').length-1;
+	    var prevQuestionsNew = $(this).prevAll('div.container.step').length;
 	    var prevQuestionsOld = $('.q-progress table tr td.question-done').length;
 	    if(prevQuestionsNew && prevQuestionsNew !== prevQuestionsOld){
 	    	for(var s = 1; s <= prevQuestionsNew; s++){
@@ -62,6 +63,7 @@ jQuery(document).ready( function($) {
 	    	}
 	    }
 	});
+
 
 
 
@@ -170,6 +172,7 @@ $(document).ready(function(){
 						select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
 						$("#"+current + "-container select").append(select);
 					});
+					$("#"+current + "-container select").siblings('input').attr('data-year',year);
 					$("#"+current + "-container select").append("<option value='other'>Other</option>");
 				}
 			});
@@ -240,6 +243,11 @@ $(document).ready(function(){
 			if(make != 'other'){
 				printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
 				modelsContanier.parent('.col-12').show();		
+			}else{
+				make = $(this).siblings("input").val()
+				year = $(this).siblings("input").data('year');
+				printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
+				modelsContanier.parent('.col-12').show();						
 			}
 			$('form.lead-form > div.container').fadeOut(500);
 			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
@@ -324,6 +332,9 @@ $(document).ready(function(){
 			trimContanier.parent('.col-12').show();
 		});
 
+		$('.change-question.prev').on('click',function(){
+			$(this).parents('div.container').removeClass('answered');
+		})
 		$('.change-question').on('click',function(e){
 			var targetQuestion = $(this).data('href');
 			var pos = parseInt($(this).data('pos'));
@@ -413,61 +424,6 @@ $(document).ready(function(){
 				$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
 				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 			}
-			return false;
-		});
-
-		$('.months > label').on('click',function(e){
-			$(this).siblings('label').removeClass('bg-warning');
-			$(this).addClass('bg-warning');
-			$(this).children('input[type=radio]').prop('checked',true);
-
-			var dob_month = $('input[name=dob_month]:checked').val();
-			if(dob_month){
-				dob_month = parseInt(dob_month);
-				var a = new Date('2016',parseInt(dob_month,10)-1,'02');
-				$( "#dob_picker" ).datepicker("destroy");
-				$( "#dob_picker" ).datepicker({
-					inline: true,
-					changeMonth: false,
-					changeYear: false,
-					dateFormat: "dd",
-					defaultDate: new Date(2016, dob_month - 1, 1),
-				});
-				$("#dob_picker").datepicker('option', 'firstDay', a.getDay()-1);
-
-				$("#dob_picker").on("change",function(){
-					$('#dob_date').val($(this).val());
-					$('form.lead-form > div.container').fadeOut(500);
-					$('form.lead-form > div#dob-year-container').delay(500).fadeIn(500);
-					return false;
-				});	
-
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#dob-date-container').delay(500).fadeIn(500);
-			}
-			return false;
-		});
-
-
-		$('.dob-year-submit').on('click',function(e){
-			var dt = new Date();
-			var currentYear = dt.getFullYear();
-			var year = $('#dob_year').val();
-			$('#dob_year').parent('.form-group').removeClass('has-error');
-			$('#dob_year').siblings('label.error').remove();
-			if(!year){
-				$('#dob_year').parent('.form-group').addClass('has-error');
-				$('#dob_year').after('<label class="error text-danger">Enter Valid Birth Year</label>');
-				return false;
-			}else if(parseInt(year) < currentYear - 150){
-
-			}else if(parseInt(year) > currentYear - 15){
-				$('#dob_year').parent('.form-group').addClass('has-error');
-				$('#dob_year').after('<label class="error text-danger">Age should be 15+</label>');
-				return false;			
-			}
-			$('form.lead-form > div.container').fadeOut(500);
-			$('form.lead-form > div#name-email-container').delay(500).fadeIn(500);
 			return false;
 		});
 

@@ -123,3 +123,13 @@ input[type="number"] {
 .q-progress table tr td.question-done hr{border-color: #4BBD4E;}
 .q-progress table tr td.question-done.recent-done hr.after {border-color: #ccc;}
 .q-progress table tr td:first-child hr,.q-progress table tr td:first-child i{float: right;}
+
+#reviewPopup .change-question.prev.text-primary {
+    display: none;
+}
+#reviewPopup h3{font-size: 20px;}
+.questions_review_data td, .questions_review_data th {
+    font-size: 14px;
+}
+
+.pull-right{float: right;}

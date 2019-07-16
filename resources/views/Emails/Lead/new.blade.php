@@ -510,7 +510,9 @@
 	<table class="lead">
 		<tr><th colspan="2">COVERAGE DETAILS:</th></tr>
 		<tr><td><strong>Bodily Injury Liability ($)</strong></td><td>{{$lead['bodily-injury']}}</td></tr>
+		<tr><td><strong>Property Damage ($)</strong></td><td>{{$lead['property-damage']}}</td></tr>
 		<tr><td><strong>Comprehensive Deductible ($)</strong></td><td>{{$lead['deductible']}}</td></tr>
+		<tr><td><strong>Collision Deductible ($)</strong></td><td>{{$lead['collision-deductible']}}</td></tr>		
 		<tr><td><strong>Medical Coverage ($)</strong></td><td>{{$lead['medical']}}</td></tr>
 		<tr><td><strong>Road Side &amp; Towing</strong></td><td>@if($lead['towing']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Uninsured Motorist</strong></td><td>@if($lead['uninsured']){{"Yes"}}@else{{"No"}}@endif</td></tr>

@@ -95,5 +95,6 @@ crossorigin="anonymous"></script>
 @stack('scripts')
 <script src="{{ asset('js/jquery.inputmask.bundle.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/review-form.js') }}"></script>
 </body>
 </html>
