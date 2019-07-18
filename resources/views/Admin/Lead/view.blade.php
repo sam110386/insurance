@@ -338,7 +338,7 @@
 		</tr>
 		<tr>
 			<td><strong>Duration</strong></td>
-			<td>@if(isset($lead['duration'])){{$lead['duration']}}Years @else{{"NA"}}@endif</td>
+			<td>@if(isset($lead['duration'])){{$lead['duration']}} Years @else{{"NA"}}@endif</td>
 		</tr>
 		<tr >
 			<td><strong>At Fault</strong></td>

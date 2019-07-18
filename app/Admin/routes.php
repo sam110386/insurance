@@ -19,4 +19,6 @@ Route::group([
     $router->resource('leads', 'AdminLeadsController');
 
     $router->resource('vehicles', 'VehiclesController');
+    $router->resource('groups', 'GroupsController');
+
 });

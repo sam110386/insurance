@@ -45,7 +45,7 @@
 <!-- Drivers Details -->
 <div class="table">
 	<table class="lead">
-		<tr><th colspan="6">DRIVER DETAILS</th></tr>
+		<tr><th colspan="7">DRIVER DETAILS</th></tr>
 		<tr>
 			<td><strong>#</strong></td>
 			<td><strong>Name</strong></td>

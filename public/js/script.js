@@ -33,7 +33,7 @@ $(document).ready(function() {
 })
 
 
-$.each(['fadeIn'], function (i, ev) {
+$.each(['fadeIn','fadeOut'], function (i, ev) {
 var el = $.fn[ev];
 $.fn[ev] = function () {
   this.trigger(ev);
@@ -62,6 +62,7 @@ jQuery(document).ready( function($) {
 	    		$('.q-progress table tr td:nth-child(' + s + ')').addClass(classAdd);	
 	    	}
 	    }
+	    if($(this).hasClass('editable-field')) $(this).addClass('review-on');
 	});
 
 
@@ -501,7 +502,7 @@ $(document).ready(function(){
 		});
 
 		$('.final-submit').on('click',function(e){
-			var error = false;
+			/*var error = false;
 			var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 			$('.form-group').removeClass('has-error');
 			$('.error:visible').remove();
@@ -522,7 +523,7 @@ $(document).ready(function(){
 			if(error){
 				return false;
 			}
-			$('form.lead-form').submit();				
+			$('form.lead-form').submit();	*/			
 		});
 		$('.next-question').on('click',function(e){
 			var targetQuestion = $(this).data('href');

@@ -21,7 +21,7 @@
 </div>
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST" novalidate>
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="step container pt-5 pb-5" style="display: block;">
+	<div id="zipcode-container" class="step container pt-5 pb-5 editable-field" style="display: block;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -247,7 +247,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="miles-driven1-container" class="container pt-5 pb-5" style="display: none;">
+	<div id="miles-driven1-container" class="container pt-5 pb-5 editable-field" style="display: none;">
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
@@ -3838,21 +3838,19 @@
 		<div class="modal-dialog modal-lg" role="document">
 	    	<div class="modal-content">
 	      		<div class="modal-header">
-	        		<h5 class="modal-title" id="reviewPopupTtitle">review</h5>
-	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          		<span aria-hidden="true">&times;</span>
-	        		</button>
+	        		<h5 class="modal-title" id="reviewPopupTtitle">Application Review</h5>
 	      		</div>
 	      		<div class="modal-body">
 	      			<div class="questions_review_data"></div>
 					<div class="row">
 						<div class="col-12 form-group">
-							<a href="javascript:;" class="final-submit btn btn-lg btn-success">Submit For Quotes</a>
+							<button type="submit" class="final-submit btn btn-lg btn-success">Submit For Quotes</button>
+							<a href="javascript:;" class="btn btn-secondary cancel-review">Cancel</a>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							By clicking "Submit For Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a href="{{ route('privacy') }}">Privacy Policy.</a> 
+							By clicking "Submit For Quotes" I provide my electronic signature and express written consent to telemarketing calls, text messages, emails, and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a target="_blank" href="{{ route('privacy') }}">Privacy Policy.</a> 
 						</div>
 					</div>	      			
 	      		</div>

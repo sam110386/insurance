@@ -133,3 +133,8 @@ input[type="number"] {
 }
 
 .pull-right{float: right;}
+#reviewPopup .modal-lg{max-width: 90%;}
+#reviewPopup .questions_review_data p{color: #007bff;}
+.modal.fade {
+    transition: opacity .3s linear;
+}
