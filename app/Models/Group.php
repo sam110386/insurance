@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $fillable = ['name', 'member_id'];
+    protected $table = 'groups';
+    protected $fillable = ['name', 'manager_id'];
 	public function members()
     {
-        return $this->hasMany('App\Models\GroupMember');
+        return $this->hasMany('App\Models\GroupMember','group_id','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\AdminUser','manager_id','id');
     }
 }

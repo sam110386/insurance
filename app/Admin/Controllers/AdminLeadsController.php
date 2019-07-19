@@ -17,7 +17,6 @@ use App\Helpers\CommonMethod;
 use Encore\Admin\Admin;
 use Encore\Admin\Facades\Admin as LoginAdmin;
 use Encore\Admin\Auth\Permission;
-use Encore\Admin\Widgets\Tab;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,12 +50,7 @@ class AdminLeadsController extends Controller
     {
         return $content
         ->header('Detail')
-        ->description('description')
-        // ->breadcrumb(
-        //     ['text' => 'Dashboard', 'url' => '/admin'],
-        //     ['text' => 'Leads', 'url' => '/admin/leads'],
-        //     ['text' => 'Details']
-        // )        
+        ->description('description')      
         ->body($this->detail($id));
     }
 

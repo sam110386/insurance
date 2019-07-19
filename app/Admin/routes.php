@@ -20,5 +20,5 @@ Route::group([
 
     $router->resource('vehicles', 'VehiclesController');
     $router->resource('groups', 'GroupsController');
-
+    $router->get('/api/list/manager','GroupsController@getManagers')->name('manager.list');
 });
