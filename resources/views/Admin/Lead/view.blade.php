@@ -68,6 +68,17 @@
 			@endif
 		</div>
 	</div>
+	<!-- RISK HTML START -->
+	@if($lead['status'] === 1)
+	<div class="alert alert-success light-bg fa-lg" role="alert">
+		<strong><i class="fa fa-check"></i> Low Risk</strong> 
+	</div>
+	@elseif($lead['status'] ===0)
+	<div class="alert alert-danger light-bg fa-lg" role="alert">
+		<strong><i class="fa fa-warning"></i> High Risk</strong>
+	</div>
+	@endif
+	<!-- RISK HTML END -->	
 	<table class="lead-view">
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
@@ -376,18 +387,6 @@
 		</th>
 	</table>
 	
-	<!-- RISK HTML START -->
-	@if($lead['status'] === 1)
-	<div class="alert alert-success light-bg fa-lg" role="alert">
-		<strong><i class="fa fa-check"></i> Low Risk</strong> 
-	</div>
-	@elseif($lead['status'] ===0)
-	<div class="alert alert-danger light-bg fa-lg" role="alert">
-		<strong><i class="fa fa-warning"></i> High Risk</strong>
-	</div>
-	@endif
-	<!-- RISK HTML END -->
-
 	<!-- NOTES HTML START -->
 	<div class="row bootstrap snippets">
 		<div class="col-md-12 ">
@@ -445,8 +444,4 @@
 		</div>
 	</div>
 	<!-- NOTES HTML END -->
-
-
-
-
 </div>

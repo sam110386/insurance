@@ -44,11 +44,11 @@ $.fn[ev] = function () {
 jQuery(document).ready( function($) {
 	var quesitonCount = $('form.lead-form > .container.step').length;
 	$(".q-progress table tr").html('');
-	$(".q-progress table tr").append('<td class="recent-done question-done"><hr class="after" /><i class="fa fa-circle"></i></td>');
-	for(var b=0; b < quesitonCount-2; b++){
+	// $(".q-progress table tr").append('<td class="recent-done question-done"><hr class="after" /><i class="fa fa-circle"></i></td>');
+	for(var b=0; b < quesitonCount; b++){
 		$(".q-progress table tr").append('<td><hr class="before"/><i class="fa fa-circle"></i><hr class="after" /></td>');
 	}
-	$(".q-progress table tr").append('<td><hr class="before" /><i class="fa fa-circle"></i></td>');
+	// $(".q-progress table tr").append('<td><hr class="before" /><i class="fa fa-circle"></i></td>');
 
 	$('form.lead-form > .container').on('fadeIn', function() {
 		$(this).addClass('answered');

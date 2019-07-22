@@ -3178,8 +3178,8 @@
 						<div class="form-group">
 							<label class="h4">Property Damage  &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#propertyPopup"></i></label>
 							<select class="form-control form-control-lg" name="property-damage">
-								<option value="5000" selected="selected">$5000</option>
-								<option value="25000">$25,000</option>
+								<option value="5000">$5000</option>
+								<option value="25000" selected="selected">$25,000</option>
 								<option value="50000">$50,000</option>
 								<option value="100000">$100,000</option>
 								<option value="250000">$250,000</option>
@@ -3202,9 +3202,9 @@
 								Collision Deductible  &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#collisionPopup"></i>
 							</label>
 							<select class="form-control form-control-lg" name="collision-deductible">
-								<option value="250" selected="selected">$250</option>
+								<option value="250">$250</option>
 								<option value="500">$500</option>
-								<option value="1000">$1000</option>
+								<option value="1000" selected="selected">$1000</option>
 							</select>
 						</div>											
 						<div class="form-group">
