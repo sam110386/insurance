@@ -502,7 +502,7 @@ $(document).ready(function(){
 		});
 
 		$('.final-submit').on('click',function(e){
-			/*var error = false;
+			var error = false;
 			var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 			$('.form-group').removeClass('has-error');
 			$('.error:visible').remove();
@@ -520,10 +520,14 @@ $(document).ready(function(){
 				$('#phone').after('<label class="error text-danger">Enter Valid Phone Number</label>');
 				error = true;
 			}
+			if(!$('#TnC').is(":checked")){
+				$('#TnC').parent('.custom-control.custom-checkbox ').addClass('has-error');
+				error =true;
+			}
 			if(error){
 				return false;
 			}
-			$('form.lead-form').submit();	*/			
+			$('form.lead-form').submit();	
 		});
 		$('.next-question').on('click',function(e){
 			var targetQuestion = $(this).data('href');

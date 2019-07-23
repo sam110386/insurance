@@ -21,5 +21,14 @@ class Lead extends Model
 	public function phoneNumber($phoneNumber) {
         if (strpos($phoneNumber, '(') !== false && strpos($phoneNumber, '-') !== false) return $phoneNumber;
 		return "(".substr($phoneNumber, 0, 3).") ".substr($phoneNumber, 3, 3)." ".substr($phoneNumber,6);
-	}	
+	}
+	public function user()
+    {
+        return $this->belongsTo('App\Models\AdminUser','member_id','id');
+    }
+	
+	public function group()
+    {
+        return $this->belongsTo('App\Models\Group','group_id','id');
+    }    
 }

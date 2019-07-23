@@ -10,7 +10,7 @@ class Note extends Model
     protected $fillable = ['user_ip', 'user_id', 'lead_id','notes'];
     public function lead()
     {
-        return $this->belongsTo('App\Models\Lead');
+        return $this->belongsTo('App\Models\Lead','lead_id','id');
     }
     public function user()
     {

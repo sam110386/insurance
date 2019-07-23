@@ -29,6 +29,21 @@ class NotesController extends Controller
     }
 
     /**
+     * Recent interface.
+     *
+     * @param Content $content
+     * @return Content
+     */
+    public function recent(Content $content)
+    {
+        return $content
+            ->header('Updates')
+            ->description('Leads Recent Notes')
+            ->body($this->gridRecent());
+    }
+
+
+    /**
      * Show interface.
      *
      * @param mixed $id
@@ -100,7 +115,7 @@ class NotesController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Comment);
+        $grid = new Grid(new Note);
 
         $grid->id('ID');
         $grid->created_at('Created at');
@@ -109,6 +124,41 @@ class NotesController extends Controller
         return $grid;
     }
 
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function gridRecent()
+    {
+        $grid = new Grid(new Note);
+        $grid->model()->orderby('created_at','desc');
+        
+        $grid->column(trans('ID'))->display(function(){
+            return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->lead->id . "</a>";
+        });
+        $grid->column(trans('First Name'))->sortable()->display(function(){
+            return "<a href='/admin/leads/". $this->lead->id ."' class='text-muted'>" . $this->lead->first_name . "</a>";
+        });
+        $grid->column(trans('Last Name'))->sortable()->display(function(){
+            return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->lead->last_name . "</a>";
+        });
+
+        $grid->user_id(trans('Notes User'))->sortable()->display(function($user_id){
+            return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->user->name . "</a>";
+        });
+        $grid->notes(trans('Notes'))->sortable()->display(function($notes){
+            return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $notes . "</a>";
+        });
+        $grid->created_at('Created at')->sortable();
+        $grid->disableActions();
+        $grid->disableCreateButton();
+        $grid->disableTools();
+        $grid->disableFilter();
+        $grid->disableExport();
+        $grid->disableRowSelector();
+        return $grid;
+    }
     /**
      * Make a show builder.
      *

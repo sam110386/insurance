@@ -28,7 +28,7 @@
   code {
     font-size: 80%;
   }
-  .btn,input[type='text'],textarea{border-radius: 0 !important;}
+  .btn,input[type='text'],textarea,input[type="email"],input[type="tel"],input[type="number"]{border-radius: 0 !important;}
   .choices > label ,.months > label {
     /*padding-top: 15px;
     padding-bottom: 15px;*/
@@ -136,3 +136,6 @@ input[type="number"] {
 .modal.fade {
     transition: opacity .3s linear;
 }
+
+
+.custom-checkbox.has-error .custom-control-label::before{border-color: #dc3545;}

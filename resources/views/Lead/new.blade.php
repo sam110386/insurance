@@ -3827,9 +3827,22 @@
 					</div>										
 				</div>
 				<div class="row">
-					<div class="col-12 form-group">
-						<a href="javascript:;" class="review-application btn btn-lg btn-success">Review Summary</a>
-					</div>					
+					{{--
+						<div class="col-12 form-group">
+							<a href="javascript:;" class="review-application btn btn-lg btn-success">Review Summary</a>
+						</div>
+					--}}
+					<div class="col-12">
+						<div class="custom-control custom-checkbox float-left">
+						  <input type="checkbox" class="custom-control-input" id="TnC">
+						  <label class="custom-control-label" for="TnC">By clicking "Submit For Quotes" I provide my electronic signature and 
+							express written consent to telemarketing calls, text messages, emails,
+							and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a target="_blank" href="{{ route('privacy') }}">Privacy Policy.</a></label>
+						</div>
+					</div>
+					<div class="col-12 form-group pt-3">
+						<button type="submit" class="final-submit btn btn-lg btn-success">Submit For Quotes</button>
+					</div>										
 				</div>
 			</div>
 		</div>

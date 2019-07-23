@@ -13,12 +13,15 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
     $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.home');
+
     $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');
     $router->post("/leads/update/status/{id}","AdminLeadsController@updateStatus")->name('lead.status.update');
+    $router->post("/leads/update/current/status/{id}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update');
     $router->post("/leads/bulk/email/","AdminLeadsController@sendBulkEmail")->name('lead.bulk.email');
     $router->resource('leads', 'AdminLeadsController');
 
     $router->resource('vehicles', 'VehiclesController');
     $router->resource('groups', 'GroupsController');
-    $router->get('/api/list/manager','GroupsController@getManagers')->name('manager.list');
+    $router->get('/api/assignment/list','LeadAssignmentController@getAssignmentList')->name('api.assignment.list');
 });

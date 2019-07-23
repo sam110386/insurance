@@ -5,6 +5,8 @@ namespace App\Admin\Controllers;
 use App\Models\Lead;
 use App\Models\Note;
 use App\Models\AdminUser;
+use App\Models\Group;
+use App\Models\GroupMember;
 use App\Http\Controllers\Controller;
 use App\Admin\Extensions\Tools\BulkEmailLead;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -20,6 +22,7 @@ use Encore\Admin\Auth\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Admin\Controllers\LeadAssignmentController;
 
 class AdminLeadsController extends Controller
 {
@@ -48,9 +51,17 @@ class AdminLeadsController extends Controller
      */
     public function show($id, Content $content)
     {
+        // Check if manager have access for this lead
+        if(LoginAdmin::user()->inRoles(['associate'])){
+            $lead = Lead::findOrFail($id);
+            if($lead->member_id !=Auth::guard('admin')->user()->id){
+                admin_error('Error','Access denied.');
+                return back();                
+            }
+        }
         return $content
-        ->header('Detail')
-        ->description('description')      
+        ->header('Lead')
+        ->description('Detail')      
         ->body($this->detail($id));
     }
 
@@ -67,9 +78,17 @@ class AdminLeadsController extends Controller
             admin_error('Error','Access denied.');
             return back();
         }
+        // Check if manager have access for this lead
+        if(LoginAdmin::user()->inRoles(['manager'])){
+            $lead = Lead::findOrFail($id);
+            if($lead->manager_id !=Auth::guard('admin')->user()->id){
+                admin_error('Error','Access denied.');
+                return back();                
+            }
+        }
         return $content
-        ->header('Edit')
-        ->description('description')
+        ->header('Detail')
+        ->description('Edit')
         ->body($this->form($id)->edit($id));
     }
 
@@ -99,12 +118,28 @@ class AdminLeadsController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Lead);
-        $grid->id('ID');
-        $grid->first_name(trans('First Name'));
-        $grid->last_name(trans('Last Name'));
-        $grid->email(trans('Email'));
+        if (!LoginAdmin::user()->inRoles(['administrator'])){
+            if(LoginAdmin::user()->inRoles(['manager'])){
+                $grid->model()->where('manager_id', Auth::guard('admin')->user()->id);
+            }else{
+                $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
+            }
+        }
+        $grid->model()->orderby('id','desc');
+        $grid->id('ID')->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->first_name(trans('First Name'))->sortable()->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->last_name(trans('Last Name'))->sortable()->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->email(trans('Email'))->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
         $grid->phone(trans('Phone'))->display(function($phone){
-            return CommonMethod::phoneNumber($phone);
+            return "<a href='/admin/leads/$this->id' class='text-muted'>".CommonMethod::phoneNumber($phone)."</a>";
         });
         $grid->status(trans('Risk'))->display(function($risk){
             if($risk === 1){
@@ -114,16 +149,56 @@ class AdminLeadsController extends Controller
             }else{
                 $str = "N/A";
             }
-            return $str;
+            return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
         });
-        $grid->ip_address(trans('IP Address'));
-        $grid->created_at(trans('Created at'));
-        $grid->actions(function ($actions) {
-            $actions->disableDelete();
-            if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
-                $actions->disableEdit();            
+        $grid->column(trans('Assignment'))->display(function(){
+            $member =  ($this->member_id) ? $this->user->name : "";
+            $group =  ($this->group_id) ? $this->group->name : "";
+            $g_pre = "";
+            $g_post = "";
+            $str = "Not assigned yet";
+            if($member && $group){
+                $g_pre = " (";
+                $g_post = ")";
             }
+            if($member || $group){
+                $str = $member . $g_pre . $group . $g_post;
+            }
+            return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
         });
+        $grid->current_status(trans('Status'))->display(function($current_status){
+            switch ($current_status) {
+                case 1:
+                    $str = "Processing";
+                    break;
+                case 2:
+                    $str = "Sold";
+                    break;
+                case 3:
+                    $str = "Not Eligible";
+                    break;
+                
+                default:
+                    $str = "New";
+                    break;
+            }
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
+
+        });
+        $grid->ip_address(trans('IP Address'))->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->created_at(trans('Created at'))->sortable()->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+
+        $grid->disableActions();
+        // $grid->actions(function ($actions) {
+        //     $actions->disableDelete();
+        //     if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+        //         $actions->disableEdit();            
+        //     }
+        // });
         $grid->tools(function (Grid\Tools $tools) {
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
@@ -273,8 +348,7 @@ class AdminLeadsController extends Controller
                             options = [{"id": "", "text": "Select Trim"}].concat(options);
                             parent.find("select[select_class=" + target + "]").select2({data: options});
                         })
-                    });                      
-
+                    });
 SCRIPT;
 
         Admin::script($script);
@@ -312,6 +386,14 @@ SCRIPT;
             $vehicleDefaults['tenth_v'] = ['make' => [$lead['tenth_vehicle_make']], 'model' => [$lead['tenth_vehicle_model']],'trim' => [$lead['tenth_vehicle_trim']]];
         }
 
+        $members = [];
+        if(LoginAdmin::user()->inRoles(['manager']) && $id>0){
+            $gMembers = GroupMember::where('group_id',$lead['group_id'])->with('user')->get();
+            foreach ($gMembers as $member) {
+                $members[$member->user->id] = $member->user->name;
+            }
+        }
+
         $form = new Form(new Lead);
         $form->tab('CONTACT INFORMATION', function ($form) use($zipcodes) {
             $form->row(function($row){
@@ -319,7 +401,7 @@ SCRIPT;
                 $row->width(6)->text('last_name', trans('Last Name'))->rules('required');
             });
             $form->row(function($row){
-                $row->width(6)->text('phone', trans('Phone'))->rules('required|numeric');
+                $row->width(6)->text('phone', trans('Phone'))->rules('required|regex:/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/',['regex'=> 'Invalid phone number']);
                 $row->width(6)->email('email', trans('Email'))->rules('required');
             });
             $form->row(function($row) use($zipcodes){
@@ -564,7 +646,6 @@ SCRIPT;
                 $row->width(12)->radio('tickets',trans('Two (2) or more tickets in the past three (3) years?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
                 $row->width(12)->radio('dui',trans('A DUI conviction in the past ten (10) years?'))->options(["1" => "Yes", "0" => "No"])->rules('required');
             });
-
         })->tab('PREFERENCE', function ($form){
             $form->row(function($row){
                 $row->width(6)->select('quality_provides',trans('What is the most important quality you look for when choosing an auto insurer?'))->options(["provides-quality-service"=>"Provides quality service","guidance-with-insurance-decisions"=>"Guidance with insurance decisions","provides-a-local-presence"=>"Provides a local presence","is-a-reputable-company"=>"Is a reputable company","provides-general-representatives-for-customer-care"=>"Provides general representatives for customer care","offers-a-low-price-and-discounts"=>"Offers a low price and discounts","provides-24/7-access-to-insurance-information"=>"Provides 24/7 access to insurance information","provides-an-accountable-point-of-contact"=>"Provides an accountable point of contact","offers-a-thorough-review-of-the-coverage"=>"Offers a thorough review of the coverage","provides-hassle-free-process"=>"Provides hassle-free process","offers-face-to-face-interaction"=>"Offers face-to-face interaction"]);
@@ -574,7 +655,37 @@ SCRIPT;
                 $row->width(6)->select('referrer',trans('How did you hear about us?'))->options(["friend-or-family" => "Friend or Family", "auto-dealer" => "Auto Dealer","other"=>"Other"])->default("");
                 $row->width(6)->text('referrer_name',trans('Referrer Name'));
             });                        
+        })->tab('ASSIGNMENTS', function ($form) use($members){
+            $form->row(function($row)use($members){
+                if (LoginAdmin::user()->inRoles(['administrator'])){
+                    $row->width(12)->html(
+                        "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Assign Lead to Group or Associate</h4></div>"
+                    );
+                    $row->width(6)->select('assign_type', trans('Assign to'))->options(['group' => 'Group', 'associate' => 'Associate'])->load('assign_id', '/admin/api/assignment/list');
+                    $row->width(6)->select('assign_id', trans('Select Group/Associate'))->options($members);
+                }else if (LoginAdmin::user()->inRoles(['manager'])){
+                    $row->width(6)->select('assign_id', trans('Select Associate'))->options($members);
+                }else{}
+            });            
         });
+        $form->saved(function (Form $form) use($id){
+            $assign_id = request()->assign_id;
+            if (LoginAdmin::user()->inRoles(['administrator'])){
+                if(request()->assign_type=='group'){
+                    return LeadAssignmentController::assignLeadToGroup(request()->route('lead'),$assign_id);
+                }elseif(request()->assign_type=='associate'){
+                    return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id);
+                }else{}
+            }elseif(LoginAdmin::user()->inRoles(['manager'])){
+                    return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id);
+            }else{}
+
+        });        
+        $form->submitted(function (Form $form) {
+            $form->ignore('assign_type');
+            $form->ignore('assign_id');
+        });
+
         return $form;
     }
 
@@ -601,9 +712,9 @@ SCRIPT;
             }else{                
                 $lead['status'] = (isset($request->approve)) ? 1 : 0;
                 if($lead->update()){
-                    admin_success('Success','Record has been updated.');
+                    admin_success('Success','Lead has been updated.');
                 }else{
-                    admin_error('Error','Record not updated! Please try again.');
+                    admin_error('Error','Lead not updated! Please try again.');
                 }
             }
         }else{
@@ -611,6 +722,26 @@ SCRIPT;
         }
         return redirect()->route('leads.show',[$id]);
     }
+
+    public function updateCurrentStatus($id,Request $request){
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }
+        if(isset($request->current_status)){
+            $lead = Lead::findOrFail($id);
+            $lead['current_status'] = $request->current_status;
+            if($lead->update()){
+                admin_success('Success','Lead has been updated.');
+            }else{
+                admin_error('Error','Lead not updated! Please try again.');
+            }
+        }else{
+            admin_error('Error','Unautorized request.');
+        }
+        return redirect()->route('leads.show',[$id]);
+    }
+
 
 
     public function sendBulkEmail(Request $request){
@@ -665,4 +796,5 @@ SCRIPT;
         }
         return back();
     }
+
 }

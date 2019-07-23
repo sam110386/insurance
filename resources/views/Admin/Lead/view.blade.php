@@ -55,16 +55,31 @@
 	<div class="row mb-10">
 		<div class="col-xs-12 text-right">
 			@if($updateStatus)
+				<div class="pull-left">
+					<form class="form-inline" action="{{route('lead.currentstatus.update',$lead['id'])}}" method="post">
+						{!! csrf_field() !!}
+						<div class="form-group">
+							<select class="form-control" name="current_status">
+								<option value="0" @if($lead['current_status']==0) selected @endif>New</option>
+								<option value="1" @if($lead['current_status']==1) selected @endif>Processing</option>
+								<option value="2" @if($lead['current_status']==2) selected @endif>Sold</option>
+								<option value="3" @if($lead['current_status']==3) selected @endif>Not Eligible</option>
+							</select>&nbsp;
+							<input class="btn btn-primary" type="submit" name="submit" value="Update Status">
+						</div>
+					</form>
+				</div>			
 				<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
 					@if($lead['status'] === null)
 					{!! csrf_field() !!}
 					<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
 					<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
 					@endif
-					<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
+					<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
+					<a href="{{route('leads.edit',$lead['id'])}}" class="btn btn-default"><i class="fa fa-edit"></i> EDIT</a>					
 				</form>
 			@else
-				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>
+				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
 			@endif
 		</div>
 	</div>
