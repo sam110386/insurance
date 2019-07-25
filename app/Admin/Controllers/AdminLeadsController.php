@@ -377,16 +377,16 @@ SCRIPT;
 
         if($id>0){
             $lead = Lead::findOrFail($id);
-            $vehicleDefaults['first_v'] = ['make' => [$lead['first_vehicle_make']], 'model' => [$lead['first_vehicle_model']],'trim' => [$lead['first_vehicle_trim']]];
-            $vehicleDefaults['second_v'] = ['make' => [$lead['second_vehicle_make']], 'model' => [$lead['second_vehicle_model']],'trim' => [$lead['second_vehicle_trim']]];
-            $vehicleDefaults['third_v'] = ['make' => [$lead['third_vehicle_make']], 'model' => [$lead['third_vehicle_model']],'trim' => [$lead['third_vehicle_trim']]];
-            $vehicleDefaults['fourth_v'] = ['make' => [$lead['fourth_vehicle_make']], 'model' => [$lead['fourth_vehicle_model']],'trim' => [$lead['fourth_vehicle_trim']]];
-            $vehicleDefaults['fifth_v'] = ['make' => [$lead['fifth_vehicle_make']], 'model' => [$lead['fifth_vehicle_model']],'trim' => [$lead['fifth_vehicle_trim']]];
-            $vehicleDefaults['sixth_v'] = ['make' => [$lead['sixth_vehicle_make']], 'model' => [$lead['sixth_vehicle_model']],'trim' => [$lead['sixth_vehicle_trim']]];
-            $vehicleDefaults['seventh_v'] = ['make' => [$lead['seventh_vehicle_make']], 'model' => [$lead['seventh_vehicle_model']],'trim' => [$lead['seventh_vehicle_trim']]];
-            $vehicleDefaults['eighth_v'] = ['make' => [$lead['eighth_vehicle_make']], 'model' => [$lead['eighth_vehicle_model']],'trim' => [$lead['eighth_vehicle_trim']]];
-            $vehicleDefaults['ninth_v'] = ['make' => [$lead['ninth_vehicle_make']], 'model' => [$lead['ninth_vehicle_model']],'trim' => [$lead['ninth_vehicle_trim']]];
-            $vehicleDefaults['tenth_v'] = ['make' => [$lead['tenth_vehicle_make']], 'model' => [$lead['tenth_vehicle_model']],'trim' => [$lead['tenth_vehicle_trim']]];
+            $vehicleDefaults['first_v'] = ['make' => [$lead['first_vehicle_make'] => $lead['first_vehicle_make']], 'model' => [$lead['first_vehicle_model'] => $lead['first_vehicle_model']],'trim' => [$lead['first_vehicle_trim'] => $lead['first_vehicle_trim']]];
+            $vehicleDefaults['second_v'] = ['make' => [$lead['second_vehicle_make']=>$lead['second_vehicle_make']], 'model' => [$lead['second_vehicle_model']=>$lead['second_vehicle_model']],'trim' => [$lead['second_vehicle_trim']=>$lead['second_vehicle_trim']]];
+            $vehicleDefaults['third_v'] = ['make' => [$lead['third_vehicle_make']=>$lead['third_vehicle_make']], 'model' => [$lead['third_vehicle_model']=>$lead['third_vehicle_model']],'trim' => [$lead['third_vehicle_trim']=>$lead['third_vehicle_trim']]];
+            $vehicleDefaults['fourth_v'] = ['make' => [$lead['fourth_vehicle_make']=>$lead['fourth_vehicle_make']], 'model' => [$lead['fourth_vehicle_model']=>$lead['fourth_vehicle_model']],'trim' => [$lead['fourth_vehicle_trim']=>$lead['fourth_vehicle_trim']]];
+            $vehicleDefaults['fifth_v'] = ['make' => [$lead['fifth_vehicle_make']=>$lead['fifth_vehicle_make']], 'model' => [$lead['fifth_vehicle_model']=>$lead['fifth_vehicle_model']],'trim' => [$lead['fifth_vehicle_trim']=>$lead['fifth_vehicle_trim']]];
+            $vehicleDefaults['sixth_v'] = ['make' => [$lead['sixth_vehicle_make']=>$lead['sixth_vehicle_make']], 'model' => [$lead['sixth_vehicle_model']=>$lead['sixth_vehicle_model']],'trim' => [$lead['sixth_vehicle_trim']=>$lead['sixth_vehicle_trim']]];
+            $vehicleDefaults['seventh_v'] = ['make' => [$lead['seventh_vehicle_make']=>$lead['seventh_vehicle_make']], 'model' => [$lead['seventh_vehicle_model']=>$lead['seventh_vehicle_make']],'trim' => [$lead['seventh_vehicle_trim']=>$lead['seventh_vehicle_trim']]];
+            $vehicleDefaults['eighth_v'] = ['make' => [$lead['eighth_vehicle_make']=>$lead['eighth_vehicle_make']], 'model' => [$lead['eighth_vehicle_model']=>$lead['eighth_vehicle_model']],'trim' => [$lead['eighth_vehicle_trim']=>$lead['eighth_vehicle_trim']]];
+            $vehicleDefaults['ninth_v'] = ['make' => [$lead['ninth_vehicle_make']=>$lead['ninth_vehicle_make']], 'model' => [$lead['ninth_vehicle_model']=>$lead['ninth_vehicle_model']],'trim' => [$lead['ninth_vehicle_trim']=>$lead['ninth_vehicle_trim']]];
+            $vehicleDefaults['tenth_v'] = ['make' => [$lead['tenth_vehicle_make']=>$lead['tenth_vehicle_make']], 'model' => [$lead['tenth_vehicle_model']=>$lead['tenth_vehicle_model']],'trim' => [$lead['tenth_vehicle_trim']=>$lead['tenth_vehicle_trim']]];
         }
 
         $members = [];
