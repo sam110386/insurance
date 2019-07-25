@@ -9,6 +9,7 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\InfoBox;
 use App\Admin\Controllers\AdminLeadsController;
+use App\Models\Lead;
 
 
 class HomeController extends Controller
@@ -58,5 +59,15 @@ class HomeController extends Controller
             });
         });
 
+    }
+    public function testMail(){
+        $email = 'sgstest2505@gmail.com';
+        $lead = Lead::findOrFail(5);
+        $mailStatus = \Mail::send('Admin.Lead.email', ['lead' => $lead],
+                function ($message) use($email){
+                    $message->to($email)->subject('New Lead - Insurance');
+        }); 
+
+        dd($mailStatus);
     }
 }

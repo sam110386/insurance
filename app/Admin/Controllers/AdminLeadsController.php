@@ -21,6 +21,7 @@ use Encore\Admin\Facades\Admin as LoginAdmin;
 use Encore\Admin\Auth\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 use App\Admin\Controllers\LeadAssignmentController;
 
@@ -117,6 +118,8 @@ class AdminLeadsController extends Controller
      */
     protected function grid()
     {
+        // $script = <<<scriptSCRIPT;           
+Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
         $grid = new Grid(new Lead);
         if (!LoginAdmin::user()->inRoles(['administrator'])){
             if(LoginAdmin::user()->inRoles(['manager'])){
@@ -125,7 +128,8 @@ class AdminLeadsController extends Controller
                 $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
             }
         }
-        $grid->model()->orderby('id','desc');
+
+        if(!Input::get('_sort')) $grid->model()->orderby('id','desc');
         $grid->id('ID')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
@@ -188,10 +192,9 @@ class AdminLeadsController extends Controller
         $grid->ip_address(trans('IP Address'))->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
-        $grid->created_at(trans('Created at'))->sortable()->display(function($text){
+        $grid->created_at(trans('Created at'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
-
         $grid->disableActions();
         // $grid->actions(function ($actions) {
         //     $actions->disableDelete();
@@ -262,7 +265,7 @@ class AdminLeadsController extends Controller
                 ->orWhere('fifth_driver_first_name', 'like', "%{$this->input}%")
                 ->orWhere('fifth_driver_last_name', 'like', "%{$this->input}%")
                 ->orWhere('fifth_driver_dl', 'like', "%{$this->input}%");
-            }, 'Search')->placeholder('Enter First name,Last name,Email,Phone or Drivers license');
+            }, 'Search')->placeholder('Enter First or Last Name, Email, Phone Number, or Drivers License');
         });   
         return $grid;
     }
@@ -421,6 +424,7 @@ SCRIPT;
         })->tab('VEHICLES', function ($form) use($years,$vehicleDefaults){
             $form->row(function($row) use($years,$vehicleDefaults){
                 $first_v = $vehicleDefaults['first_v'];
+                // dd($first_v);
                 $row->width(12)->html(
                     "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>First Vehicle</h4></div>"
                 );

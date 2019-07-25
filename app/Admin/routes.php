@@ -12,6 +12,7 @@ Route::group([
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
+    $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.home');
 
@@ -24,4 +25,5 @@ Route::group([
     $router->resource('vehicles', 'VehiclesController');
     $router->resource('groups', 'GroupsController');
     $router->get('/api/assignment/list','LeadAssignmentController@getAssignmentList')->name('api.assignment.list');
+
 });
