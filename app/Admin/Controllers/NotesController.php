@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Support\Facades\Input;
 
 class NotesController extends Controller
 {
@@ -132,22 +133,22 @@ class NotesController extends Controller
     protected function gridRecent()
     {
         $grid = new Grid(new Note);
-        $grid->model()->orderby('created_at','desc');
+        if(!Input::get('_sort')) $grid->model()->orderby('created_at','desc');
         
         $grid->column(trans('ID'))->display(function(){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->lead->id . "</a>";
         });
-        $grid->column(trans('First Name'))->sortable()->display(function(){
+        $grid->column(trans('First Name'))->display(function(){
             return "<a href='/admin/leads/". $this->lead->id ."' class='text-muted'>" . $this->lead->first_name . "</a>";
         });
-        $grid->column(trans('Last Name'))->sortable()->display(function(){
+        $grid->column(trans('Last Name'))->display(function(){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->lead->last_name . "</a>";
         });
 
-        $grid->user_id(trans('Notes User'))->sortable()->display(function($user_id){
+        $grid->column(trans('Notes User'))->display(function(){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->user->name . "</a>";
         });
-        $grid->notes(trans('Notes'))->sortable()->display(function($notes){
+        $grid->notes(trans('Notes'))->display(function($notes){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $notes . "</a>";
         });
         $grid->created_at('Created at')->sortable();
