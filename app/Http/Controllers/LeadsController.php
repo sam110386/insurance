@@ -320,9 +320,9 @@ class LeadsController extends BaseController
 		$data['referrer_name'] 				= $lead['referrer_name'];
 		$data['ip_address'] 				= $request['ip'];
 		if($lead['at_fault'] == 1 || $lead['tickets']  == 1 || $lead['dui'] == 1){
-			$lead['status'] = 0;
+			$data['status'] = 0;
 		}
-		// dd($data);
+		// dd($lead);
 		return Lead::create($data);
 	}
 
