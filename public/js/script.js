@@ -42,6 +42,11 @@ $.fn[ev] = function () {
 });
 
 jQuery(document).ready( function($) {
+	$('.start-application').on('click',function(){
+		$('.start-content').fadeOut();
+		$('#zipcode-container').fadeIn();
+	})
+
 	// Default checked radio buttons
 	$("input[type='radio']").prop('checked', false);
 	// $("input[type='radio']:checked").parent('label').addClass('bg-warning')

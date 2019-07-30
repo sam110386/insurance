@@ -21,7 +21,7 @@
 </div>
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST" novalidate>
 	{{ csrf_field() }}
-	<div id="zipcode-container" class="step container pt-5 pb-5 editable-field" style="display: block;">
+	<div id="zipcode-container" class="step container pt-5 pb-5 editable-field" style="display: none;">
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
