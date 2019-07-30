@@ -194,6 +194,7 @@ input[type="number"] {
   /*.lead-form{min-height: 300px;}*/
 }
 @media(max-width: 991px){
+  #zipcode-container{min-height: 500px;}
   body > section{padding: 65px 15px 0;}
   .progress-container{position: initial;background: #fff;margin-right: -15px;margin-left: -15px;}
   .nav-right a > span{float: none;}
