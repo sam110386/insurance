@@ -42,13 +42,15 @@ $.fn[ev] = function () {
 });
 
 jQuery(document).ready( function($) {
+	// Default checked radio buttons
+	$("input[type='radio']").prop('checked', false);
+	// $("input[type='radio']:checked").parent('label').addClass('bg-warning')
+
 	var quesitonCount = $('form.lead-form > .container.step').length;
 	$(".q-progress table tr").html('');
-	// $(".q-progress table tr").append('<td class="recent-done question-done"><hr class="after" /><i class="fa fa-circle"></i></td>');
 	for(var b=0; b < quesitonCount; b++){
-		$(".q-progress table tr").append('<td><hr class="before"/><i class="fa fa-circle"></i><hr class="after" /></td>');
+		$(".q-progress table tr").append('<td><hr class="before"/><i class="fa fa-dot-circle"></i><hr class="after" /></td>');
 	}
-	// $(".q-progress table tr").append('<td><hr class="before" /><i class="fa fa-circle"></i></td>');
 
 	$('form.lead-form > .container').on('fadeIn', function() {
 		$(this).addClass('answered');
@@ -314,8 +316,9 @@ $(document).ready(function(){
 			}).done(function( res ) {
 				if(res){
 					$.each(res,function(i,trim){
+						debugger
 						target =  'vin' + (vehicle);
-						current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
+						current = 'trims' + vehicle;
 						trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
 						trimContanier.append(trimHtml);
 					});

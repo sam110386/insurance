@@ -6,7 +6,7 @@
 </script>
 @endpush
 @section('content')
-<div class="row pt-3 pb-3 progress-container">
+<div class="row progress-container">
 <!-- 	<div class="col-12">
 		<h4 class="text-center">Progress</h4>
 	</div> -->
