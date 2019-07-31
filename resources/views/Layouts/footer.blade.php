@@ -39,12 +39,11 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-4 col-lg-4 footer-box-1">
-          <a href="#" class="font-weight-bold"><i class="fa fa-phone"></i> 1 (234) 567-8901</a>
-          <p class="mt-1">Monday-Thursday | 9am-11pm ET <br> Friday-Sunday | 9am-9pm ET</p>
+          <p class="mt-1">Monday-Friday | 9am-6pm PST <br> Saturday-Sunday | 10am-2pm PST</p>
         </div>
         <div class="col-12 col-md-4 footer-box-2">
           <p class="mb-2"><a href="#"><i class="fa fa-comment"></i> Live chat</a></p>
-          <p><a href="#"><i class="fa fa-envelope"></i> team@insurance.com</a></p>
+          <p><a href="mailto:hello@quotemeow.com"><i class="fa fa-envelope"></i> hello@quotemeow.com</a></p>
         </div>
         <div class="col-12 col-md-4 footer-box-3">
           <p>
@@ -52,7 +51,7 @@
             <img src="{{ asset('img/norton.svg') }}"/>
           </p>
           <p>
-            <a href="#">Security & Trust</a> <a  href="#">Privacy</a> <a href="#">Terms of Services</a>
+            <a  href="{{route('privacy')}}">Privacy</a> <a href="#">Terms of Services</a>
           </p>
         </div>
       </div>

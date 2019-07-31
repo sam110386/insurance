@@ -364,6 +364,7 @@ $(document).ready(function(){
 					$(".progress-container").slideDown(500);
 				}
 			}
+			$('#start-screen').slideUp(500);
 			$('.form-group').removeClass('has-error');
 			$('form.lead-form > div.container').fadeOut(500);
 			$('.brand-carousel').slideUp();
