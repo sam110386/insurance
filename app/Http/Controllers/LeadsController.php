@@ -29,9 +29,9 @@ class LeadsController extends BaseController
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$city = CommonMethod::getZipcodeInfo($lead['zipcode']);
 		$data = ['lead' => $lead,'ip' => $ip, 'city' => $city, 'states' => CommonMethod::getStates()];
-		// dd($lead);
-		$this->storeLead($data);
-		\Mail::send('Emails.Lead.new', $data,
+		$lead = $this->storeLead($data);
+		$lead->phone =  $lead->phoneNumber($lead->phone);
+		\Mail::send('Emails.Lead.new', ['lead' => $lead->toArray()],
 		function ($message) {
 			$message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
 			// $message->to('vbmourya123@gmail.com')->bcc('sgstest2505@gmail.com')->subject('New Lead - Insurance');

@@ -27,6 +27,7 @@
 				<div class="form-group">
 					<!--label for="zipcode" class="font-weight-bold h3 mb-3">Enter your zip code to start this short and easy process.</label-->
 					<input type="number" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code" pattern="[0-9]*">
+					<p class="text-center"><small>3 minutes until the finish line.</small></p>
 				</div>
 				<div class="form-group">
 					<a data-href="year" data-pos="1" class="zipcode-submit mb-2 btn btn-lg btn-warning pull-left change-question">Get Your Quotes</a>
@@ -40,10 +41,8 @@
 		<div class="row">
 			<div class="col-12 col-md-10 offset-md-1">
 				<p>
-					<a data-href="zipcode" class="change-question prev text-primary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
+					<a data-href="zipcode" class="change-question prev text-primary btn btn-warning btn-sm ">
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Year</h3>
@@ -78,10 +77,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
-							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm">
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Make</h3>
@@ -108,10 +105,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Model</h3>
@@ -134,10 +129,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -154,10 +147,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -178,10 +169,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin1" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin1" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -212,10 +201,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin1" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin1" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -251,10 +238,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin1" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin1" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -297,10 +282,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle? (Save an Additional 20%)</h4>
@@ -324,10 +307,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Second Vehicle Year</h3>
@@ -362,10 +343,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Second Vehicle Make</h3>
@@ -392,10 +371,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle2-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle2-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Second Vehicle Model</h3>
@@ -417,10 +394,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle2-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle2-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -437,10 +412,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -460,10 +433,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -494,10 +465,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -533,10 +502,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -580,10 +547,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -607,10 +572,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Third Vehicle Year</h3>
@@ -645,10 +608,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Third Vehicle Make</h3>
@@ -677,10 +638,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle3-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle3-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Third Vehicle Model</h3>
@@ -702,10 +661,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle3-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle3-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -722,10 +679,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -745,10 +700,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -779,10 +732,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -818,10 +769,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -866,10 +815,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -893,10 +840,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fourth Vehicle Year</h3>
@@ -931,10 +876,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fourth Vehicle Make</h3>
@@ -961,10 +904,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle4-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle4-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fourth Vehicle Model</h3>
@@ -986,10 +927,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle4-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle4-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -1006,10 +945,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -1029,10 +966,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -1063,10 +998,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -1102,10 +1035,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -1149,10 +1080,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -1176,10 +1105,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fifth Vehicle Year</h3>
@@ -1214,10 +1141,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fifth Vehicle Make</h3>
@@ -1245,10 +1170,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle5-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle5-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Fifth Vehicle Model</h3>
@@ -1270,10 +1193,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle5-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle5-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -1290,10 +1211,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims5" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -1313,10 +1232,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -1347,10 +1264,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership5" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -1386,10 +1301,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary5" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -1433,10 +1346,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="miles-driven5" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="miles-driven5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -1460,10 +1371,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Sixth Vehicle Year</h3>
@@ -1498,10 +1407,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Sixth Vehicle Make</h3>
@@ -1530,10 +1437,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle6-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle6-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Sixth Vehicle Model</h3>
@@ -1555,10 +1460,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle6-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle6-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -1575,10 +1478,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -1598,10 +1499,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -1632,10 +1531,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership6" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership6" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -1671,10 +1568,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary6" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary6" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -1719,10 +1614,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="miles-driven6" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="miles-driven6" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -1746,10 +1639,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Seventh Vehicle Year</h3>
@@ -1784,10 +1675,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Seventh Vehicle Make</h3>
@@ -1816,10 +1705,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle7-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle7-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Seventh Vehicle Model</h3>
@@ -1841,10 +1728,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle7-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle7-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -1861,10 +1746,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -1884,10 +1767,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -1918,10 +1799,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership7" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership7" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -1957,10 +1836,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary7" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary7" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -2005,10 +1882,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="miles-driven7" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="miles-driven7" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -2032,10 +1907,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Eighth Vehicle Year</h3>
@@ -2070,10 +1943,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Eighth Vehicle Make</h3>
@@ -2102,10 +1973,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle8-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle8-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Eighth Vehicle Model</h3>
@@ -2127,10 +1996,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle8-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle8-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -2147,10 +2014,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -2170,10 +2035,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -2204,10 +2067,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership8" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership8" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -2243,10 +2104,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary8" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary8" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -2291,10 +2150,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="miles-driven8" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="miles-driven8" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -2318,10 +2175,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Ninth Vehicle Year</h3>
@@ -2356,10 +2211,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Ninth Vehicle Make</h3>
@@ -2388,10 +2241,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle9-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle9-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Ninth Vehicle Model</h3>
@@ -2413,10 +2264,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle9-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle9-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -2433,10 +2282,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -2456,10 +2303,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -2490,10 +2335,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership9" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership9" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -2529,10 +2372,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary9" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary9" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -2577,10 +2418,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="miles-driven9" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="miles-driven9" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Add Additional Vehicle?</h4>
@@ -2604,10 +2443,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Tenth Vehicle Year</h3>
@@ -2642,10 +2479,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Tenth Vehicle Make</h3>
@@ -2674,10 +2509,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle10-make" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle10-make" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Tenth Vehicle Model</h3>
@@ -2699,10 +2532,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vehicle10-models" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vehicle10-models" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
@@ -2719,10 +2550,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="trims3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="trims3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h3 class="font-weight-bold">For an accurate quote, enter VIN</h3>
@@ -2742,10 +2571,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="vin2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="vin2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Ownership</h4>
@@ -2776,10 +2603,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="ownership10" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="ownership10" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
@@ -2815,10 +2640,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="primary10" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="primary10" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
@@ -2861,10 +2684,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Have you had auto insurance in the past 30 days?</h4>
@@ -2888,10 +2709,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Current Auto Insurance</h4>
@@ -2911,10 +2730,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">How long have you continuously had auto insurance?</h4>
@@ -2948,10 +2765,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Married?</h4>
@@ -2976,10 +2791,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Children under the age of 16?</h4>
@@ -3004,10 +2817,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Do you own/rent?</h4>
@@ -3031,10 +2842,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Would you like to also receive home insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
@@ -3058,10 +2867,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Would you like to also receive <span class="font-weight-bold">Renters Insurance</span> policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
@@ -3086,10 +2893,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<h4 class="mb-4">Has anyone on this policy had:</h4>
@@ -3155,10 +2960,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row ">
@@ -3273,10 +3076,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3340,10 +3141,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="referral" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="referral" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3433,10 +3232,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name-email1" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="name-email1" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3521,10 +3318,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name2" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="name2" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3609,10 +3404,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name3" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="name3" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3697,10 +3490,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="name4" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="name4" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
@@ -3783,10 +3574,8 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="dl5" class="change-question prev text-primary"> 
-						<strong>
+					<a data-href="dl5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
-						</strong>
 					</a>
 				</p>
 				<div class="row">
