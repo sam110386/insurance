@@ -157,6 +157,7 @@ input[type="number"] {
 .btn.btn-info{color: #FFF;}
 #name-email1-container .choices label,#name2-container .choices label,#name3-container .choices label,#name4-container .choices label,#name5-container .choices label{display: inline-block !important;line-height: 2.2rem;}
 
+.form-group label.text-warning {color: #414141 !important;}
 .lg-mx-w-70-pr{max-width: 70%; margin-left: auto; margin-right: auto;}
 @media(max-width: 480px){
   h3,h4,h3.font-weight-bold > .h4{
