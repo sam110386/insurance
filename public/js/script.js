@@ -34,11 +34,11 @@ $(document).ready(function() {
 
 
 $.each(['fadeIn','fadeOut'], function (i, ev) {
-var el = $.fn[ev];
-$.fn[ev] = function () {
-  this.trigger(ev);
-  return el.apply(this, arguments);
-};
+	var el = $.fn[ev];
+	$.fn[ev] = function () {
+		this.trigger(ev);
+		return el.apply(this, arguments);
+	};
 });
 
 jQuery(document).ready( function($) {
@@ -61,15 +61,16 @@ jQuery(document).ready( function($) {
 		$(this).addClass('answered');
 		$('.q-progress table tr td').removeClass('question-done');
 		$('.q-progress table tr td').removeClass('recent-done');
-	    var prevQuestionsNew = $(this).prevAll('div.container.step').length;
-	    var prevQuestionsOld = $('.q-progress table tr td.question-done').length;
-	    if(prevQuestionsNew && prevQuestionsNew !== prevQuestionsOld){
-	    	for(var s = 1; s <= prevQuestionsNew; s++){
-	    		var classAdd = (s==prevQuestionsNew) ? "recent-done question-done" : "question-done";
-	    		$('.q-progress table tr td:nth-child(' + s + ')').addClass(classAdd);	
-	    	}
-	    }
-	    if($(this).hasClass('editable-field')) $(this).addClass('review-on');
+		var prevQuestionsNew = $(this).prevAll('div.container.step').length;
+		var prevQuestionsOld = $('.q-progress table tr td.question-done').length;
+		if(prevQuestionsNew && prevQuestionsNew !== prevQuestionsOld){
+			for(var s = 1; s <= prevQuestionsNew; s++){
+				var classAdd = (s==prevQuestionsNew) ? "recent-done question-done" : "question-done";
+				$('.q-progress table tr td:nth-child(' + s + ')').addClass(classAdd);	
+			}
+		}
+		if($(this).hasClass('editable-field')) $(this).addClass('review-on');
+		$(window).scrollTop(0);
 	});
 
 
@@ -83,7 +84,7 @@ jQuery(document).ready( function($) {
  	// change question on policy question
  	
  	$('input[name=at_fault],input[name=tickets],input[name=dui],input[name=uninsured],input[name=towing],input[name=rental]').parent('label').on('click',function(){
-		$(this).children('input[type=radio]').prop('checked',true);
+ 		$(this).children('input[type=radio]').prop('checked',true);
  		$('a.next-question:visible').trigger('click').delay(500);
  	})
  	
@@ -105,6 +106,14 @@ jQuery(document).ready( function($) {
     		e.preventDefault();
     });  
 
+
+    $("select.referrer").on('change',function(){
+    	if($(this).val() == 'Other'){
+    		$('.ref-name').show();
+    	}else{
+    		$('.ref-name').hide();
+    	}
+    })
 });
 /* Brand Carousel End */
 
@@ -136,468 +145,490 @@ $(document).ready(function(){
 
 	$("input#phone").inputmask("(999) 999-9999",{placeholder: "(xxx) xxx-xxxx"});
 
-		var models = [];
-		var vMake = "";
-		var vYear = 0;
-		var vModel = "";
-		$('#zipcode').on('keypress',function(e){
-			if (e.keyCode == 13) {
-				$("a.zipcode-submit").click();
-				return false;
+	var models = [];
+	var vMake = "";
+	var vYear = 0;
+	var vModel = "";
+	$('#zipcode').on('keypress',function(e){
+		if (e.keyCode == 13) {
+			$("a.zipcode-submit").click();
+			return false;
+		}
+	});
+	$('input').on('keypress',function(e){
+		if (e.keyCode == 13) {
+			return false;
+		}
+	});
+
+
+	$(".get-make.choices").on('click',"label",function(){
+		var year = $(this).data('year');
+		var href = $(this).data('models');
+		var current = $(this).data('make');
+		var vehicle = $(this).data('vehicle');
+		var label = "";
+		vYear =  year;
+		$("#"+current + "-container .choices").html("");
+		$("#"+current + "-container select").html("");
+		$.ajax({
+			type: "GET",
+			url: '/ajax/makes/' + year
+		}).done(function( res ) {
+			if(res){
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				$.each(popMakes,function(i,mk){
+					make = mk.make;
+					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
+					$("#"+current + "-container .choices").append(label);
+				})
+
+				$("#"+current + "-container select").append("<option value=''>Choose one</option>");
+				$.each(res,function(i,mk){
+					make = mk.make;
+					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
+					$("#"+current + "-container select").append(select);
+				});
+				$("#"+current + "-container select").siblings('input').attr('data-year',year);
+				$("#"+current + "-container select").append("<option value='other'>Other</option>");
 			}
 		});
-		$('input').on('keypress',function(e){
-			if (e.keyCode == 13) {
-				return false;
+
+	})
+
+	$(".vehicle-makes .choices").on('click','label',function(){
+		var make = $(this).children('input').val();
+		var vehicle = parseInt($(this).data('vehicle'));
+		var year = parseInt($(this).data('year'));
+		var modelsContanier = $('.models-' + vehicle);
+		vMake = make;
+		printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
+		modelsContanier.parent('.col-12').show();
+	});
+
+	function printModels(modelsContanier,data){
+		var vehicle = data.vehicle;
+		var make =  data.make;
+		var year =  data.year;
+		modelsContanier.html('');
+		models = [];
+		$.ajax({
+			type: "GET",
+			url: '/ajax/models/' + year + '/' + make
+		}).done(function( res ) {
+			if(res){
+				$.each(res,function(mdl,model){
+					target =  'trims' + (vehicle);
+					current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
+					label = '<label data-make="'+ make +'" data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model.vmodel + '<input type="radio" class="d-none" name="model-'+ vehicle +'" value="'+ model.vmodel +'" /><i class="fa fa-angle-right"></i></label>';
+					modelsContanier.append(label);
+					models.push(model.vmodel);
+				});
 			}
 		});
+	}
 
+	$(".vehicle-makes select").on('change',function(){
+		var make = $(this).val();
+		if(make  == 'other' ){
+			$(this).next('input').val('').show();
+		}else{
+			$(this).next('input').hide();
+		}
+	});
+	$(".vehicle-makes a.show-models").on('click',function(e){
+		var targetQuestion = $(this).data('href');
+		var make = $(this).siblings("select").val();
+		var vehicle = parseInt($(this).data('vehicle'));
+		var modelsContanier = $('.models-' + vehicle);
+		var year = $(this).siblings("select").children("option:selected").data("year");
+		vMake = make;
+		modelsContanier.html('').parent('.col-12').hide();	
 
-		$(".get-make.choices").on('click',"label",function(){
-			var year = $(this).data('year');
-			var href = $(this).data('models');
-			var current = $(this).data('make');
-			var vehicle = $(this).data('vehicle');
-			var label = "";
-			vYear =  year;
-			$("#"+current + "-container .choices").html("");
-			$("#"+current + "-container select").html("");
-			$.ajax({
-				type: "GET",
-				url: '/ajax/makes/' + year
-			}).done(function( res ) {
-				if(res){
-					var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
-					$.each(popMakes,function(i,mk){
-						make = mk.make;
-						label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
-						$("#"+current + "-container .choices").append(label);
-					})
-
-					$("#"+current + "-container select").append("<option value=''>Choose one</option>");
-					$.each(res,function(i,mk){
-						make = mk.make;
-						select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
-						$("#"+current + "-container select").append(select);
-					});
-					$("#"+current + "-container select").siblings('input').attr('data-year',year);
-					$("#"+current + "-container select").append("<option value='other'>Other</option>");
-				}
-			});
-
-		})
-
-		$(".vehicle-makes .choices").on('click','label',function(){
-			var make = $(this).children('input').val();
-			var vehicle = parseInt($(this).data('vehicle'));
-			var year = parseInt($(this).data('year'));
-			var modelsContanier = $('.models-' + vehicle);
-			vMake = make;
+		$(this).parent('.form-group').removeClass('has-error');
+		$(this).parents(".container").find("label").removeClass('bg-warning');
+		$('.error').remove();
+		if(!make){	
+			$(this).parent('.form-group').addClass('has-error');
+			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Make.</label>')
+			return false;
+		}
+		else if(make =='other' && (!$(this).siblings("input.optional").val() || $(this).siblings("input[type=text]").val() == "" )){
+			$(this).parent('.form-group').addClass('has-error');
+			return false;
+		}
+		if(make != 'other'){
 			printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
-			modelsContanier.parent('.col-12').show();
-		});
-
-		function printModels(modelsContanier,data){
-			var vehicle = data.vehicle;
-			var make =  data.make;
-			var year =  data.year;
-			modelsContanier.html('');
-			models = [];
-			$.ajax({
-				type: "GET",
-				url: '/ajax/models/' + year + '/' + make
-			}).done(function( res ) {
-				if(res){
-					$.each(res,function(mdl,model){
-						target =  'trims' + (vehicle);
-						current = (vehicle > 1) ? 'vehicle'+ vehicle +'-models' :'models' ;
-						label = '<label data-make="'+ make +'" data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + model.vmodel + '<input type="radio" class="d-none" name="model-'+ vehicle +'" value="'+ model.vmodel +'" /><i class="fa fa-angle-right"></i></label>';
-						modelsContanier.append(label);
-						models.push(model.vmodel);
-					});
-				}
-			});
+			modelsContanier.parent('.col-12').show();		
+		}else{
+			make = $(this).siblings("input").val()
+			year = $(this).siblings("input").data('year');
+			printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
+			modelsContanier.parent('.col-12').show();						
 		}
+		$('form.lead-form > div.container').fadeOut(500);
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+	});	
+	$('.model-search').on('blur',function(){
+		$(this).siblings('.models-list').slideUp();
+	});
+	$('.model-search').on('focus',function(){
+		$(this).siblings('.models-list').slideDown();
+	});	
+	$('.model-search').on('keyup',function(){
+		var list = $(this).siblings('.models-list');		
+		list.html('').hide();
 
-		$(".vehicle-makes select").on('change',function(){
-			var make = $(this).val();
-			if(make  == 'other' ){
-				$(this).next('input').val('').show();
-			}else{
-				$(this).next('input').hide();
-			}
-		});
-		$(".vehicle-makes a.show-models").on('click',function(e){
-			var targetQuestion = $(this).data('href');
-			var make = $(this).siblings("select").val();
-			var vehicle = parseInt($(this).data('vehicle'));
-			var modelsContanier = $('.models-' + vehicle);
-			var year = $(this).siblings("select").children("option:selected").data("year");
-			vMake = make;
-			modelsContanier.html('').parent('.col-12').hide();	
+		var s = $(this).val();
+		if(!s) return;
 
-			$(this).parent('.form-group').removeClass('has-error');
-			$(this).parents(".container").find("label").removeClass('bg-warning');
-			$('.error').remove();
-			if(!make){	
-				$(this).parent('.form-group').addClass('has-error');
-				$(this).before('<label class="error mt-2 row col-12">Please select vehicle Make.</label>')
-				return false;
+		var regex = new RegExp('(' + RegExp.escape(s) + ')', 'ig');		
+		$.each(models,function(i,m){
+			if(regex.test(m)){
+				mOrg = m;
+				m = m.replace(regex, '<strong class="">$1</strong>');
+				list.append('<a href="javascript:;" data-value="' + mOrg + '" class="list-group-item list-group-item-action">'+ m +'</a>');
 			}
-			else if(make =='other' && (!$(this).siblings("input.optional").val() || $(this).siblings("input[type=text]").val() == "" )){
-				$(this).parent('.form-group').addClass('has-error');
-				return false;
-			}
-			if(make != 'other'){
-				printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
-				modelsContanier.parent('.col-12').show();		
-			}else{
-				make = $(this).siblings("input").val()
-				year = $(this).siblings("input").data('year');
-				printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
-				modelsContanier.parent('.col-12').show();						
-			}
-			$('form.lead-form > div.container').fadeOut(500);
-			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 		});	
-		$('.model-search').on('blur',function(){
-			$(this).siblings('.models-list').slideUp();
-		});
-		$('.model-search').on('focus',function(){
-			$(this).siblings('.models-list').slideDown();
-		});	
-		$('.model-search').on('keyup',function(){
-			var list = $(this).siblings('.models-list');		
-			list.html('').hide();
+		list.show();
+	});
 
-			var s = $(this).val();
-			if(!s) return;
-
-			var regex = new RegExp('(' + RegExp.escape(s) + ')', 'ig');		
-			$.each(models,function(i,m){
-				if(regex.test(m)){
-					mOrg = m;
-					m = m.replace(regex, '<strong class="">$1</strong>');
-					list.append('<a href="javascript:;" data-value="' + mOrg + '" class="list-group-item list-group-item-action">'+ m +'</a>');
-				}
-			});	
-			list.show();
-		});
-
-		if (!RegExp.escape) {
-			RegExp.escape = function(value) {
-				return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
-			};
+	if (!RegExp.escape) {
+		RegExp.escape = function(value) {
+			return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+		};
+	}
+	$('.models-list').on('click','a',function(){
+		$(this).parent().siblings('.model-search').val($(this).data('value'));
+		$(this).parent('.models-list').html();
+		$(this).parent().siblings('a').trigger('click');
+	});
+	$('a.vehicle-next').on('click',function(){
+		$(this).parents(".container").find("label").removeClass('bg-warning');
+		$(this).parents(".container").find('input[type=radio]').prop('checked',false);
+		var targetQuestion = $(this).data('href');
+		$(this).parent('.form-group').removeClass('has-error');
+		if(!$(this).siblings('input').val()){
+			$(this).parent('.form-group').addClass('has-error');
+			return false;
 		}
-		$('.models-list').on('click','a',function(){
-			$(this).parent().siblings('.model-search').val($(this).data('value'));
-			$(this).parent('.models-list').html();
-			$(this).parent().siblings('a').trigger('click');
-		});
-		$('a.vehicle-next').on('click',function(){
-			$(this).parents(".container").find("label").removeClass('bg-warning');
-			$(this).parents(".container").find('input[type=radio]').prop('checked',false);
-			var targetQuestion = $(this).data('href');
-			$(this).parent('.form-group').removeClass('has-error');
-			if(!$(this).siblings('input').val()){
-				$(this).parent('.form-group').addClass('has-error');
-				return false;
+		var vehicle = parseInt($(this).data('vehicle'));
+		var trimContanier = $('.trims-' + vehicle);
+		printTrims(trimContanier,{year: vYear, model: $(this).siblings('input').val(), make:vMake,vehicle: vehicle});
+		$('form.lead-form > div.container').fadeOut(500);
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
+	});
+	function printTrims(trimContanier,data){
+		var vehicle = data.vehicle;
+		var make =  data.make;
+		var year =  data.year;
+		var model =  data.model;
+		trimContanier.html('');
+		$.ajax({
+			type: "GET",
+			url: '/ajax/trims/' + year + '/' + make + '/' + model
+		}).done(function( res ) {
+			if(res){
+				$.each(res,function(i,trim){
+					debugger
+					target =  'vin' + (vehicle);
+					current = 'trims' + vehicle;
+					trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
+					trimContanier.append(trimHtml);
+				});
 			}
-			var vehicle = parseInt($(this).data('vehicle'));
-			var trimContanier = $('.trims-' + vehicle);
-			printTrims(trimContanier,{year: vYear, model: $(this).siblings('input').val(), make:vMake,vehicle: vehicle});
-			$('form.lead-form > div.container').fadeOut(500);
-			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
 		});
-		function printTrims(trimContanier,data){
-			var vehicle = data.vehicle;
-			var make =  data.make;
-			var year =  data.year;
-			var model =  data.model;
-			trimContanier.html('');
-			$.ajax({
-				type: "GET",
-				url: '/ajax/trims/' + year + '/' + make + '/' + model
-			}).done(function( res ) {
-				if(res){
-					$.each(res,function(i,trim){
-						debugger
-						target =  'vin' + (vehicle);
-						current = 'trims' + vehicle;
-						trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
-						trimContanier.append(trimHtml);
-					});
-				}
-			});
-		}
-		$(".vehicle-models .choices").on('click','label',function(){
-			var model = $(this).children('input').val();
-			var vehicle = parseInt($(this).data('vehicle'));
-			var year = parseInt($(this).data('year'));
-			var make = $(this).data('make');
-			var trimContanier = $('.trims-' + vehicle);
-			vModel = model;
-			printTrims(trimContanier,{year: year, make: make, model: model, vehicle: vehicle});
-			trimContanier.parent('.col-12').show();
-		});
+	}
+	$(".vehicle-models .choices").on('click','label',function(){
+		var model = $(this).children('input').val();
+		var vehicle = parseInt($(this).data('vehicle'));
+		var year = parseInt($(this).data('year'));
+		var make = $(this).data('make');
+		var trimContanier = $('.trims-' + vehicle);
+		vModel = model;
+		printTrims(trimContanier,{year: year, make: make, model: model, vehicle: vehicle});
+		trimContanier.parent('.col-12').show();
+	});
 
-		$('.change-question.prev').on('click',function(){
-			$(this).parents('div.container').removeClass('answered');
-		})
-		$('.change-question').on('click',function(e){
-			var targetQuestion = $(this).data('href');
-			var pos = parseInt($(this).data('pos'));
-			var zip = $('#zipcode').val();
-			zip = (zip) ? zip.trim() : "";
-			if(pos == 1){
-				$('label.error').remove();
-				if($('#zipcode').val() == ""){
-					$('#zipcode').parent('.form-group').addClass('has-error');
-					return false;
-				}else if(!(zip in zipcodes)){
-					$('#zipcode').parent('.form-group').addClass('has-error');
-					$('#zipcode').after('<label class="error font-weight-bold mt-3">Sorry! Currently we are not providing service in your area.</label>')
-					return false;
-				}else{
-					$("#d-city").val(zipcodes[zip]);
-					$("#d-zipcode").val(zip);
-					$(".progress-container").slideDown(500);
-				}
-			}
-			$('#start-screen').slideUp(500);
-			$('.form-group').removeClass('has-error');
-			$('form.lead-form > div.container').fadeOut(500);
-			$('.brand-carousel').slideUp();
-			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
-		});
-
-		$(".year-select-next").on('click',function(){
+	$('.change-question.prev').on('click',function(){
+		$(this).parents('div.container').removeClass('answered');
+	})
+	$('.change-question').on('click',function(e){
+		var targetQuestion = $(this).data('href');
+		var pos = parseInt($(this).data('pos'));
+		var zip = $('#zipcode').val();
+		zip = (zip) ? zip.trim() : "";
+		if(pos == 1){
 			$('label.error').remove();
-			if(!$(this).siblings('select').val()){
-				$(this).before('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
+			if($('#zipcode').val() == ""){
+				$('#zipcode').parent('.form-group').addClass('has-error');
 				return false;
+			}else if(!(zip in zipcodes)){
+				$('#zipcode').parent('.form-group').addClass('has-error');
+				$('#zipcode').after('<label class="error font-weight-bold mt-3">Sorry! Currently we are not providing service in your area.</label>')
+				return false;
+			}else{
+				$("#d-city").val(zipcodes[zip]);
+				$("#d-zipcode").val(zip);
+				$(".progress-container").slideDown(500);
 			}
-			var year = $(this).siblings('select').val();
-			var href = $(this).data('models');
-			var current = $(this).data('make');
-			var vehicle = $(this).data('vehicle');
-			var label = "";
-			vYear =  year;
-			$("#"+current + "-container .choices").html("");
-			$("#"+current + "-container select").html("");
-			$.ajax({
-				type: "GET",
-				url: '/ajax/makes/' + year
-			}).done(function( res ) {
-				if(res){
-					var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
-					$.each(popMakes,function(i,mk){
-						make = mk.make;
-						label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
-						$("#"+current + "-container .choices").append(label);
-					})
+		}
+		$('#start-screen').slideUp(500);
+		$('.form-group').removeClass('has-error');
+		$('form.lead-form > div.container').fadeOut(500);
+		$('.brand-carousel').slideUp();
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+	});
 
-					$("#"+current + "-container select").append("<option value=''>Choose one</option>");
-					$.each(res,function(i,mk){
-						make = mk.make;
-						select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
-						$("#"+current + "-container select").append(select);
-					});
-					$("#"+current + "-container select").append("<option value='other'>Other</option>");
-				}
-			});
-
-			$(this).parents('.container').find('input[type=radio]').prop('checked',false);
-			$(this).parents('.container').find('label.bg-warning').removeClass('bg-warning');
-			var targetQuestion = $(this).data('href');
-			var prevQuestion = $(this).data('current');
-			if(targetQuestion && prevQuestion){	
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
-			}
+	$(".year-select-next").on('click',function(){
+		$('label.error').remove();
+		if(!$(this).siblings('select').val()){
+			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
 			return false;
-		});	
+		}
+		var year = $(this).siblings('select').val();
+		var href = $(this).data('models');
+		var current = $(this).data('make');
+		var vehicle = $(this).data('vehicle');
+		var label = "";
+		vYear =  year;
+		$("#"+current + "-container .choices").html("");
+		$("#"+current + "-container select").html("");
+		$.ajax({
+			type: "GET",
+			url: '/ajax/makes/' + year
+		}).done(function( res ) {
+			if(res){
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				$.each(popMakes,function(i,mk){
+					make = mk.make;
+					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
+					$("#"+current + "-container .choices").append(label);
+				})
 
-		$('.container').on('click','.choices > label',function(e){
-			$(this).siblings('label').removeClass('bg-warning');
-			$(this).addClass('bg-warning');
-			$(this).children('input[type=radio]').prop('checked',true);
-			$(this).parents('.container').find('input.optional,select.optional').val('');
-			$(this).parents('.vehicle-makes').find('select').val($(this).parents('.container').find('select').children('option:first').val());
-			$(this).parents('.vehicle-makes').find('input[type=text]').hide();
-
-			var targetQuestion = $(this).data('href');
-			var prevQuestion = $(this).data('current');
-			if(targetQuestion && prevQuestion){	
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+				$("#"+current + "-container select").append("<option value=''>Choose one</option>");
+				$.each(res,function(i,mk){
+					make = mk.make;
+					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
+					$("#"+current + "-container select").append(select);
+				});
+				$("#"+current + "-container select").append("<option value='other'>Other</option>");
 			}
-			return false;
 		});
 
-		$('.name-email-submit').on('click',function(e){
-			$('.error').remove();
-			var error = false;
-			var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
-			$('.form-group').removeClass('has-error');
-			$('.error-label').removeClass('error-label');
-			if($('#first_name').val() == "" || $.trim($('#first_name').val()) == ""){
-				$('#first_name').parent('.form-group').addClass('has-error');
-				error = true;
-			}
-			if($('#last_name').val() == "" || $.trim($('#last_name').val()) == ""){
-				$('#last_name').parent('.form-group').addClass('has-error');
-				error = true;
-			}
-			if($('#email').val() == "" || $.trim($('#email').val()) == ""){
-				$('#email').parent('.form-group').addClass('has-error');
-				error = true;
-			}
-			if($('#email').val() && !pattern.test($('#email').val())){
-				$('#email').parent('.form-group').addClass('has-error');
-				$('#email').after('<label class="error text-danger">Enter Valid Email</label>');
-				error = true;
-			}
+		$(this).parents('.container').find('input[type=radio]').prop('checked',false);
+		$(this).parents('.container').find('label.bg-warning').removeClass('bg-warning');
+		var targetQuestion = $(this).data('href');
+		var prevQuestion = $(this).data('current');
+		if(targetQuestion && prevQuestion){	
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+		}
+		return false;
+	});	
 
-			var i = $(this).data('dob');
-			var dob = $('input.dob' + i).val();
-			if(dob){
-				dob = dob.split('/');
-				var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
+	$('.container').on('click','.choices > label',function(e){
+		$(this).siblings('label').removeClass('bg-warning');
+		$(this).addClass('bg-warning');
+		$(this).children('input[type=radio]').prop('checked',true);
+		$(this).parents('.container').find('input.optional,select.optional').val('');
+		$(this).parents('.vehicle-makes').find('select').val($(this).parents('.container').find('select').children('option:first').val());
+		$(this).parents('.vehicle-makes').find('input[type=text]').hide();
 
-				if(df.y < 15){	
-					$('input.dob' + i).parent('.form-group').addClass('has-error');
-					$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
-					error = true;	
-				}
-			}else{
+		var targetQuestion = $(this).data('href');
+		var prevQuestion = $(this).data('current');
+		if(targetQuestion && prevQuestion){	
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+		}
+		return false;
+	});
+
+	$('.name-email-submit').on('click',function(e){
+		$('.error').remove();
+		var error = false;
+		var el = "";
+		var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+		$('.form-group').removeClass('has-error');
+		$('.error-label').removeClass('error-label');
+		if($('#first_name').val() == "" || $.trim($('#first_name').val()) == ""){
+			$('#first_name').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#first_name') : el;
+			error = true;
+		}
+		if($('#last_name').val() == "" || $.trim($('#last_name').val()) == ""){
+			$('#last_name').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#last_name') : el;
+
+			error = true;
+		}
+		if($('#email').val() == "" || $.trim($('#email').val()) == ""){
+			$('#email').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#email') : el;
+			error = true;
+		}
+		if($('#email').val() && !pattern.test($('#email').val())){
+			$('#email').parent('.form-group').addClass('has-error');
+			$('#email').after('<label class="error text-danger">Enter Valid Email</label>');
+			el = (!error) ? $('#email') : el;
+			error = true;
+		}
+
+		var i = $(this).data('dob');
+		var dob = $('input.dob' + i).val();
+		if(dob){
+			dob = dob.split('/');
+			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
+
+			if(df.y < 15){	
 				$('input.dob' + i).parent('.form-group').addClass('has-error');
+				$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				el = (!error) ? $('input.dob' + i) : el;	
+				error = true;
 			}
+		}else{
+			el = (!error) ? $('input.dob' + i) : el;
+			$('input.dob' + i).parent('.form-group').addClass('has-error');
+		}
 
-			$.each($('input:visible'),function(){
-				if(!$(this).val()){
-					$(this).parents('.form-group').addClass('has-error');
-					error = true;
-				}
-			});
-			debugger
-			var cId = $(this).parents('.container').attr('id');
-			$.each($('#' + cId + ' input[type=radio]'),function(e){
+		$.each($('input:visible'),function(){
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				el = (!error) ? $(this) : el;
+				error = true;
+			}
+		});
+		var cId = $(this).parents('.container').attr('id');
+		$.each($('#' + cId + ' input[type=radio]'),function(e){
+			var name = $(this).attr('name');
+			if(!$('input[name='+  name +']').is(':checked')){
+				$('input[name='+  name +']').parent('label').addClass('error-label');
+				el = (!error) ? $('input[name='+  name +']') : el;
+				error = true;
+			}
+		});		
+		$.each($('select:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				el = (!error) ? $(this) : el;
+				error = true;
+			}
+		});
+		if(error){
+			el.focus();
+		    $([document.documentElement, document.body]).animate({
+		        scrollTop: el.parent().offset().top - ($('header nav').height() + 50)
+		    }, 500);			
+			return false;
+		}
+		$('span.first-name-label').html($('#first_name').val());
+
+		var targetQuestion = $(this).data('href');
+		$('form.lead-form > div.container').fadeOut(500);
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+
+		return false;
+	});
+
+	$('.final-submit').on('click',function(e){
+		var el = "";
+		var error = false;
+		var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+		$('.form-group').removeClass('has-error');
+		$('.error:visible').remove();
+
+		if($('#street').val() == "" || $.trim($('#street').val()) == ""){
+			$('#street').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#street') : el;
+			error = true;
+		}
+		if($('#phone').val() == "" || $.trim($('#phone').val()) == ""){
+			$('#phone').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#phone') : el;
+			error = true;
+		}
+		if($('#phone').val() && !phoneRegex.test($('#phone').val())){
+			$('#phone').parent('.form-group').addClass('has-error');
+			$('#phone').after('<label class="error text-danger">Enter Valid Phone Number</label>');
+			el = (!error) ? $('#phone') : el;
+			error = true;
+		}
+		if(!$('#TnC').is(":checked")){
+			$('#TnC').parent('.custom-control.custom-checkbox ').addClass('has-error');
+			el = (!error) ? $('#TnC') : el;
+			error =true;
+		}
+		if(error){
+		    $([document.documentElement, document.body]).animate({
+		        scrollTop: el.parent().offset().top - ($('header nav').height() + 25)
+		    }, 500);			
+			return false;
+		}
+		$('form.lead-form').submit();	
+	});
+	$('.next-question').on('click',function(e){
+		var targetQuestion = $(this).data('href');
+		var prevQuestion = $(this).data('current');
+		if(targetQuestion && prevQuestion){
+			var error = false;
+			$('.error').removeClass('error');
+			$.each($('#' + prevQuestion + '-container input[type=radio]'),function(e){
 				var name = $(this).attr('name');
 				if(!$('input[name='+  name +']').is(':checked')){
-					$('input[name='+  name +']').parent('label').addClass('error-label');
+					$(this).parent('label').addClass('error');
 					error = true;
 				}
-			});		
-			$.each($('select:visible'),function(){
+			});
+			$.each($('input:visible:not(".not-required")'),function(){
 				$(this).parents('.form-group').removeClass('has-error');
 				if(!$(this).val()){
 					$(this).parents('.form-group').addClass('has-error');
 					error = true;
 				}
 			});
-			if(error){
-				return false;
-			}
-			$('span.first-name-label').html($('#first_name').val());
+			$.each($('select:visible:not(".not-required")'),function(){
+				$(this).parents('.form-group').removeClass('has-error');
+				if(!$(this).val()){
+					$(this).parents('.form-group').addClass('has-error');
+					error = true;
+				}
+			});
 
-			var targetQuestion = $(this).data('href');
+			if(error) return;
+
 			$('form.lead-form > div.container').fadeOut(500);
-			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+			$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
+		}
+		return false;
+	});
 
-			return false;
-		});
-
-		$('.final-submit').on('click',function(e){
-			var error = false;
-			var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-			$('.form-group').removeClass('has-error');
-			$('.error:visible').remove();
-
-			if($('#street').val() == "" || $.trim($('#street').val()) == ""){
-				$('#street').parent('.form-group').addClass('has-error');
-				error = true;
-			}
-			if($('#phone').val() == "" || $.trim($('#phone').val()) == ""){
-				$('#phone').parent('.form-group').addClass('has-error');
-				error = true;
-			}
-			if($('#phone').val() && !phoneRegex.test($('#phone').val())){
-				$('#phone').parent('.form-group').addClass('has-error');
-				$('#phone').after('<label class="error text-danger">Enter Valid Phone Number</label>');
-				error = true;
-			}
-			if(!$('#TnC').is(":checked")){
-				$('#TnC').parent('.custom-control.custom-checkbox ').addClass('has-error');
-				error =true;
-			}
-			if(error){
-				return false;
-			}
-			$('form.lead-form').submit();	
-		});
-		$('.next-question').on('click',function(e){
-			var targetQuestion = $(this).data('href');
-			var prevQuestion = $(this).data('current');
-			if(targetQuestion && prevQuestion){
-				var error = false;
-				$('.error').removeClass('error');
-				$.each($('#' + prevQuestion + '-container input[type=radio]'),function(e){
-					var name = $(this).attr('name');
-					if(!$('input[name='+  name +']').is(':checked')){
-						$(this).parent('label').addClass('error');
-						error = true;
-					}
-				});
-				$.each($('input:visible:not(".not-required")'),function(){
-					$(this).parents('.form-group').removeClass('has-error');
-					if(!$(this).val()){
-						$(this).parents('.form-group').addClass('has-error');
-						error = true;
-					}
-				});
-				$.each($('select:visible:not(".not-required")'),function(){
-					$(this).parents('.form-group').removeClass('has-error');
-					if(!$(this).val()){
-						$(this).parents('.form-group').addClass('has-error');
-						error = true;
-					}
-				});
-
-				if(error) return;
-
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container a.change-question").data('href',prevQuestion);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
-			}
-			return false;
-		});
-
-		$('body').on('change','.dob-change',function(){
-			var i = $(this).data('dob');
-			var year = 2016;
-			var month = $('select.dob' + i +'-month').val();
-			var days = new Date(year, month, 0).getDate();
-			var dateSelect = $('select.dob'+ i +'-date');
-			dateSelect.html('');
-			dateSelect.append('<option value="">DD</option>');
-			for(i=1; i <=days;i++ ){
-				var z = ('0' + i).slice(-2);
-				dateSelect.append('<option value="'+ i +'">' + z +'</option>');
-			}
-		});
+	$('body').on('change','.dob-change',function(){
+		var i = $(this).data('dob');
+		var year = 2016;
+		var month = $('select.dob' + i +'-month').val();
+		var days = new Date(year, month, 0).getDate();
+		var dateSelect = $('select.dob'+ i +'-date');
+		dateSelect.html('');
+		dateSelect.append('<option value="">DD</option>');
+		for(i=1; i <=days;i++ ){
+			var z = ('0' + i).slice(-2);
+			dateSelect.append('<option value="'+ i +'">' + z +'</option>');
+		}
+	});
 
 
-		$('.dob-submit').on('click',function(){
-			var i = $(this).data('dob');
-			var year = $('select.dob' + i +'-year').val();
-			var month = $('select.dob' + i +'-month').val();
-			var date = $('select.dob' + i +'-date').val();
-			$(this).siblings('.error').remove();
+	$('.dob-submit').on('click',function(){
+		var i = $(this).data('dob');
+		var year = $('select.dob' + i +'-year').val();
+		var month = $('select.dob' + i +'-month').val();
+		var date = $('select.dob' + i +'-date').val();
+		$(this).siblings('.error').remove();
 
-			var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
+		var dateToCheck = ('0' + month).slice(-2) + '/' +('0' + date).slice(-2) +  '/'+  year;
 		// alert(dateToCheck);
 		if(!isValidDate(dateToCheck)){
 			$('select.dob' + i +'-year','select.dob' + i +'-month','select.dob' + i +'-date').parent('.form-group').addClass('has-error');
@@ -618,103 +649,116 @@ $(document).ready(function(){
 	});
 
 
-		$('.dl-submit').on('click',function(){
-			var dl  = $(this).siblings('input').val();
-			$(this).parents('.form-group').removeClass('has-error');
-			if(!dl){
-				$(this).parents('.form-group').addClass('has-error');
-			}else{
-				var targetQuestion = $(this).data('href');
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
-			}
-		});
-
-		$('.name-submit').on('click',function(){
-			$('.error').remove();
-			var error = false;
-			$.each($('input:visible'),function(){
-				$(this).parents('.form-group').removeClass('has-error');
-				if(!$(this).val()){
-					$(this).parents('.form-group').addClass('has-error');
-					error = true;
-				}
-			});
-			$.each($('select:visible'),function(){
-				$(this).parents('.form-group').removeClass('has-error');
-				if(!$(this).val()){
-					$(this).parents('.form-group').addClass('has-error');
-					error = true;
-				}
-			});
-			$('.error-label').removeClass('error-label');
-			var cId = $(this).parents('.container').attr('id');
-			$.each($('#' + cId + ' input[type=radio]'),function(e){
-				var name = $(this).attr('name');
-				if(!$('input[name='+  name +']').is(':checked')){
-					$('input[name='+  name +']').parent('label').addClass('error-label');
-					error = true;
-				}
-			});
-			var i = $(this).data('dob');
-			var dob = $('input.dob' + i).val();
-			if(dob){
-				dob = dob.split('/');
-				var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
-
-				if(df.y < 15){	
-					$('input.dob' + i).parent('.form-group').addClass('has-error');
-					$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
-					error = true;	
-				}
-			}else{
-				$('input.dob' + i).parent('.form-group').addClass('has-error');
-			}
-
-			if(!error){
-				var targetQuestion = $(this).data('href');
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
-			}
-		});
-
-		$('.vin-submit').on('click',function(){
-			var error = false;
-			$.each($('input:visible'),function(){
-				$(this).parents('.form-group').removeClass('has-error');
-				if(!$(this).val()){
-					$(this).parents('.form-group').addClass('has-error');
-					error = true;
-				}
-			});
-			if(!error){
-				var targetQuestion = $(this).data('href');
-				$('form.lead-form > div.container').fadeOut(500);
-				$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
-			}
-		});
-
-		$('.load-years').on('click',function(){
-			var label =  $(this).parent().prev('label');
-			var name = label.data('current');
-			var href = label.data('href');
-			var str = label.attr('for');
-			str =  str.split('-');
-			var year = parseInt(str[str.length-1]);
-			for(var i = 1; i<=20; i++ ){
-				var labelYear = year - i ; 
-				var labelId = name + '-' + labelYear;
-				var newLabel = '<label for="' + labelId  +'" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="'+ href + '" data-current="' + name + '">'+ labelYear + '<input type="radio" class="d-none" name="'+ name +'" value="'+ labelYear +'" id="' + labelId +'"><i class="fa fa-angle-right"></i> </label>';			
-				$(this).parent().before(newLabel);		
-			}
-
-		})
-
-		function dateDiff(date) {
-			var startDate = new Date(date);
-			var diffDate = new Date(new Date() - startDate);
-			return {y: (diffDate.getFullYear() - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
+	$('.dl-submit').on('click',function(){
+		var dl  = $(this).siblings('input').val();
+		$(this).parents('.form-group').removeClass('has-error');
+		if(!dl){
+			$(this).parents('.form-group').addClass('has-error');
+		}else{
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
 		}
+	});
+
+	$('.name-submit').on('click',function(){
+		$('.error').remove();
+		var error = false;
+		var el = '';
+		$.each($('input:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				el = (!error) ? $(this) : el;
+				error = true;
+			}
+		});
+		$.each($('select:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				el = (!error) ? $(this) : el;
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
+		$('.error-label').removeClass('error-label');
+		var cId = $(this).parents('.container').attr('id');
+		$.each($('#' + cId + ' input[type=radio]'),function(e){
+			var name = $(this).attr('name');
+			if(!$('input[name='+  name +']').is(':checked')){
+				$('input[name='+  name +']').parent('label').addClass('error-label');
+				el = (!error) ? $('input[name='+  name +']') : el;
+				error = true;
+			}
+		});
+		var i = $(this).data('dob');
+		var dob = $('input.dob' + i).val();
+		if(dob){
+			dob = dob.split('/');
+			var df = dateDiff(dob[2] + "-" + dob[0] + "-" + dob[1]);
+
+			if(df.y < 15){	
+				$('input.dob' + i).parent('.form-group').addClass('has-error');
+				$('input.dob' + i).parent('.form-group').append('<label class="ml-2 col-12 error text-danger">Age should be 15+</label>');
+				el = (!error) ? $(this) : el;
+				error = true;	
+			}
+		}else{
+			$('input.dob' + i).parent('.form-group').addClass('has-error');
+			el = (!error) ? $(this) : el;
+			error = true;
+		}
+		if(error){
+			el.focus();
+		    $([document.documentElement, document.body]).animate({
+		        scrollTop: el.parent().offset().top - ($('header nav').height() + 50)
+		    }, 500);			
+			return false;
+		}
+		if(!error){
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+	$('.vin-submit').on('click',function(){
+		var error = false;
+		$.each($('input:visible'),function(){
+			$(this).parents('.form-group').removeClass('has-error');
+			if(!$(this).val()){
+				$(this).parents('.form-group').addClass('has-error');
+				error = true;
+			}
+		});
+		if(!error){
+			var targetQuestion = $(this).data('href');
+			$('form.lead-form > div.container').fadeOut(500);
+			$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
+		}
+	});
+
+	$('.load-years').on('click',function(){
+		var label =  $(this).parent().prev('label');
+		var name = label.data('current');
+		var href = label.data('href');
+		var str = label.attr('for');
+		str =  str.split('-');
+		var year = parseInt(str[str.length-1]);
+		for(var i = 1; i<=20; i++ ){
+			var labelYear = year - i ; 
+			var labelId = name + '-' + labelYear;
+			var newLabel = '<label for="' + labelId  +'" class="h4 col-3 col-sm-3 col-md-2 col-lg-2 pl-2 pr-2" data-href="'+ href + '" data-current="' + name + '">'+ labelYear + '<input type="radio" class="d-none" name="'+ name +'" value="'+ labelYear +'" id="' + labelId +'"><i class="fa fa-angle-right"></i> </label>';			
+			$(this).parent().before(newLabel);		
+		}
+
+	})
+
+	function dateDiff(date) {
+		var startDate = new Date(date);
+		var diffDate = new Date(new Date() - startDate);
+		return {y: (diffDate.getFullYear() - 1970), m:diffDate.getMonth(),d:(diffDate.getDate()-1)};
+	}
 
 //--------------------------------------------------------------------------
 //This function validates the date for MM/DD/YYYY format. 

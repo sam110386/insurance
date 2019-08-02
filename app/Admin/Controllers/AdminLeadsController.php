@@ -652,11 +652,11 @@ SCRIPT;
             });
         })->tab('PREFERENCE', function ($form){
             $form->row(function($row){
-                $row->width(6)->select('quality_provides',trans('What is the most important quality you look for when choosing an auto insurer?'))->options(["provides-quality-service"=>"Provides quality service","guidance-with-insurance-decisions"=>"Guidance with insurance decisions","provides-a-local-presence"=>"Provides a local presence","is-a-reputable-company"=>"Is a reputable company","provides-general-representatives-for-customer-care"=>"Provides general representatives for customer care","offers-a-low-price-and-discounts"=>"Offers a low price and discounts","provides-24/7-access-to-insurance-information"=>"Provides 24/7 access to insurance information","provides-an-accountable-point-of-contact"=>"Provides an accountable point of contact","offers-a-thorough-review-of-the-coverage"=>"Offers a thorough review of the coverage","provides-hassle-free-process"=>"Provides hassle-free process","offers-face-to-face-interaction"=>"Offers face-to-face interaction"]);
+                $row->width(6)->select('quality_provides',trans('What is the most important quality you look for when choosing an auto insurer?'))->options(["provides-quality-service"=>"Provides quality service","is-a-reputable-company"=>"Is a reputable company","offers-a-low-price-and-discounts"=>"Offers a low price and discounts"]);
                 $row->width(6)->radio('agent_in_person',trans('Will it be important to you to be able to speak to your local agent in person?'))->options(["1"=> "Yes","0" => "No"]);
             });
             $form->row(function($row){
-                $row->width(6)->select('referrer',trans('How did you hear about us?'))->options(["friend-or-family" => "Friend or Family", "auto-dealer" => "Auto Dealer","other"=>"Other"])->default("");
+                $row->width(6)->select('referrer',trans('How did you hear about us?'))->options(["Email" => "Email", "Social Media" => "Social Media","Google / Yahoo / Bing" => "Google / Yahoo / Bing","Other"=>"Other"])->default("");
                 $row->width(6)->text('referrer_name',trans('Referrer Name'));
             });                        
         })->tab('ASSIGNMENTS', function ($form) use($members){

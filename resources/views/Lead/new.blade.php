@@ -22,6 +22,11 @@
 <form class="lead-form row" action="{{route('save-lead')}}" method="POST" novalidate>
 	{{ csrf_field() }}
 	<div id="zipcode-container" class="step container pt-5 pb-5 editable-field" style="display: block;">
+		<div class="row pb-3">
+			<div class="col-12 text-center">
+				<h1 class="font-weight-bold">Insurance Quotes Made Easy!</h1>
+			</div>
+		</div>		
 		<div class="row">
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
@@ -36,6 +41,23 @@
 				</div>
 			</div>
 		</div>
+	<div class="row mt-5 mb-3 lg-mx-w-70-pr">
+		<div class="col-12 col-md-4 text-center">
+			<p><img src="{{ asset('img/home-icon-3.png') }}"  class="img-fluid" width="36"/></p>
+			<h5 class="font-weight-bold">Tailoring the quotes for you.</h5>
+			<p>Our experts will find the best rates from reputable companies.</p>
+		</div>
+		<div class="col-12 col-md-4 text-center">
+			<p><img src="{{ asset('img/home-icon-1.png') }}"  class="img-fluid" width="36" /></p>
+			<h5  class="font-weight-bold">Transparency is key.</h5>
+			<p>Our quotes come with a peace of mind and without a pushy sales pitch.</p>
+		</div>
+		<div class="col-12 col-md-4 text-center">
+			<p><img src="{{ asset('img/email-icon.png') }}"  class="img-fluid" width="36"/></p>
+			<h5 class="font-weight-bold">Secure. Private. Exclusive.</h5>
+			<p>You'll only ever get contacted by QuoteMeow representatives.</p>
+		</div>		
+	</div>		
 	</div>
 	<div id="year-container" class=" container pt-5 pb-5" style="display: none;">
 		<div class="row">
@@ -2842,11 +2864,11 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
-							<i class="fa fa-angle-left"></i> Previous Question
+					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm">
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
-				<h4 class="mb-4">Would you like to also receive home insurance policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
+				<h4 class="mb-4">Would also like to receive a <span class="font-weight-bold">Homeowners Insurance</span> quote? You may be able to bundle and save even more on your auto insurance.</h4>
 				<div class="form-group choices row pr-15 pl-15">
 					<label for="bundled-1" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="owner-bundled">
 						Yes
@@ -2871,7 +2893,8 @@
 							<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
-				<h4 class="mb-4">Would you like to also receive <span class="font-weight-bold">Renters Insurance</span> policy quotes? You may be able to bundle and save even more on your auto policy.</h4>
+				<h4 class="mb-4">Would also like to receive a <span class="font-weight-bold">Renters Insurance</span> quote? You may be able to bundle and save even more on your auto insurance.
+				</h4>
 				<div class="form-group choices row pl-15 pr-15">
 					<label for="bundled-1" class="h4 border text-center col-5 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="policy-detail" data-current="renter-bundled">
 						Yes
@@ -3087,16 +3110,8 @@
 							<select class="form-control form-control-lg" name="quality">
 								<option value="">Choose one</option>
 								<option value="provides-quality-service">Provides quality service</option>
-								<option value="guidance-with-insurance-decisions">Guidance with insurance decisions</option>
-								<option value="provides-a-local-presence">Provides a local presence</option>
 								<option value="is-a-reputable-company">Is a reputable company</option>
-								<option value="provides-general-representatives-for-customer-care">Provides general representatives for customer care</option>
 								<option value="offers-a-low-price-and-discounts">Offers a low price and discounts</option>
-								<option value="provides-24/7-access-to-insurance-information">Provides 24/7 access to insurance information</option>
-								<option value="provides-an-accountable-point-of-contact">Provides an accountable point of contact</option>
-								<option value="offers-a-thorough-review-of-the-coverage">Offers a thorough review of the coverage</option>
-								<option value="provides-hassle-free-process">Provides hassle-free process</option>
-								<option value="offers-face-to-face-interaction">Offers face-to-face interaction</option>
 							</select>
 						</div>
 						<h4 class="h5 mb-2 mt-2">Will it be important to you to be able to speak to your local agent in person?</h4>						
@@ -3118,14 +3133,15 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
 						<div class="form-group">
 							<label class="h5 mb-2">How did you hear about us?</label>
-							<select class="form-control form-control-lg not-required" name="referrer">
+							<select class="form-control form-control-lg not-required referrer" name="referrer">
 								<option value="">Choose one</option>
-								<option value="friend-or-family">Friend or Family</option>
-								<option value="auto-dealer">Auto Dealer</option>
-								<option value="other">Other</option>
+								<option value="Email">Email</option>
+								<option value="Social Media">Social Media</option>
+								<option value="Google / Yahoo / Bing">Google / Yahoo / Bing</option>
+								<option value="Other">Other</option>
 							</select>
 						</div>						
-						<div class="form-group">
+						<div class="form-group ref-name" style="display: none">
 							<label class="h5 mb-2">Referrer Name</label>
 							<input type="text" name="referrer_name" class="form-control form-control-lg not-required">
 						</div>						
@@ -3622,12 +3638,15 @@
 						</div>
 					--}}
 					<div class="col-12">
-						<div class="custom-control custom-checkbox float-left">
-						  <input type="checkbox" class="custom-control-input" id="TnC">
-						  <label class="custom-control-label" for="TnC">By clicking "Submit For Quotes" I provide my electronic signature and 
+						<label class="tnc-text">
+							<div class="custom-control custom-checkbox float-left mr-2">
+							  <input type="checkbox" class="custom-control-input" id="TnC">
+							  <label class="custom-control-label" for="TnC"></label>
+							</div>
+							By clicking "Submit For Quotes" I provide my electronic signature and 
 							express written consent to telemarketing calls, text messages, emails,
-							and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a target="_blank" href="{{ route('privacy') }}">Privacy Policy.</a></label>
-						</div>
+							and postal mail from this website, their affiliates, and insurance companies at the phone number, email address, and postal address provided by me. I consent to calls and text messages transmitting insurance quotes, or seeking related additional information from me. I understand that my signature is not a condition of purchasing any property, goods, or services and that I may revoke my consent at any time. Additionally, by clicking "Submit For Quotes," I acknowledge that I have read, understand, and agree to this website’s <a target="_blank" href="{{ route('privacy') }}">Privacy Policy.</a>
+						</label>
 					</div>
 					<div class="col-12 form-group pt-3">
 						<button type="submit" class="final-submit btn btn-lg btn-success">Submit For Quotes</button>
@@ -3687,15 +3706,8 @@
         </button>
       </div>
       <div class="modal-body">
-
 		<p><strong>This coverage pays for the following expenses:</strong></p>
-		<p><strong>Car Rental Expense</strong> - Pays up to the amount you choose, from the options shown below, when you rent a car while your car is not drivable due to a loss that would be payable under Comprehensive or Collision Coverage.</p>
-		<p><strong>Limit Options</strong></p>
-
-		<p><strong>Travel Expenses</strong> - Pays up to $400 total for the following incurred expenses for all persons when your car is not drivable as a result of a loss that occurs more than 50 miles from home: meals, lodging, and transportation home or on to your destination and the return trip to pick up your car.</p>
-
-		<p><strong>Rental Car</strong> - Repayment of Deductible Amount Expense: Pays up to $400 for a deductible for which you may be responsible if you have an accident in a rental car.</p>
-        
+		<p><strong>Car Rental Expense</strong> - Pays up to the amount you choose, from the options shown below, when you rent a car while your car is not drivable due to a loss that would be payable under Comprehensive or Collision Coverage.</p>        
       </div>
     </div>
   </div>
@@ -3720,8 +3732,7 @@
 			<li>Locksmith labor for up to one hour to unlock a covered car if its key is lost, stolen, or locked inside the car.</li>
 		</ul>
 		<p><strong>Whom do I call when I need help?</strong></p>
-
-		<p>You may call any service provider in the area. State Farm's Emergency Road Service Coverage lets you choose who comes to your aid.</p>
+		<p>You may call any service provider in the area. This coverage lets you choose who comes to your aid.</p>
       </div>
     </div>
   </div>

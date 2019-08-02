@@ -81,7 +81,7 @@ code {
   line-height: unset;
   text-transform: uppercase;
 }
-.choices > label.bg-warning,.months > label.bg-warning{color: #fff;background-color: #00AEFF !important;}
+.choices > label.bg-warning,.months > label.bg-warning{color: #fff;background-color: #39559f !important;}
 .choices > label > i.fa,.months > label > i.fa{display: none;float: right;padding-top: 3px;}
 /*.choices > label.bg-warning > i.fa,.months > label.bg-warning > i.fa{display: block;}*/
 
@@ -192,3 +192,8 @@ input[type="number"] {
   .nav-right a > span{float: none;}
   .footer-box-1,.footer-box-2{margin-bottom: 30px}
 }
+
+.custom-checkbox .custom-control-label::before,.custom-checkbox .custom-control-label::after {
+    transform: scale(1.5);
+}
+.tnc-text{font-size: 0.9rem;}

@@ -215,7 +215,7 @@
 			<td>{{$lead['first_vehicle_uses']}}</td>
 			<td>{{$lead['first_vehicle_mileage']}}</td>
 		</tr>
-		@if($lead['second_vehicle_year'])
+		@if(isset($lead['second_vehicle_year']) && $lead['second_vehicle_year'])
 		<tr>
 			<td>2.</td>
 			<td>{{$lead['second_vehicle_year']}}</td>
