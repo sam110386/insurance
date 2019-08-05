@@ -3590,7 +3590,7 @@
 		<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<p>
-					<a data-href="dl5" class="change-question prev text-primary btn btn-warning btn-sm"> 
+					<a data-href="name5" class="change-question prev text-primary btn btn-warning btn-sm"> 
 							<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
@@ -3639,7 +3639,7 @@
 					--}}
 					<div class="col-12">
 						<label class="tnc-text">
-							<div class="custom-control custom-checkbox float-left mr-2">
+							<div class="custom-control custom-checkbox float-left mr-3">
 							  <input type="checkbox" class="custom-control-input" id="TnC">
 							  <label class="custom-control-label" for="TnC"></label>
 							</div>

@@ -194,6 +194,6 @@ input[type="number"] {
 }
 
 .custom-checkbox .custom-control-label::before,.custom-checkbox .custom-control-label::after {
-    transform: scale(1.5);
+    transform: scale(2.5);
 }
 .tnc-text{font-size: 0.9rem;}
