@@ -184,6 +184,7 @@ input[type="number"] {
 }
 @media(min-width: 1023px){
   .lead-form.row > div.container {min-height: 70vh;}
+  body > section{min-height: 80vh;}
 }
 @media(max-width: 991px){
   #zipcode-container{min-height: 500px;}

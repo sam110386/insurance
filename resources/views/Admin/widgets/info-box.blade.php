@@ -1,6 +1,6 @@
 <div {!! $attributes !!}>
     <div class="inner">
-        <h3>{{ $info }}</h3>
+        <h3 class="text-bold">{!! $info !!}</h3>
 
         <p>{{ $name }}</p>
     </div>

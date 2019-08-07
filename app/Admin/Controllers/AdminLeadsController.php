@@ -189,9 +189,9 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
             return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
 
         });
-        $grid->ip_address(trans('IP Address'))->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
+        // $grid->ip_address(trans('IP Address'))->display(function($text){
+        //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        // });
         $grid->created_at(trans('Created at'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
@@ -695,12 +695,28 @@ SCRIPT;
 
 
     public static function getLeadCounts(){
-        $leads['today'] = Lead::whereDate('created_at', Carbon::today())->get()->count();
+
+        $leads['today']['total'] = Lead::whereDate('created_at', Carbon::today())->get()->count();
+        $leads['today']['low'] = Lead::where('status',1)->whereDate('created_at', Carbon::today())->get()->count();
+        $leads['today']['high'] = Lead::where('status',0)->whereDate('created_at', Carbon::today())->get()->count();
         
-        $leads['week'] = Lead::where('created_at', ">", Carbon::today()->subDays(7))->get()->count();
-        $leads['month'] = Lead::where('created_at', ">", Carbon::today()->subDays(30))->get()->count();
-        $leads['year'] = Lead::whereYear('created_at', date('Y'))->get()->count();
-        $leads['total'] = Lead::get()->count();
+        $leads['week']['total'] = Lead::where('created_at', ">", Carbon::today()->subDays(7))->get()->count();
+        $leads['week']['low'] = Lead::where('status',1)->where('created_at', ">", Carbon::today()->subDays(7))->get()->count();
+        $leads['week']['high'] = Lead::where('status',0)->where('created_at', ">", Carbon::today()->subDays(7))->get()->count();
+
+
+        $leads['month']['total'] = Lead::where('created_at', ">", Carbon::today()->subDays(30))->get()->count();
+        $leads['month']['low'] = Lead::where('status',1)->where('created_at', ">", Carbon::today()->subDays(30))->get()->count();
+        $leads['month']['high'] = Lead::where('status',0)->where('created_at', ">", Carbon::today()->subDays(30))->get()->count();
+
+
+        $leads['year']['total'] = Lead::whereYear('created_at', date('Y'))->get()->count();
+        $leads['year']['low'] = Lead::where('status',1)->whereYear('created_at', date('Y'))->get()->count();
+        $leads['year']['high'] = Lead::where('status',0)->whereYear('created_at', date('Y'))->get()->count();
+        
+        $leads['lifetime']['total'] = Lead::get()->count();
+        $leads['lifetime']['low'] = Lead::where('status',1)->get()->count();
+        $leads['lifetime']['high'] = Lead::where('status',0)->get()->count();
         return $leads;
     }
 

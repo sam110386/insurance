@@ -85,7 +85,7 @@
 	<div class="alert alert-success light-bg fa-lg" role="alert">
 		<strong><i class="fa fa-check"></i> Low Risk</strong> 
 	</div>
-	@elseif($lead['status'] ===0)
+	@elseif($lead['status'] === 0)
 	<div class="alert alert-danger light-bg fa-lg" role="alert">
 		<strong><i class="fa fa-warning"></i> High Risk</strong>
 	</div>
@@ -358,7 +358,7 @@
 		</tr>
 		<tr>
 			<td><strong>Duration</strong></td>
-			<td>@if(isset($lead['duration'])){{$lead['duration']}}Years @else{{"NA"}}@endif</td>
+			<td>@if(isset($lead['duration']) && $lead['duration'] != 'NA'){{$lead['duration']}} Years @else{{"NA"}}@endif</td>
 		</tr>
 		<tr >
 			<td><strong>At Fault</strong></td>

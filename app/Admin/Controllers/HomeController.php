@@ -18,7 +18,6 @@ class HomeController extends Controller
     {
         return $content
         ->header('Dashboard')
-        ->description('Description...')
             // ->row(Dashboard::title())
         // ->row(function (Row $row) {
 
@@ -30,28 +29,29 @@ class HomeController extends Controller
             $row->column(12, function (Column $column) {
                 $leads = AdminLeadsController::getLeadCounts(); 
                 $infoRow =  new Row;
-                $infoRow->column(3, function (Column $infoColumn)  use($leads) {
-                    $infoBox = new InfoBox(trans('Today'), 'users', 'aqua', '/admin/leads', $leads['today']);
+                $infoRow->column(1,"<style>.fa-sm{font-size:0.5em;}</style>");
+                $infoRow->column(2, function (Column $infoColumn)  use($leads) {
+                    $infoBox = new InfoBox(trans('Today'), 'users fa-sm', 'blue', '/admin/leads', $leads['today']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['today']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['today']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
-                $infoRow->column(3, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('7 Days'), 'users', 'aqua', '/admin/leads', $leads['week']);
+                $infoRow->column(2, function (Column $infoColumn)use($leads) {
+                    $infoBox = new InfoBox(trans('7 Days'), 'users fa-sm', 'blue', '/admin/leads', $leads['week']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['week']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['week']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
-                $infoRow->column(3, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('30 days'), 'users', 'aqua', '/admin/leads', $leads['month']);
+                $infoRow->column(2, function (Column $infoColumn)use($leads) {
+                    $infoBox = new InfoBox(trans('30 days'), 'users fa-sm', 'blue', '/admin/leads', $leads['month']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['month']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['month']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
-                $infoRow->column(3, function (Column $infoColumn) use($leads){
-                    $infoBox = new InfoBox(trans('YTD'), 'users', 'aqua', '/admin/leads', $leads['year']);
+                $infoRow->column(2, function (Column $infoColumn) use($leads){
+                    $infoBox = new InfoBox(trans('YTD'), 'users fa-sm', 'blue', '/admin/leads', $leads['year']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['year']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['year']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
-                $infoRow->column(3, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('Lifetime'), 'users', 'aqua', '/admin/leads', $leads['total']);
+                $infoRow->column(2, function (Column $infoColumn)use($leads) {
+                    $infoBox = new InfoBox(trans('Lifetime'), 'users fa-sm', 'blue', '/admin/leads', $leads['lifetime']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['lifetime']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['lifetime']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });                                                
 
-                $box = new Box('Number of Lead submissions',$infoRow);
+                $box = new Box('Lead Chart',$infoRow);
                 $box->collapsable();
                 $box->style('primary');
                 $box->solid();                    

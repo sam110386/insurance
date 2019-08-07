@@ -30,6 +30,7 @@ class LeadsController extends BaseController
 		$city = CommonMethod::getZipcodeInfo($lead['zipcode']);
 		$data = ['lead' => $lead,'ip' => $ip, 'city' => $city, 'states' => CommonMethod::getStates()];
 		$lead = $this->storeLead($data);
+		$lead = Lead::findOrFail($lead->id);
 		$lead->phone =  $lead->phoneNumber($lead->phone);
 		\Mail::send('Emails.Lead.new', ['lead' => $lead->toArray()],
 		function ($message) {

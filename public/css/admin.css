@@ -1,0 +1,33 @@
+/* Custom css for admin layout */
+@font-face {
+  font-family: 'SharpSans';
+  src: url('../fonts/SharpSans/SharpSans-Medium.woff') format('woff'),
+  url('../fonts/SharpSans/SharpSans-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SharpSans';
+  src: url('../fonts/SharpSans/SharpSans-Bold.woff') format('woff'),
+  url('../fonts/SharpSans/SharpSans-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SharpSans';
+  src: url('../fonts/SharpSans/SharpSansDispNo1-Bold.woff') format('woff'),
+  url('../fonts/SharpSans/SharpSansDispNo1-Bold.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+}
+
+*{
+  font-family: SharpSans,Arial,sans-serif;
+}
+.bg-white{background: #FFFFFF;}
+
+.skin-blue-light .main-header .navbar{
+	
+}
