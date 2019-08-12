@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="icon" href="/fav.ico" type="image/x-icon" />
   <title>{{ config('app.name', 'Insurance') }}</title>
 </head>
 <body class="sidebar-mini">
