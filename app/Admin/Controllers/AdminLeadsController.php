@@ -205,7 +205,9 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
         //         $actions->disableEdit();            
         //     }
         // });
+        $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
+            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;&nbsp;");
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
