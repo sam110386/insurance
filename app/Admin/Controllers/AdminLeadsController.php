@@ -35,12 +35,12 @@ class AdminLeadsController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function index(Content $content)
+    public function index($from = false, $to=false, Content $content)
     {
         return $content
         ->header('Lead')
         ->description('List')
-        ->body($this->grid());
+        ->body($this->grid($from,$to));
     }
 
     /**
@@ -116,9 +116,8 @@ class AdminLeadsController extends Controller
      *
      * @return Grid
      */
-    protected function grid()
-    {
-        // $script = <<<scriptSCRIPT;           
+    protected function grid($from,$to)
+    {           
 Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
         $grid = new Grid(new Lead);
         if (!LoginAdmin::user()->inRoles(['administrator'])){
@@ -127,6 +126,10 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
             }else{
                 $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
             }
+        }
+
+        if($from && $to){
+            $grid->model()->whereBetween('created_at',["$from 00:00:00","$to 23:59:59"]);
         }
 
         if(!Input::get('_sort')) $grid->model()->orderby('id','desc');
@@ -160,7 +163,7 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
             $group =  ($this->group_id) ? $this->group->name : "";
             $g_pre = "";
             $g_post = "";
-            $str = "Not assigned yet";
+            $str = "NA";
             if($member && $group){
                 $g_pre = " (";
                 $g_post = ")";
@@ -278,7 +281,14 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
      */
     protected function detail($id)
     {
-        return view('Admin.Lead.view',['lead' => Lead::find($id),'showIp'=> LoginAdmin::user()->inRoles(['administrator']) , 'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
+        $lead = Lead::findOrFail($id);
+        // $st = CommonMethod::getStates();
+        // $st = array_flip($st);
+        // $lead->first_driver_state = $st[$lead->first_driver_state];
+        // if($lead->second_driver_state){
+        //     $lead->second_driver_state = $st[$lead->second_driver_state];
+        // }
+        return view('Admin.Lead.view',['lead' => $lead,'showIp'=> LoginAdmin::user()->inRoles(['administrator']) , 'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
     }
 
     /**
@@ -420,7 +430,7 @@ SCRIPT;
                 $row->width(6)->radio('children',trans('Children'))->options([1=>'Yes',0=>'No'])->rules("required");
                 $row->width(6)->radio('homeowner',trans('Homeowner'))->options(['owner'=>'Owner','renter'=>'Renter'])->rules("required");
                 $row->width(6)->radio('bundled',trans('Bundled'))->options([1=>'yes',0=>'No'])->rules("required"); 
-            });       
+            });        
         })->tab('VEHICLES', function ($form) use($years,$vehicleDefaults){
             $form->row(function($row) use($years,$vehicleDefaults){
                 $first_v = $vehicleDefaults['first_v'];

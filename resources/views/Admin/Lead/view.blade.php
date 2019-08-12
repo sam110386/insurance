@@ -1,56 +1,3 @@
-<style>
-	.table{max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px; }
-	.lead-view,h2 {
-		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
-		margin-bottom: 15px;
-	}
-
-	.lead-view td, .lead-view th {
-		border: 1px solid #ddd;
-		padding: 8px;
-	}
-	.lead-view tr:nth-child(even){background-color: #f2f2f2;}
-	.lead-view tr:hover {background-color: #ddd;}
-	.lead-view th {
-		padding-top: 12px;
-		padding-bottom: 12px;
-		text-align: left;
-		background-color: #007bff;
-		color: white;
-	}
-	.lead-view th span{font-weight: normal;}
-	.lead-view tr.bg-red{background-color: #dc3545;}
-	.lead-view tr.bg-red td{color: #FFF;}
-	.lead-view td.bg-green{color: #fff; background-color: #28a745;}
-	.lead-view td.bg-red{color: #fff; background-color: #dc3545;}
-	.mb-10{margin-bottom: 10px;}
-	.alert-success.light-bg {
-		color: #3c763d !important;
-		background-color: #dff0d8 !important;
-		border-color: #d6e9c6;
-	}	
-	.alert-danger.light-bg {
-		color: #a94442 !important;
-		background-color: #f2dede !important;
-		border-color: #ebccd1;
-	}
-	.p-10{padding: 10px;}
-	.comment-wrapper .media-list .media img {
-		width:64px;
-		height:64px;
-		border:2px solid #e5e7e8;
-	}
-
-	.comment-wrapper .media-list .media {
-		padding-bottom: 10px;
-		border-bottom:1px dashed #efefef;
-		margin-bottom:25px;
-	}
-
-</style>
-
 <div class="table">
 	<div class="row mb-10">
 		<div class="col-xs-12 text-right">
@@ -98,13 +45,13 @@
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
 		<tr><td><strong>Street</strong></td><td>{{$lead['street']}}</td></tr>
-		<tr><td><strong>City</strong></td><td>{{$lead['city']}},California,{{$lead['zip']}}</td></tr>
+		<tr><td><strong>City</strong></td><td>{{$lead['city']}}, CA {{$lead['zip']}}</td></tr>
 		<tr><td><strong>Phone</strong></td><td>{{$lead->phoneNumber($lead['phone'])}}</td></tr>
-		<tr><td><strong>Email</strong></td><td>{{$lead['email']}}</td></tr>
+		<tr><td><strong>Email</strong></td><td><a href="mailto:{{$lead['email']}}">{{$lead['email']}}</a></td></tr>
 
 		<tr><td><strong>Married</strong></td><td class=@if($lead['married']){{"bg-green"}}@endif>@if($lead['married']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 		<tr><td><strong>Children</strong></td><td class=@if(isset($lead['children']) && $lead['children']){{"bg-green"}}@endif>@if(isset($lead['children']) && $lead['children']){{"Yes"}}@else{{"No"}}@endif</td></tr>
-		<tr><td><strong>Homeowner</strong></td><td>{{$lead['homeowner']}}</td></tr>
+		<tr><td><strong>Homeowner</strong></td><td>@if($lead['homeowner'] == 'owner') Home Owner @else Renter @endif</td></tr>
 		<tr><td><strong>Bundled</strong></td><td  class=@if($lead['bundled']){{"bg-green"}}@endif>@if($lead['bundled']){{"Yes"}}@else{{"No"}}@endif</td></tr>
 	</table>
 	<!-- Drivers Details -->
@@ -444,7 +391,7 @@
 							<div class="form-group">
 								{!! csrf_field() !!}
 								<label for="note">Add Notes</label>
-								<textarea id="note" name="notes" class="form-control" rows="3" placeholder="Enter notes..." required ></textarea>				
+								<textarea id="note" name="notes" class="form-control editor" rows="3" placeholder="Enter notes..." required ></textarea>				
 							</div>
 							@if ($errors->any())
 							{!! implode('', $errors->all('<p class="text-danger">:message</p>')) !!}
@@ -460,3 +407,8 @@
 	</div>
 	<!-- NOTES HTML END -->
 </div>
+<script>
+	setTimeout(function(){
+    	CKEDITOR.replace('note',{height:150,removeButtons: ''});
+	},1000)
+</script>

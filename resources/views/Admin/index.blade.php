@@ -23,7 +23,7 @@
 
     @include('admin::partials.header')
 
-    @include('admin::partials.sidebar')
+    {{--@include('admin::partials.sidebar')--}}
 
     <div class="content-wrapper" id="pjax-container">
         <div id="app">
@@ -41,6 +41,7 @@
 <script>
     function LA() {}
     LA.token = "{{ csrf_token() }}";
+
 </script>
 
 <!-- REQUIRED JS SCRIPTS -->

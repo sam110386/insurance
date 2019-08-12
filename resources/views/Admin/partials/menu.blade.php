@@ -15,17 +15,17 @@
             </a>
         </li>
     @else
-        <li class="treeview">
-            <a href="#">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <i class="fa {{ $item['icon'] }}"></i>
                 @if (Lang::has($titleTranslation = 'admin.menu_titles.' . trim(str_replace(' ', '_', strtolower($item['title'])))))
                     <span>{{ __($titleTranslation) }}</span>
                 @else
                     <span>{{ admin_trans($item['title']) }}</span>
                 @endif
-                <i class="fa fa-angle-left pull-right"></i>
+                <span class="caret"></span>
             </a>
-            <ul class="treeview-menu">
+            <ul class="dropdown-menu" role="menu">
                 @foreach($item['children'] as $item)
                     @include('admin::partials.menu', $item)
                 @endforeach

@@ -10,6 +10,7 @@ use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\InfoBox;
 use App\Admin\Controllers\AdminLeadsController;
 use App\Models\Lead;
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -31,23 +32,30 @@ class HomeController extends Controller
                 $infoRow =  new Row;
                 $infoRow->column(1,"<style>.fa-sm{font-size:0.5em;}</style>");
                 $infoRow->column(2, function (Column $infoColumn)  use($leads) {
-                    $infoBox = new InfoBox(trans('Today'), 'users fa-sm', 'blue', '/admin/leads', $leads['today']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['today']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['today']['high'].'</span>');
+                    $from =  $to = Carbon::today()->format('Y-m-d');
+                    $infoBox = new InfoBox(trans('Today'), 'users fa-sm', 'blue', "/admin/leads/$from/$to", '<span>'.$leads['today']['total'].'</span>'.'<span class="text-black font-light">/</span><span class="text-green">'.$leads['today']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['today']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
                 $infoRow->column(2, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('7 Days'), 'users fa-sm', 'blue', '/admin/leads', $leads['week']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['week']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['week']['high'].'</span>');
+                    $from = Carbon::today()->subDays(7)->format('Y-m-d');
+                    $to = Carbon::today()->format('Y-m-d');
+                    $infoBox = new InfoBox(trans('7 Days'), 'users fa-sm', 'blue', "/admin/leads/$from/$to", '<span>'.$leads['week']['total'].'</span>'.'<span class="text-black font-light">/</span><span class="text-green">'.$leads['week']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['week']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
                 $infoRow->column(2, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('30 days'), 'users fa-sm', 'blue', '/admin/leads', $leads['month']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['month']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['month']['high'].'</span>');
+                    $from = Carbon::today()->subDays(30)->format('Y-m-d');
+                    $to = Carbon::today()->format('Y-m-d');
+                    $infoBox = new InfoBox(trans('30 days'), 'users fa-sm', 'blue', "/admin/leads/$from/$to", '<span>'.$leads['month']['total'].'</span>'.'<span class="text-black font-light">/</span><span class="text-green">'.$leads['month']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['month']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
                 $infoRow->column(2, function (Column $infoColumn) use($leads){
-                    $infoBox = new InfoBox(trans('YTD'), 'users fa-sm', 'blue', '/admin/leads', $leads['year']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['year']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['year']['high'].'</span>');
+                    $from =  Carbon::parse("first day of January ". Carbon::today()->format('Y'))->format('Y-m-d');
+                    $to = Carbon::now()->format('Y-m-d');                    
+                    $infoBox = new InfoBox(trans('YTD'), 'users fa-sm', 'blue', "/admin/leads/$from/$to", '<span>'.$leads['year']['total'].'</span>'.'<span class="text-black font-light">/</span><span class="text-green">'.$leads['year']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['year']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });
                 $infoRow->column(2, function (Column $infoColumn)use($leads) {
-                    $infoBox = new InfoBox(trans('Lifetime'), 'users fa-sm', 'blue', '/admin/leads', $leads['lifetime']['total'].'<span class="text-black font-light">/</span><span class="text-green">'.$leads['lifetime']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['lifetime']['high'].'</span>');
+                    $infoBox = new InfoBox(trans('Lifetime'), 'users fa-sm', 'blue', "/admin/leads", '<span>'.$leads['lifetime']['total'].'</span>'.'<span class="text-black font-light">/</span><span class="text-green">'.$leads['lifetime']['low'].'</span>'.'<span class="text-black font-light">/</span><span class="text-red">'.$leads['lifetime']['high'].'</span>');
                     $infoColumn->append($infoBox->render());
                 });                                                
 
