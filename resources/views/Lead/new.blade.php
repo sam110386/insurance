@@ -59,43 +59,6 @@
 			</div>		
 		</div>		
 	</div>
-	<div id="year-container" class=" container pt-5 pb-5" style="display: none;">
-		<div class="row">
-			<div class="col-12 col-md-10 offset-md-1">
-				<p>
-					<a data-href="zipcode" class="change-question prev text-primary btn btn-warning btn-sm ">
-						<i class="fa fa-angle-left"></i> Previous Question
-					</a>
-				</p>
-				<h3 class="font-weight-bold">Select Your Vehicle Year</h3>
-				<div class="form-group choices row get-make">
-					@php
-						$yearLoop  = (count($years) > 20) ? 20 : $yearCount - 1 ; 
-					@endphp
-					@for ($i = 0; $i < $yearLoop; $i++)
-					<label for="year-{{ $years[$i]->year }}" class="h4 col-3 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="make" data-current="year" data-year="{{ $years[$i]->year }}" data-vehicle="1" data-models="models" data-make="make">
-						{{ $years[$i]->year }}
-						<input type="radio" class="d-none" name="year" value="{{ $years[$i]->year }}" id="year-{{ $years[$i]->year }}" />
-						<i class="fa fa-angle-right"></i>
-					</label>
-					@endfor
-				</div>
-				@if(count($years) > 20)
-				<div class="form-group">
-					<h3>OTHER</h3>
-					<select class="auto-select form-control optional form-control-lg col-12 col-md-6" name="vehicle-year">
-						<option value="">Choose one</option>
-						@for ($i = 20; $i < count($years); $i++)
-						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
-						@endfor
-					</select>
-					<a data-href="make" data-current="year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle-year"  data-vehicle="1" data-models="models" data-make="make">CONTINUE</a>
-				</div>
-				@endif
-			</div>
-		</div>
-	</div>
-
 	@include('Lead.vehicles')
 		
 	<div id="previous-insurance-container" class="container pt-5 pb-5" style="display: none;">
@@ -529,7 +492,7 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5">
 						<div class="form-group">
 							<label class="h5 mb-2">How did you hear about us?</label>
-							<select class="form-control form-control-lg not-required referrer" name="referrer">
+							<select class="form-control form-control-lg referrer" name="referrer">
 								<option value="">Choose one</option>
 								<option value="Email">Email</option>
 								<option value="Social Media">Social Media</option>
