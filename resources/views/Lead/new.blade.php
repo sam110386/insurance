@@ -350,7 +350,7 @@
 					<div class="col-12 col-sm-12 col-md-5 col-lg-5 mb-3">
 						<div class="form-group">
 							<label class="h4">Bodily Injury Liability &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#bodilyPopup"></i></label>
-							<select class="form-control form-control-lg" name="bodily-injury">
+							<select class="form-control form-control-lg skip-reset" name="bodily-injury">
 								<option value="15-30" selected="selected">$15k/$30k</option>
 								<option value="25-50">$25k/$50k</option>
 								<option value="30-60">$30k/$60k</option>
@@ -362,7 +362,7 @@
 						</div>
 						<div class="form-group">
 							<label class="h4">Property Damage  &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#propertyPopup"></i></label>
-							<select class="form-control form-control-lg" name="property-damage">
+							<select class="form-control form-control-lg skip-reset" name="property-damage">
 								<option value="5000">$5000</option>
 								<option value="25000" selected="selected">$25,000</option>
 								<option value="50000">$50,000</option>
@@ -376,7 +376,7 @@
 							<label class="h4">
 								Comprehensive Deductible &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#deductiblePopup"></i>
 							</label>
-							<select class="form-control form-control-lg" name="deductible">
+							<select class="form-control form-control-lg skip-reset" name="deductible">
 								<option value="250">$250</option>
 								<option value="500">$500</option>
 								<option value="1000" selected="selected">$1000</option>
@@ -386,7 +386,7 @@
 							<label class="h4">
 								Collision Deductible  &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#collisionPopup"></i>
 							</label>
-							<select class="form-control form-control-lg" name="collision-deductible">
+							<select class="form-control form-control-lg skip-reset" name="collision-deductible">
 								<option value="250">$250</option>
 								<option value="500">$500</option>
 								<option value="1000" selected="selected">$1000</option>
@@ -394,7 +394,7 @@
 						</div>											
 						<div class="form-group">
 							<label class="h4">Medical Coverage &nbsp; <i class="fa fa-xs fa-question-circle c-pointer" data-toggle="modal" data-target="#medicalPopup"></i></label>
-							<select class="form-control form-control-lg" name="medical">
+							<select class="form-control form-control-lg skip-reset" name="medical">
 								<option value="0" selected="selected">$0</option>
 								<option value="5000">$5000</option>
 								<option value="10000">$10000</option>
@@ -550,7 +550,7 @@
 					<div class="col-12 col-sm-6">
 						<div class="form-group">
 							<label for="d-state" class="font-weight-bold h5 mb-3 text-mute">State</label>
-							<input type="text" class="form-control form-control-lg" value="California" id="d-state" disabled="disabled" readonly />
+							<input type="text" class="form-control form-control-lg skip-reset" value="California" id="d-state" disabled="disabled" readonly />
 						</div>
 					</div>
 					<div class="col-12 col-sm-6">

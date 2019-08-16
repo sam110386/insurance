@@ -49,7 +49,7 @@ jQuery(document).ready( function($) {
 
 	// Default checked radio buttons
 	$("input[type='radio']").prop('checked', false);
-	$("input[type='text'],input[type='email'],input[type='number'],input[type='tel'],select").val('');
+	$("input[type='text']:not('.skip-reset'),input[type='email']:not('.skip-reset'),input[type='number']:not('.skip-reset'),input[type='tel']:not('.skip-reset'),select:not('.skip-reset')").val('');
 	// $("input[type='radio']:checked").parent('label').addClass('bg-warning')
 
 	var quesitonCount = $('form.lead-form > .container.step').length;
