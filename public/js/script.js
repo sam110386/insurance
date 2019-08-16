@@ -404,18 +404,18 @@ $(document).ready(function(){
 	$(".year-select-next").on('click',function(){
 		$('label.error').remove();
 		$(this).parents('.form-group').removeClass('has-error');
-
+		var cYear = new Date().getFullYear() + 1;
 		if(!$(this).siblings('select').val()){
 			$(this).parents('.form-group').addClass('has-error');
 			$(this).after('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
 			return false;
 		}else if( $(this).siblings('select').val() == 'other' &&  $(this).siblings('input').val() == ''){
 			$(this).parents('.form-group').addClass('has-error');
-			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear()+1 +'.</label>');
+			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + cYear +'.</label>');
 			return false;
-		}else if($(this).siblings('select').val() == 'other' && $(this).siblings('input').val() < 1900 || $(this).siblings('input').val() > new Date().getFullYear() +1 ){
+		}else if($(this).siblings('select').val() == 'other' && $(this).siblings('input').val() < 1900 || $(this).siblings('input').val() > cYear ){
 			$(this).parents('.form-group').addClass('has-error');
-			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear()+1 +'.</label>');
+			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + cYear +'.</label>');
 			return false;
 		}
 		var year = ($(this).siblings('select').val() == 'other') ? $(this).siblings('input').val() : $(this).siblings('select').val();
