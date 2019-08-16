@@ -49,6 +49,7 @@ jQuery(document).ready( function($) {
 
 	// Default checked radio buttons
 	$("input[type='radio']").prop('checked', false);
+	$("input[type='text'],input[type='email'],input[type='number'],input[type='tel'],select").val('');
 	// $("input[type='radio']:checked").parent('label').addClass('bg-warning')
 
 	var quesitonCount = $('form.lead-form > .container.step').length;
@@ -78,7 +79,12 @@ jQuery(document).ready( function($) {
 
  	// year select on change trigger next quesiton
  	$('.lead-form').on('change','select.auto-select',function(){
- 		$(this).siblings('a').trigger('click');
+ 		if($(this).val() == 'other'){
+ 			$(this).siblings('input').show();
+ 		}else{
+ 			$(this).siblings('input').hide();
+ 			$(this).siblings('a').trigger('click');
+ 		}
  	})
 
  	// change question on policy question
@@ -144,6 +150,18 @@ $(document).ready(function(){
 	});
 
 	$("input#phone").inputmask("(999) 999-9999",{placeholder: "(xxx) xxx-xxxx"});
+	$('input.vehicle-year-input').inputmask("9999", {
+		"placeholder": "YYYY",
+		min: "1900",
+		max: new Date().getFullYear(),
+		"onincomplete": function(){
+			$(this).next('.error').remove();
+			$(this).after('<label class="error text-danger">Invalid year</label>');
+		},
+		"oncomplete": function(){ 
+			$(this).next('.error').remove();
+		}
+	});
 
 	var models = [];
 	var vMake = "";
@@ -176,7 +194,8 @@ $(document).ready(function(){
 			url: '/ajax/makes/' + year
 		}).done(function( res ) {
 			if(res){
-				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				// var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Cadillac"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"GMC"},{"make":"Honda"},{"make":"Hyundai"},{"make":"INFINITI"},{"make": "Kia"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"},{"make":"Volkswagen"},{"make":"Volvo"}];	
 				$.each(popMakes,function(i,mk){
 					make = mk.make;
 					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
@@ -190,7 +209,7 @@ $(document).ready(function(){
 					$("#"+current + "-container select").append(select);
 				});
 				$("#"+current + "-container select").siblings('input').attr('data-year',year);
-				$("#"+current + "-container select").append("<option value='other'>Other</option>");
+				$("#"+current + "-container select").append("<option value='other'>Enter My Vehicle Make Manually</option>");
 			}
 		});
 
@@ -242,7 +261,6 @@ $(document).ready(function(){
 		var vehicle = parseInt($(this).data('vehicle'));
 		var modelsContanier = $('.models-' + vehicle);
 		var year = $(this).siblings("select").children("option:selected").data("year");
-		vMake = make;
 		modelsContanier.html('').parent('.col-12').hide();	
 
 		$(this).parent('.form-group').removeClass('has-error');
@@ -266,6 +284,7 @@ $(document).ready(function(){
 			printModels(modelsContanier,{year: year, make: make, vehicle: vehicle});
 			modelsContanier.parent('.col-12').show();						
 		}
+		vMake = make;
 		$('form.lead-form > div.container').fadeOut(500);
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 	});	
@@ -328,14 +347,16 @@ $(document).ready(function(){
 			type: "GET",
 			url: '/ajax/trims/' + year + '/' + make + '/' + model
 		}).done(function( res ) {
-			if(res){
+			if(res.length){
+				trimContanier.siblings('.manual-trim').hide();
 				$.each(res,function(i,trim){
-					debugger
 					target =  'vin' + (vehicle);
 					current = 'trims' + vehicle;
-					trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
+					trimHtml = '<label data-vehicle="' + vehicle + '" data-year="'+ year +'" class="h4 border col-10 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-href="'+ target + '" data-current="'+ current + '"> ' + trim.trim_1 + '<input type="radio" class="d-none" name="trim-'+ vehicle +'" value="'+ trim.trim_1 +'" /><i class="fa fa-angle-right"></i></label>';
 					trimContanier.append(trimHtml);
 				});
+			}else{
+				trimContanier.siblings('.manual-trim').show();
 			}
 		});
 	}
@@ -382,11 +403,22 @@ $(document).ready(function(){
 
 	$(".year-select-next").on('click',function(){
 		$('label.error').remove();
+		$(this).parents('.form-group').removeClass('has-error');
+
 		if(!$(this).siblings('select').val()){
-			$(this).before('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
+			$(this).parents('.form-group').addClass('has-error');
+			$(this).after('<label class="error mt-2 row col-12">Please select vehicle Year.</label>');
+			return false;
+		}else if( $(this).siblings('select').val() == 'other' &&  $(this).siblings('input').val() == ''){
+			$(this).parents('.form-group').addClass('has-error');
+			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear() +'.</label>');
+			return false;
+		}else if($(this).siblings('input').val() < 1900 || $(this).siblings('input').val() > new Date().getFullYear() ){
+			$(this).parents('.form-group').addClass('has-error');
+			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear() +'.</label>');
 			return false;
 		}
-		var year = $(this).siblings('select').val();
+		var year = ($(this).siblings('select').val() == 'other') ? $(this).siblings('input').val() : $(this).siblings('select').val();
 		var href = $(this).data('models');
 		var current = $(this).data('make');
 		var vehicle = $(this).data('vehicle');
@@ -399,7 +431,7 @@ $(document).ready(function(){
 			url: '/ajax/makes/' + year
 		}).done(function( res ) {
 			if(res){
-				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"Honda"},{"make":"INFINITI"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"}];
+				var popMakes = [{"make":"Acura"},{"make":"Audi"},{"make":"BMW"},{"make":"Cadillac"},{"make":"Chevrolet"},{"make":"Dodge"},{"make":"Ford"},{"make":"GMC"},{"make":"Honda"},{"make":"Hyundai"},{"make":"INFINITI"},{"make": "Kia"},{"make":"Lexus"},{"make":"Mercedes-Benz"},{"make":"Nissan"},{"make":"Toyota"},{"make":"Volkswagen"},{"make":"Volvo"}];
 				$.each(popMakes,function(i,mk){
 					make = mk.make;
 					label = '<label class="h4 col-6 col-sm-12 col-md-5 col-lg-5 pl-2 pr-2" data-year="' + year + '" data-href="'+ href +'" data-current="'+ current +'" data-vehicle="'+ vehicle +'">'+ make +'<input type="radio" class="d-none" name="'+ current +'" value="'+ make+ '" /></label>';
@@ -412,7 +444,8 @@ $(document).ready(function(){
 					select = "<option value='"+ make +"' data-year='" + year + "'>"+ make +"</option>";
 					$("#"+current + "-container select").append(select);
 				});
-				$("#"+current + "-container select").append("<option value='other'>Other</option>");
+				$("#"+current + "-container select").siblings('input').attr('data-year',year);				
+				$("#"+current + "-container select").append("<option value='other'>Enter My Vehicle Make Manually</option>");
 			}
 		});
 

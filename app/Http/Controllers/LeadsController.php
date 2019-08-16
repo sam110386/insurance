@@ -32,11 +32,20 @@ class LeadsController extends BaseController
 		$lead = $this->storeLead($data);
 		$lead = Lead::findOrFail($lead->id);
 		$lead->phone =  $lead->phoneNumber($lead->phone);
-		\Mail::send('Emails.Lead.new', ['lead' => $lead->toArray()],
+		
+		/* Email notification to admin  */
+		\Mail::send('Emails.Lead.admin', ['lead' => $lead->toArray()],
 		function ($message) {
 			$message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
-			// $message->to('vbmourya123@gmail.com')->bcc('sgstest2505@gmail.com')->subject('New Lead - Insurance');
+			// $message->to('vbmourya123@gmail.com')->subject('New Lead - Insurance');
 		});
+
+		/* Email notification to user  */
+		\Mail::send('Emails.Lead.user', ['user' => $lead->first_name],
+		function ($message) use($lead) {
+			$message->to($lead->email)->subject('New Lead Confirmation- Insurance');
+		});
+
 		return view('Insurance.urls',$data);
 		// return view('Insurance.view',$data);
 	}
@@ -99,7 +108,13 @@ class LeadsController extends BaseController
 		$data['fifth_driver_state'] 		= (isset($lead['state5'])) ? $states[$lead['state5']]  : "";
 
 
-		$data['first_vehicle_year'] 		= ($lead['vehicle-year']) ? $lead['vehicle-year'] : $lead['year'];
+		if($lead['vehicle-year'] && $lead['vehicle-year'] == 'other'){
+			$data['first_vehicle_year'] = 	$lead['year1-other-input'];
+		}elseif($lead['vehicle-year']){
+			$data['first_vehicle_year'] = 	$lead['vehicle-year'];
+		}else{
+			$data['first_vehicle_year'] = 	$lead['year'];
+		}
 
 		if($lead['make-other']){
 			$data['first_vehicle_make'] = $lead['make-other'];
@@ -120,7 +135,16 @@ class LeadsController extends BaseController
 		if(isset($lead['vehicle2']) && $lead['vehicle2'] && $lead['miles-driven-per-year-vehicle-2'])
 		{
 
-			$data['second_vehicle_year'] = ($lead['vehicle-year-2']) ? $lead['vehicle-year-2'] : $lead['vehicle2-year'];
+			// $data['second_vehicle_year'] = ($lead['vehicle-year-2']) ? $lead['vehicle-year-2'] : $lead['vehicle2-year'];
+
+			if($lead['vehicle-year-2'] && $lead['vehicle-year-2'] == 'other'){
+				$data['second_vehicle_year'] = 	$lead['year2-other-input'];
+			}elseif($lead['vehicle-year-2']){
+				$data['second_vehicle_year'] = 	$lead['vehicle-year-2'];
+			}else{
+				$data['second_vehicle_year'] = 	$lead['vehicle2-year'];
+			}
+
 			if($lead['vehicle2-make-other']){
 				$data['second_vehicle_make'] 		= $lead['vehicle2-make-other'];
 			}elseif($lead['vehicle2-make-select']){
@@ -141,7 +165,16 @@ class LeadsController extends BaseController
 		if(isset($lead['vehicle3']) && $lead['vehicle3'] && $lead['miles-driven-per-year-vehicle-3'])
 		{
 
-			$data['third_vehicle_year'] 		= ($lead['vehicle-year-3']) ? $lead['vehicle-year-3'] : $lead['vehicle3-year'];
+			// $data['third_vehicle_year'] 		= ($lead['vehicle-year-3']) ? $lead['vehicle-year-3'] : $lead['vehicle3-year'];
+
+			if($lead['vehicle-year-3'] && $lead['vehicle-year-3'] == 'other'){
+				$data['third_vehicle_year'] = 	$lead['year3-other-input'];
+			}elseif($lead['vehicle-year-3']){
+				$data['third_vehicle_year'] = 	$lead['vehicle-year-3'];
+			}else{
+				$data['third_vehicle_year'] = 	$lead['vehicle3-year'];
+			}
+
 			if($lead['vehicle3-make-other']){
 				$data['third_vehicle_make'] 		= $lead['vehicle3-make-other'];
 			}elseif($lead['vehicle3-make-select']){
@@ -161,7 +194,16 @@ class LeadsController extends BaseController
 		if(isset($lead['vehicle4']) && $lead['vehicle4'] && $lead['miles-driven-per-year-vehicle-4'])
 		{
 
-			$data['fourth_vehicle_year'] 		= ($lead['vehicle-year-4']) ? $lead['vehicle-year-4'] : $lead['vehicle4-year'];
+			// $data['fourth_vehicle_year'] 		= ($lead['vehicle-year-4']) ? $lead['vehicle-year-4'] : $lead['vehicle4-year'];
+			
+			if($lead['vehicle-year-4'] && $lead['vehicle-year-4'] == 'other'){
+				$data['fourth_vehicle_year'] = 	$lead['year4-other-input'];
+			}elseif($lead['vehicle-year-4']){
+				$data['fourth_vehicle_year'] = 	$lead['vehicle-year-4'];
+			}else{
+				$data['fourth_vehicle_year'] = 	$lead['vehicle4-year'];
+			}
+
 			if($lead['vehicle4-make-other']){
 				$data['fourth_vehicle_make'] 		= $lead['vehicle4-make-other'];
 			}elseif($lead['vehicle4-make-select']){
@@ -181,7 +223,16 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle5']) && $lead['vehicle5'] && $lead['miles-driven-per-year-vehicle-5'])
 		{
-			$data['fifth_vehicle_year'] 		= ($lead['vehicle-year-5']) ? $lead['vehicle-year-5'] : $lead['vehicle5-year'];
+			// $data['fifth_vehicle_year'] 		= ($lead['vehicle-year-5']) ? $lead['vehicle-year-5'] : $lead['vehicle5-year'];
+			
+			if($lead['vehicle-year-5'] && $lead['vehicle-year-5'] == 'other'){
+				$data['fifth_vehicle_year'] = 	$lead['year5-other-input'];
+			}elseif($lead['vehicle-year-5']){
+				$data['fifth_vehicle_year'] = 	$lead['vehicle-year-5'];
+			}else{
+				$data['fifth_vehicle_year'] = 	$lead['vehicle5-year'];
+			}
+
 			if($lead['vehicle5-make-other']){
 				$data['fifth_vehicle_make'] 		= $lead['vehicle5-make-other'];
 			}elseif($lead['vehicle5-make-select']){
@@ -201,7 +252,16 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle6']) && $lead['vehicle6'] && $lead['miles-driven-per-year-vehicle-6'])
 		{
-			$data['sixth_vehicle_year'] 		= ($lead['vehicle-year-6']) ? $lead['vehicle-year-6'] : $lead['vehicle6-year'];
+			// $data['sixth_vehicle_year'] 		= ($lead['vehicle-year-6']) ? $lead['vehicle-year-6'] : $lead['vehicle6-year'];
+
+			if($lead['vehicle-year-6'] && $lead['vehicle-year-6'] == 'other'){
+				$data['sixth_vehicle_year'] = 	$lead['year6-other-input'];
+			}elseif($lead['vehicle-year-6']){
+				$data['sixth_vehicle_year'] = 	$lead['vehicle-year-6'];
+			}else{
+				$data['sixth_vehicle_year'] = 	$lead['vehicle6-year'];
+			}
+
 			if($lead['vehicle6-make-other']){
 				$data['sixth_vehicle_make'] 		= $lead['vehicle6-make-other'];
 			}elseif($lead['vehicle6-make-select']){
@@ -221,7 +281,14 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle7']) && $lead['vehicle7'] && $lead['miles-driven-per-year-vehicle-7'])
 		{
-			$data['seventh_vehicle_year'] 		= ($lead['vehicle-year-7']) ? $lead['vehicle-year-7'] : $lead['vehicle7-year'];
+			// $data['seventh_vehicle_year'] 		= ($lead['vehicle-year-7']) ? $lead['vehicle-year-7'] : $lead['vehicle7-year'];
+			if($lead['vehicle-year-7'] && $lead['vehicle-year-7'] == 'other'){
+				$data['seventh_vehicle_year'] = 	$lead['year7-other-input'];
+			}elseif($lead['vehicle-year-7']){
+				$data['seventh_vehicle_year'] = 	$lead['vehicle-year-7'];
+			}else{
+				$data['seventh_vehicle_year'] = 	$lead['vehicle7-year'];
+			}			
 			if($lead['vehicle7-make-other']){
 				$data['seventh_vehicle_make'] 		= $lead['vehicle7-make-other'];
 			}elseif($lead['vehicle7-make-select']){
@@ -241,7 +308,16 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle8']) && $lead['vehicle8'] && $lead['miles-driven-per-year-vehicle-8'])
 		{
-			$data['eighth_vehicle_year'] 		= ($lead['vehicle-year-8']) ? $lead['vehicle-year-8'] : $lead['vehicle8-year'];
+			// $data['eighth_vehicle_year'] 		= ($lead['vehicle-year-8']) ? $lead['vehicle-year-8'] : $lead['vehicle8-year'];
+
+			if($lead['vehicle-year-8'] && $lead['vehicle-year-8'] == 'other'){
+				$data['eighth_vehicle_year'] = 	$lead['year8-other-input'];
+			}elseif($lead['vehicle-year-8']){
+				$data['eighth_vehicle_year'] = 	$lead['vehicle-year-8'];
+			}else{
+				$data['eighth_vehicle_year'] = 	$lead['vehicle8-year'];
+			}
+
 			if($lead['vehicle8-make-other']){
 				$data['eighth_vehicle_make'] 		= $lead['vehicle8-make-other'];
 			}elseif($lead['vehicle8-make-select']){
@@ -261,7 +337,14 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle9']) && $lead['vehicle9'] && $lead['miles-driven-per-year-vehicle-9'])
 		{
-			$data['ninth_vehicle_year'] 		= ($lead['vehicle-year-9']) ? $lead['vehicle-year-9'] : $lead['vehicle9-year'];
+			// $data['ninth_vehicle_year'] 		= ($lead['vehicle-year-9']) ? $lead['vehicle-year-9'] : $lead['vehicle9-year'];
+			if($lead['vehicle-year-9'] && $lead['vehicle-year-9'] == 'other'){
+				$data['ninth_vehicle_year'] = 	$lead['year9-other-input'];
+			}elseif($lead['vehicle-year-9']){
+				$data['ninth_vehicle_year'] = 	$lead['vehicle-year-9'];
+			}else{
+				$data['ninth_vehicle_year'] = 	$lead['vehicle9-year'];
+			}			
 			if($lead['vehicle9-make-other']){
 				$data['ninth_vehicle_make'] 		= $lead['vehicle9-make-other'];
 			}elseif($lead['vehicle9-make-select']){
@@ -281,7 +364,14 @@ class LeadsController extends BaseController
 
 		if(isset($lead['vehicle10']) && $lead['vehicle10'] && $lead['miles-driven-per-year-vehicle-10'])
 		{
-			$data['tenth_vehicle_year'] 		= ($lead['vehicle-year-10']) ? $lead['vehicle-year-10'] : $lead['vehicle10-year'];
+			// $data['tenth_vehicle_year'] 		= ($lead['vehicle-year-10']) ? $lead['vehicle-year-10'] : $lead['vehicle10-year'];
+			if($lead['vehicle-year-10'] && $lead['vehicle-year-10'] == 'other'){
+				$data['tenth_vehicle_year'] = 	$lead['year10-other-input'];
+			}elseif($lead['vehicle-year-10']){
+				$data['tenth_vehicle_year'] = 	$lead['vehicle-year-10'];
+			}else{
+				$data['tenth_vehicle_year'] = 	$lead['vehicle10-year'];
+			}			
 			if($lead['vehicle10-make-other']){
 				$data['tenth_vehicle_make'] 		= $lead['vehicle10-make-other'];
 			}elseif($lead['vehicle10-make-select']){

@@ -3,8 +3,9 @@
 <div class="pt-5 pb-5 container">
 	<div id="accordion">
 		<div class="card ">
-			<div class="bg-secondary text-white card-header" id="faq-heading-1" data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
+			<div class="bg-theme-blue text-white card-header" id="faq-heading-1" data-toggle="collapse" data-target="#faq1" aria-expanded="true" aria-controls="faq1">
 				<h5 class="mb-0"  >1. Auto Insurance in California
+					<span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq1" class="collapse show" aria-labelledby="faq-heading-1" data-parent="#accordion">
@@ -14,9 +15,9 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header text-white bg-secondary" id="faq-heading-2" data-toggle="collapse" data-target="#faq2" aria-expanded="true" aria-controls="faq2">
+			<div class="card-header text-white bg-theme-blue" id="faq-heading-2" data-toggle="collapse" data-target="#faq2" aria-expanded="false" aria-controls="faq2">
 				<h5 class="mb-0" >
-					2. Minimum Liability Auto Insurance in California
+					2. Minimum Liability Auto Insurance in California <span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq2" class="collapse" aria-labelledby="faq-heading-2" data-parent="#accordion">
@@ -40,9 +41,10 @@
 			</div>
 		</div>		
 		<div class="card">
-			<div class="card-header text-white bg-secondary" id="faq-heading-3"  data-toggle="collapse" data-target="#faq3" aria-expanded="true" aria-controls="faq3">
+			<div class="card-header text-white bg-theme-blue" id="faq-heading-3"  data-toggle="collapse" data-target="#faq3" aria-expanded="false" aria-controls="faq3">
 				<h5 class="mb-0">
 					3. No Fault, UI/UIM, and PIP in California
+					<span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq3" class="collapse" aria-labelledby="faq-heading-3" data-parent="#accordion">
@@ -52,9 +54,9 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header text-white bg-secondary" id="faq-heading-4"  data-toggle="collapse" data-target="#faq4" aria-expanded="true" aria-controls="faq4">
+			<div class="card-header text-white bg-theme-blue" id="faq-heading-4"  data-toggle="collapse" data-target="#faq4" aria-expanded="false" aria-controls="faq4">
 				<h5 class="mb-0">
-					4. DUI Laws You Need to Know
+					4. DUI Laws You Need to Know <span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq4" class="collapse" aria-labelledby="faq-heading-4" data-parent="#accordion">
@@ -71,9 +73,9 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header text-white bg-secondary" id="faq-heading-5"  data-toggle="collapse" data-target="#faq5" aria-expanded="true" aria-controls="faq5">
+			<div class="card-header text-white bg-theme-blue" id="faq-heading-5"  data-toggle="collapse" data-target="#faq5" aria-expanded="false" aria-controls="faq5">
 				<h5 class="mb-0">
-					5. SR-22 Requirements for Auto Insurance in California
+					5. SR-22 Requirements for Auto Insurance in California <span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq5" class="collapse" aria-labelledby="faq-heading-5" data-parent="#accordion">
@@ -83,14 +85,14 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header text-white bg-secondary" id="faq-heading-6" data-toggle="collapse" data-target="#faq6" aria-expanded="true" aria-controls="faq6">
+			<div class="card-header text-white bg-theme-blue" id="faq-heading-6" data-toggle="collapse" data-target="#faq6" aria-expanded="false" aria-controls="faq6">
 				<h5 class="mb-0" >
-					6. Get More Information from Government Resources
+					6. Get More Information from Government Resources <span class="pull-right"><i class="fa fa-angle-down"></i></span>
 				</h5>
 			</div>
 			<div id="faq6" class="collapse" aria-labelledby="faq-heading-6" data-parent="#accordion">
 				<div class="card-body">
-					The California Department of Insurance can help you with any further details pertaining to auto insurance in California. You can call them at (800) 927-HELP or visit their website at <a class="text-white" href="http://www.insurance.ca.gov">www.insurance.ca.gov</a>.
+					The California Department of Insurance can help you with any further details pertaining to auto insurance in California. You can call them at (800) 927-HELP or visit their website at <a class="" href="http://www.insurance.ca.gov/">www.insurance.ca.gov</a>
 				</div>
 			</div>
 		</div>		

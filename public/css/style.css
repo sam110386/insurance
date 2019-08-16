@@ -90,7 +90,7 @@ code {
 .has-error .form-control {
   border-color: #dc3545;
 }
-
+.bg-theme-blue{background: #39559f !important;}
 .ui-datepicker-inline{max-width: 280px;background:#fff;border: none !important;padding: 0; }
 .ui-state-default {text-align: center !important;background: #fff !important;}
 .ui-widget-header {display: none;}
@@ -159,6 +159,7 @@ input[type="number"] {
 
 .form-group label.text-warning {color: #414141 !important;}
 .lg-mx-w-70-pr{max-width: 70%; margin-left: auto; margin-right: auto;}
+.trims-1 > label,.trims-2 > label,.trims-3 > label,.trims-4 > label,.trims-5 > label,.trims-6 > label,.trims-7 > label,.trims-8 > label,.trims-9 > label,.trims-10 > label {margin: 10px;}
 @media(max-width: 480px){
   h3,h4,h3.font-weight-bold > .h4{
     font-size: 20px;
@@ -194,7 +195,6 @@ input[type="number"] {
   .footer-box-1,.footer-box-2{margin-bottom: 30px}
 }
 
-.custom-checkbox .custom-control-label::before,.custom-checkbox .custom-control-label::after {
-    transform: scale(2.5);
-}
+.custom-checkbox .custom-control-label::before,.custom-checkbox .custom-control-label::after {transform: scale(2.5);}
 .tnc-text{font-size: 0.9rem;}
+.card-header[aria-expanded="true"] i.fa::before{content:"\f106"}

@@ -27,7 +27,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year1-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="make" data-current="year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle-year"  data-vehicle="1" data-models="models" data-make="make">CONTINUE</a>
 				</div>
 				@endif
@@ -91,13 +93,17 @@
 			<div class="col-md-10 offset-md-1">
 				<p>
 					<a data-href="models" class="change-question prev text-primary btn btn-warning btn-sm"> 
-							<i class="fa fa-angle-left"></i> Previous Question
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Trim</h3>
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-1"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-1" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<a href="javascript:;" data-href="vin1" data-current="trims1" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -293,7 +299,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year2-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle2-make" data-current="vehicle2-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle2-year"  data-vehicle="2" data-models="vehicle2-models" data-make="vehicle2-make">CONTINUE</a>
 				</div>
 				@endif				
@@ -363,6 +371,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-2"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-2" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<a href="javascript:;" data-href="vin2" data-current="trims2" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -558,7 +570,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year3-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle3-make" data-current="vehicle3-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle3-year" data-vehicle="3" data-models="vehicle3-models" data-make="vehicle3-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -630,6 +644,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-3"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-3" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin3" data-current="trims3" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -826,7 +844,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year4-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle4-make" data-current="vehicle4-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle4-year" data-vehicle="4" data-models="vehicle4-models" data-make="vehicle4-make" >CONTINUE</a>
 				</div>
 				@endif			
@@ -896,6 +916,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-4"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-4" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin4" data-current="trims4" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -1091,7 +1115,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year5-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle5-make" data-current="vehicle5-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle5-year" data-vehicle="5" data-models="vehicle5-models" data-make="vehicle5-make" >CONTINUE</a>
 				</div>
 				@endif			
@@ -1162,6 +1188,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-5"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-5" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin5" data-current="trims5" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -1357,7 +1387,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year6-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle6-make" data-current="vehicle6-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle6-year" data-vehicle="6" data-models="vehicle6-models" data-make="vehicle6-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -1429,6 +1461,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-6"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-6" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin6" data-current="trims6" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -1625,7 +1661,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year7-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle7-make" data-current="vehicle7-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle7-year" data-vehicle="7" data-models="vehicle7-models" data-make="vehicle7-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -1697,6 +1735,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-7"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-7" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin7" data-current="trims7" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -1893,7 +1935,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year8-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle8-make" data-current="vehicle8-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle8-year" data-vehicle="8" data-models="vehicle8-models" data-make="vehicle8-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -1965,6 +2009,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-8"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-8" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin8" data-current="trims8" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -2161,7 +2209,9 @@
 						@for ($i = 20; $i < count($years); $i++)
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
+						<option value="other">Enter My Vehicle Year Manually</option>
 					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year9-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">
 					<a data-href="vehicle9-make" data-current="vehicle9-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle9-year" data-vehicle="9" data-models="vehicle9-models" data-make="vehicle9-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -2233,6 +2283,10 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-9"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-9" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<a href="javascript:;" data-href="vin9" data-current="trims9" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -2430,6 +2484,9 @@
 						<option value="{{ $years[$i]->year }}">{{ $years[$i]->year }}</option>
 						@endfor
 					</select>
+						<option value="other">Enter My Vehicle Year Manually</option>
+					</select>
+					<input type="tel" pattern="[0-9]*" placeholder="Enter Vehicle Year" name="year10-other-input" class="form-control form-control-lg vehicle-year-input col-12 col-md-6 mt-2" style="display: none;">					
 					<a data-href="vehicle10-make" data-current="vehicle10-year" class="mt-4 year-select-next btn btn-lg btn-warning" data-type="select" data-name="vehicle10-year" data-vehicle="10" data-models="vehicle10-models" data-make="vehicle10-make" >CONTINUE</a>
 				</div>
 				@endif					
@@ -2501,11 +2558,15 @@
 				<div class="row">
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-10"></div>
+						<div class="form-group manual-trim" style="display: none">
+							<input type="text" name="trim-10" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<a href="javascript:;" data-href="vin10" data-current="trims10" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
+						</div>						
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<div id="vin10-container" class="container pt-5 pb-5" style="display: none;">
 		<div class="row">
