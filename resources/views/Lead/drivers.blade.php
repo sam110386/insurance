@@ -68,7 +68,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg" name="state1">
+							<select class="form-control form-control-lg skip-reset" name="state1">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -153,7 +153,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg" name="state2">
+							<select class="form-control form-control-lg skip-reset" name="state2">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -239,7 +239,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg" name="state3">
+							<select class="form-control form-control-lg skip-reset" name="state3">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -325,7 +325,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg" name="state4">
+							<select class="form-control form-control-lg skip-reset" name="state4">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -411,7 +411,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg" name="state5">
+							<select class="form-control form-control-lg skip-reset" name="state5">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
