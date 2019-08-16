@@ -413,7 +413,7 @@ $(document).ready(function(){
 			$(this).parents('.form-group').addClass('has-error');
 			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear()+1 +'.</label>');
 			return false;
-		}else if($(this).siblings('input').val() < 1900 || $(this).siblings('input').val() > new Date().getFullYear() +1 ){
+		}else if($(this).siblings('select').val() == 'other' && $(this).siblings('input').val() < 1900 || $(this).siblings('input').val() > new Date().getFullYear() +1 ){
 			$(this).parents('.form-group').addClass('has-error');
 			$(this).after('<label class="error mt-2 row col-12">Please enter vehicle Year between 1900-' + new Date().getFullYear()+1 +'.</label>');
 			return false;
