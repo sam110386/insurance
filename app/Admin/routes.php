@@ -28,4 +28,6 @@ Route::group([
     $router->resource('groups', 'GroupsController');
     $router->get('/api/assignment/list','LeadAssignmentController@getAssignmentList')->name('api.assignment.list');
 
+    $router->post('/assign/lead','LeadAssignmentController@assignLead')->name('lead.assignment');
+
 });

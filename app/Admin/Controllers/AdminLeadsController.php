@@ -118,7 +118,24 @@ class AdminLeadsController extends Controller
      */
     protected function grid($from,$to)
     {           
-Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
+        Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
+        Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
+            var button = $(event.relatedTarget);
+            var lead = button.data(\"lead\");
+            var modal = $(this);
+            modal.find(\"#lead_id\").val(lead);
+            $('#assign_to,#assign_id').val('');
+            $('#assign_to,#assign_id').select2({ width: '100%' });
+            $('#assign_to').on('change',function(){
+                $.get('/admin/api/assignment/list/?q='+ $(this).val(),function(data){
+                    $('#assign_id').html(''); 
+                    $('#assign_id').append('<option value=\"\">--Select--</option>'); 
+                    $.each(data,function(i,d){
+                        $('#assign_id').append('<option value=\"' + d.id + '\">' + d.text + '</option>');
+                    });
+                });
+            })
+    });");
         $grid = new Grid(new Lead);
         if (!LoginAdmin::user()->inRoles(['administrator'])){
             if(LoginAdmin::user()->inRoles(['manager'])){
@@ -171,8 +188,12 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
             if($member || $group){
                 $str = $member . $g_pre . $group . $g_post;
             }
-            return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
+            return " <a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a> ";
         });
+        $grid->column(trans('Assign lead'))->display(function(){
+            return "<a href='javascript:;' data-toggle='modal' data-target='#assignment' data-lead='" . $this->id ."'><i class='fa fa-pencil-square-o'></i></a>";
+        });
+
         $grid->current_status(trans('Status'))->display(function($current_status){
             switch ($current_status) {
                 case 1:
@@ -247,7 +268,36 @@ Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></
                                 </div>
                             </div>
                         </div>
-                    </div>');            
+                    </div>');
+
+                $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Assign Leads</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.assignment").'" method="POST">
+                                      <input type="hidden" name="lead_id" id="lead_id" />'. csrf_field() .'
+                                      <div class="form-group">
+                                        <label for="assign_to">Assign to</label>
+                                        <select id="assign_to" class="c-select form-control" name="assign_to" required>
+                                        <option value="">--Select--</option>
+                                        <option value="group">Group</option>
+                                        <option value="member">Associate</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="assign_id">Select Group/Associate</label>
+                                        <select id="assign_id" class="form-control" name="assign_id" required></select>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Assign</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');           
         });
         $grid->filter(function($filter){ 
             $filter->disableIdFilter(); 
@@ -671,8 +721,8 @@ SCRIPT;
                 $row->width(6)->select('referrer',trans('How did you hear about us?'))->options(["Email" => "Email", "Social Media" => "Social Media","Google / Yahoo / Bing" => "Google / Yahoo / Bing","Other"=>"Other"])->default("");
                 $row->width(6)->text('referrer_name',trans('Referrer Name'));
             });                        
-        })->tab('ASSIGNMENTS', function ($form) use($members){
-            $form->row(function($row)use($members){
+        })->tab('ASSIGNMENTS', function ($form) use($members,$id){
+            $form->row(function($row)use($members,$id){
                 if (LoginAdmin::user()->inRoles(['administrator'])){
                     $row->width(12)->html(
                         "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Assign Lead to Group or Associate</h4></div>"
@@ -682,6 +732,27 @@ SCRIPT;
                 }else if (LoginAdmin::user()->inRoles(['manager'])){
                     $row->width(6)->select('assign_id', trans('Select Associate'))->options($members);
                 }else{}
+    
+                if($id){
+                    $leadRecord = Lead::findOrFail($id);
+                    $member =  ($leadRecord->member_id) ? $leadRecord->user->name : "";
+                    $group =  ($leadRecord->group_id) ? $leadRecord->group->name : "";
+                    $g_pre = "";
+                    $g_post = "";
+                    $str = "NA";
+                    if($member && $group){
+                        $g_pre = " (";
+                        $g_post = ")";
+                    }
+                    if($member || $group){
+                        $str = $member . $g_pre . $group . $g_post;
+                    }
+                    $row->width(12)->html(
+                        "<div class='col-xs-12'><h4 class='text-uppercase'>Current assignment: {$str}</h4></div>"
+                    );                    
+                }
+
+
             });            
         });
         $form->saved(function (Form $form) use($id){
