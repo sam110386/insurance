@@ -326,9 +326,13 @@ $(document).ready(function(){
 		$(this).parents(".container").find("label").removeClass('bg-warning');
 		$(this).parents(".container").find('input[type=radio]').prop('checked',false);
 		var targetQuestion = $(this).data('href');
-		$(this).parent('.form-group').removeClass('has-error');
-		if(!$(this).siblings('input').val()){
-			$(this).parent('.form-group').addClass('has-error');
+		var input = $(this).parents(".container").find("input[type=text]");
+		input.parent('.form-group').removeClass('has-error');
+		if(!input.val()){
+			input.parent('.form-group').addClass('has-error');
+		    $([document.documentElement, document.body]).animate({
+		        scrollTop: input.parent().offset().top - ($('header nav').height() + 50)
+		    }, 500);			
 			return false;
 		}
 		var vehicle = parseInt($(this).data('vehicle'));

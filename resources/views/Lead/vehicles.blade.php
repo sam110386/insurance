@@ -46,19 +46,21 @@
 				</p>
 				<h3 class="font-weight-bold">Select Your Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
 						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -79,9 +81,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search m-0" name="model1-other" id="model1-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>
+						<div class="form-group choices row models-1 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims1" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="1">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-1"></div>
 					</div>
 				</div>
 			</div>
@@ -318,20 +325,22 @@
 				</p>
 				<h3 class="font-weight-bold">Second Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
-						<div class="form-group row">
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
+						<div class="form-group row col-xs-12 col-md-6">
 							<select class="auto-select form-control form-control-lg" name="vehicle2-make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle2-make-other" placeholder="Enter Vehicle Make" style="display: none;">
 							<a data-href="vehicle2-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -351,9 +360,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model2-other" id="model2-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-2 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims2" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="2">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-2"></div>
 					</div>
 				</div>
 			</div>
@@ -589,14 +603,8 @@
 				</p>
 				<h3 class="font-weight-bold">Third Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle3-make-select">
 
@@ -605,6 +613,14 @@
 							<a data-href="vehicle3-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="3">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>
+
 				</div>				
 			</div>
 		</div>
@@ -624,9 +640,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model3-other" id="model3-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-3 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims3" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="3">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-3"></div>
 					</div>
 				</div>
 			</div>
@@ -863,13 +884,8 @@
 				</p>
 				<h3 class="font-weight-bold">Fourth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-4">POPULAR</h4>
-						<div class="form-group choices row">
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-4">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-4">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle4-make-select">
 							</select>
@@ -877,6 +893,13 @@
 							<a data-href="vehicle4-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="4">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -896,9 +919,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model4-other" id="model4-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-4 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims4" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="4">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-4"></div>
 					</div>
 				</div>
 			</div>
@@ -1134,13 +1162,8 @@
 				</p>
 				<h3 class="font-weight-bold">Fifth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-5">POPULAR</h4>
-						<div class="form-group choices row">
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-5">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-5">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle5-make-select">
 
@@ -1149,6 +1172,13 @@
 							<a data-href="vehicle5-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="5">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -1168,9 +1198,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model5-other" id="model5-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-5 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims5" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="5">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-5"></div>
 					</div>
 				</div>
 			</div>
@@ -1406,14 +1441,8 @@
 				</p>
 				<h3 class="font-weight-bold">Sixth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle6-make-select">
 
@@ -1422,6 +1451,13 @@
 							<a data-href="vehicle6-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="6">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -1441,9 +1477,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model6-other" id="model6-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-6 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims6" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="6">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-6"></div>
 					</div>
 				</div>
 			</div>
@@ -1680,14 +1721,8 @@
 				</p>
 				<h3 class="font-weight-bold">Seventh Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle7-make-select">
 
@@ -1696,6 +1731,13 @@
 							<a data-href="vehicle7-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="7">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -1715,9 +1757,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model7-other" id="model7-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-7 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims7" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="7">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-7"></div>
 					</div>
 				</div>
 			</div>
@@ -1954,14 +2001,8 @@
 				</p>
 				<h3 class="font-weight-bold">Eighth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle8-make-select">
 
@@ -1970,6 +2011,13 @@
 							<a data-href="vehicle8-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="8">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -1989,9 +2037,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model8-other" id="model8-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-8 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims8" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="8">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-8"></div>
 					</div>
 				</div>
 			</div>
@@ -2223,19 +2276,13 @@
 			<div class="col-md-10 offset-md-1">
 				<p>
 					<a data-href="#" class="change-question prev text-primary btn btn-warning btn-sm"> 
-							<i class="fa fa-angle-left"></i> Previous Question
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
 				<h3 class="font-weight-bold">Ninth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle9-make-select">
 
@@ -2244,6 +2291,13 @@
 							<a data-href="vehicle9-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="9">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -2263,9 +2317,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model9-other" id="model9-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-9 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims9" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="9">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-9"></div>
 					</div>
 				</div>
 			</div>
@@ -2503,14 +2562,8 @@
 				</p>
 				<h3 class="font-weight-bold">Tenth Vehicle Make</h3>
 				<div class="row">
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">POPULAR</h4>
-						<div class="form-group choices row">
-
-						</div>						
-					</div>
-					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
-						<h4 class="mb-3">ALL</h4>
+					<div class="col-12 col-md-6">
+						<h4 class="mb-3">ALL MAKES</h4>
 						<div class="form-group row">
 							<select class="auto-select form-control form-control-lg" name="vehicle10-make-select">
 
@@ -2519,6 +2572,13 @@
 							<a data-href="vehicle10-models" class="mt-3 show-models btn btn-lg btn-warning" data-vehicle="10">CONTINUE</a>
 						</div>
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+						<h4 class="mb-3">POPULAR MAKES</h4>
+						<div class="form-group choices row col-12">
+						</div>						
+					</div>					
 				</div>				
 			</div>
 		</div>
@@ -2538,9 +2598,14 @@
 							<input type="text" class="form-control form-control-lg mb-3 optional model-search" name="model10-other" id="model10-other" placeholder="search model...">
 							<div class="list-group models-list">
 							</div>
+						</div>
+						<div class="form-group">
+							<h4>ALL MODELS</h4>
+						</div>						
+						<div class="form-group choices row models-10 col-12"></div>
+						<div class="form-group">
 							<a data-href="trims10" class="mt-3 vehicle-next btn btn-lg btn-warning" data-vehicle="10">CONTINUE</a>
 						</div>
-						<div class="form-group choices row models-10"></div>
 					</div>
 				</div>
 			</div>

@@ -190,7 +190,7 @@ input[type="number"] {
 @media(max-width: 991px){
   #zipcode-container{min-height: 500px;}
   body > section{padding: 65px 15px 0;}
-  .progress-container{position: initial;background: #fff;margin-right: -15px;margin-left: -15px;}
+  .progress-container{position: initial;background: #fff;margin-right: -15px;margin-left: -15px;max-width: unset;}
   .nav-right a > span{float: none;}
   .footer-box-1,.footer-box-2{margin-bottom: 30px}
 }
