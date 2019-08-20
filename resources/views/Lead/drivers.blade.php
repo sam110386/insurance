@@ -48,12 +48,6 @@
 									<input type="radio" class="d-none" name="gender" value="Female">
 									<i class="fa fa-angle-right"></i>
 								</label>
-
-								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
-									Non-Binary
-									<input type="radio" class="d-none" name="gender" value="Non-Binary">
-									<i class="fa fa-angle-right"></i>
-								</label>							
 							</div>
 						</div>
 					</div>			
@@ -131,12 +125,6 @@
 								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
 									Female
 									<input type="radio" class="d-none" name="gender-2" value="Female">
-									<i class="fa fa-angle-right"></i>
-								</label>
-
-								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
-									Non-Binary
-									<input type="radio" class="d-none" name="gender-2" value="Non-Binary">
 									<i class="fa fa-angle-right"></i>
 								</label>							
 							</div>
@@ -218,13 +206,7 @@
 									Female
 									<input type="radio" class="d-none" name="gender-3" value="Female">
 									<i class="fa fa-angle-right"></i>
-								</label>
-
-								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
-									Non-Binary
-									<input type="radio" class="d-none" name="gender-3" value="Non-Binary">
-									<i class="fa fa-angle-right"></i>
-								</label>							
+								</label>						
 							</div>
 						</div>					
 					</div>							
@@ -304,13 +286,7 @@
 									Female
 									<input type="radio" class="d-none" name="gender-4" value="Female">
 									<i class="fa fa-angle-right"></i>
-								</label>
-
-								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
-									Non-Binary
-									<input type="radio" class="d-none" name="gender-4" value="Non-Binary">
-									<i class="fa fa-angle-right"></i>
-								</label>							
+								</label>						
 							</div>
 						</div>					
 					</div>										
@@ -389,12 +365,6 @@
 								<label class="h4 text-center border  d-inline pl-2 pr-2  mr-3">
 									Female
 									<input type="radio" class="d-none" name="gender-5" value="Female">
-									<i class="fa fa-angle-right"></i>
-								</label>
-
-								<label class="h4 text-center border d-inline pl-2 pr-2  mr-3">
-									Non-Binary
-									<input type="radio" class="d-none" name="gender-5" value="Non-Binary">
 									<i class="fa fa-angle-right"></i>
 								</label>							
 							</div>

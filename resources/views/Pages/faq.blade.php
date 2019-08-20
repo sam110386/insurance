@@ -92,7 +92,7 @@
 			</div>
 			<div id="faq6" class="collapse" aria-labelledby="faq-heading-6" data-parent="#accordion">
 				<div class="card-body">
-					The California Department of Insurance can help you with any further details pertaining to auto insurance in California. You can call them at (800) 927-HELP or visit their website at <a class="" href="http://www.insurance.ca.gov/">www.insurance.ca.gov</a>
+					The California Department of Insurance can help you with any further details pertaining to auto insurance in California. You can call them at (800) 927-HELP or visit their website at <a class="" target="_BLANK" href="http://www.insurance.ca.gov/">www.insurance.ca.gov</a>
 				</div>
 			</div>
 		</div>		
