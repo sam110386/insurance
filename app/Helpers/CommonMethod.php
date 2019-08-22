@@ -11,7 +11,7 @@ class CommonMethod {
     }
     
     public static function getInsuranceCompanies(){
-        return ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm","Other"];        
+        return ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm"];        
     }
     public static function getStates(){
         return ['AL' => 'Alabama',

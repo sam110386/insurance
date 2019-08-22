@@ -31,7 +31,7 @@
 			<div class="col-md-8 offset-md-2 text-center">
 				<div class="form-group">
 					<!--label for="zipcode" class="font-weight-bold h3 mb-3">Enter your zip code to start this short and easy process.</label-->
-					<input type="number" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code" pattern="[0-9]*">
+					<input type="number" class="form-control form-control-lg text-center" id="zipcode" name="zipcode" placeholder="ZIP Code" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 					<p class="text-center"><small>3 minutes until the finish line.</small></p>
 				</div>
 				<div class="form-group">
@@ -95,14 +95,27 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Current Auto Insurance</h4>
-				<div class="form-group choices row">
+				<div class="form-group choices row " id="insurance-companies">
 					@foreach ($insuranceComp as $company)
 					<label for="company-{{$loop->iteration}}" class="h4 col-6 col-sm-6 col-md-4 col-lg-3 pl-2 pr-2" data-href="current-insurance-duration" data-current="current-insurance">
 						{{$company}}
 						<input type="radio" class="d-none" name="current-insurance" value="{{$company}}" id="company-{{$loop->iteration}}" />
 						<i class="fa fa-angle-right"></i>
 					</label>
-					@endforeach					
+					@endforeach
+					<label for="company-other" id='other-company' class="other h4 col-6 col-sm-6 col-md-4 col-lg-3 pl-2 pr-2" data-href="current-insurance-duration" data-current="current-insurance">
+						Other
+						<input type="radio" class="d-none" name="current-insurance" value="Other" id="company-other" placeholder="Enter company name" />
+						<i class="fa fa-angle-right"></i>
+					</label>
+				</div>
+				<div class="row other-insurance-company" style="display:none;">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="not-required form-control form-control-lg mb-3" name="current-insurance-other" id="current-insurance-other">
+							<a data-href="current-insurance-duration" data-current="current-insurance" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

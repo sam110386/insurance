@@ -401,6 +401,9 @@ class LeadsController extends BaseController
 		$data['rental'] 					= $lead['rental'];
 		$data['previous_insurance'] 		= $lead['previous-insurance'];
 		$data['current_insurance'] 			= (isset($lead['current-insurance'])) ? $lead['current-insurance'] : "NA" ;
+		$otherInsurance = ($lead['current-insurance-other']) ? ' (' .$lead['current-insurance-other']. ")" : "";
+		$data['current_insurance'] = ($data['current_insurance'] == 'Other') ? $data['current_insurance'] . $otherInsurance : $data['current_insurance'];
+
 		$data['duration'] 					= (isset($lead['current-insurance-duration'])) ? $lead['current-insurance-duration'] : "NA";
 		$data['at_fault'] 					= $lead['at_fault'];
 		$data['tickets'] 					= $lead['tickets'];

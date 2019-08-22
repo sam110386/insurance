@@ -130,7 +130,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin1" id="vin">
-							<a data-href="ownership1" data-current="vin1"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership1" data-current="vin1"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership1" data-current="vin1"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -149,19 +149,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership1-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1">
+					<label for="ownership1-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-1" value="Owned" id="ownership1-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership1-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1" >
+					<label for="ownership1-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-1" value="Financed" id="ownership1-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership1-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1" >
+					<label for="ownership1-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary1" data-current="ownership1" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-1" value="Leased" id="ownership1-3" />
 						<i class="fa fa-angle-right"></i>
@@ -181,25 +181,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary1-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1">
+					<label for="primary1-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-1" value="Commute" id="primary1-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary1-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
+					<label for="primary1-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-1" value="Pleasure" id="primary1-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary1-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
+					<label for="primary1-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-1" value="Business" id="primary1-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary1-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
+					<label for="primary1-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven1" data-current="primary1" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-1" value="Farm" id="primary1-4" />
 						<i class="fa fa-angle-right"></i>
@@ -217,37 +217,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven1-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-1" id="miles-driven-per-year-vehicle-1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle2" data-current="miles-driven1" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven1-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="Less than 5,000" id="miles-driven1-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven1-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
+					<label for="miles-driven1-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="5,000-10,000" id="miles-driven1-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven1-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
+					<label for="miles-driven1-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="10,000-15,000" id="miles-driven1-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven1-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
+					<label for="miles-driven1-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="15,000-20,000" id="miles-driven1-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven1-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
+					<label for="miles-driven1-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="More than 20,000" id="miles-driven1-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>
@@ -327,7 +335,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row col-xs-12 col-md-6">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle2-make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle2-make-other" placeholder="Enter Vehicle Make" style="display: none;">
@@ -408,7 +416,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin2">
-							<a data-href="ownership2" data-current="vin2"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership2" data-current="vin2"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership2" data-current="vin2"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -426,19 +434,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership2-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2">
+					<label for="ownership2-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-2" value="Owned" id="ownership2-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership2-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2" >
+					<label for="ownership2-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-2" value="Financed" id="ownership2-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership2-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2" >
+					<label for="ownership2-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary2" data-current="ownership2" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-2" value="Leased" id="ownership2-3" />
 						<i class="fa fa-angle-right"></i>
@@ -458,25 +466,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary2-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2">
+					<label for="primary2-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-2" value="Commute" id="primary2-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary2-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
+					<label for="primary2-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-2" value="Pleasure" id="primary2-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary2-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
+					<label for="primary2-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-2" value="Business" id="primary2-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary2-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
+					<label for="primary2-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven2" data-current="primary2" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-2" value="Farm" id="primary2-4" />
 						<i class="fa fa-angle-right"></i>
@@ -494,37 +502,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven2-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-2" id="miles-driven-per-year-vehicle-2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle3" data-current="miles-driven2" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven2-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="Less than 5,000" id="miles-driven2-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven2-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
+					<label for="miles-driven2-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="5,000-10,000" id="miles-driven2-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven2-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
+					<label for="miles-driven2-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="10,000-15,000" id="miles-driven2-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven2-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
+					<label for="miles-driven2-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="15,000-20,000" id="miles-driven2-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven2-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
+					<label for="miles-driven2-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="More than 20,000" id="miles-driven2-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>
@@ -605,7 +621,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle3-make-select">
 
 							</select>
@@ -688,7 +704,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin3">
-							<a data-href="ownership3" data-current="vin3"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership3" data-current="vin3"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership3" data-current="vin3"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -706,19 +722,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership3-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3">
+					<label for="ownership3-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-3" value="Owned" id="ownership3-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership3-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3" >
+					<label for="ownership3-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-3" value="Financed" id="ownership3-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership3-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3" >
+					<label for="ownership3-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary3" data-current="ownership3" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-3" value="Leased" id="ownership3-3" />
 						<i class="fa fa-angle-right"></i>
@@ -738,25 +754,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary3-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3">
+					<label for="primary3-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-3" value="Commute" id="primary3-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary3-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
+					<label for="primary3-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-3" value="Pleasure" id="primary3-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary3-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
+					<label for="primary3-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-3" value="Business" id="primary3-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary3-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
+					<label for="primary3-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven3" data-current="primary3" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-3" value="Farm" id="primary3-4" />
 						<i class="fa fa-angle-right"></i>
@@ -774,37 +790,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven3-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-3" id="miles-driven-per-year-vehicle-3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle4" data-current="miles-driven3" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>					
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven3-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="Less than 5,000" id="miles-driven3-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven3-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
+					<label for="miles-driven3-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="5,000-10,000" id="miles-driven3-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven3-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
+					<label for="miles-driven3-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="10,000-15,000" id="miles-driven3-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven3-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
+					<label for="miles-driven3-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="15,000-20,000" id="miles-driven3-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven3-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
+					<label for="miles-driven3-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="More than 20,000" id="miles-driven3-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -886,7 +910,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-4">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle4-make-select">
 							</select>
 							<input type="text" class="mt-3 form-control form-control-lg optional" name="vehicle4-make-other" placeholder="Enter Vehicle Make" style="display: none;">
@@ -967,7 +991,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-4 not-required" name="vin4">
-							<a data-href="ownership4" data-current="vin4"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership4" data-current="vin4"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership4" data-current="vin4"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -985,19 +1009,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership4-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4">
+					<label for="ownership4-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-4" value="Owned" id="ownership4-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership4-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4" >
+					<label for="ownership4-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-4" value="Financed" id="ownership4-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership4-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4" >
+					<label for="ownership4-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary4" data-current="ownership4" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-4" value="Leased" id="ownership4-3" />
 						<i class="fa fa-angle-right"></i>
@@ -1017,25 +1041,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary4-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4">
+					<label for="primary4-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-4" value="Commute" id="primary4-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary4-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
+					<label for="primary4-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-4" value="Pleasure" id="primary4-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary4-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
+					<label for="primary4-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-4" value="Business" id="primary4-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary4-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
+					<label for="primary4-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven4" data-current="primary4" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-4" value="Farm" id="primary4-4" />
 						<i class="fa fa-angle-right"></i>
@@ -1053,37 +1077,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven4-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-4" id="miles-driven-per-year-vehicle-4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle5" data-current="miles-driven4" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>					
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven4-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="Less than 5,000" id="miles-driven4-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven4-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
+					<label for="miles-driven4-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="5,000-10,000" id="miles-driven4-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven4-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
+					<label for="miles-driven4-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="10,000-15,000" id="miles-driven4-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven4-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
+					<label for="miles-driven4-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="15,000-20,000" id="miles-driven4-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven4-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
+					<label for="miles-driven4-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="More than 20,000" id="miles-driven4-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -1164,7 +1196,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-5">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle5-make-select">
 
 							</select>
@@ -1246,7 +1278,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-5 not-required" name="vin5">
-							<a data-href="ownership5" data-current="vin5"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership5" data-current="vin5"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership5" data-current="vin5"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -1264,19 +1296,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership5-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5">
+					<label for="ownership5-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-5" value="Owned" id="ownership5-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership5-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5" >
+					<label for="ownership5-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-5" value="Financed" id="ownership5-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership5-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5" >
+					<label for="ownership5-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary5" data-current="ownership5" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-5" value="Leased" id="ownership5-3" />
 						<i class="fa fa-angle-right"></i>
@@ -1296,25 +1328,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary5-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5">
+					<label for="primary5-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-5" value="Commute" id="primary5-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary5-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
+					<label for="primary5-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-5" value="Pleasure" id="primary5-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary5-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
+					<label for="primary5-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-5" value="Business" id="primary5-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary5-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
+					<label for="primary5-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven5" data-current="primary5" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-5" value="Farm" id="primary5-4" />
 						<i class="fa fa-angle-right"></i>
@@ -1332,37 +1364,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven5-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-5" id="miles-driven-per-year-vehicle-5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle6" data-current="miles-driven5" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>					
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven5-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="Less than 5,000" id="miles-driven5-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
+					<label for="miles-driven5-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="5,000-10,000" id="miles-driven5-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
+					<label for="miles-driven5-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="10,000-15,000" id="miles-driven5-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
+					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="15,000-20,000" id="miles-driven5-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
+					<label for="miles-driven5-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="More than 20,000" id="miles-driven5-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -1443,7 +1483,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle6-make-select">
 
 							</select>
@@ -1525,7 +1565,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin6">
-							<a data-href="ownership6" data-current="vin6"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership6" data-current="vin6"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership6" data-current="vin6"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -1543,19 +1583,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership6-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6">
+					<label for="ownership6-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Owned" id="ownership6-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership6-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
+					<label for="ownership6-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Financed" id="ownership6-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership6-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
+					<label for="ownership6-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary6" data-current="ownership6" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-6" value="Leased" id="ownership6-3" />
 						<i class="fa fa-angle-right"></i>
@@ -1575,25 +1615,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary6-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6">
+					<label for="primary6-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Commute" id="primary6-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary6-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+					<label for="primary6-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Pleasure" id="primary6-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary6-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+					<label for="primary6-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Business" id="primary6-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary6-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
+					<label for="primary6-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven6" data-current="primary6" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-6" value="Farm" id="primary6-4" />
 						<i class="fa fa-angle-right"></i>
@@ -1611,37 +1651,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven6-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-6" id="miles-driven-per-year-vehicle-6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle7" data-current="miles-driven6" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven6-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="Less than 5,000" id="miles-driven6-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven6-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+					<label for="miles-driven6-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="5,000-10,000" id="miles-driven6-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven6-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+					<label for="miles-driven6-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="10,000-15,000" id="miles-driven6-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="15,000-20,000" id="miles-driven6-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
+					<label for="miles-driven6-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="More than 20,000" id="miles-driven6-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -1723,7 +1771,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle7-make-select">
 
 							</select>
@@ -1805,7 +1853,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin7">
-							<a data-href="ownership7" data-current="vin7"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership7" data-current="vin7"  class="vin-submit  disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership7" data-current="vin7"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -1823,19 +1871,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership7-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7">
+					<label for="ownership7-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Owned" id="ownership7-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership7-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
+					<label for="ownership7-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Financed" id="ownership7-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership7-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
+					<label for="ownership7-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary7" data-current="ownership7" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-7" value="Leased" id="ownership7-3" />
 						<i class="fa fa-angle-right"></i>
@@ -1855,25 +1903,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary7-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7">
+					<label for="primary7-1" class="h4 border text-center col-12 col-sm-12 col-md-4  col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Commute" id="primary7-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary7-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+					<label for="primary7-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Pleasure" id="primary7-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary7-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+					<label for="primary7-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Business" id="primary7-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary7-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
+					<label for="primary7-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven7" data-current="primary7" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-7" value="Farm" id="primary7-4" />
 						<i class="fa fa-angle-right"></i>
@@ -1891,37 +1939,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven7-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-7" id="miles-driven-per-year-vehicle-7" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle8" data-current="miles-driven7" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven7-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="Less than 5,000" id="miles-driven7-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven7-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+					<label for="miles-driven7-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="5,000-10,000" id="miles-driven7-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven7-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+					<label for="miles-driven7-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="10,000-15,000" id="miles-driven7-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="15,000-20,000" id="miles-driven7-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
+					<label for="miles-driven7-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="More than 20,000" id="miles-driven7-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -2003,7 +2059,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle8-make-select">
 
 							</select>
@@ -2085,7 +2141,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin8">
-							<a data-href="ownership8" data-current="vin8"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership8" data-current="vin8"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership8" data-current="vin8"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -2103,19 +2159,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership8-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8">
+					<label for="ownership8-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Owned" id="ownership8-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership8-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
+					<label for="ownership8-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Financed" id="ownership8-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership8-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
+					<label for="ownership8-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary8" data-current="ownership8" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-8" value="Leased" id="ownership8-3" />
 						<i class="fa fa-angle-right"></i>
@@ -2135,25 +2191,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary8-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8">
+					<label for="primary8-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Commute" id="primary8-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary8-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+					<label for="primary8-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Pleasure" id="primary8-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary8-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+					<label for="primary8-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Business" id="primary8-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary8-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
+					<label for="primary8-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven8" data-current="primary8" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-8" value="Farm" id="primary8-4" />
 						<i class="fa fa-angle-right"></i>
@@ -2171,37 +2227,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven8-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-8" id="miles-driven-per-year-vehicle-8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle9" data-current="miles-driven8" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>					
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven8-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="Less than 5,000" id="miles-driven8-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven8-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+					<label for="miles-driven8-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="5,000-10,000" id="miles-driven8-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven8-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+					<label for="miles-driven8-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="10,000-15,000" id="miles-driven8-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="15,000-20,000" id="miles-driven8-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
+					<label for="miles-driven8-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="More than 20,000" id="miles-driven8-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -2283,7 +2347,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle9-make-select">
 
 							</select>
@@ -2365,7 +2429,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin9">
-							<a data-href="ownership9" data-current="vin9"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership9" data-current="vin9"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership9" data-current="vin9"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -2383,19 +2447,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership9-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9">
+					<label for="ownership9-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Owned" id="ownership9-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership9-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
+					<label for="ownership9-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Financed" id="ownership9-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership9-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
+					<label for="ownership9-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary9" data-current="ownership9" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-9" value="Leased" id="ownership9-3" />
 						<i class="fa fa-angle-right"></i>
@@ -2415,25 +2479,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary9-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9">
+					<label for="primary9-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Commute" id="primary9-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary9-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+					<label for="primary9-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Pleasure" id="primary9-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary9-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+					<label for="primary9-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Business" id="primary9-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary9-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
+					<label for="primary9-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven9" data-current="primary9" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-9" value="Farm" id="primary9-4" />
 						<i class="fa fa-angle-right"></i>
@@ -2451,37 +2515,45 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
-					<label for="miles-driven9-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-9" id="miles-driven-per-year-vehicle-9" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="vehicle10" data-current="miles-driven9" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>				
+				<!--div class="form-group choices row pl-15 pr-15">
+					<label for="miles-driven9-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="Less than 5,000" id="miles-driven9-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven9-2" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+					<label for="miles-driven9-2" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
 						5,000-10,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="5,000-10,000" id="miles-driven9-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven9-3" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+					<label for="miles-driven9-3" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
 						10,000-15,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="10,000-15,000" id="miles-driven9-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
 						15,000-20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="15,000-20,000" id="miles-driven9-4" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
+					<label for="miles-driven9-4" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9" >
 						More than 20,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="More than 20,000" id="miles-driven9-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	
@@ -2564,7 +2636,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<h4 class="mb-3">ALL MAKES</h4>
-						<div class="form-group row">
+						<div class="form-group">
 							<select class="auto-select form-control form-control-lg" name="vehicle10-make-select">
 
 							</select>
@@ -2646,7 +2718,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="text" class="form-control form-control-lg mb-3 not-required" name="vin10">
-							<a data-href="ownership10" data-current="vin10"  class="vin-submit btn btn-lg btn-warning">CONTINUE</a>
+							<a data-href="ownership10" data-current="vin10"  class="vin-submit disabled btn btn-lg btn-warning">CONTINUE</a>
 							<a data-href="ownership10" data-current="vin10"  class="next-question btn btn-lg btn-info">SKIP</a>
 						</div>
 					</div>
@@ -2664,19 +2736,19 @@
 				</p>
 				<h4 class="mb-4">Ownership</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="ownership10-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10">
+					<label for="ownership10-1" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10">
 						Owned
 						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Owned" id="ownership10-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership10-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
+					<label for="ownership10-2" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
 						Financed
 						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Financed" id="ownership10-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="ownership10-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
+					<label for="ownership10-3" class="h4 border text-center col-12 col-sm-12 col-md-3 col-lg-2 pl-2 pr-2" data-href="primary10" data-current="ownership10" >
 						Leased
 						<input type="radio" class="d-none" name="ownership-vehicle-10" value="Leased" id="ownership10-3" />
 						<i class="fa fa-angle-right"></i>
@@ -2696,25 +2768,25 @@
 				</p>
 				<h4 class="mb-4">Primary Use of Vehicle</h4>
 				<div class="form-group choices row pl-15 pr-15">
-					<label for="primary10-1" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10">
+					<label for="primary10-1" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10">
 						Commute
 						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Commute" id="primary10-1" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary10-2" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+					<label for="primary10-2" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
 						Pleasure
 						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Pleasure" id="primary10-2" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary10-3" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+					<label for="primary10-3" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
 						Business
 						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Business" id="primary10-3" />
 						<i class="fa fa-angle-right"></i>
 					</label>
 					<span class="mr-4"></span>
-					<label for="primary10-4" class="h4 border text-center col-12 col-sm-2 col-md-2 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
+					<label for="primary10-4" class="h4 border text-center col-12 col-sm-12 col-md-4 col-lg-2 pl-2 pr-2" data-href="miles-driven10" data-current="primary10" >
 						Farm
 						<input type="radio" class="d-none" name="primary-use-vehicle-10" value="Farm" id="primary10-4" />
 						<i class="fa fa-angle-right"></i>
@@ -2732,7 +2804,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="form-group choices row pl-15 pr-15">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-10" id="miles-driven-per-year-vehicle-10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<a data-href="previous-insurance" data-current="miles-driven10" class="next-question btn btn-lg btn-warning">CONTINUE</a>
+						</div>
+					</div>
+				</div>					
+				<!--div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven10-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="Less than 5,000" id="miles-driven10-1" />
@@ -2762,7 +2842,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="More than 20,000" id="miles-driven10-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div>
+				</div-->
 			</div>
 		</div>
 	</div>	

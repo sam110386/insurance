@@ -179,6 +179,20 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#insurance-companies > label").on('click',function(){
+		if(!$(this).hasClass('other')){
+			$("#current-insurance-other").val('');
+			$('.other-insurance-company').slideUp(500);
+		}
+	})
+	$('#other-company').on('click',function(e){
+		e.preventDefault();
+		$("#insurance-companies > label").removeClass('bg-warning');
+		$('#insurance-companies > label > input[type=radio]').prop('checked',false);
+		$('#company-other').prop('checked',true);
+		$('.other-insurance-company').slideDown(500);
+		return false;		
+	})
 
 	$(".get-make.choices").on('click',"label",function(){
 		var year = $(this).data('year');
@@ -759,6 +773,13 @@ $(document).ready(function(){
 		}
 	});
 
+	$('.vin-submit').siblings('input').on('keyup',function(){
+		if($(this).val() && $(this).val().length > 3){
+			$(this).siblings('.vin-submit').removeClass('disabled');
+		}else{
+			$(this).siblings('.vin-submit').addClass('disabled');
+		}
+	});
 	$('.vin-submit').on('click',function(){
 		var error = false;
 		$.each($('input:visible'),function(){
