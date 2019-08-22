@@ -189,6 +189,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		$("#insurance-companies > label").removeClass('bg-warning');
 		$('#insurance-companies > label > input[type=radio]').prop('checked',false);
+		$(this).addClass('bg-warning');
 		$('#company-other').prop('checked',true);
 		$('.other-insurance-company').slideDown(500);
 		return false;		
