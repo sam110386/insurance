@@ -40,7 +40,7 @@
       <div class="row">
 
         <div class="col-12 col-md-4 footer-box-2">
-          <p class="mb-2"><a href="#"><i class="fa fa-comment"></i> Live chat</a></p>
+          <!--p class="mb-2"><a href="#"><i class="fa fa-comment"></i> Live chat</a></p-->
           <p><a href="mailto:meow@quotemeow.com"><i class="fa fa-envelope"></i> meow@quotemeow.com</a></p>
         </div>
         <div class="col-12 col-md-4 col-lg-4 footer-box-1">
