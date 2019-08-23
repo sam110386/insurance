@@ -161,9 +161,9 @@ input[type="number"] {
 .lg-mx-w-70-pr{max-width: 70%; margin-left: auto; margin-right: auto;}
 .trims-1 > label,.trims-2 > label,.trims-3 > label,.trims-4 > label,.trims-5 > label,.trims-6 > label,.trims-7 > label,.trims-8 > label,.trims-9 > label,.trims-10 > label {margin: 10px;}
 .btn.disabled {
-    background: #ccc !important;
+    background: #eee !important;
     color: #000 !important;
-    border-color: #aaa !important;
+    border-color: #ddd !important;
     cursor: no-drop !important;
 }
 @media(max-width: 480px){

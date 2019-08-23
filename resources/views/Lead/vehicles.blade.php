@@ -217,15 +217,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-1" id="miles-driven-per-year-vehicle-1" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle2" data-current="miles-driven1" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>				
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->				
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven1-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle2" data-current="miles-driven1">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="Less than 5,000" id="miles-driven1-1" />
@@ -255,7 +255,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-1" value="More than 20,000" id="miles-driven1-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -502,15 +502,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-2" id="miles-driven-per-year-vehicle-2" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle3" data-current="miles-driven2" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>				
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->				
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven2-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle3" data-current="miles-driven2">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="Less than 5,000" id="miles-driven2-1" />
@@ -540,7 +540,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-2" value="More than 20,000" id="miles-driven2-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -790,15 +790,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-3" id="miles-driven-per-year-vehicle-3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle4" data-current="miles-driven3" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>					
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->					
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven3-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle4" data-current="miles-driven3">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="Less than 5,000" id="miles-driven3-1" />
@@ -828,7 +828,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-3" value="More than 20,000" id="miles-driven3-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -1077,15 +1077,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-4" id="miles-driven-per-year-vehicle-4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle5" data-current="miles-driven4" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>					
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->					
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven4-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle5" data-current="miles-driven4">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="Less than 5,000" id="miles-driven4-1" />
@@ -1115,7 +1115,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-4" value="More than 20,000" id="miles-driven4-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -1364,15 +1364,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-5" id="miles-driven-per-year-vehicle-5" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle6" data-current="miles-driven5" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>					
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->					
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven5-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle6" data-current="miles-driven5">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="Less than 5,000" id="miles-driven5-1" />
@@ -1402,7 +1402,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-5" value="More than 20,000" id="miles-driven5-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -1651,15 +1651,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-6" id="miles-driven-per-year-vehicle-6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle7" data-current="miles-driven6" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>				
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->				
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven6-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle7" data-current="miles-driven6">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="Less than 5,000" id="miles-driven6-1" />
@@ -1689,7 +1689,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-6" value="More than 20,000" id="miles-driven6-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -1939,15 +1939,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-7" id="miles-driven-per-year-vehicle-7" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle8" data-current="miles-driven7" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>				
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->				
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven7-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle8" data-current="miles-driven7">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="Less than 5,000" id="miles-driven7-1" />
@@ -1977,7 +1977,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-7" value="More than 20,000" id="miles-driven7-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -2227,15 +2227,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-8" id="miles-driven-per-year-vehicle-8" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle9" data-current="miles-driven8" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>					
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->					
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven8-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle9" data-current="miles-driven8">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="Less than 5,000" id="miles-driven8-1" />
@@ -2265,7 +2265,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-8" value="More than 20,000" id="miles-driven8-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -2515,15 +2515,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-9" id="miles-driven-per-year-vehicle-9" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="vehicle10" data-current="miles-driven9" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>				
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->				
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven9-1" class="h4 border text-center col-12 col-sm-12 col-md-5 col-lg-3 pl-2 pr-2" data-href="vehicle10" data-current="miles-driven9">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="Less than 5,000" id="miles-driven9-1" />
@@ -2553,7 +2553,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-9" value="More than 20,000" id="miles-driven9-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	
@@ -2804,15 +2804,15 @@
 					</a>
 				</p>
 				<h4 class="mb-4">Miles Driven Per Year</h4>
-				<div class="row">
+				<!--div class="row">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<input type="tel" class="form-control form-control-lg mb-3" name="miles-driven-per-year-vehicle-10" id="miles-driven-per-year-vehicle-10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 							<a data-href="previous-insurance" data-current="miles-driven10" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>
-				</div>					
-				<!--div class="form-group choices row pl-15 pr-15">
+				</div-->					
+				<div class="form-group choices row pl-15 pr-15">
 					<label for="miles-driven10-1" class="h4 border text-center col-12 col-sm-4 col-md-4 col-lg-3 pl-2 pr-2" data-href="previous-insurance" data-current="miles-driven10">
 						Less than 5,000
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="Less than 5,000" id="miles-driven10-1" />
@@ -2842,7 +2842,7 @@
 						<input type="radio" class="d-none" name="miles-driven-per-year-vehicle-10" value="More than 20,000" id="miles-driven10-5" />
 						<i class="fa fa-angle-right"></i>
 					</label>						
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>	

@@ -775,7 +775,7 @@ $(document).ready(function(){
 	});
 
 	$('.vin-submit').siblings('input').on('keyup',function(){
-		if($(this).val() && $(this).val().length > 3){
+		if($(this).val() && $(this).val().length > 10){
 			$(this).siblings('.vin-submit').removeClass('disabled');
 		}else{
 			$(this).siblings('.vin-submit').addClass('disabled');

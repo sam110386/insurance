@@ -474,8 +474,8 @@ SCRIPT;
                 $row->width(6)->select('zip', trans('Zipcode'))->attribute(["id"=>"zipcode"])->options(array_combine($zipcodes, $zipcodes))->rules('required');
             });                
             $form->row(function($row){
-                $row->width(6)->text('city', trans('City'))->attribute(["id" =>"city", 'readonly'=>'readonly','disabled' => "disabled"])->rules('required');
-                $row->width(6)->text('state', trans('State'))->attribute(['readonly'=>'readonly','disabled' => "disabled",'value' => "California"])->rules('required');
+                $row->width(6)->text('city', trans('City'))->attribute(["id" =>"city", 'readonly'=>'readonly'])->rules('required');
+                $row->width(6)->text('state', trans('State'))->attribute(['readonly'=>'readonly','value' => "California"])->rules('required');
             });
             $form->row(function($row){
                 $row->width(6)->radio('married',trans('Married'))->options([1=>'Yes',0=>'No'])->rules("required");
@@ -637,7 +637,7 @@ SCRIPT;
                 $row->width(6)->text('first_driver_dl',trans('Driving License Number'))->rules('required');
 
                 $row->width(3)->date('first_driver_dob',trans('Date Of Birth'))->rules("required");
-                $row->width(3)->radio('first_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary'])->rules("required");
+                $row->width(3)->radio('first_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female'])->rules("required");
                 $row->width(6)->select('first_driver_state', trans("State"))->options($states)->rules('required');
             });
             $form->row(function($row) use($states){
@@ -649,7 +649,7 @@ SCRIPT;
                 $row->width(6)->text('second_driver_dl',trans('Driving License Number'));
 
                 $row->width(3)->date('second_driver_dob',trans('Date Of Birth'));
-                $row->width(3)->radio('second_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(3)->radio('second_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female']);
                 $row->width(6)->select('second_driver_state', trans("State"))->options($states);
             });
             $form->row(function($row) use($states){
@@ -661,7 +661,7 @@ SCRIPT;
                 $row->width(6)->text('third_driver_dl',trans('Driving License Number'));
 
                 $row->width(3)->date('third_driver_dob',trans('Date Of Birth'));
-                $row->width(3)->radio('third_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(3)->radio('third_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female']);
                 $row->width(6)->select('third_driver_state', trans("State"))->options($states);
             });
             $form->row(function($row) use($states){
@@ -673,7 +673,7 @@ SCRIPT;
                 $row->width(6)->text('fourth_driver_dl',trans('Driving License Number'));
 
                 $row->width(3)->date('fourth_driver_dob',trans('Date Of Birth'));
-                $row->width(3)->radio('fourth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(3)->radio('fourth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female']);
                 $row->width(6)->select('fourth_driver_state', trans("State"))->options($states);
             });
             $form->row(function($row) use($states){
@@ -685,7 +685,7 @@ SCRIPT;
                 $row->width(6)->text('fifth_driver_dl',trans('Driving License Number'));
 
                 $row->width(3)->date('fifth_driver_dob',trans('Date Of Birth'));
-                $row->width(3)->radio('fifth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female','Non-Binary' => 'Non-Binary']);
+                $row->width(3)->radio('fifth_driver_gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female']);
                 $row->width(6)->select('fifth_driver_state', trans("State"))->options($states);
             });                                                
         })->tab('COVERAGE', function ($form){
@@ -722,6 +722,7 @@ SCRIPT;
                 $row->width(6)->text('referrer_name',trans('Referrer Name'));
             });                        
         })->tab('ASSIGNMENTS', function ($form) use($members,$id){
+            $form->hidden('ip_address')->value($_SERVER['REMOTE_ADDR']);
             $form->row(function($row)use($members,$id){
                 if (LoginAdmin::user()->inRoles(['administrator'])){
                     $row->width(12)->html(
@@ -751,8 +752,6 @@ SCRIPT;
                         "<div class='col-xs-12'><h4 class='text-uppercase'>Current assignment: {$str}</h4></div>"
                     );                    
                 }
-
-
             });            
         });
         $form->saved(function (Form $form) use($id){
@@ -771,6 +770,7 @@ SCRIPT;
         $form->submitted(function (Form $form) {
             $form->ignore('assign_type');
             $form->ignore('assign_id');
+            $form->ip_address = $_SERVER["REMOTE_ADDR"];
         });
 
         return $form;
