@@ -112,7 +112,7 @@
 				<div class="row other-insurance-company" style="display:none;">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
-							<input type="tel" class="not-required form-control form-control-lg mb-3" name="current-insurance-other" id="current-insurance-other">
+							<input type="text" class="not-required form-control form-control-lg mb-3" name="current-insurance-other" id="current-insurance-other">
 							<a data-href="current-insurance-duration" data-current="current-insurance" class="next-question btn btn-lg btn-warning">CONTINUE</a>
 						</div>
 					</div>

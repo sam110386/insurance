@@ -29,8 +29,8 @@ class GroupsController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Index')
-            ->description('description')
+            ->header('Groups')
+            ->description(' ')
             ->body($this->grid());
     }
 
