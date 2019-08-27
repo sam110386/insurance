@@ -1,4 +1,4 @@
-<input type="checkbox" class="{{ $selectAllName }}" />&nbsp;
+<input  type="checkbox" class="{{ $selectAllName }} pull-left" />&nbsp;
 
 @if(!$isHoldSelectAllCheckbox)
 <div class="btn-group">

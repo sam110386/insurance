@@ -1,32 +1,55 @@
 <div class="table">
 	<div class="row mb-10">
-		<div class="col-xs-12 text-right">
-			@if($updateStatus)
-				<div class="pull-left">
-					<form class="form-inline" action="{{route('lead.currentstatus.update',$lead['id'])}}" method="post">
-						{!! csrf_field() !!}
-						<div class="form-group">
-							<select class="form-control" name="current_status">
-								<option value="0" @if($lead['current_status']==0) selected @endif>New</option>
-								<option value="1" @if($lead['current_status']==1) selected @endif>Processing</option>
-								<option value="2" @if($lead['current_status']==2) selected @endif>Sold</option>
-								<option value="3" @if($lead['current_status']==3) selected @endif>Not Eligible</option>
-							</select>&nbsp;
-							<input class="btn btn-primary" type="submit" name="submit" value="Update Status">
-						</div>
-					</form>
-				</div>			
-				<form action="{{route('lead.status.update',$lead['id'])}}" method="post">
-					@if($lead['status'] === null)
-					{!! csrf_field() !!}
-					<input type="submit" name="approve" class="btn btn-success text-uppercase" value="Low Risk" />&nbsp;
-					<input type="submit" name="deny" class="btn btn-danger text-uppercase" value="High Risk" />&nbsp;
-					@endif
-					<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
-					<a href="{{route('leads.edit',$lead['id'])}}" class="btn btn-default"><i class="fa fa-edit"></i> EDIT</a>					
-				</form>
-			@else
-				<a href="{{route('leads.index')}}" class="btn btn-info "><i class="fa fa-list"></i> LIST</a>&nbsp;
+		<div class="col-xs-12">
+			@if($updateStatus)						
+				<div class="pull-right">
+					<div class="btn-group pull-left">
+						<a class="btn btn-sm btn-twitter" title="Export"> Status</a>
+						<button type="button" class="btn btn-sm btn-twitter dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						&nbsp;&nbsp;
+						<ul class="dropdown-menu" role="menu">
+							<li class="@if($lead['current_status']==0) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(0)">New</a>
+							</li>
+							<li class="@if($lead['current_status']==1) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(1)" >Pending</a>
+							</li>
+							<li class="@if($lead['current_status']==2) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(2)" >In Progress</a>
+							</li>
+							<li class="@if($lead['current_status']==3) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(3)" >Complete</a>
+							</li>
+							<li class="@if($lead['current_status']==4) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(4)">Incomplete</a>
+							</li>
+							<li class="@if($lead['current_status']==5) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(5)" >Declined</a>
+							</li>
+							<li class="@if($lead['current_status']==6) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(6)" >Transfer</a>
+							</li>
+							<li class="@if($lead['current_status']==7) active @endif">
+								<a href="javascript:;" onclick="updateCurrentStatus(7)">Not Eligible</a>
+							</li>
+						</ul>
+							<form id="form-current-status-update" action="{{route('lead.currentstatus.update.post',['id'=>$lead['id']])}}" method="post">
+									{!! csrf_field() !!}
+								<input type="hidden" id="current_status" name="current_status" value="0" />
+							</form>						
+					</div>
+					<form class="pull-right" action="{{route('lead.status.update',$lead['id'])}}" method="post">
+						@if($lead['status'] === null)
+							{!! csrf_field() !!}
+							<input type="submit" name="approve" class="btn btn-success btn-sm text-uppercase" value="Low Risk" />&nbsp;
+							<input type="submit" name="deny" class="btn btn-sm btn-danger text-uppercase" value="High Risk" />&nbsp;
+						@endif
+						<a href="{{route('leads.edit',$lead['id'])}}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i><span class="hidden-xs"> EDIT</span></a>					
+					</form>										
+				</div>				
 			@endif
 		</div>
 	</div>
@@ -409,6 +432,10 @@
 </div>
 <script>
 	setTimeout(function(){
-    	CKEDITOR.replace('note',{height:150,removeButtons: ''});
-	},1000)
+		CKEDITOR.replace('note',{height:150,removeButtons: ''});
+	},1000);
+	function updateCurrentStatus(status){
+		document.getElementById('current_status').value = status;
+		document.getElementById('form-current-status-update').submit();
+	}
 </script>

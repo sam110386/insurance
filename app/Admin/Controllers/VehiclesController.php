@@ -87,7 +87,7 @@ class VehiclesController extends Controller
         $grid->vmodel(trans('Model'));
         $grid->trim_1(trans('Trim New'));
         $grid->trim_2(trans('Trim Old'));
-        $grid->created_at(trans('Created at'));
+        $grid->created_at(trans('admin.created_at'));
         return $grid;
     }
 

@@ -38,8 +38,8 @@ class NotesController extends Controller
     public function recent(Content $content)
     {
         return $content
-            ->header('Updates')
-            ->description('Leads Recent Notes')
+            ->header('Lead Notes')
+            ->description(' ')
             ->body($this->gridRecent());
     }
 
@@ -151,13 +151,20 @@ class NotesController extends Controller
         $grid->notes(trans('Notes'))->display(function($notes){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $notes . "</a>";
         });
-        $grid->created_at('Created at')->sortable();
+        $grid->created_at(trans('admin.created_at'))->sortable();
         $grid->disableActions();
         $grid->disableCreateButton();
-        $grid->disableTools();
-        $grid->disableFilter();
-        $grid->disableExport();
+        // $grid->disableTools();
+        // $grid->disableFilter();
+        // $grid->disableExport();
         $grid->disableRowSelector();
+        $grid->filter(function($filter){ 
+            $filter->disableIdFilter(); 
+            $filter->where(function ($query) {
+                $query->where('notes', 'like', "%{$this->input}%");
+            }, 'Search by text')->placeholder('Enter notes text...');
+            $filter->date('created_at', 'Search by date');
+        });
         return $grid;
     }
     /**

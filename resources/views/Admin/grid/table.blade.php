@@ -8,12 +8,12 @@
     @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() )
     <div class="box-header with-border">
         <div class="pull-right">
-            {!! $grid->renderColumnSelector() !!}
+            {{--!! $grid->renderColumnSelector() !!--}}
             {!! $grid->renderExportButton() !!}
             {!! $grid->renderCreateButton() !!}
         </div>
         @if ( $grid->showTools() )
-        <span>
+        <span class="pull-right">
             {!! $grid->renderHeaderTools() !!}
         </span>
         @endif

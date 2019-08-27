@@ -27,7 +27,7 @@ return [
     'export'                => 'Export',
     'batch_delete'          => 'Batch delete',
     'save'                  => 'Save',
-    'refresh'               => 'Refresh',
+    'refresh'               => '',
     'order'                 => 'Order',
     'expand'                => 'Expand',
     'collapse'              => 'Collapse',
@@ -37,7 +37,7 @@ return [
     'show'                  => 'Show',
     'entries'               => 'entries',
     'captcha'               => 'Captcha',
-    'action'                => 'Action',
+    'action'                => 'Actions',
     'title'                 => 'Title',
     'description'           => 'Description',
     'back'                  => 'Back',
@@ -63,7 +63,7 @@ return [
     'roles'                 => 'Roles',
     'permissions'           => 'Permissions',
     'slug'                  => 'Slug',
-    'created_at'            => 'Created At',
+    'created_at'            => 'Created on',
     'updated_at'            => 'Updated At',
     'alert'                 => 'Alert',
     'parent_id'             => 'Parent',
@@ -100,4 +100,6 @@ return [
     ],
 
     'menu_titles' => [],
+    'user' => 'User',
+    'users' => 'Users'
 ];

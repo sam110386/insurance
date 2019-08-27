@@ -28,37 +28,31 @@ class LeadAssignmentController extends Controller
 		return $list->getUsersByRole(['associate']);
 	}
 
-	public static function assignLeadToGroup($lead = null, $groupId=null){
-		$lead = Lead::findOrFail($lead);
+	public static function assignLeadToGroup($leads = null, $groupId=null){
 		$group = Group::findOrFail($groupId);
-		$lead['group_id'] = $groupId;
-		$lead['manager_id'] = $group['manager_id'];
-		$lead['member_id'] = 0;
-
-		return $lead->update();
+		$leadIds = explode(',',$leads);
+ 		return Lead::whereIn('id',$leadIds)->update(['group_id'=>$groupId,'manager_id' => $group['manager_id'], 'member_id' => 0]);
 	}
 
 
-	public static function adminAssignLeadToUser($lead = null, $memberId=null){
-		$lead = Lead::findOrFail($lead);
-		$lead['member_id'] = $memberId;
-		$lead['current_status'] = 1;
-		return $lead->update();
+	public static function adminAssignLeadToUser($leads = null, $memberId=null){
+		$leadIds = explode(',',$leads);
+		return Lead::whereIn('id',$leadIds)->update(['current_status'=>1,'member_id' => $memberId]);
 	}
 
 
 	public function assignLead(Request $request){
 		if(!$request->assign_to || !$request->assign_id){
             admin_error('Error','Select Group/Associate to assign.');
-		}elseif(!$request->lead_id) {
+		}elseif(!$request->lead_ids) {
             admin_error('Error','Something went wrong! Please try again!');
 		}else{
 			if($request->assign_to == 'group'){
-				self::assignLeadToGroup($request->lead_id,$request->assign_id);
+				self::assignLeadToGroup($request->lead_ids,$request->assign_id);
 			}else{
-				self::adminAssignLeadToUser($request->lead_id,$request->assign_id);
+				self::adminAssignLeadToUser($request->lead_ids,$request->assign_id);
 			}
-            admin_success('Success','Lead has been assigned successfully.');
+            admin_success('Success','Lead(s) assigned successfully.');
 		}
         return back();
 	}

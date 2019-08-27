@@ -14,6 +14,14 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="icon" href="/fav.ico" type="image/x-icon" />
   <title>{{ config('app.name', 'Insurance') }}</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-97193384-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-97193384-6');
+  </script>  
 </head>
 <body class="sidebar-mini">
   <header>

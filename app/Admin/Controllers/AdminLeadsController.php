@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\GroupMember;
 use App\Http\Controllers\Controller;
 use App\Admin\Extensions\Tools\BulkEmailLead;
+use App\Admin\Extensions\Tools\BulkLeadAssignment;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -38,8 +39,8 @@ class AdminLeadsController extends Controller
     public function index($from = false, $to=false, Content $content)
     {
         return $content
-        ->header('Lead')
-        ->description('List')
+        ->header('Lead Inventory')
+        ->description(' ')
         ->body($this->grid($from,$to));
     }
 
@@ -61,8 +62,8 @@ class AdminLeadsController extends Controller
             }
         }
         return $content
-        ->header('Lead')
-        ->description('Detail')      
+        ->header('Lead #'.$id)
+        ->description(' ')      
         ->body($this->detail($id));
     }
 
@@ -120,22 +121,20 @@ class AdminLeadsController extends Controller
     {           
         Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
         Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
-            var button = $(event.relatedTarget);
-            var lead = button.data(\"lead\");
-            var modal = $(this);
-            modal.find(\"#lead_id\").val(lead);
             $('#assign_to,#assign_id').val('');
             $('#assign_to,#assign_id').select2({ width: '100%' });
             $('#assign_to').on('change',function(){
+                $('.ajax-loader').toggleClass('d-none');
                 $.get('/admin/api/assignment/list/?q='+ $(this).val(),function(data){
                     $('#assign_id').html(''); 
                     $('#assign_id').append('<option value=\"\">--Select--</option>'); 
                     $.each(data,function(i,d){
                         $('#assign_id').append('<option value=\"' + d.id + '\">' + d.text + '</option>');
                     });
+                    $('.ajax-loader').toggleClass('d-none');
                 });
             })
-    });");
+        });");
         $grid = new Grid(new Lead);
         if (!LoginAdmin::user()->inRoles(['administrator'])){
             if(LoginAdmin::user()->inRoles(['manager'])){
@@ -196,16 +195,30 @@ class AdminLeadsController extends Controller
 
         $grid->current_status(trans('Status'))->display(function($current_status){
             switch ($current_status) {
+                case 0:
+                    $str = "New";
+                    break;
                 case 1:
-                    $str = "Processing";
+                    $str = "Pending";
                     break;
                 case 2:
-                    $str = "Sold";
+                    $str = "In Progress";
                     break;
                 case 3:
+                    $str = "Complete";
+                    break;
+                case 4:
+                    $str = "Incomplete";
+                    break;
+                case 5:
+                    $str = "Declined";
+                    break;
+                case 6:
+                    $str = "Transfer";
+                    break;
+                case 7:
                     $str = "Not Eligible";
                     break;
-                
                 default:
                     $str = "New";
                     break;
@@ -216,7 +229,7 @@ class AdminLeadsController extends Controller
         // $grid->ip_address(trans('IP Address'))->display(function($text){
         //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         // });
-        $grid->created_at(trans('Created at'))->sortable('desc')->display(function($text){
+        $grid->created_at(trans('admin.created_at'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
         $grid->disableActions();
@@ -228,10 +241,12 @@ class AdminLeadsController extends Controller
         // });
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
-            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;&nbsp;");
+            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;");
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
+                $batch->add("Assign Leads", new BulkLeadAssignment());
+
             });
 
             $users= AdminUser::select(['id','name'])->get();
@@ -279,7 +294,7 @@ class AdminLeadsController extends Controller
                                 </div>
                                 <div class="modal-body">
                                     <form action="'.route("lead.assignment").'" method="POST">
-                                      <input type="hidden" name="lead_id" id="lead_id" />'. csrf_field() .'
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
                                       <div class="form-group">
                                         <label for="assign_to">Assign to</label>
                                         <select id="assign_to" class="c-select form-control" name="assign_to" required>
@@ -288,7 +303,14 @@ class AdminLeadsController extends Controller
                                         <option value="member">Associate</option>
                                         </select>
                                       </div>
-                                      <div class="form-group">
+                                      <div class="form-group ajax-loader text-center d-none">
+                                        <div class="lds-facebook">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group ajax-loader">
                                         <label for="assign_id">Select Group/Associate</label>
                                         <select id="assign_id" class="form-control" name="assign_id" required></select>
                                       </div>
@@ -320,7 +342,8 @@ class AdminLeadsController extends Controller
                 ->orWhere('fifth_driver_first_name', 'like', "%{$this->input}%")
                 ->orWhere('fifth_driver_last_name', 'like', "%{$this->input}%")
                 ->orWhere('fifth_driver_dl', 'like', "%{$this->input}%");
-            }, 'Search')->placeholder('Enter First or Last Name, Email, Phone Number, or Drivers License');
+            }, 'Search by text')->placeholder('Enter First or Last Name, Email, Phone Number, or Drivers License');
+            $filter->date('created_at', 'Search by date');
         });   
         return $grid;
     }
@@ -891,8 +914,10 @@ SCRIPT;
         $data['user_id'] = Auth::guard('admin')->user()->id;
         $data['lead_id'] = $lead;
         $data['notes'] = $request->notes;
-
         if(Note::create($data)){
+            $leadData = Lead::findOrFail($lead);
+            if($leadData['current_status'] < 1) $leadData['current_status'] = 1;
+            $leadData->update();
             admin_success('Success','Notes has been saved.');
         }else{
             admin_error('Error','Notes not saved! Please try again.');

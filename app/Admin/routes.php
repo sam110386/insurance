@@ -19,7 +19,8 @@ Route::group([
 
     $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');
     $router->post("/leads/update/status/{id}","AdminLeadsController@updateStatus")->name('lead.status.update');
-    $router->post("/leads/update/current/status/{id}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update');
+    $router->post("/leads/update/current/status/{id}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update.post');
+    $router->get("/leads/update/current/status/{id}/{status}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update');
     $router->post("/leads/bulk/email/","AdminLeadsController@sendBulkEmail")->name('lead.bulk.email');
     $router->resource('leads', 'AdminLeadsController');
     $router->get("/leads/{from}/{to}",'AdminLeadsController@index')->name('lead.list');

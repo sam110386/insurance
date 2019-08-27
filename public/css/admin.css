@@ -26,7 +26,12 @@
 *{
   font-family: SharpSans,Arial,sans-serif;
 }
+@media(max-width: 400px){
+  .btn-sm{padding:5px 4px !important; }
+}
+.dropdown-menu > li > a > .fa{min-width: 16px; }
 #totop{background: #39559f;}
+.d-none{display: none;}
 .table{max-width: 100%; overflow-x: auto; background-color: #FFF; padding: 15px; }
 .lead-view,h2 {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -89,3 +94,41 @@
 @media(max-width: 768px){
 	.main-header .logo{width: auto; float: left;}
 }
+/*Assign Loader Start */
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: #39559f;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 5px;
+    height: 25px;
+  }
+  50%, 100% {
+    top: 10px;
+    height: 10px;
+  }
+}
+/*Assign Loader End*/

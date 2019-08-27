@@ -23,8 +23,8 @@ class CustomUserController extends UserController
     public function index(Content $content)
     {
         return $content
-            ->header(trans('admin.administrator'))
-            ->description(trans('admin.list'))
+            ->header(trans('admin.users'))
+            ->description(' ')
             ->body($this->grid()->render());
     }
 
@@ -39,7 +39,7 @@ class CustomUserController extends UserController
     public function show($id, Content $content)
     {
         return $content
-            ->header(trans('admin.administrator'))
+            ->header(trans('admin.user'))
             ->description(trans('admin.detail'))
             ->body($this->detail($id));
     }
@@ -54,7 +54,7 @@ class CustomUserController extends UserController
     public function edit($id, Content $content)
     {
         return $content
-            ->header(trans('admin.administrator'))
+            ->header(trans('admin.user'))
             ->description(trans('admin.edit'))
             ->body($this->form()->edit($id));
     }
