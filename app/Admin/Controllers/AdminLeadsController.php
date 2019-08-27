@@ -189,9 +189,9 @@ class AdminLeadsController extends Controller
             }
             return " <a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a> ";
         });
-        $grid->column(trans('Assign lead'))->display(function(){
-            return "<a href='javascript:;' data-toggle='modal' data-target='#assignment' data-lead='" . $this->id ."'><i class='fa fa-pencil-square-o'></i></a>";
-        });
+        // $grid->column(trans('Assign lead'))->display(function(){
+        //     return "<a href='javascript:;' data-toggle='modal' data-target='#assignment' data-lead='" . $this->id ."'><i class='fa fa-pencil-square-o'></i></a>";
+        // });
 
         $grid->current_status(trans('Status'))->display(function($current_status){
             switch ($current_status) {
