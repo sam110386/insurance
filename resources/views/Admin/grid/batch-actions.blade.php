@@ -1,5 +1,6 @@
-<input  type="checkbox" class="{{ $selectAllName }} pull-left" />&nbsp;
-
+<div class="select-all-checkbox pull-left" >
+    <input  type="checkbox" class="{{ $selectAllName }}" />&nbsp;
+</div>
 @if(!$isHoldSelectAllCheckbox)
 <div class="btn-group">
     <a class="btn btn-sm btn-default">&nbsp;<span class="hidden-xs">{{ trans('admin.action') }}</span></a>

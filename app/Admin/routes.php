@@ -23,6 +23,8 @@ Route::group([
     $router->get("/leads/update/current/status/{id}/{status}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update');
     $router->post("/leads/bulk/email/","AdminLeadsController@sendBulkEmail")->name('lead.bulk.email');
     $router->resource('leads', 'AdminLeadsController');
+    $router->resource('security', 'PermissionController');
+
     $router->get("/leads/{from}/{to}",'AdminLeadsController@index')->name('lead.list');
 
     $router->resource('vehicles', 'VehiclesController');

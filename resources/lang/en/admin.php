@@ -8,10 +8,10 @@ return [
     'name'                  => 'Name',
     'username'              => 'Username',
     'password'              => 'Password',
-    'password_confirmation' => 'Password confirmation',
+    'password_confirmation' => 'Confirm Password',
     'remember_me'           => 'Remember me',
     'user_setting'          => 'User setting',
-    'avatar'                => 'Avatar',
+    'avatar'                => 'Photo',
     'list'                  => 'List',
     'new'                   => 'New',
     'create'                => 'Create',
@@ -44,7 +44,7 @@ return [
     'back_to_list'          => 'Back to List',
     'submit'                => 'Submit',
     'menu'                  => 'Menu',
-    'input'                 => 'Input',
+    'input'                 => '',
     'succeeded'             => 'Succeeded',
     'failed'                => 'Failed',
     'delete_confirm'        => 'Are you sure to delete this item ?',
@@ -101,5 +101,10 @@ return [
 
     'menu_titles' => [],
     'user' => 'User',
-    'users' => 'Users'
+    'users' => 'Users',
+    'security' => 'Security',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'email' => 'Email',
+    'phone' => 'Phone'
 ];

@@ -91,6 +91,10 @@
 .layout-top-nav .main-header > .navbar{padding: 5px;}
 
 .skin-black-light .main-header > .navbar .navbar-custom-menu .navbar-nav > li > a, .skin-black-light .main-header > .navbar .navbar-right > li > a{border:none;}
+.select-all-checkbox.pull-left{position: absolute;left:8px;top:8px;}
+/*.btn-group {margin-right: 0 !important;}*/
+/*.box-header .btn.btn-sm.btn-success {float: left;margin-right: 0.5rem;}*/
+#app > .content-header > h1 > small {display: none;}
 @media(max-width: 768px){
 	.main-header .logo{width: auto; float: left;}
 }

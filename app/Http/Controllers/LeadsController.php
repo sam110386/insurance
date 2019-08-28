@@ -36,8 +36,8 @@ class LeadsController extends BaseController
 		/* Email notification to admin  */
 		\Mail::send('Emails.Lead.admin', ['lead' => $lead->toArray()],
 		function ($message) {
-			$message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
-			// $message->to('vbmourya123@gmail.com')->subject('New Lead - Insurance');
+			// $message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
+			$message->to('vbmourya123@gmail.com')->subject('New Lead - Insurance');
 		});
 
 		/* Email notification to user  */

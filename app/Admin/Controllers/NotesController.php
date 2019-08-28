@@ -10,6 +10,8 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Input;
+use Encore\Admin\Admin;
+
 
 class NotesController extends Controller
 {
@@ -157,7 +159,7 @@ class NotesController extends Controller
         // $grid->disableTools();
         // $grid->disableFilter();
         // $grid->disableExport();
-        $grid->disableRowSelector();
+        // $grid->disableRowSelector();
         $grid->filter(function($filter){ 
             $filter->disableIdFilter(); 
             $filter->where(function ($query) {
@@ -165,6 +167,20 @@ class NotesController extends Controller
             }, 'Search by text')->placeholder('Enter notes text...');
             $filter->date('created_at', 'Search by date');
         });
+        $grid->tools(function (Grid\Tools $tools) {
+            $tools->append("<div class='select-all-checkbox pull-left' ><input  type='checkbox' class='grid-select-all' /></div>");
+            $tools->disableBatchActions();
+        });
+        Admin::script("$('.grid-select-all').iCheck({checkboxClass:'icheckbox_minimal-blue'});");
+        
+        Admin::script("$('.grid-select-all').on('ifChanged', function(event) {
+            if (this.checked) {
+                $('.grid-row-checkbox').iCheck('check');
+            } else {
+                $('.grid-row-checkbox').iCheck('uncheck');
+            }
+        });");
+
         return $grid;
     }
     /**
