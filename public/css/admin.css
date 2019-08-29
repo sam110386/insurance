@@ -59,6 +59,9 @@
 .lead-view td.bg-green{color: #fff; background-color: #28a745;}
 .lead-view td.bg-red{color: #fff; background-color: #dc3545;}
 .mb-10{margin-bottom: 10px;}
+.mr-1{margin-right: 1em; }
+.grid-refresh{display: none;}
+.custom-grid-refresh{display: block;}
 .alert-success.light-bg {
 	color: #3c763d !important;
 	background-color: #dff0d8 !important;
@@ -98,6 +101,9 @@
 @media(max-width: 768px){
 	.main-header .logo{width: auto; float: left;}
 }
+
+
+
 /*Assign Loader Start */
 .lds-facebook {
   display: inline-block;

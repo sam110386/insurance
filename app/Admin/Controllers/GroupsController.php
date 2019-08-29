@@ -96,7 +96,7 @@ class GroupsController extends Controller
                 $members[] = ['group_id'=> $group->id, 'member_id' => $member['member_id'],'created_at' => Carbon::now(), 'updated_at'=> Carbon::now()];
                 $excludeIds[] = $member['member_id'];
             }
-        }; 
+        }
         if(GroupMember::insert($members)){
             admin_success('Success','Group has been saved.');
         }else{
@@ -179,6 +179,7 @@ class GroupsController extends Controller
         $show = new Show(Group::findOrFail($id));
 
         $show->id('ID');
+        $show->name('Name');
         $show->user(trans('Manager'))->as(function($manager){
             return $manager->name;
         });

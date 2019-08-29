@@ -7,6 +7,8 @@ use App\Models\Note;
 use App\Models\AdminUser;
 use App\Models\Group;
 use App\Models\GroupMember;
+use App\Helpers\CommonMethod;
+use App\Helpers\SendMail;
 use App\Http\Controllers\Controller;
 use App\Admin\Extensions\Tools\BulkEmailLead;
 use App\Admin\Extensions\Tools\BulkLeadAssignment;
@@ -16,7 +18,6 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Carbon\Carbon;
-use App\Helpers\CommonMethod;
 use Encore\Admin\Admin;
 use Encore\Admin\Facades\Admin as LoginAdmin;
 use Encore\Admin\Auth\Permission;
@@ -118,8 +119,9 @@ class AdminLeadsController extends Controller
      * @return Grid
      */
     protected function grid($from,$to)
-    {           
-        Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;Filter');");
+    {   
+        $searchText = trans('admin.filter');
+        Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;".$searchText."');");
         Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
             $('#assign_to,#assign_id').val('');
             $('#assign_to,#assign_id').select2({ width: '100%' });
@@ -241,7 +243,7 @@ class AdminLeadsController extends Controller
         // });
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
-            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;");
+            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;");
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
@@ -890,10 +892,7 @@ SCRIPT;
         if($email){
             $leads = Lead::whereIn('id',explode(',', $lead_ids))->get();
             foreach ($leads as $lead) {
-                \Mail::send('Admin.Lead.email', ['lead' => $lead],
-                function ($message) use($email){
-                    $message->to($email)->subject('New Lead - Insurance');
-                });            
+                SendMail::bulkLeadEmail($lead,$email);
             }
             admin_success('Success','Email sent.');
         }else{

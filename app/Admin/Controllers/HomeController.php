@@ -11,6 +11,7 @@ use Encore\Admin\Widgets\InfoBox;
 use App\Admin\Controllers\AdminLeadsController;
 use App\Models\Lead;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
 
 
 class HomeController extends Controller

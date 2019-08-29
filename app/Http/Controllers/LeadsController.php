@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Helpers\CommonMethod;
+use App\Helpers\SendMail;
 use App\Models\Lead;
 
 
@@ -34,17 +35,10 @@ class LeadsController extends BaseController
 		$lead->phone =  $lead->phoneNumber($lead->phone);
 		
 		/* Email notification to admin  */
-		\Mail::send('Emails.Lead.admin', ['lead' => $lead->toArray()],
-		function ($message) {
-			// $message->to('allensaraf@gmail.com')->bcc('masisdavidian@gmail.com')->subject('New Lead - Insurance');
-			$message->to('vbmourya123@gmail.com')->subject('New Lead - Insurance');
-		});
+		SendMail::adminLeadSubmitNotification($lead->toArray());
 
 		/* Email notification to user  */
-		\Mail::send('Emails.Lead.user', ['user' => $lead->first_name],
-		function ($message) use($lead) {
-			$message->to($lead->email)->subject('New Lead Confirmation- Insurance');
-		});
+		SendMail::userLeadSubmitNotification($lead);
 
 		return view('Insurance.urls',$data);
 		// return view('Insurance.view',$data);

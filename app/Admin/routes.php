@@ -14,7 +14,7 @@ Route::group([
 ], function (Router $router) {
     $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/', 'HomeController@index')->name('admin.home');
-    $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.home');
+    $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.updates');
 
 
     $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');

@@ -8,15 +8,16 @@
     @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() )
     <div class="box-header with-border">
         <div class="pull-right">
-            {{--!! $grid->renderColumnSelector() !!--}}
+            {!! $grid->renderColumnSelector() !!}
+            <a class="btn btn-sm btn-primary grid-refresh custom-grid-refresh pull-right mr-1" title="{{trans('admin.refresh')}}"><i class="fa fa-refresh"></i><span class="hidden-xs"> {{trans('admin.refresh')}}</span></a>
             {!! $grid->renderExportButton() !!}
-            {!! $grid->renderCreateButton() !!}
         </div>
         @if ( $grid->showTools() )
         <span class="pull-right">
             {!! $grid->renderHeaderTools() !!}
         </span>
         @endif
+        {!! $grid->renderCreateButton() !!}
     </div>
     @endif
 
