@@ -200,7 +200,7 @@ class CustomUserController extends UserController
 			$user = Administrator::findOrFail($id);
 			if(!empty($user->roles)){
 				$role = $user->roles[0]->slug;
-
+				$groups = [];
 				if($role == 'manager'){
 					$groups = Group::select('id')->where('manager_id',$id)->get();
 				}elseif($role == 'associate'){
