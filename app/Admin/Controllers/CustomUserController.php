@@ -228,7 +228,7 @@ class CustomUserController extends UserController
 
 		$form->saved(function(Form $form) use($id){
 			self::saveUserGroups($form);
-			if(!$id){
+			if(request()->id){
 				self::sendNewUserEmails($form->model()->id);
 			}
 			return redirect()->route('leads.index');
