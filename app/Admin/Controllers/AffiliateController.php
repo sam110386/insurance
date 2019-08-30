@@ -132,7 +132,9 @@ class AffiliateController extends Controller
             return ($this->s5) ? $this->s5_value : 'No';
         });
 
-
+        $show->notes(trans('admin.notes'))->as(function($notes){
+            return $notes;
+        })->html('default');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
         return $show;
