@@ -43,5 +43,12 @@ class SendMail {
 	}
 
 
+	public static function passwordResetUrlNotification($user,$url){
+		\Mail::send('Emails.User.reset-password', ['name' => $user->name, "url" => $url ],
+			function ($message) use($user){
+				$message->to($user->email)->subject('Resest Password - Insurance');
+			});		
+	}
+
 
 }

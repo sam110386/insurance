@@ -22,7 +22,6 @@ Route::get('/contact', 'PagesControllers@getPage')->name('contact');
 Route::post('/contact', 'PagesControllers@getPage')->name('contact');
 
 
-
 Route::group([
     'prefix'        => 'ajax'
 ], function (Router $router) {
@@ -33,3 +32,6 @@ Route::group([
     $router->get('/models/{year}/{make}','AjaxController@getModels');
     $router->get('/trims/{year}/{make}/{model}','AjaxController@getTrims');
 });
+// Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

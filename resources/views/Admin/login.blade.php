@@ -30,7 +30,11 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">{{ trans('admin.login') }}</p>
-
+      @if(session()->has('message'))
+          <div class="alert alert-success">
+              {{ session()->get('message') }}
+          </div>
+      @endif
     <form action="{{ admin_base_path('auth/login') }}" method="post">
       <div class="form-group has-feedback {!! !$errors->has('username') ?: 'has-error' !!}">
 
@@ -71,6 +75,11 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>
         </div>
         <!-- /.col -->
+      </div>
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <a href="{{route('forgot-password')}}">{{ trans('admin.forgot_password') }}</a>
+        </div>
       </div>
     </form>
 

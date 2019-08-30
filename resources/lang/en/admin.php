@@ -114,6 +114,10 @@ return [
     'payout_amount' => 'Payout Amount',
     'postback_url' => 'Postback Url',
     'value' => 'Value',
-    'notes' => 'Notes'
+    'notes' => 'Notes',
+    'forgot_password' => 'Forgot Password',
+    'reset_password' => 'Reset Password',
+    'new_password' => 'New Password',
+    'confirm_new_password' => 'Confirm New Password' 
 
 ];

@@ -10,6 +10,17 @@ Route::resource('admin/auth/users', \App\Admin\Controllers\CustomUserController:
 Route::group([
     'prefix'        => config('admin.route.prefix'),
     'namespace'     => config('admin.route.namespace'),
+    'middleware'    => ['guest','web'],
+], function (Router $router) {
+    $router->get('/password/forgot','AuthController@forgotPassword')->name('forgot-password');
+    $router->post('/password/forgot','AuthController@sendPasswordResetToken')->name('forgot-password-post');
+    $router->get('/password/reset/{token}','AuthController@passwordResetView')->name('password-reset');
+    $router->post('/password/reset/{token}','AuthController@passwordReset')->name('password-reset-post');
+
+});
+Route::group([
+    'prefix'        => config('admin.route.prefix'),
+    'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
     $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
