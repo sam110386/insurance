@@ -178,7 +178,7 @@ class CustomUserController extends UserController
 		$form->display('username', trans('admin.username'));
 		$form->text('name', trans('admin.first_name'))->rules('required');
 		$form->text('last_name', trans('admin.last_name'));
-		$form->mobile('phone', trans('admin.phone'))->options(['mask' => '9999 999 999']);
+		$form->mobile('phone', trans('admin.phone'))->options(['mask' => '9999 999 999'])->attribute(['style' => 'width:100%;']);
 		if($id){
 			$form->display('email', trans('admin.email'));
 			$form->hidden('username');

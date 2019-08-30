@@ -15,8 +15,6 @@ Route::group([
     $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.updates');
-
-
     $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');
     $router->post("/leads/update/status/{id}","AdminLeadsController@updateStatus")->name('lead.status.update');
     $router->post("/leads/update/current/status/{id}","AdminLeadsController@updateCurrentStatus")->name('lead.currentstatus.update.post');
@@ -30,7 +28,7 @@ Route::group([
     $router->resource('vehicles', 'VehiclesController');
     $router->resource('groups', 'GroupsController');
     $router->get('/api/assignment/list','LeadAssignmentController@getAssignmentList')->name('api.assignment.list');
-
     $router->post('/assign/lead','LeadAssignmentController@assignLead')->name('lead.assignment');
 
+    $router->resource('affiliates', 'AffiliateController');
 });

@@ -106,5 +106,14 @@ return [
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
     'email' => 'Email',
-    'phone' => 'Phone'
+    'phone' => 'Phone',
+    'affiliate' => 'Affiliate',
+    'company' => 'Company',
+    'contact_person' => 'Contact Person',
+    'campaign' => 'Campaign',
+    'payout_amount' => 'Payout Amount',
+    'postback_url' => 'Postback Url',
+    'value' => 'Value',
+    'notes' => 'Notes'
+
 ];

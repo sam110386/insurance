@@ -26,6 +26,46 @@
 *{
   font-family: SharpSans,Arial,sans-serif;
 }
+
+/*Assign Loader Start */
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: #39559f;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 5px;
+    height: 25px;
+  }
+  50%, 100% {
+    top: 10px;
+    height: 10px;
+  }
+}
+/*Assign Loader End*/
+
 @media(max-width: 400px){
   .btn-sm{padding:5px 4px !important; }
 }
@@ -103,42 +143,7 @@
 }
 
 
+#payout_amount {text-align: left !important;}
+.input-group-addon {min-width: 43px;}
 
-/*Assign Loader Start */
-.lds-facebook {
-  display: inline-block;
-  position: relative;
-  width: 64px;
-  height: 64px;
-}
-.lds-facebook div {
-  display: inline-block;
-  position: absolute;
-  left: 6px;
-  width: 13px;
-  background: #39559f;
-  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-}
-.lds-facebook div:nth-child(1) {
-  left: 6px;
-  animation-delay: -0.24s;
-}
-.lds-facebook div:nth-child(2) {
-  left: 26px;
-  animation-delay: -0.12s;
-}
-.lds-facebook div:nth-child(3) {
-  left: 45px;
-  animation-delay: 0;
-}
-@keyframes lds-facebook {
-  0% {
-    top: 5px;
-    height: 25px;
-  }
-  50%, 100% {
-    top: 10px;
-    height: 10px;
-  }
-}
-/*Assign Loader End*/
+
