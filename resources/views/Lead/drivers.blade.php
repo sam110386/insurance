@@ -62,7 +62,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg skip-reset" name="state1">
+							<select class="form-control form-control-lg skip-reset driver-state" name="state1">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -70,12 +70,20 @@
 							</select>
 						</div>
 					</div>
-				</div>							
+				</div>
+				<row class="row driver-state-input d-none">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6"></div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mt-1"  name="state1-other" placeholder="Enter state" />
+						</div>
+					</div>
+				</row>						
 				<div class="row mt-4">
 					<div class="form-group">
 						<div class="col-12">
-							<a data-href="last" class="name-email-submit btn btn-lg btn-warning next-question" data-dob="1">CONTINUE</a> 
-							<a data-href="name2" class="name-email-submit btn btn-lg btn-warning next-question" data-dob="1" >Add Another Driver</a>
+							<a data-href="last" class="name-email-submit btn btn-lg btn-warning" data-dob="1">CONTINUE</a> 
+							<a data-href="name2" class="name-email-submit btn btn-lg btn-warning" data-dob="1" >Add Another Driver</a>
 						</div>
 					</div>
 				</div>
@@ -141,7 +149,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg skip-reset" name="state2">
+							<select class="form-control form-control-lg skip-reset driver-state" name="state2">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -149,7 +157,15 @@
 							</select>
 						</div>
 					</div>
-				</div>				
+				</div>
+				<row class="row driver-state-input d-none">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6"></div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mt-1"  name="state2-other" placeholder="Enter state" />
+						</div>
+					</div>
+				</row>				
 				<div class="row mt-4">
 					<div class="form-group">
 						<div class="col-12">
@@ -221,7 +237,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg skip-reset" name="state3">
+							<select class="form-control form-control-lg skip-reset driver-state" name="state3">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -229,7 +245,15 @@
 							</select>
 						</div>
 					</div>
-				</div>				
+				</div>
+				<row class="row driver-state-input d-none">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6"></div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mt-1"  name="state3-other" placeholder="Enter state" />
+						</div>
+					</div>
+				</row>								
 				<div class="row mt-4">
 					<div class="form-group">
 						<div class="col-12">
@@ -248,7 +272,7 @@
 			<div class="col-md-10 offset-md-1">
 				<p>
 					<a data-href="name3" class="change-question prev text-primary btn btn-warning btn-sm"> 
-							<i class="fa fa-angle-left"></i> Previous Question
+						<i class="fa fa-angle-left"></i> Previous Question
 					</a>
 				</p>
 				<div class="row">
@@ -301,7 +325,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg skip-reset" name="state4">
+							<select class="form-control form-control-lg skip-reset driver-state" name="state4">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -309,7 +333,15 @@
 							</select>
 						</div>
 					</div>
-				</div>				
+				</div>
+				<row class="row driver-state-input d-none">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6"></div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mt-1"  name="state4-other" placeholder="Enter state" />
+						</div>
+					</div>
+				</row>				
 				<div class="row mt-4">
 					<div class="form-group">
 						<div class="col-12">
@@ -381,7 +413,7 @@
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
 						<div class="form-group">
 							<label class="font-weight-bold h5 mb-3 text-warning">State</label>
-							<select class="form-control form-control-lg skip-reset" name="state5">
+							<select class="form-control form-control-lg skip-reset driver-state" name="state5">
 								<option value="">Choose one</option>
 								@foreach($states as $s => $state)
 								<option value="{{$s}}" @if($s=="CA") selected="selected" @endif>{{$state}}</option>
@@ -389,7 +421,15 @@
 							</select>
 						</div>
 					</div>
-				</div>				
+				</div>	
+				<row class="row driver-state-input d-none">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6"></div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-lg mt-1 driver-state"  name="state5-other" placeholder="Enter state" />
+						</div>
+					</div>
+				</row>							
 				<div class="row mt-4">
 					<div class="form-group">
 						<div class="col-12">

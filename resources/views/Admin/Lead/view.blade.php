@@ -68,7 +68,7 @@
 		<tr><th colspan="2">CONTACT DETAILS</th></tr>
 		<tr><td><strong>Name</strong></td><td>{{$lead['first_name']}} {{$lead['last_name']}}</td></tr>
 		<tr><td><strong>Street</strong></td><td>{{$lead['street']}}</td></tr>
-		<tr><td><strong>City</strong></td><td>{{$lead['city']}}, CA {{$lead['zip']}}</td></tr>
+		<tr><td><strong>Address</strong></td><td>{{$lead['city']}}, CA {{$lead['zip']}}</td></tr>
 		<tr><td><strong>Phone</strong></td><td>{{$lead->phoneNumber($lead['phone'])}}</td></tr>
 		<tr><td><strong>Email</strong></td><td><a href="mailto:{{$lead['email']}}">{{$lead['email']}}</a></td></tr>
 

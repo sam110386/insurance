@@ -64,7 +64,9 @@ class CommonMethod {
         'WA' => 'Washington',
         'WV' => 'West Virginia',
         'WI' => 'Wisconsin',
-        'WY' => 'Wyoming'];
+        'WY' => 'Wyoming',
+        'other' => 'Other'
+      ];
     }
 
     private static function getModelsByMake($make){

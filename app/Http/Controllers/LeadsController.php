@@ -41,6 +41,10 @@ class LeadsController extends BaseController
 		SendMail::adminLeadSubmitNotification($lead->toArray());
 		/* Email notification to user  */
 		SendMail::userLeadSubmitNotification($lead);
+		
+		$redirect = $this->checkAndProcessAffiliateRecord($lead->id);
+		if($redirect) return redirect()->away($redirect);
+
 		return view('Insurance.urls',$data);
 	}
 
@@ -71,36 +75,47 @@ class LeadsController extends BaseController
 		$data['first_driver_dob'] 			= isset($lead['dob'])?date('Y-m-d',strtotime($lead['dob'])):null;//$lead['dob-year']. "-" . $lead['dob-month']. "-" .$lead['dob-date'];
 		$data['first_driver_gender'] 		= $lead['gender'];
 		$data['first_driver_dl'] 			= $lead['dl1'];
-		$data['first_driver_state'] 		= $states[$lead['state1']];
+		$data['first_driver_state'] 		= ($lead['state1'] == 'other') ? $lead['state1-other'] : $states[$lead['state1']];
 
 		$data['second_driver_first_name'] 	= (isset($lead['first_name2'])) ? $lead['first_name2']  : "";
 		$data['second_driver_last_name'] 	= (isset($lead['last_name2'])) ? $lead['last_name2']  : "";
 		$data['second_driver_dob'] 			= isset($lead['dob2'])?date('Y-m-d',strtotime($lead['dob2'])):null;//(isset($lead['dob2-year']) && isset($lead['dob2-month']) && isset($lead['dob2-date']) ) ? $lead['dob2-year']. "-" . $lead['dob2-month']. "-" .$lead['dob2-date']  : null;
 		$data['second_driver_gender'] 		= (isset($lead['gender-2'])) ? $lead['gender-2']  : "";
 		$data['second_driver_dl'] 			= (isset($lead['dl2'])) ? $lead['dl2']  : "";
-		$data['second_driver_state'] 		= (isset($lead['state2'])) ? $states[$lead['state2']]  : "";
+		
+		if(isset($lead['state2'])){
+			$data['second_driver_state']  = ($lead['state2'] == 'other') ? $lead['state2-other'] : $states[$lead['state2']];
+		}
 
 		$data['third_driver_first_name'] 	= (isset($lead['first_name3'])) ? $lead['first_name3']  : "";
 		$data['third_driver_last_name'] 	= (isset($lead['last_name3'])) ? $lead['last_name3']  : "";
 		$data['third_driver_dob'] 			= isset($lead['dob3'])?date('Y-m-d',strtotime($lead['dob3'])):null;//(isset($lead['dob3-year']) && isset($lead['dob3-month']) && isset($lead['dob3-date']) ) ? $lead['dob3-year']. "-" . $lead['dob3-month']. "-" .$lead['dob3-date']  : null;
 		$data['third_driver_gender'] 		= (isset($lead['gender-3'])) ? $lead['gender-3']  : "";
 		$data['third_driver_dl'] 			= (isset($lead['dl3'])) ? $lead['dl3']  : "";
-		$data['third_driver_state'] 		= (isset($lead['state3'])) ? $states[$lead['state3']]  : "";
+		
+		if(isset($lead['state3'])){
+			$data['third_driver_state'] = ($lead['state3'] == 'other') ? $lead['state3-other'] : $states[$lead['state3']];
+		}
 
 		$data['fourth_driver_first_name'] 	= (isset($lead['first_name4'])) ? $lead['first_name4']  : "";
 		$data['fourth_driver_last_name'] 	= (isset($lead['last_name4'])) ? $lead['last_name4']  : "";
 		$data['fourth_driver_dob'] 			= isset($lead['dob4'])?date('Y-m-d',strtotime($lead['dob4'])):null;//(isset($lead['dob4-year']) && isset($lead['dob4-month']) && isset($lead['dob4-date']) ) ? $lead['dob4-year']. "-" . $lead['dob4-month']. "-" .$lead['dob4-date']  : null;
 		$data['fourth_driver_gender'] 		= (isset($lead['gender-4'])) ? $lead['gender-4']  : "";
 		$data['fourth_driver_dl'] 			= (isset($lead['dl4'])) ? $lead['dl4']  : "";
-		$data['fourth_driver_state'] 		= (isset($lead['state4'])) ? $states[$lead['state4']]  : "";
+
+		if(isset($lead['state4'])){
+			$data['fourth_driver_state'] = ($lead['state4'] == 'other') ? $lead['state4-other'] : $states[$lead['state4']];
+		}
+
 
 		$data['fifth_driver_first_name'] 	= (isset($lead['first_name5'])) ? $lead['first_name5']  : "";
 		$data['fifth_driver_last_name'] 	= (isset($lead['last_name5'])) ? $lead['last_name5']  : "";
 		$data['fifth_driver_dob'] 			= isset($lead['dob5'])?date('Y-m-d',strtotime($lead['dob5'])):null;//(isset($lead['dob5-year']) && isset($lead['dob5-month']) && isset($lead['dob5-date']) ) ? $lead['dob5-year']. "-" . $lead['dob5-month']. "-" .$lead['dob5-date']  : null;
 		$data['fifth_driver_gender'] 		= (isset($lead['gender-5'])) ? $lead['gender-5']  : "";
 		$data['fifth_driver_dl'] 			= (isset($lead['dl5'])) ? $lead['dl5']  : "";
-		$data['fifth_driver_state'] 		= (isset($lead['state5'])) ? $states[$lead['state5']]  : "";
-
+		if(isset($lead['state5'])){
+			$data['fifth_driver_state']  = ($lead['state5'] == 'other') ? $lead['state5-other'] : $states[$lead['state5']];
+		}
 
 		if($lead['vehicle-year'] && $lead['vehicle-year'] == 'other'){
 			$data['first_vehicle_year'] = 	$lead['year1-other-input'];

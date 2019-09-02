@@ -506,28 +506,6 @@ $(document).ready(function(){
 		var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
 		$('.form-group').removeClass('has-error');
 		$('.error-label').removeClass('error-label');
-		if($('#first_name').val() == "" || $.trim($('#first_name').val()) == ""){
-			$('#first_name').parent('.form-group').addClass('has-error');
-			el = (!error) ? $('#first_name') : el;
-			error = true;
-		}
-		if($('#last_name').val() == "" || $.trim($('#last_name').val()) == ""){
-			$('#last_name').parent('.form-group').addClass('has-error');
-			el = (!error) ? $('#last_name') : el;
-
-			error = true;
-		}
-		if($('#email').val() == "" || $.trim($('#email').val()) == ""){
-			$('#email').parent('.form-group').addClass('has-error');
-			el = (!error) ? $('#email') : el;
-			error = true;
-		}
-		if($('#email').val() && !pattern.test($('#email').val())){
-			$('#email').parent('.form-group').addClass('has-error');
-			$('#email').after('<label class="error text-danger">Enter Valid Email</label>');
-			el = (!error) ? $('#email') : el;
-			error = true;
-		}
 
 		var i = $(this).data('dob');
 		var dob = $('input.dob' + i).val();
@@ -563,13 +541,36 @@ $(document).ready(function(){
 			}
 		});		
 		$.each($('select:visible'),function(){
-			$(this).parents('.form-group').removeClass('has-error');
 			if(!$(this).val()){
 				$(this).parents('.form-group').addClass('has-error');
 				el = (!error) ? $(this) : el;
 				error = true;
+			}else{
+				$(this).parents('.form-group').removeClass('has-error');
 			}
 		});
+		if($('#first_name').val() == "" || $.trim($('#first_name').val()) == ""){
+			$('#first_name').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#first_name') : el;
+			error = true;
+		}
+		if($('#last_name').val() == "" || $.trim($('#last_name').val()) == ""){
+			$('#last_name').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#last_name') : el;
+
+			error = true;
+		}
+		if($('#email').val() == "" || $.trim($('#email').val()) == ""){
+			$('#email').parent('.form-group').addClass('has-error');
+			el = (!error) ? $('#email') : el;
+			error = true;
+		}
+		if($('#email').val() && !pattern.test($('#email').val())){
+			$('#email').parent('.form-group').addClass('has-error');
+			$('#email').after('<label class="error text-danger">Enter Valid Email</label>');
+			el = (!error) ? $('#email') : el;
+			error = true;
+		}		
 		if(error){
 			el.focus();
 		    $([document.documentElement, document.body]).animate({
@@ -578,12 +579,17 @@ $(document).ready(function(){
 			return false;
 		}
 		$('span.first-name-label').html($('#first_name').val());
-
 		var targetQuestion = $(this).data('href');
 		$('form.lead-form > div.container').fadeOut(500);
-		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);			
-
+		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);
 		return false;
+	});
+	$('.driver-state').on('change',function(){
+		if($(this).val()=='other'){
+			$(this).parents('.container').find('.driver-state-input').removeClass('d-none');
+		}else{
+			$(this).parents('.container').find('.driver-state-input').addClass('d-none');
+		}
 	});
 
 	$('.final-submit').on('click',function(e){
