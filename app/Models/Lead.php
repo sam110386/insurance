@@ -33,4 +33,5 @@ class Lead extends Model
         if (strpos($phoneNumber, '(') !== false && strpos($phoneNumber, '-') !== false) return $phoneNumber;
 		return "(".substr($phoneNumber, 0, 3).") ".substr($phoneNumber, 3, 3)." ".substr($phoneNumber,6);
 	}
+
 }

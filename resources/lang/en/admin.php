@@ -118,6 +118,7 @@ return [
     'forgot_password' => 'Forgot Password',
     'reset_password' => 'Reset Password',
     'new_password' => 'New Password',
-    'confirm_new_password' => 'Confirm New Password' 
-
+    'confirm_new_password' => 'Confirm New Password',
+    'key' => 'Key',
+    'affiliate_url' => 'Affiliate Url'
 ];

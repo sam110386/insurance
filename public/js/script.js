@@ -335,9 +335,10 @@ $(document).ready(function(){
 	$('.models-list').on('click','a',function(){
 		$(this).parent().siblings('.model-search').val($(this).data('value'));
 		$(this).parent('.models-list').html();
-		$(this).parent().siblings('a').trigger('click');
+		$(this).parents('.vehicle-models').find('.vehicle-next').trigger('click');
 	});
 	$('a.vehicle-next').on('click',function(){
+		debugger
 		$(this).parents(".container").find("label").removeClass('bg-warning');
 		$(this).parents(".container").find('input[type=radio]').prop('checked',false);
 		var targetQuestion = $(this).data('href');
@@ -352,7 +353,7 @@ $(document).ready(function(){
 		}
 		var vehicle = parseInt($(this).data('vehicle'));
 		var trimContanier = $('.trims-' + vehicle);
-		printTrims(trimContanier,{year: vYear, model: $(this).siblings('input').val(), make:vMake,vehicle: vehicle});
+		printTrims(trimContanier,{year: vYear, model: $(this).parents('.vehicle-models').find('.model-search').val(), make:vMake,vehicle: vehicle});
 		$('form.lead-form > div.container').fadeOut(500);
 		$('form.lead-form > div#'+targetQuestion+"-container").delay(500).fadeIn(500);		
 	});

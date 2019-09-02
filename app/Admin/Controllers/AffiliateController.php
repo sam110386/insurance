@@ -85,6 +85,9 @@ class AffiliateController extends Controller
         $grid->id('ID');
         $grid->company(trans('admin.company'));
         $grid->contact_person(trans('admin.contact_person'));
+        // $grid->leads('Leads')->display(function($leads){
+        //     return count($leads);
+        // });
         $grid->phone(trans('admin.phone'));
         $grid->email(trans('admin.email'));
         $grid->created_at('Created at');
@@ -132,9 +135,12 @@ class AffiliateController extends Controller
             return ($this->s5) ? $this->s5_value : 'No';
         });
 
-        $show->notes(trans('admin.notes'))->as(function($notes){
-            return $notes;
-        })->html('default');
+        $show->column(trans('admin.notes'))->as(function(){
+            return nl2br($this->notes);
+        })->setEscape(false);
+        $show->key(trans('admin.affiliate_url'))->as(function($key){
+            return route('new-lead') . '?aid=' .$key;
+        });
         $show->created_at('Created at');
         $show->updated_at('Updated at');
         return $show;
@@ -148,89 +154,93 @@ class AffiliateController extends Controller
     protected function form($id=null)
     {
 
-        Admin::script(" 
-    if($('input.s1[type=hidden]').val()=='on'){
-        $('#s1_value').attr('required',true);
-        $('#s1_value').removeAttr('readonly');
-    }else{
-        $('#s1_value').removeAttr('required');
-        $('#s1_value').attr({'readonly': true});
-    }
-    if($('input.s2[type=hidden]').val()=='on'){
-        $('#s2_value').attr('required',true);
-        $('#s2_value').removeAttr('readonly');
-    }else{
-        $('#s2_value').removeAttr('required');
-        $('#s2_value').attr({'readonly': true});
-    }
-    
-    if($('input.s3[type=hidden]').val()=='on'){
-        $('#s3_value').attr('required',true);
-        $('#s3_value').removeAttr('readonly');
-    }else{   
-        $('#s3_value').removeAttr('required');
-        $('#s3_value').attr({'readonly': true});
-    }
+        if($id){
+            Admin::script("
+                if($('input.s1[type=hidden]').val()=='on'){
+                    $('#s1_value').attr('required',true);
+                    $('#s1_value').removeAttr('readonly');
+                }else{
+                    $('#s1_value').removeAttr('required');
+                    $('#s1_value').attr({'readonly': true});
+                }
+                if($('input.s2[type=hidden]').val()=='on'){
+                    $('#s2_value').attr('required',true);
+                    $('#s2_value').removeAttr('readonly');
+                }else{
+                    $('#s2_value').removeAttr('required');
+                    $('#s2_value').attr({'readonly': true});
+                }
+                
+                if($('input.s3[type=hidden]').val()=='on'){
+                    $('#s3_value').attr('required',true);
+                    $('#s3_value').removeAttr('readonly');
+                }else{   
+                    $('#s3_value').removeAttr('required');
+                    $('#s3_value').attr({'readonly': true});
+                }
 
-    if($('input.s4[type=hidden]').val()=='on'){
-        $('#s4_value').attr('required',true);
-        $('#s4_value').removeAttr('readonly');
-    }else{
-        $('#s4_value').removeAttr('required');
-        $('#s4_value').attr({'readonly': true});
-    }
-    if($('input.s5[type=hidden]').val()=='on'){
-        $('#s5_value').attr('required',true);
-        $('#s5_value').removeAttr('readonly');
-    }else{
-        $('#s5_value').removeAttr('required');
-        $('#s5_value').attr({'readonly': true});
-    }
- $('input.s1[type=hidden]').on('change',function(){
-    if($(this).val() == 'on'){
-        $('#s1_value').attr({'required':true});
-        $('#s1_value').removeAttr('readonly');
-    }else{
-        $('#s1_value').attr({'readonly': true});
-        $('#s1_value').val('').removeAttr('required');
-    }
-}); 
- $('input.s2[type=hidden]').on('change',function(){
-    if($(this).val() == 'on'){
-        $('#s2_value').attr({'required':true});
-        $('#s2_value').removeAttr('readonly');
-    }else{
-        $('#s2_value').attr({'readonly': true});
-        $('#s2_value').val('').removeAttr('required');
-    }
-});
- $('input.s3[type=hidden]').on('change',function(){
-    if($(this).val() == 'on'){
-        $('#s3_value').attr({'required':true});
-        $('#s3_value').removeAttr('readonly');
-    }else{
-        $('#s3_value').attr({'readonly': true});
-        $('#s3_value').val('').removeAttr('required');
-    }
-});
- $('input.s4[type=hidden]').on('change',function(){
-    if($(this).val() == 'on'){
-        $('#s4_value').attr({'required':true});
-        $('#s4_value').removeAttr('readonly');
-    }else{
-        $('#s4_value').attr({'readonly': true});
-        $('#s4_value').val('').removeAttr('required');
-    }
-});
- $('input.s5[type=hidden]').on('change',function(){
-    if($(this).val() == 'on'){
-        $('#s5_value').attr({'required':true});
-        $('#s5_value').removeAttr('readonly');
-    }else{
-        $('#s5_value').attr({'readonly': true});
-        $('#s5_value').val('').removeAttr('required');
-    }
-});
+                if($('input.s4[type=hidden]').val()=='on'){
+                    $('#s4_value').attr('required',true);
+                    $('#s4_value').removeAttr('readonly');
+                }else{
+                    $('#s4_value').removeAttr('required');
+                    $('#s4_value').attr({'readonly': true});
+                }
+                if($('input.s5[type=hidden]').val()=='on'){
+                    $('#s5_value').attr('required',true);
+                    $('#s5_value').removeAttr('readonly');
+                }else{
+                    $('#s5_value').removeAttr('required');
+                    $('#s5_value').attr({'readonly': true});
+                }
+            ");
+        }
+        Admin::script(" 
+                 $('input.s1[type=hidden]').on('change',function(){
+                    if($(this).val() == 'on'){
+                        $('#s1_value').attr({'required':true});
+                        $('#s1_value').removeAttr('readonly');
+                    }else{
+                        $('#s1_value').attr({'readonly': true});
+                        $('#s1_value').val('').removeAttr('required');
+                    }
+                }); 
+                 $('input.s2[type=hidden]').on('change',function(){
+                    if($(this).val() == 'on'){
+                        $('#s2_value').attr({'required':true});
+                        $('#s2_value').removeAttr('readonly');
+                    }else{
+                        $('#s2_value').attr({'readonly': true});
+                        $('#s2_value').val('').removeAttr('required');
+                    }
+                });
+                 $('input.s3[type=hidden]').on('change',function(){
+                    if($(this).val() == 'on'){
+                        $('#s3_value').attr({'required':true});
+                        $('#s3_value').removeAttr('readonly');
+                    }else{
+                        $('#s3_value').attr({'readonly': true});
+                        $('#s3_value').val('').removeAttr('required');
+                    }
+                });
+                 $('input.s4[type=hidden]').on('change',function(){
+                    if($(this).val() == 'on'){
+                        $('#s4_value').attr({'required':true});
+                        $('#s4_value').removeAttr('readonly');
+                    }else{
+                        $('#s4_value').attr({'readonly': true});
+                        $('#s4_value').val('').removeAttr('required');
+                    }
+                });
+                 $('input.s5[type=hidden]').on('change',function(){
+                    if($(this).val() == 'on'){
+                        $('#s5_value').attr({'required':true});
+                        $('#s5_value').removeAttr('readonly');
+                    }else{
+                        $('#s5_value').attr({'readonly': true});
+                        $('#s5_value').val('').removeAttr('required');
+                    }
+                });
             ");
         $form = new Form(new Affiliate);
 
@@ -259,9 +269,8 @@ class AffiliateController extends Controller
         ];
 
         $form->row(function ($row) use ( $states,$form) {
-            $readonly = ($form->model()->s1) ? [] : ['readonly' => true];
             $row->width(1)->switch('s1', 'S1')->states($states);
-            $row->width(4)->text('s1_value', '&nbsp;')->attribute($readonly);
+            $row->width(4)->text('s1_value', '&nbsp;')->attribute(['readonly' => true]);
         });
 
         $form->row(function ($row) use ( $states) {
@@ -285,6 +294,17 @@ class AffiliateController extends Controller
         $form->row(function ($row) use ( $form) {
             $row->width(10)->textarea('notes', trans('admin.notes'));
         });
+        if($id){            
+            $form->row(function ($row) use ( $form) {
+                $row->width(10)->display('key', trans('admin.key'));
+            });
+        }else{
+            $form->row(function ($row){
+                // $row->width(10)->display('key', trans('admin.key'));
+                $row->width(1)->hidden('key')->value(str_random(32));
+            });            
+        }
+        // dd(str_random(32));
         $form->row(function ($row){
             $states = [
                 'off' => ['value' => 0, 'text' => 'Inactive', 'color' => 'danger'],

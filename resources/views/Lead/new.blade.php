@@ -19,7 +19,7 @@
 		</div>
 	</div>
 </div>
-<form class="lead-form row" action="{{route('save-lead')}}" method="POST" novalidate>
+<form class="lead-form row" action="{{Request::fullUrl()}}" method="POST" novalidate>
 	{{ csrf_field() }}
 	<div id="zipcode-container" class="step container pt-5 pb-5 editable-field" style="display: block;">
 		<div class="row pb-3">

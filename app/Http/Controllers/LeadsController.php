@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Helpers\CommonMethod;
 use App\Helpers\SendMail;
 use App\Models\Lead;
+use App\Models\Affiliate;
+use App\Models\AffiliateLead;
+
 
 
 class LeadsController extends BaseController
@@ -33,15 +36,12 @@ class LeadsController extends BaseController
 		$lead = $this->storeLead($data);
 		$lead = Lead::findOrFail($lead->id);
 		$lead->phone =  $lead->phoneNumber($lead->phone);
-		
+
 		/* Email notification to admin  */
 		SendMail::adminLeadSubmitNotification($lead->toArray());
-
 		/* Email notification to user  */
 		SendMail::userLeadSubmitNotification($lead);
-
 		return view('Insurance.urls',$data);
-		// return view('Insurance.view',$data);
 	}
 
 	private function storeLead($request=[]){
@@ -410,11 +410,25 @@ class LeadsController extends BaseController
 		if($lead['at_fault'] == 1 || $lead['tickets']  == 1 || $lead['dui'] == 1){
 			$data['status'] = 0;
 		}
-		// dd($lead);
 		return Lead::create($data);
 	}
 
 
+	private function checkAndProcessAffiliateRecord($leadId){
+		if(!request()->has('aid')) return false;
+		$affiliate = Affiliate::where('key',request()->aid)->first();
+		if(!$affiliate) return false;
+
+		$data = [
+			'affiliate_id' => $affiliate->id,
+			'lead_id' => $leadId,
+		];
+		if(AffiliateLead::create($data)){
+			return $affiliate->postback_url . "?pay_amt=".$affiliate->payout_amount;
+		}else{
+			return false;
+		}
+	}
 	public function validateZipcode(Request $request){
 		return response()->json(['zipcode' => CommonMethod::getZipcodeInfo(90001)]);
 	}
