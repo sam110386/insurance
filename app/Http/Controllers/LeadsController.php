@@ -72,14 +72,14 @@ class LeadsController extends BaseController
 		$data['bundled'] 					= $lead['bundled'];
 		$data['first_driver_first_name'] 	= $lead['first_name'];
 		$data['first_driver_last_name'] 	= $lead['last_name'];
-		$data['first_driver_dob'] 			= isset($lead['dob'])?date('Y-m-d',strtotime($lead['dob'])):null;//$lead['dob-year']. "-" . $lead['dob-month']. "-" .$lead['dob-date'];
+		$data['first_driver_dob'] 			= isset($lead['dob'])?date('Y-m-d',strtotime($lead['dob'])):null;
 		$data['first_driver_gender'] 		= $lead['gender'];
 		$data['first_driver_dl'] 			= $lead['dl1'];
 		$data['first_driver_state'] 		= ($lead['state1'] == 'other') ? $lead['state1-other'] : $states[$lead['state1']];
 
 		$data['second_driver_first_name'] 	= (isset($lead['first_name2'])) ? $lead['first_name2']  : "";
 		$data['second_driver_last_name'] 	= (isset($lead['last_name2'])) ? $lead['last_name2']  : "";
-		$data['second_driver_dob'] 			= isset($lead['dob2'])?date('Y-m-d',strtotime($lead['dob2'])):null;//(isset($lead['dob2-year']) && isset($lead['dob2-month']) && isset($lead['dob2-date']) ) ? $lead['dob2-year']. "-" . $lead['dob2-month']. "-" .$lead['dob2-date']  : null;
+		$data['second_driver_dob'] 			= isset($lead['dob2'])?date('Y-m-d',strtotime($lead['dob2'])):null;
 		$data['second_driver_gender'] 		= (isset($lead['gender-2'])) ? $lead['gender-2']  : "";
 		$data['second_driver_dl'] 			= (isset($lead['dl2'])) ? $lead['dl2']  : "";
 		
@@ -89,7 +89,7 @@ class LeadsController extends BaseController
 
 		$data['third_driver_first_name'] 	= (isset($lead['first_name3'])) ? $lead['first_name3']  : "";
 		$data['third_driver_last_name'] 	= (isset($lead['last_name3'])) ? $lead['last_name3']  : "";
-		$data['third_driver_dob'] 			= isset($lead['dob3'])?date('Y-m-d',strtotime($lead['dob3'])):null;//(isset($lead['dob3-year']) && isset($lead['dob3-month']) && isset($lead['dob3-date']) ) ? $lead['dob3-year']. "-" . $lead['dob3-month']. "-" .$lead['dob3-date']  : null;
+		$data['third_driver_dob'] 			= isset($lead['dob3'])?date('Y-m-d',strtotime($lead['dob3'])):null;
 		$data['third_driver_gender'] 		= (isset($lead['gender-3'])) ? $lead['gender-3']  : "";
 		$data['third_driver_dl'] 			= (isset($lead['dl3'])) ? $lead['dl3']  : "";
 		
@@ -99,7 +99,7 @@ class LeadsController extends BaseController
 
 		$data['fourth_driver_first_name'] 	= (isset($lead['first_name4'])) ? $lead['first_name4']  : "";
 		$data['fourth_driver_last_name'] 	= (isset($lead['last_name4'])) ? $lead['last_name4']  : "";
-		$data['fourth_driver_dob'] 			= isset($lead['dob4'])?date('Y-m-d',strtotime($lead['dob4'])):null;//(isset($lead['dob4-year']) && isset($lead['dob4-month']) && isset($lead['dob4-date']) ) ? $lead['dob4-year']. "-" . $lead['dob4-month']. "-" .$lead['dob4-date']  : null;
+		$data['fourth_driver_dob'] 			= isset($lead['dob4'])?date('Y-m-d',strtotime($lead['dob4'])):null;
 		$data['fourth_driver_gender'] 		= (isset($lead['gender-4'])) ? $lead['gender-4']  : "";
 		$data['fourth_driver_dl'] 			= (isset($lead['dl4'])) ? $lead['dl4']  : "";
 
@@ -110,7 +110,7 @@ class LeadsController extends BaseController
 
 		$data['fifth_driver_first_name'] 	= (isset($lead['first_name5'])) ? $lead['first_name5']  : "";
 		$data['fifth_driver_last_name'] 	= (isset($lead['last_name5'])) ? $lead['last_name5']  : "";
-		$data['fifth_driver_dob'] 			= isset($lead['dob5'])?date('Y-m-d',strtotime($lead['dob5'])):null;//(isset($lead['dob5-year']) && isset($lead['dob5-month']) && isset($lead['dob5-date']) ) ? $lead['dob5-year']. "-" . $lead['dob5-month']. "-" .$lead['dob5-date']  : null;
+		$data['fifth_driver_dob'] 			= isset($lead['dob5'])?date('Y-m-d',strtotime($lead['dob5'])):null;
 		$data['fifth_driver_gender'] 		= (isset($lead['gender-5'])) ? $lead['gender-5']  : "";
 		$data['fifth_driver_dl'] 			= (isset($lead['dl5'])) ? $lead['dl5']  : "";
 		if(isset($lead['state5'])){
@@ -133,8 +133,14 @@ class LeadsController extends BaseController
 			$data['first_vehicle_make'] = $lead['make'];
 		}
 
-		$data['first_vehicle_model'] 		= ($lead['model1-other']) ? $lead['model1-other'] : $lead['model-1']; 
-		$data['first_vehicle_trim'] 		= (isset($lead['trim-1'])) ? $lead['trim-1'] : "";
+		$data['first_vehicle_model'] 		= ($lead['model1-other']) ? $lead['model1-other'] : $lead['model-1'];
+		if(isset($lead['trim-1'])){
+			$data['first_vehicle_trim'] = $lead['trim-1'];
+		}elseif(isset($lead['trim-other-1'])){
+			$data['first_vehicle_trim']= $lead['trim-other-1'];
+		}else{
+			$data['first_vehicle_trim'] = "";	
+		}
 		$data['first_vehicle_vin'] 			= $lead['vin1'];
 		$data['first_vehicle_owenership'] 	= $lead['ownership-vehicle-1'];
 		$data['first_vehicle_uses'] 		= $lead['primary-use-vehicle-1'];
@@ -163,7 +169,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['second_vehicle_model'] 		= ($lead['model2-other']) ? $lead['model2-other'] : $lead['model-2'];
-			$data['second_vehicle_trim'] 		= (isset($lead['trim-2'])) ? $lead['trim-2'] : "";
+
+			if(isset($lead['trim-2'])){
+				$data['second_vehicle_trim'] = $lead['trim-2'];
+			}elseif(isset($lead['trim-other-2'])){
+				$data['second_vehicle_trim']= $lead['trim-other-2'];
+			}else{
+				$data['second_vehicle_trim'] = "";	
+			}
+
 			$data['second_vehicle_vin'] 		= $lead['vin2'];
 			$data['second_vehicle_owenership'] 	= $lead['ownership-vehicle-2'];
 			$data['second_vehicle_uses'] 		= $lead['primary-use-vehicle-2'];
@@ -193,7 +207,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['third_vehicle_model'] 		= ($lead['model3-other']) ? $lead['model3-other'] : $lead['model-3'];
-			$data['third_vehicle_trim'] 		= (isset($lead['trim-3'])) ? $lead['trim-3'] : "";
+
+			if(isset($lead['trim-3'])){
+				$data['third_vehicle_trim'] = $lead['trim-3'];
+			}elseif(isset($lead['trim-other-3'])){
+				$data['third_vehicle_trim']= $lead['trim-other-3'];
+			}else{
+				$data['third_vehicle_trim'] = "";	
+			}
+
 			$data['third_vehicle_vin'] 		= $lead['vin3'];
 			$data['third_vehicle_owenership'] 	= $lead['ownership-vehicle-3'];
 			$data['third_vehicle_uses'] 		= $lead['primary-use-vehicle-3'];
@@ -222,7 +244,14 @@ class LeadsController extends BaseController
 			}
 
 			$data['fourth_vehicle_model'] 		= ($lead['model4-other']) ? $lead['model4-other'] : $lead['model-4'];
-			$data['fourth_vehicle_trim'] 		= (isset($lead['trim-4'])) ? $lead['trim-4'] : "";
+			if(isset($lead['trim-4'])){
+				$trim = $lead['trim-4'];
+			}elseif(isset($lead['trim-other-4'])){
+				$trim= $lead['trim-other-4'];
+			}else{
+				$trim = "";	
+			}			
+			$data['fourth_vehicle_trim'] 		= $trim;
 			$data['fourth_vehicle_vin'] 		= $lead['vin4'];
 			$data['fourth_vehicle_owenership'] 	= $lead['ownership-vehicle-4'];
 			$data['fourth_vehicle_uses'] 		= $lead['primary-use-vehicle-4'];
@@ -251,7 +280,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['fifth_vehicle_model'] 		= ($lead['model5-other']) ? $lead['model5-other'] : $lead['model-5'];
-			$data['fifth_vehicle_trim'] 		= (isset($lead['trim-5'])) ? $lead['trim-5'] : "";
+
+			if(isset($lead['trim-5'])){
+				$trim = $lead['trim-5'];
+			}elseif(isset($lead['trim-other-5'])){
+				$trim= $lead['trim-other-5'];
+			}else{
+				$trim = "";	
+			}			
+			$data['fifth_vehicle_trim'] 		= $trim;
 			$data['fifth_vehicle_vin'] 		= $lead['vin5'];
 			$data['fifth_vehicle_owenership'] 	= $lead['ownership-vehicle-5'];
 			$data['fifth_vehicle_uses'] 		= $lead['primary-use-vehicle-5'];
@@ -280,7 +317,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['sixth_vehicle_model'] 		= ($lead['model6-other']) ? $lead['model6-other'] : $lead['model-6'];
-			$data['sixth_vehicle_trim'] 		= (isset($lead['trim-6'])) ? $lead['trim-6'] : "";
+			if(isset($lead['trim-6'])){
+				$trim = $lead['trim-6'];
+			}elseif(isset($lead['trim-other-6'])){
+				$trim= $lead['trim-other-6'];
+			}else{
+				$trim = "";	
+			}			
+			$data['sixth_vehicle_trim'] 		= $trim;
+
 			$data['sixth_vehicle_vin'] 		= $lead['vin6'];
 			$data['sixth_vehicle_owenership'] 	= $lead['ownership-vehicle-6'];
 			$data['sixth_vehicle_uses'] 		= $lead['primary-use-vehicle-6'];
@@ -307,7 +352,14 @@ class LeadsController extends BaseController
 			}
 
 			$data['seventh_vehicle_model'] 		= ($lead['model7-other']) ? $lead['model7-other'] : $lead['model-7'];
-			$data['seventh_vehicle_trim'] 		= (isset($lead['trim-7'])) ? $lead['trim-7'] : "";
+			if(isset($lead['trim-7'])){
+				$trim = $lead['trim-7'];
+			}elseif(isset($lead['trim-other-7'])){
+				$trim= $lead['trim-other-7'];
+			}else{
+				$trim = "";	
+			}			
+			$data['seventh_vehicle_trim'] 		= $trim;			
 			$data['seventh_vehicle_vin'] 		= $lead['vin7'];
 			$data['seventh_vehicle_owenership'] 	= $lead['ownership-vehicle-7'];
 			$data['seventh_vehicle_uses'] 		= $lead['primary-use-vehicle-7'];
@@ -336,7 +388,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['eighth_vehicle_model'] 		= ($lead['model8-other']) ? $lead['model8-other'] : $lead['model-8'];
-			$data['eighth_vehicle_trim'] 		= (isset($lead['trim-8'])) ? $lead['trim-8'] : "";
+
+			if(isset($lead['trim-8'])){
+				$trim = $lead['trim-8'];
+			}elseif(isset($lead['trim-other-8'])){
+				$trim= $lead['trim-other-8'];
+			}else{
+				$trim = "";	
+			}			
+			$data['eighth_vehicle_trim'] 		= $trim;
 			$data['eighth_vehicle_vin'] 		= $lead['vin8'];
 			$data['eighth_vehicle_owenership'] 	= $lead['ownership-vehicle-8'];
 			$data['eighth_vehicle_uses'] 		= $lead['primary-use-vehicle-8'];
@@ -363,7 +423,15 @@ class LeadsController extends BaseController
 			}
 
 			$data['ninth_vehicle_model'] 		= ($lead['model9-other']) ? $lead['model9-other'] : $lead['model-9'];
-			$data['ninth_vehicle_trim'] 		= (isset($lead['trim-9'])) ? $lead['trim-9'] : "";
+
+			if(isset($lead['trim-9'])){
+				$trim = $lead['trim-9'];
+			}elseif(isset($lead['trim-other-9'])){
+				$trim= $lead['trim-other-9'];
+			}else{
+				$trim = "";	
+			}			
+			$data['ninth_vehicle_trim'] 		= $trim;			
 			$data['ninth_vehicle_vin'] 		= $lead['vin9'];
 			$data['ninth_vehicle_owenership'] 	= $lead['ownership-vehicle-9'];
 			$data['ninth_vehicle_uses'] 		= $lead['primary-use-vehicle-9'];
@@ -390,7 +458,14 @@ class LeadsController extends BaseController
 			}
 
 			$data['tenth_vehicle_model'] 		= ($lead['model10-other']) ? $lead['model10-other'] : $lead['model-10'];
-			$data['tenth_vehicle_trim'] 		= (isset($lead['trim-10'])) ? $lead['trim-10'] : "";
+			if(isset($lead['trim-10'])){
+				$trim = $lead['trim-10'];
+			}elseif(isset($lead['trim-other-10'])){
+				$trim= $lead['trim-other-10'];
+			}else{
+				$trim = "";	
+			}			
+			$data['tenth_vehicle_trim'] 		= $trim;
 			$data['tenth_vehicle_vin'] 		= $lead['vin10'];
 			$data['tenth_vehicle_owenership'] 	= $lead['ownership-vehicle-10'];
 			$data['tenth_vehicle_uses'] 		= $lead['primary-use-vehicle-10'];

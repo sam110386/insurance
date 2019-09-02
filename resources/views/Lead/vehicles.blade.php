@@ -108,7 +108,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-1"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-1" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<input type="text" name="trim-other-1" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
 							<a href="javascript:;" data-href="vin1" data-current="trims1" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>
 					</div>
@@ -394,7 +394,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-2"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-2" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<input type="text" name="trim-other-2" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
 							<a href="javascript:;" data-href="vin2" data-current="trims2" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -682,7 +682,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-3"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-3" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-3" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin3" data-current="trims3" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -969,7 +969,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-4"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-4" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-4" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin4" data-current="trims4" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -1256,7 +1256,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-5"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-5" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-5" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin5" data-current="trims5" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -1543,7 +1543,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-6"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-6" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-6" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin6" data-current="trims6" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -1831,7 +1831,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-7"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-7" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-7" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin7" data-current="trims7" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -2119,7 +2119,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-8"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-8" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-8" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin8" data-current="trims8" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -2407,7 +2407,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-9"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-9" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
+							<input type="text" name="trim-other-9" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually"/>
 							<a href="javascript:;" data-href="vin9" data-current="trims9" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
@@ -2696,7 +2696,7 @@
 					<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 						<div class="form-group choices row trims-10"></div>
 						<div class="form-group manual-trim" style="display: none">
-							<input type="text" name="trim-10" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
+							<input type="text" name="trim-other-10" class="form-control form-control-lg" placeholder="Enter Vehicle Trim Manually" />
 							<a href="javascript:;" data-href="vin10" data-current="trims10" class="mt-3 btn btn-lg btn-warning next-question">Continue</a>
 						</div>						
 					</div>
