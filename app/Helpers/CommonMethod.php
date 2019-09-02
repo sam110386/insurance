@@ -14,7 +14,7 @@ class CommonMethod {
         return ["21st Century","AIG","Allstate","Country Financial","Esurance","Farmers Ins","Geico","Liberty Mutual","MetLife","Nationwide","Progressive","State Farm"];        
     }
     public static function getStates(){
-        return ['AL' => 'Alabama',
+        return ['other' => 'Other','AL' => 'Alabama',
         'AK' => 'Alaska',
         'AZ' => 'Arizona',
         'AR' => 'Arkansas',
@@ -64,8 +64,7 @@ class CommonMethod {
         'WA' => 'Washington',
         'WV' => 'West Virginia',
         'WI' => 'Wisconsin',
-        'WY' => 'Wyoming',
-        'other' => 'Other'
+        'WY' => 'Wyoming'
       ];
     }
 
