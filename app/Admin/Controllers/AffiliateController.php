@@ -10,6 +10,8 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Encore\Admin\Admin;
+use Illuminate\Http\Request;
+
 
 class AffiliateController extends Controller
 {
@@ -135,11 +137,11 @@ class AffiliateController extends Controller
             return ($this->s5) ? $this->s5_value : 'No';
         });
 
-        $show->column(trans('admin.notes'))->as(function(){
+        $show->notes(trans('admin.notes'))->as(function(){
             return nl2br($this->notes);
         })->setEscape(false);
-        $show->key(trans('admin.affiliate_url'))->as(function($key){
-            return route('new-lead') . '?aid=' .$key;
+        $show->column(trans('admin.affiliate_url'))->as(function(){
+            return ($this->s1_value) ?  route('new-lead') . '?s1=' . $this->s1_value : "" ;
         });
         $show->created_at('Created at');
         $show->updated_at('Updated at');
@@ -195,8 +197,18 @@ class AffiliateController extends Controller
                 }
             ");
         }
-        Admin::script(" 
-                 $('input.s1[type=hidden]').on('change',function(){
+        Admin::script("
+            function randString(length) {
+               var result = '';
+               var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+               var charactersLength = characters.length;
+               for ( var i = 0; i < length; i++ ) {
+                  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+               }
+               return result;
+            }
+            $('.generate-string').on('click',function(){ if (!$('#s1_value').is('[readonly]') ) { $('#s1_value').val(randString(32)); } });
+                $('input.s1[type=hidden]').on('change',function(){
                     if($(this).val() == 'on'){
                         $('#s1_value').attr({'required':true});
                         $('#s1_value').removeAttr('readonly');
@@ -268,26 +280,31 @@ class AffiliateController extends Controller
             'on'  => ['value' => 1, 'text' => 'Yes', 'color' => 'success']
         ];
 
-        $form->row(function ($row) use ( $states,$form) {
+        $form->row(function ($row) use ( $states,$id) {
+            $readonly = (old('s1_value')) ? [] : ['readonly' => true];
             $row->width(1)->switch('s1', 'S1')->states($states);
-            $row->width(4)->text('s1_value', '&nbsp;')->attribute(['readonly' => true]);
+            $row->width(4)->text('s1_value', '&nbsp;')->attribute($readonly)->rules('unique:affiliate,s1_value'.$id);
+            $row->width(1)->html('<a href="javascript:;" class="btn generate-string btn-primary " style="margin-top:7px;">Generate</a>');
         });
-
         $form->row(function ($row) use ( $states) {
+            $readonly = (old('s2_value')) ? [] : ['readonly' => true];
             $row->width(1)->switch('s2', 'S2')->states($states);
-            $row->width(4)->text('s2_value', '&nbsp;')->attribute(['readonly' => true]);
+            $row->width(4)->text('s2_value', '&nbsp;')->attribute($readonly);
         });
         $form->row(function ($row) use ( $states) {
+            $readonly = (old('s3_value')) ? [] : ['readonly' => true];
             $row->width(1)->switch('s3', 'S3')->states($states);
-            $row->width(4)->text('s3_value', '&nbsp;')->attribute(['readonly' => true]);
+            $row->width(4)->text('s3_value', '&nbsp;')->attribute($readonly);
         });
         $form->row(function ($row) use ( $states) {
+            $readonly = (old('s4_value')) ? [] : ['readonly' => true];
             $row->width(1)->switch('s4', 'S4')->states($states);
-            $row->width(4)->text('s4_value', '&nbsp;')->attribute(['readonly' => true]);
+            $row->width(4)->text('s4_value', '&nbsp;')->attribute($readonly);
         });
         $form->row(function ($row) use ( $states) {
+            $readonly = (old('s5_value')) ? [] : ['readonly' => true];
             $row->width(1)->switch('s5', 'S5')->states($states);
-            $row->width(4)->text('s5_value', '&nbsp;')->attribute(['readonly' => true]);
+            $row->width(4)->text('s5_value', '&nbsp;')->attribute($readonly);
         });
 
 
@@ -304,7 +321,6 @@ class AffiliateController extends Controller
                 $row->width(1)->hidden('key')->value(str_random(32));
             });            
         }
-        // dd(str_random(32));
         $form->row(function ($row){
             $states = [
                 'off' => ['value' => 0, 'text' => 'Inactive', 'color' => 'danger'],
@@ -313,5 +329,26 @@ class AffiliateController extends Controller
             $row->width(1)->switch('status', 'Status')->states($states)->attribute(['checked' =>true]);
         });        
         return $form;
+    }
+
+    public function update($id,Request $request){
+        $valid = request()->validate([
+            's1_value' => "unique:affiliate,s1_value,{$id}",
+        ]);
+        $data = [];
+        foreach ($request->all() as $key => $value) {
+            
+            $data[$key] = (in_array($key, ['s1','s2','s3','s4','s5','status'])) ? ($value=="on") ? 1 : 0  : $value;
+        }
+        unset($data['_token']);
+        unset($data['_method']);
+        unset($data['_previous_']);
+        if(Affiliate::where('id', $id)->update($data)){
+            admin_success('Success','Affiliate has been updated.');
+            return redirect()->route('affiliates.index');
+        }else{
+            admin_error('Error','Affiliate not updated!Please try again.');
+            return redirect()->back();
+        }
     }
 }

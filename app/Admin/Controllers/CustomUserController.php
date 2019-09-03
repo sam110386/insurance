@@ -87,16 +87,15 @@ class CustomUserController extends UserController
 	 */
 	protected function grid()
 	{
-		$userModel = config('admin.database.users_model');
 
-		$grid = new Grid(new $userModel());
+		$grid = new Grid(new AdminUser);
 
 		$grid->id('ID')->sortable();
 		$grid->name(trans('admin.first_name'));
 		$grid->last_name(trans('admin.last_name'));
 		$grid->username(trans('admin.username'));
+		$grid->email(trans('admin.email'));
 		$grid->roles(trans('admin.role'))->pluck('name')->label();
-		
 
 		$grid->created_at(trans('admin.created_at'));
 
@@ -197,7 +196,7 @@ class CustomUserController extends UserController
 		$form->divide();
 		$userGroups = [];
 		if($id){
-			$user = Administrator::findOrFail($id);
+			$user = AdminUser::findOrFail($id);
 			if(!empty($user->roles)){
 				$role = $user->roles[0]->slug;
 				$groups = [];
@@ -220,7 +219,7 @@ class CustomUserController extends UserController
 			if ($form->password && $form->model()->password != $form->password) {
 				$form->password = bcrypt($form->password);
 			}
-			if($form->email){
+			if(request()->id == null){
 				$form->username = $form->email;
 				$form->created_by = Auth::guard('admin')->user()->id;
 			}
@@ -241,7 +240,7 @@ class CustomUserController extends UserController
 	}
 
 	public static function saveUserGroups($form){
-		$user = Administrator::findOrFail($form->model()->id);
+		$user = AdminUser::findOrFail($form->model()->id);
 		if(!empty($user->roles)){
 			$role = $user->roles[0]->slug;
 
@@ -262,12 +261,19 @@ class CustomUserController extends UserController
 	}
 
 	public static function updateAssociateGroup($groupsIds,$associateId){
+		$existingGroups = GroupMember::where('member_id',$associateId)->pluck('group_id')->toArray();
+
 		$groups = [];
 		foreach ($groupsIds as $group) {
-			$groups[] = ['group_id'=> $group, 'member_id' => $associateId,'created_at' => Carbon::now(), 'updated_at'=> Carbon::now()];
+			if(!in_array($group, $existingGroups))
+				$groups[] = ['group_id'=> $group, 'member_id' => $associateId,'created_at' => Carbon::now(), 'updated_at'=> Carbon::now()];
 		}
-		GroupMember::where('member_id',$associateId)->delete();
-		GroupMember::insert($groups);
+		GroupMember::where('member_id',$associateId)->whereNotIn('group_id',$groupsIds)->delete();
+		if(!empty($groups)){
+			if(GroupMember::insert($groups)){
+				self::sendNotificationToManager($groups,$associateId);
+			}
+		}
 	}
 
 	public static function sendNewUserEmails($userId){
@@ -275,4 +281,12 @@ class CustomUserController extends UserController
 		SendMail::adminNewUserNotification($user);
 		SendMail::userWelcomeNotification($user);
 	}
+
+	public static function sendNotificationToManager($groups,$associateId){
+		$user = AdminUser::findOrFail($associateId);
+		foreach ($groups as $group) {
+			SendMail::sendMailToMangerOnNewUser(Group::findOrFail($group['group_id']),$user );
+		}
+	}
+
 }

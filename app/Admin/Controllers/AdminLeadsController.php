@@ -797,10 +797,8 @@ SCRIPT;
             $form->ignore('assign_id');
             $form->ip_address = $_SERVER["REMOTE_ADDR"];
         });
-
         return $form;
     }
-
 
     public static function getLeadCounts(){
 

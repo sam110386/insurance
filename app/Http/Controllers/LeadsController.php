@@ -21,8 +21,6 @@ class LeadsController extends BaseController
 	public function newLead(){
 		$data['years'] = CommonMethod::getYears();
 		$data['zipcodes'] = CommonMethod::getZipcodeInfo();
-		// $data['carMakes'] = CommonMethod::getCarMakes();
-		// $data['carModels'] = CommonMethod::getModels();
 		$data['states'] = CommonMethod::getStates();
 		$data['insuranceComp'] = CommonMethod::getInsuranceCompanies();
 		return view('Lead.new',$data);
@@ -504,9 +502,9 @@ class LeadsController extends BaseController
 	}
 
 
-	private function checkAndProcessAffiliateRecord($leadId){
-		if(!request()->has('aid')) return false;
-		$affiliate = Affiliate::where('key',request()->aid)->first();
+	public static function checkAndProcessAffiliateRecord($leadId){
+		if(!request()->has('s1')) return false;
+		$affiliate = Affiliate::where('s1_value',request()->s1)->first();
 		if(!$affiliate) return false;
 
 		$data = [
@@ -514,10 +512,9 @@ class LeadsController extends BaseController
 			'lead_id' => $leadId,
 		];
 		if(AffiliateLead::create($data)){
-			return $affiliate->postback_url . "?pay_amt=".$affiliate->payout_amount;
-		}else{
-			return false;
+			return (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
 		}
+		return false;
 	}
 	public function validateZipcode(Request $request){
 		return response()->json(['zipcode' => CommonMethod::getZipcodeInfo(90001)]);

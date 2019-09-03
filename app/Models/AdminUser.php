@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Encore\Admin\Auth\Database\Administrator;
 
-class AdminUser extends Model
+class AdminUser extends Administrator
 {
 	protected $table = 'admin_users';
     public function notes()
@@ -15,5 +16,13 @@ class AdminUser extends Model
     public function by_who()
     {
         return $this->belongsTo('App\Models\AdminUser', 'created_by' , 'id');
+    }    
+
+    public function managerGroups(){
+    	return $this->hasMany('App\Models\Group','manager_id','id');
+    }
+
+    public function userGroups(){
+    	return $this->hasMany('App\Models\GroupMember','member_id','id');
     }    
 }

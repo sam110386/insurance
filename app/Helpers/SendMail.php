@@ -44,11 +44,20 @@ class SendMail {
 
 
 	public static function passwordResetUrlNotification($user,$url){
+		if(!$user->email) return;
 		\Mail::send('Emails.User.reset-password', ['name' => $user->name, "url" => $url ],
 			function ($message) use($user){
 				$message->to($user->email)->subject('Resest Password - Insurance');
 			});		
 	}
 
+
+	public static function sendMailToMangerOnNewUser($group,$user){
+		if(!$group->user->email) return;
+		\Mail::send('Emails.Manager.new_user', ['user' => $user,'group' => $group],
+			function ($message) use($group){
+				$message->to($group->user->email)->subject('New User - ' . $group->name . '- Insurance');
+			});
+	}
 
 }
