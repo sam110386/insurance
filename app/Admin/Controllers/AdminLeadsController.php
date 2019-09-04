@@ -243,7 +243,9 @@ class AdminLeadsController extends Controller
         // });
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
-            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i><span class='hidden-xs'>&nbsp;&nbsp;New</span></a> &nbsp;");
+            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
+            $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
+            
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
@@ -491,7 +493,7 @@ SCRIPT;
                 $row->width(6)->text('last_name', trans('Last Name'))->rules('required');
             });
             $form->row(function($row){
-                $row->width(6)->text('phone', trans('Phone'))->rules('required|regex:/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/',['regex'=> 'Invalid phone number']);
+                $row->width(6)->mobile('phone', trans('Phone'))->options(['mask' => '(999) 999-9999'])->attribute(['style' => 'width:100%;'])->rules('required|regex:/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/',['regex'=> 'Invalid phone number']);
                 $row->width(6)->email('email', trans('Email'))->rules('required');
             });
             $form->row(function($row) use($zipcodes){
@@ -868,8 +870,6 @@ SCRIPT;
         return redirect()->route('leads.show',[$id]);
     }
 
-
-
     public function sendBulkEmail(Request $request){
         if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
             admin_error('Error','Access denied.');
@@ -921,5 +921,346 @@ SCRIPT;
         }
         return back();
     }
+
+    public function advanceSearch(Content $content){
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
+        return $content
+        ->header('Lead Advance Search')
+        ->description('description')
+        ->body($this->advanceSearchForm());
+    }
+    protected function advanceSearchForm(){
+
+        Admin::script("$('input.previous_insurance').on('ifClicked', function (event) {
+            if(this.value ==1 ) {
+                $('select#duration,input#current_insurance').removeAttr('disabled');
+            }else{
+                $('select#duration,input#current_insurance').attr('disabled','disabled');
+            }
+            });
+            $('.content form').attr('method','get');
+        ");
+        $form = new Form(New Lead);
+
+        $form->display('id', 'ID');
+        $form->display('created_at', 'Created At');
+        $form->display('updated_at', 'Updated At');
+        $form->row(function($row){
+            $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>Contact Information:</h3>");
+        });
+        $form->row(function($row){
+            $row->width(4)->text('name',trans('admin.name'));
+            $row->width(4)->email('email',trans('admin.email'));
+            $row->width(4)->mobile('phone',trans('admin.phone'))->attribute(['style'=>'width:100%;']);            
+        });
+
+        $form->row(function($row){
+            $row->width(4)->text('street',trans('admin.street'));
+            $row->width(4)->text('city',trans('admin.city'));
+            $row->width(4)->text('state',trans('admin.state'));
+        });
+        $form->row(function($row){
+            $row->width(4)->text('zip',trans('admin.zipcode'));
+            $row->width(4)->date('dob',trans('Date Of Birth'))->attribute(['style'=>'width:100%;']);
+            $row->width(4)->text('dl',trans('Driving License Number'));
+        });
+        $form->row(function($row){
+            $row->width(2)->radio('gender',trans('Gender'))->options(['Male'=> 'Male','Female'=>'Female'])->stacked();
+            $row->width(2)->radio('married',trans('Married'))->options([1=>'Yes',0=>'No'])->default('3')->stacked();
+            $row->width(2)->radio('children',trans('Children'))->options([1=>'Yes',0=>'No'])->default('3')->stacked();
+            $row->width(2)->radio('homeowner',trans('Homeowner'))->options(['owner'=>'Owner','renter'=>'Renter'])->stacked();
+            $row->width(2)->radio('bundled',trans('Bundled'))->options([1=>'yes',0=>'No'])->default('3')->stacked(); 
+        });
+        $form->row(function($row){
+            $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>COVERAGE:</h3>");
+        });
+        $form->row(function($row){
+            $row->width(4)->select('body_injury',trans('Bodily Injury'))->options(["15-30" =>"$15k/$30k","25-50"=>"$25k/$50k","30-60"=>"$30k/$60k","50-100"=>"$50k/$100k","100-300"=>"$100k/$300k","250-500"=>"$250k/$500k","500-1000"=>"$500k/$1Mil"]);
+            $row->width(4)->select('deduct',trans('Deductible'))->options(["250" => "$250", "500" => "$500", "1000" => "$1000"]);
+            $row->width(4)->select('medical',trans('Medical'))->options(["0" => "$0", "5000" => "$5000", "10000" => "$10000"])->default('3');
+        });
+        $form->row(function($row){
+            $row->width(2)->radio('towing',trans('Towing'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+            $row->width(2)->radio('uninsured',trans('Uninsured'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+            $row->width(2)->radio('rental',trans('Rental'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+        });
+
+        $form->row(function($row){
+            $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>HISTORY:</h3>");
+        });
+        $form->row(function($row){
+            $insuranceComp =  CommonMethod::getInsuranceCompanies();
+            $row->width(4)->radio('previous_insurance',trans('Have you had auto insurance in the past 30 days?'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+            $row->width(4)->select('duration',trans('How long have you continuously had auto insurance?'))->options(["0-1" => "Less than a year", "1-2" => "1 to 2 years","2-3"=>"2 to 3 years",'4+'=>"4+ years"])->default("")->attribute(["id"=>"duration"])->attribute(['disabled' => true]);
+            $row->width(4)->text('current_insurance',trans('Current Auto Insurance'))->attribute(['disabled' => true]);
+        });
+        $form->row(function($row){
+            $row->width(4)->radio('at_fault',trans('An at-fault accident in the past three (3) years?'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+            $row->width(4)->radio('tickets',trans('Two (2) or more tickets in the past three (3) years?'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+            $row->width(4)->radio('dui',trans('A DUI conviction in the past ten (10) years?'))->options(["1" => "Yes", "0" => "No"])->stacked()->default('3');
+        });
+
+        $form->row(function($row){
+            $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>PREFERENCE:</h3>");
+        });
+
+        $form->row(function($row){
+            $row->width(4)->text('quality_provides',trans('What is the most important quality looking for when choosing an auto insurer?'));
+            $row->width(4)->radio('agent_in_person',trans('Will it be important to you to be able to speak to your local agent in person?'))->options(["1"=> "Yes","0" => "No"])->default('3');
+            $row->width(4)->text('referrer',trans('Referrer'));
+            // $row->hidden('_method')->value('get');
+        });
+        $form->tools(function (Form\Tools $tools) {
+            // Disable list btn
+            $tools->disableListButton();
+        });
+        $form->setAction(route('lead-advance-search-post'));
+        $form->setTitle("Lead Advance Search Form");
+        $form->disableReset();
+        $form->disableViewCheck();
+        $form->disableEditingCheck();
+        $form->disableCreatingCheck();
+        return $form;
+    }
+
+
+    public function advanceSearchResult(Request $request,Content $content){
+        // dd($request->all());
+        return $content
+        ->header('Lead Advance Search Result')
+        ->description(' ')
+        ->body($this->gridAdvanceSearch($request));
+    }
+
+    protected function gridAdvanceSearch($request){
+        // dd($request->all());
+        $searchText = trans('admin.filter');
+        Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;".$searchText."');");
+        Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
+            $('#assign_to,#assign_id').val('');
+            $('#assign_to,#assign_id').select2({ width: '100%' });
+            $('#assign_to').on('change',function(){
+                $('.ajax-loader').toggleClass('d-none');
+                $.get('/admin/api/assignment/list/?q='+ $(this).val(),function(data){
+                    $('#assign_id').html(''); 
+                    $('#assign_id').append('<option value=\"\">--Select--</option>'); 
+                    $.each(data,function(i,d){
+                        $('#assign_id').append('<option value=\"' + d.id + '\">' + d.text + '</option>');
+                    });
+                    $('.ajax-loader').toggleClass('d-none');
+                });
+            })
+        });");
+
+        $grid = new Grid(new Lead);
+        if (!LoginAdmin::user()->inRoles(['administrator'])){
+            if(LoginAdmin::user()->inRoles(['manager'])){
+                $grid->model()->where('manager_id', Auth::guard('admin')->user()->id);
+            }else{
+                $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
+            }
+        }
+        $grid->id('ID')->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->first_name(trans('First Name'))->sortable()->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->last_name(trans('Last Name'))->sortable()->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->email(trans('Email'))->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->phone(trans('Phone'))->display(function($phone){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>".CommonMethod::phoneNumber($phone)."</a>";
+        });
+        $grid->status(trans('Risk'))->display(function($risk){
+            if($risk === 1){
+                $str = "<span class='text-success'><i class='fa fa-circle'></i> Low</span>";
+            }elseif ($risk === 0) {
+                $str = "<span class='text-danger'><i class='fa fa-circle'></i> High</span>";
+            }else{
+                $str = "N/A";
+            }
+            return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
+        });
+        $grid->column(trans('Assignment'))->display(function(){
+            $member =  ($this->member_id) ? $this->user->name : "";
+            $group =  ($this->group_id) ? $this->group->name : "";
+            $g_pre = "";
+            $g_post = "";
+            $str = "NA";
+            if($member && $group){
+                $g_pre = " (";
+                $g_post = ")";
+            }
+            if($member || $group){
+                $str = $member . $g_pre . $group . $g_post;
+            }
+            return " <a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a> ";
+        });
+
+        $grid->current_status(trans('Status'))->display(function($current_status){
+            switch ($current_status) {
+                case 0:
+                    $str = "New";
+                    break;
+                case 1:
+                    $str = "Pending";
+                    break;
+                case 2:
+                    $str = "In Progress";
+                    break;
+                case 3:
+                    $str = "Complete";
+                    break;
+                case 4:
+                    $str = "Incomplete";
+                    break;
+                case 5:
+                    $str = "Declined";
+                    break;
+                case 6:
+                    $str = "Transfer";
+                    break;
+                case 7:
+                    $str = "Not Eligible";
+                    break;
+                default:
+                    $str = "New";
+                    break;
+            }
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
+
+        });
+        // $grid->ip_address(trans('IP Address'))->display(function($text){
+        //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        // });
+        $grid->created_at(trans('admin.created_at'))->sortable('desc')->display(function($text){
+            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
+        });
+        $grid->disableActions();
+        // $grid->actions(function ($actions) {
+        //     $actions->disableDelete();
+        //     if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+        //         $actions->disableEdit();            
+        //     }
+        // });
+        $grid->disableCreateButton();
+        $grid->tools(function (Grid\Tools $tools) {
+            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
+            $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
+            
+            $tools->batch(function (Grid\Tools\BatchActions $batch) {
+                $batch->disableDelete();
+                $batch->add("Send Leads", new BulkEmailLead());
+                $batch->add("Assign Leads", new BulkLeadAssignment());
+
+            });
+
+            $users= AdminUser::select(['id','name'])->get();
+            $options= "";
+            foreach ($users as $user) {
+                $options .= "<option value='". $user->id ."'>". $user->name ."</option>";
+            }
+            $tools->append('<div class="modal fade" id="bulkMail" data-controls-modal="bulkMail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="bulkMail">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button id="cancelSmallBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Send Leads Email</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.bulk.email").'" method="POST">
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
+
+                                      <div class="form-group">
+                                        <label for="user">Select User</label>
+                                        <select id="admin_users" class="c-select form-control" name="user">' .$options . '
+                                        </select>
+                                      </div>
+                                      <div class="form-group text-center">
+                                        <h4>OR</h4>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="email">Enter Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
+                                        <small>Note: This field will override above selected User.</small>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');
+
+                $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Assign Leads</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.assignment").'" method="POST">
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
+                                      <div class="form-group">
+                                        <label for="assign_to">Assign to</label>
+                                        <select id="assign_to" class="c-select form-control" name="assign_to" required>
+                                        <option value="">--Select--</option>
+                                        <option value="group">Group</option>
+                                        <option value="member">Associate</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group ajax-loader text-center d-none">
+                                        <div class="lds-facebook">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group ajax-loader">
+                                        <label for="assign_id">Select Group/Associate</label>
+                                        <select id="assign_id" class="form-control" name="assign_id" required></select>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Assign</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');           
+        });
+        $grid->filter(function($filter){ 
+            $filter->disableIdFilter(); 
+
+            $filter->where(function ($query) {
+                $query->where('first_name', 'like', "%{$this->input}%")
+                ->orWhere('phone', 'like', "%{$this->input}%")
+                ->orWhere('email', 'like', "%{$this->input}%")
+                ->orWhere('last_name', 'like', "%{$this->input}%")
+                ->orWhere('first_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('second_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('third_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('fourth_driver_dl', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_first_name', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_last_name', 'like', "%{$this->input}%")
+                ->orWhere('fifth_driver_dl', 'like', "%{$this->input}%");
+            }, 'Search by text')->placeholder('Enter First or Last Name, Email, Phone Number, or Drivers License');
+            $filter->date('created_at', 'Search by date');
+        });   
+        return $grid;
+
+    }
+
 
 }

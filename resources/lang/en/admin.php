@@ -120,5 +120,9 @@ return [
     'new_password' => 'New Password',
     'confirm_new_password' => 'Confirm New Password',
     'key' => 'Key',
-    'affiliate_url' => 'Affiliate Url'
+    'affiliate_url' => 'Affiliate Url',
+    'street' => "Street",
+    'city' => "City",
+    'state' => 'State',
+    'zipcode' => 'Zipcode'
 ];

@@ -243,4 +243,11 @@ class GroupsController extends Controller
             $query->whereIn('slug', $role);
         })->get(['id','name']);
     }
+
+    public static function sendNotificationToManager($groups,$associateId){
+        $user = AdminUser::findOrFail($associateId);
+        foreach ($groups as $group) {
+            SendMail::sendMailToMangerOnNewUser(Group::findOrFail($group['group_id']),$user );
+        }
+    }    
 }

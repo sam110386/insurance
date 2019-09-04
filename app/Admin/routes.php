@@ -34,6 +34,9 @@ Route::group([
     $router->resource('leads', 'AdminLeadsController');
     $router->resource('security', 'PermissionController');
 
+    $router->get("/leads/advance/search",'AdminLeadsController@advanceSearch')->name('lead-advance-search');
+    $router->get("/leads/advance/search/result",'AdminLeadsController@advanceSearchResult')->name('lead-advance-search-post');
+
     $router->get("/leads/{from}/{to}",'AdminLeadsController@index')->name('lead.list');
 
     $router->resource('vehicles', 'VehiclesController');
