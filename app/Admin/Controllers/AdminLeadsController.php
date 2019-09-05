@@ -944,17 +944,13 @@ SCRIPT;
             $('.content form').attr('method','get');
         ");
         $form = new Form(New Lead);
-
-        $form->display('id', 'ID');
-        $form->display('created_at', 'Created At');
-        $form->display('updated_at', 'Updated At');
         $form->row(function($row){
             $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>Contact Information:</h3>");
         });
         $form->row(function($row){
             $row->width(4)->text('name',trans('admin.name'));
             $row->width(4)->email('email',trans('admin.email'));
-            $row->width(4)->mobile('phone',trans('admin.phone'))->attribute(['style'=>'width:100%;']);            
+            $row->width(4)->mobile('phone',trans('admin.phone'))->options(['mask' => '(999) 999-9999'])->attribute(['style'=>'width:100%;']);            
         });
 
         $form->row(function($row){
@@ -974,6 +970,8 @@ SCRIPT;
             $row->width(2)->radio('homeowner',trans('Homeowner'))->options(['owner'=>'Owner','renter'=>'Renter'])->stacked();
             $row->width(2)->radio('bundled',trans('Bundled'))->options([1=>'yes',0=>'No'])->default('3')->stacked(); 
         });
+
+
         $form->row(function($row){
             $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>COVERAGE:</h3>");
         });
@@ -1028,7 +1026,6 @@ SCRIPT;
 
 
     public function advanceSearchResult(Request $request,Content $content){
-        // dd($request->all());
         return $content
         ->header('Lead Advance Search Result')
         ->description(' ')
@@ -1036,7 +1033,6 @@ SCRIPT;
     }
 
     protected function gridAdvanceSearch($request){
-        // dd($request->all());
         $searchText = trans('admin.filter');
         Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;".$searchText."');");
         Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
@@ -1063,6 +1059,9 @@ SCRIPT;
                 $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
             }
         }
+
+        $grid = self::advanceSearchConditions($grid,$request);
+
         $grid->id('ID')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
@@ -1137,19 +1136,10 @@ SCRIPT;
             return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
 
         });
-        // $grid->ip_address(trans('IP Address'))->display(function($text){
-        //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        // });
         $grid->created_at(trans('admin.created_at'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
         $grid->disableActions();
-        // $grid->actions(function ($actions) {
-        //     $actions->disableDelete();
-        //     if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
-        //         $actions->disableEdit();            
-        //     }
-        // });
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
             $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
@@ -1259,8 +1249,167 @@ SCRIPT;
             $filter->date('created_at', 'Search by date');
         });   
         return $grid;
-
     }
 
+
+    protected static function advanceSearchConditions($grid,$request){
+        if($request->name && $request->name != null && trim($request->name) != ""){
+            $searchString = trim($request->name);
+            $grid->model()
+            ->whereRaw('(first_name like ? or last_name like ? or first_driver_first_name like ? or first_driver_last_name like ? or second_driver_first_name like ? or second_driver_last_name like ? or third_driver_first_name like ? or third_driver_last_name like ? or fourth_driver_first_name like ? or fourth_driver_last_name like ? or fifth_driver_first_name like ? or fifth_driver_last_name like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+
+        if($request->email && $request->email != null){
+            $searchString = trim($request->email);
+            $grid->model()
+            ->where('email', $searchString);
+        }
+
+        if($request->phone && $request->phone != null){
+            $searchString = trim($request->phone);
+            $grid->model()
+            ->where('phone', $searchString);
+        }
+        if($request->street && $request->street != null && trim($request->street) != ""){
+            $searchString = trim($request->street);
+            $grid->model()
+            ->where('street', 'like', "%{$searchString}%");
+        }
+
+        if($request->city && $request->city != null && trim($request->city) != ""){
+            $searchString = trim($request->city);
+            $grid->model()
+            ->where('city','like', "%{$searchString}%");
+        }
+        if($request->state && $request->state != null && trim($request->state) != ""){
+            $searchString = trim($request->state);
+            $grid->model()
+            ->where('state','like', "%{$searchString}%");
+        }
+        if($request->zip && $request->zip != null && trim($request->zip) != ""){
+            $searchString = trim($request->zip);
+            $grid->model()
+            ->where('zip','like', "%{$searchString}%");
+        }
+        if($request->dob && $request->dob != null && trim($request->dob) != ""){
+            $searchString = trim($request->dob);
+            $grid->model()
+            ->whereRaw('(first_driver_dob = ? or second_driver_dob = ? or third_driver_dob = ? or fourth_driver_dob = ? or fifth_driver_dob = ? )' , [$searchString,$searchString,$searchString,$searchString,$searchString]);
+        }
+
+        if($request->dl && $request->dl != null && trim($request->dl) != ""){
+            $searchString = trim($request->dl);
+            $grid->model()
+            ->whereRaw('(first_driver_dl = like or second_driver_dl = like or third_driver_dl = like or fourth_driver_dl = like or fifth_driver_dl = like )' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+
+        if($request->gender && $request->gender != null ){
+            $searchString = trim($request->gender);
+            $grid->model()
+            ->where('gender', $searchString);
+        }        
+
+        if($request->married && $request->married != null ){
+            $searchString = trim($request->married);
+            $grid->model()
+            ->where('married', $searchString);
+        }
+
+        if($request->children && $request->children != null ){
+            $searchString = trim($request->children);
+            $grid->model()
+            ->where('children', $searchString);
+        }
+        if($request->homeowner && $request->homeowner != null ){
+            $searchString = trim($request->homeowner);
+            $grid->model()
+            ->where('homeowner', $searchString);
+        }
+        if($request->bundled && $request->bundled != null ){
+            $searchString = trim($request->bundled);
+            $grid->model()
+            ->where('bundled', $searchString);
+        }
+        if($request->body_injury && $request->body_injury != null ){
+            $searchString = trim($request->body_injury);
+            $grid->model()
+            ->where('body_injury', $searchString);
+        }
+        if($request->deduct && $request->deduct != null ){
+            $searchString = trim($request->deduct);
+            $grid->model()
+            ->where('deduct', $searchString);
+        }
+        if($request->medical && $request->medical != null ){
+            $searchString = trim($request->medical);
+            $grid->model()
+            ->where('medical', $searchString);
+        }
+        if($request->towing && $request->towing != null ){
+            $searchString = trim($request->towing);
+            $grid->model()
+            ->where('towing', $searchString);
+        }                                                     
+        if($request->uninsured && $request->uninsured != null ){
+            $searchString = trim($request->uninsured);
+            $grid->model()
+            ->where('uninsured', $searchString);
+        }                                                     
+        if($request->rental && $request->rental != null ){
+            $searchString = trim($request->rental);
+            $grid->model()
+            ->where('rental', $searchString);
+        }
+
+        if($request->previous_insurance && $request->previous_insurance != null ){
+            $searchString = trim($request->previous_insurance);
+            $grid->model()
+            ->where('previous_insurance', $searchString);
+        }
+        if($request->duration && $request->duration != null ){
+            $searchString = trim($request->duration);
+            $grid->model()
+            ->where('duration', $searchString);
+        }
+        if($request->current_insurance && $request->current_insurance != null && trim($request->current_insurance) != ""){
+            $searchString = trim($request->current_insurance);
+            $grid->model()
+            ->where('current_insurance','like', "%{$searchString}%");
+        }
+        if($request->at_fault && $request->at_fault != null ){
+            $searchString = trim($request->at_fault);
+            $grid->model()
+            ->where('at_fault', $searchString);
+        }
+        if($request->tickets && $request->tickets != null ){
+            $searchString = trim($request->tickets);
+            $grid->model()
+            ->where('tickets', $searchString);
+        }
+        if($request->dui && $request->dui != null ){
+            $searchString = trim($request->dui);
+            $grid->model()
+            ->where('dui', $searchString);
+        }
+
+        if($request->quality_provides && $request->quality_provides != null && trim($request->quality_provides) != ""){
+            $searchString = trim($request->quality_provides);
+            $grid->model()
+            ->where('quality_provides','like', "%{$searchString}%");
+        }
+
+        if($request->agent_in_person && $request->agent_in_person != null ){
+            $searchString = trim($request->agent_in_person);
+            $grid->model()
+            ->where('agent_in_person', $searchString);
+        }
+
+        if($request->referrer && $request->referrer != null && trim($request->referrer) != ""){
+            $searchString = trim($request->referrer);
+            $grid->model()
+            ->whereRaw('(referrer like ? or referrer_name like ? )',["%{$searchString}%","%{$searchString}%"]);
+        }
+        return $grid;
+    }
 
 }
