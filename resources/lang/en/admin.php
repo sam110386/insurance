@@ -124,5 +124,14 @@ return [
     'street' => "Street",
     'city' => "City",
     'state' => 'State',
-    'zipcode' => 'Zipcode'
+    'zipcode' => 'Zipcode',
+    'year' => 'Year',
+    'make' => 'Make',
+    'model' => 'Model',
+    'trim' => 'Trim',
+    'owenership' => 'Owenership',
+    'uses' => 'Uses',
+    'mileage' => 'Mileage',
+    'vin' => "Vin"
+
 ];

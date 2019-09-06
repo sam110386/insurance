@@ -150,6 +150,7 @@ class AdminLeadsController extends Controller
             $grid->model()->whereBetween('created_at',["$from 00:00:00","$to 23:59:59"]);
         }
 
+        $grid = self::advanceSearchConditions($grid);
         if(!Input::get('_sort')) $grid->model()->orderby('id','desc');
         $grid->id('ID')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
@@ -523,8 +524,8 @@ SCRIPT;
                 $row->width(6)->select('first_vehicle_trim', trans('Trim'))->options($first_v['trim'])->attribute(['select_class'=>"trim"])->rules('required');
                 $row->width(6)->text('first_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('first_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased'])->rules("required");
-                $row->width(12)->radio('first_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm'])->rules("required");
-                $row->width(12)->radio('first_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000'])->rules("required");
+                $row->width(12)->radio('first_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm'])->rules("required");
+                $row->width(12)->radio('first_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000'])->rules("required");
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $second_v = $vehicleDefaults['second_v'];
@@ -537,8 +538,8 @@ SCRIPT;
                 $row->width(6)->select('second_vehicle_trim', trans('Trim'))->options($second_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('second_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('second_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('second_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('second_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('second_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('second_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $third_v = $vehicleDefaults['third_v'];      
@@ -551,8 +552,8 @@ SCRIPT;
                 $row->width(6)->select('third_vehicle_trim', trans('Trim'))->options($third_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('third_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('third_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('third_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('third_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('third_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('third_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });            
             $form->row(function($row) use($years,$vehicleDefaults){
                 $fourth_v = $vehicleDefaults['fourth_v'];
@@ -565,8 +566,8 @@ SCRIPT;
                 $row->width(6)->select('fourth_vehicle_trim', trans('Trim'))->options($fourth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('fourth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('fourth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('fourth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('fourth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('fourth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('fourth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             }); 
             $form->row(function($row) use($years,$vehicleDefaults){
                 $fifth_v = $vehicleDefaults['fifth_v'];
@@ -579,8 +580,8 @@ SCRIPT;
                 $row->width(6)->select('fifth_vehicle_trim', trans('Trim'))->options($fifth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('fifth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('fifth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('fifth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('fifth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('fifth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('fifth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $sixth_v = $vehicleDefaults['sixth_v'];
@@ -593,8 +594,8 @@ SCRIPT;
                 $row->width(6)->select('sixth_vehicle_trim', trans('Trim'))->options($sixth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('sixth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('sixth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('sixth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('sixth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('sixth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('sixth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $seventh_v = $vehicleDefaults['seventh_v'];
@@ -607,8 +608,8 @@ SCRIPT;
                 $row->width(6)->select('seventh_vehicle_trim', trans('Trim'))->options($seventh_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('seventh_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('seventh_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('seventh_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('seventh_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('seventh_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('seventh_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $eighth_v = $vehicleDefaults['eighth_v'];
@@ -621,8 +622,8 @@ SCRIPT;
                 $row->width(6)->select('eighth_vehicle_trim', trans('Trim'))->options($eighth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('eighth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('eighth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('eighth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('eighth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('eighth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('eighth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $ninth_v = $vehicleDefaults['ninth_v'];
@@ -635,8 +636,8 @@ SCRIPT;
                 $row->width(6)->select('ninth_vehicle_trim', trans('Trim'))->options($ninth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('ninth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('ninth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('ninth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('ninth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('ninth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('ninth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
             $form->row(function($row) use($years,$vehicleDefaults){
                 $tenth_v = $vehicleDefaults['tenth_v'];
@@ -649,8 +650,8 @@ SCRIPT;
                 $row->width(6)->select('tenth_vehicle_trim', trans('Trim'))->options($tenth_v['trim'])->attribute(['select_class'=>"trim"]);
                 $row->width(6)->text('tenth_vehicle_vin',trans('Vin'));
                 $row->width(12)->radio('tenth_vehicle_owenership',trans('Owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
-                $row->width(12)->radio('tenth_vehicle_uses',trans('Owenership'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
-                $row->width(12)->radio('tenth_vehicle_mileage',trans('Owenership'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
+                $row->width(12)->radio('tenth_vehicle_uses',trans('Uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm']);
+                $row->width(12)->radio('tenth_vehicle_mileage',trans('Mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000']);
             });
         })->tab('DRIVERS', function ($form){
             $st = CommonMethod::getStates();
@@ -933,7 +934,6 @@ SCRIPT;
         ->body($this->advanceSearchForm());
     }
     protected function advanceSearchForm(){
-
         Admin::script("$('input.previous_insurance').on('ifClicked', function (event) {
             if(this.value ==1 ) {
                 $('select#duration,input#current_insurance').removeAttr('disabled');
@@ -971,6 +971,23 @@ SCRIPT;
             $row->width(2)->radio('bundled',trans('Bundled'))->options([1=>'yes',0=>'No'])->default('3')->stacked(); 
         });
 
+        $form->row(function($row){
+            $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>VEHICLE:</h3>");
+        });
+        $form->row(function($row){
+            $row->width(4)->text('year',trans('admin.year'));
+            $row->width(4)->text('make',trans('admin.make'));
+            $row->width(4)->text('model',trans('admin.model'));
+        });
+        $form->row(function($row){
+            $row->width(4)->text('trim',trans('admin.trim'));
+            $row->width(4)->text('vin',trans('admin.vin'));
+            $row->width(4)->radio('owenership',trans('admin.owenership'))->options(['Owned'=>'Owned','Financed'=>'Financed','Leased'=>'Leased']);
+        });
+        $form->row(function($row){
+            $row->width(4)->radio('uses',trans('admin.uses'))->options(['Commute'=>'Commute','Pleasure'=>'Pleasure','Business'=>'Business','Farm'=>'Farm'])->stacked();
+            $row->width(4)->radio('mileage',trans('admin.mileage'))->options(['Less than 5,000'=>'Less than 5,000','5,000-10,000'=>'5,000-10,000','10,000-15,000'=>'10,000-15,000','15,000-20,000'=>'15,000-20,000','More than 20,000'=>'More than 20,000'])->stacked();
+        });
 
         $form->row(function($row){
             $row->width(12)->html("<h3 class='col-xs-12 m-0 text-uppercase'>COVERAGE:</h3>");
@@ -1029,383 +1046,213 @@ SCRIPT;
         return $content
         ->header('Lead Advance Search Result')
         ->description(' ')
-        ->body($this->gridAdvanceSearch($request));
+        ->body($this->grid(false,false));
     }
 
-    protected function gridAdvanceSearch($request){
-        $searchText = trans('admin.filter');
-        Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;".$searchText."');");
-        Admin::script("$(\"#assignment\").on(\"show.bs.modal\", function (event) {
-            $('#assign_to,#assign_id').val('');
-            $('#assign_to,#assign_id').select2({ width: '100%' });
-            $('#assign_to').on('change',function(){
-                $('.ajax-loader').toggleClass('d-none');
-                $.get('/admin/api/assignment/list/?q='+ $(this).val(),function(data){
-                    $('#assign_id').html(''); 
-                    $('#assign_id').append('<option value=\"\">--Select--</option>'); 
-                    $.each(data,function(i,d){
-                        $('#assign_id').append('<option value=\"' + d.id + '\">' + d.text + '</option>');
-                    });
-                    $('.ajax-loader').toggleClass('d-none');
-                });
-            })
-        });");
-
-        $grid = new Grid(new Lead);
-        if (!LoginAdmin::user()->inRoles(['administrator'])){
-            if(LoginAdmin::user()->inRoles(['manager'])){
-                $grid->model()->where('manager_id', Auth::guard('admin')->user()->id);
-            }else{
-                $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
-            }
-        }
-
-        $grid = self::advanceSearchConditions($grid,$request);
-
-        $grid->id('ID')->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
-        $grid->first_name(trans('First Name'))->sortable()->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
-        $grid->last_name(trans('Last Name'))->sortable()->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
-        $grid->email(trans('Email'))->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
-        $grid->phone(trans('Phone'))->display(function($phone){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>".CommonMethod::phoneNumber($phone)."</a>";
-        });
-        $grid->status(trans('Risk'))->display(function($risk){
-            if($risk === 1){
-                $str = "<span class='text-success'><i class='fa fa-circle'></i> Low</span>";
-            }elseif ($risk === 0) {
-                $str = "<span class='text-danger'><i class='fa fa-circle'></i> High</span>";
-            }else{
-                $str = "N/A";
-            }
-            return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
-        });
-        $grid->column(trans('Assignment'))->display(function(){
-            $member =  ($this->member_id) ? $this->user->name : "";
-            $group =  ($this->group_id) ? $this->group->name : "";
-            $g_pre = "";
-            $g_post = "";
-            $str = "NA";
-            if($member && $group){
-                $g_pre = " (";
-                $g_post = ")";
-            }
-            if($member || $group){
-                $str = $member . $g_pre . $group . $g_post;
-            }
-            return " <a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a> ";
-        });
-
-        $grid->current_status(trans('Status'))->display(function($current_status){
-            switch ($current_status) {
-                case 0:
-                    $str = "New";
-                    break;
-                case 1:
-                    $str = "Pending";
-                    break;
-                case 2:
-                    $str = "In Progress";
-                    break;
-                case 3:
-                    $str = "Complete";
-                    break;
-                case 4:
-                    $str = "Incomplete";
-                    break;
-                case 5:
-                    $str = "Declined";
-                    break;
-                case 6:
-                    $str = "Transfer";
-                    break;
-                case 7:
-                    $str = "Not Eligible";
-                    break;
-                default:
-                    $str = "New";
-                    break;
-            }
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
-
-        });
-        $grid->created_at(trans('admin.created_at'))->sortable('desc')->display(function($text){
-            return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
-        $grid->disableActions();
-        $grid->disableCreateButton();
-        $grid->tools(function (Grid\Tools $tools) {
-            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
-            $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
-            
-            $tools->batch(function (Grid\Tools\BatchActions $batch) {
-                $batch->disableDelete();
-                $batch->add("Send Leads", new BulkEmailLead());
-                $batch->add("Assign Leads", new BulkLeadAssignment());
-
-            });
-
-            $users= AdminUser::select(['id','name'])->get();
-            $options= "";
-            foreach ($users as $user) {
-                $options .= "<option value='". $user->id ."'>". $user->name ."</option>";
-            }
-            $tools->append('<div class="modal fade" id="bulkMail" data-controls-modal="bulkMail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="bulkMail">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button id="cancelSmallBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Send Leads Email</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="'.route("lead.bulk.email").'" method="POST">
-                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
-
-                                      <div class="form-group">
-                                        <label for="user">Select User</label>
-                                        <select id="admin_users" class="c-select form-control" name="user">' .$options . '
-                                        </select>
-                                      </div>
-                                      <div class="form-group text-center">
-                                        <h4>OR</h4>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="email">Enter Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
-                                        <small>Note: This field will override above selected User.</small>
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>');
-
-                $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Assign Leads</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="'.route("lead.assignment").'" method="POST">
-                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
-                                      <div class="form-group">
-                                        <label for="assign_to">Assign to</label>
-                                        <select id="assign_to" class="c-select form-control" name="assign_to" required>
-                                        <option value="">--Select--</option>
-                                        <option value="group">Group</option>
-                                        <option value="member">Associate</option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group ajax-loader text-center d-none">
-                                        <div class="lds-facebook">
-                                            <div></div>
-                                            <div></div>
-                                            <div></div>
-                                        </div>
-                                      </div>
-                                      <div class="form-group ajax-loader">
-                                        <label for="assign_id">Select Group/Associate</label>
-                                        <select id="assign_id" class="form-control" name="assign_id" required></select>
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Assign</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>');           
-        });
-        $grid->filter(function($filter){ 
-            $filter->disableIdFilter(); 
-
-            $filter->where(function ($query) {
-                $query->where('first_name', 'like', "%{$this->input}%")
-                ->orWhere('phone', 'like', "%{$this->input}%")
-                ->orWhere('email', 'like', "%{$this->input}%")
-                ->orWhere('last_name', 'like', "%{$this->input}%")
-                ->orWhere('first_driver_dl', 'like', "%{$this->input}%")
-                ->orWhere('second_driver_first_name', 'like', "%{$this->input}%")
-                ->orWhere('second_driver_last_name', 'like', "%{$this->input}%")
-                ->orWhere('second_driver_dl', 'like', "%{$this->input}%")
-                ->orWhere('third_driver_first_name', 'like', "%{$this->input}%")
-                ->orWhere('third_driver_last_name', 'like', "%{$this->input}%")
-                ->orWhere('third_driver_dl', 'like', "%{$this->input}%")
-                ->orWhere('fourth_driver_first_name', 'like', "%{$this->input}%")
-                ->orWhere('fourth_driver_last_name', 'like', "%{$this->input}%")
-                ->orWhere('fourth_driver_dl', 'like', "%{$this->input}%")
-                ->orWhere('fifth_driver_first_name', 'like', "%{$this->input}%")
-                ->orWhere('fifth_driver_last_name', 'like', "%{$this->input}%")
-                ->orWhere('fifth_driver_dl', 'like', "%{$this->input}%");
-            }, 'Search by text')->placeholder('Enter First or Last Name, Email, Phone Number, or Drivers License');
-            $filter->date('created_at', 'Search by date');
-        });   
-        return $grid;
-    }
-
-
-    protected static function advanceSearchConditions($grid,$request){
-        if($request->name && $request->name != null && trim($request->name) != ""){
-            $searchString = trim($request->name);
+    protected static function advanceSearchConditions($grid){
+        if(request()->name && request()->name != null && trim(request()->name) != ""){
+            $searchString = trim(request()->name);
             $grid->model()
             ->whereRaw('(first_name like ? or last_name like ? or first_driver_first_name like ? or first_driver_last_name like ? or second_driver_first_name like ? or second_driver_last_name like ? or third_driver_first_name like ? or third_driver_last_name like ? or fourth_driver_first_name like ? or fourth_driver_last_name like ? or fifth_driver_first_name like ? or fifth_driver_last_name like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
         }
 
-        if($request->email && $request->email != null){
-            $searchString = trim($request->email);
-            $grid->model()
-            ->where('email', $searchString);
-        }
-
-        if($request->phone && $request->phone != null){
-            $searchString = trim($request->phone);
-            $grid->model()
-            ->where('phone', $searchString);
-        }
-        if($request->street && $request->street != null && trim($request->street) != ""){
-            $searchString = trim($request->street);
+        if(request()->street && request()->street != null && trim(request()->street) != ""){
+            $searchString = trim(request()->street);
             $grid->model()
             ->where('street', 'like', "%{$searchString}%");
         }
 
-        if($request->city && $request->city != null && trim($request->city) != ""){
-            $searchString = trim($request->city);
+        if(request()->email && request()->email != null){
+            $searchString = trim(request()->email);
+            $grid->model()
+            ->where('email', $searchString);
+        }
+
+        if(request()->phone && request()->phone != null){
+            $searchString = trim(request()->phone);
+            $grid->model()
+            ->where('phone', $searchString);
+        }
+
+
+        if(request()->street && request()->street != null && trim(request()->street) != ""){
+            $searchString = trim(request()->street);
+            $grid->model()
+            ->where('street', 'like', "%{$searchString}%");
+        }
+
+        if(request()->city && request()->city != null && trim(request()->city) != ""){
+            $searchString = trim(request()->city);
             $grid->model()
             ->where('city','like', "%{$searchString}%");
         }
-        if($request->state && $request->state != null && trim($request->state) != ""){
-            $searchString = trim($request->state);
+        if(request()->state && request()->state != null && trim(request()->state) != ""){
+            $searchString = trim(request()->state);
             $grid->model()
             ->where('state','like', "%{$searchString}%");
         }
-        if($request->zip && $request->zip != null && trim($request->zip) != ""){
-            $searchString = trim($request->zip);
+        if(request()->zip && request()->zip != null && trim(request()->zip) != ""){
+            $searchString = trim(request()->zip);
             $grid->model()
             ->where('zip','like', "%{$searchString}%");
         }
-        if($request->dob && $request->dob != null && trim($request->dob) != ""){
-            $searchString = trim($request->dob);
+        if(request()->dob && request()->dob != null && trim(request()->dob) != ""){
+            $searchString = trim(request()->dob);
             $grid->model()
             ->whereRaw('(first_driver_dob = ? or second_driver_dob = ? or third_driver_dob = ? or fourth_driver_dob = ? or fifth_driver_dob = ? )' , [$searchString,$searchString,$searchString,$searchString,$searchString]);
         }
 
-        if($request->dl && $request->dl != null && trim($request->dl) != ""){
-            $searchString = trim($request->dl);
+        if(request()->dl && request()->dl != null && trim(request()->dl) != ""){
+            $searchString = trim(request()->dl);
             $grid->model()
             ->whereRaw('(first_driver_dl = like or second_driver_dl = like or third_driver_dl = like or fourth_driver_dl = like or fifth_driver_dl = like )' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
         }
 
-        if($request->gender && $request->gender != null ){
-            $searchString = trim($request->gender);
+       if(request()->year && request()->year != null && trim(request()->year) != ""){
+            $searchString = trim(request()->year);
+            $grid->model()
+            ->whereRaw('(first_vehicle_year like ? or second_vehicle_year like ? or third_vehicle_year like ? or fourth_vehicle_year like ? or fifth_vehicle_year like ? or sixth_vehicle_year like ? or seventh_vehicle_year like ? or eighth_vehicle_year like ? or ninth_vehicle_year like ? or tenth_vehicle_year like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+
+       if(request()->make && request()->make != null && trim(request()->make) != ""){
+            $searchString = trim(request()->make);
+            $grid->model()
+            ->whereRaw('(first_vehicle_make like ? or second_vehicle_make like ? or third_vehicle_make like ? or fourth_vehicle_make like ? or fifth_vehicle_make like ? or sixth_vehicle_make like ? or seventh_vehicle_make like ? or eighth_vehicle_make like ? or ninth_vehicle_make like ? or tenth_vehicle_make like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+       if(request()->model && request()->model != null && trim(request()->model) != ""){
+            $searchString = trim(request()->model);
+            $grid->model()
+            ->whereRaw('(first_vehicle_model like ? or second_vehicle_model like ? or third_vehicle_model like ? or fourth_vehicle_model like ? or fifth_vehicle_model like ? or sixth_vehicle_model like ? or seventh_vehicle_model like ? or eighth_vehicle_model like ? or ninth_vehicle_model like ? or tenth_vehicle_model like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+        if(request()->trim && request()->trim != null && trim(request()->trim) != ""){
+            $searchString = trim(request()->trim);
+            $grid->model()
+            ->whereRaw('(first_vehicle_trim like ? or second_vehicle_trim like ? or third_vehicle_trim like ? or fourth_vehicle_trim like ? or fifth_vehicle_trim like ? or sixth_vehicle_trim like ? or seventh_vehicle_trim like ? or eighth_vehicle_trim like ? or ninth_vehicle_trim like ? or tenth_vehicle_trim like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+        if(request()->vin && request()->vin != null && trim(request()->vin) != ""){
+            $searchString = trim(request()->vin);
+            $grid->model()
+            ->whereRaw('(first_vehicle_vin like ? or second_vehicle_vin like ? or third_vehicle_vin like ? or fourth_vehicle_vin like ? or fifth_vehicle_vin like ? or sixth_vehicle_vin like ? or seventh_vehicle_vin like ? or eighth_vehicle_vin like ? or ninth_vehicle_vin like ? or tenth_vehicle_vin like ?)' , ["%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%","%{$searchString}%"]);
+        }
+       if(request()->owenership && request()->owenership != null && trim(request()->owenership) != ""){
+            $searchString = trim(request()->owenership);
+            $grid->model()
+            ->whereRaw('(first_vehicle_owenership = ? or second_vehicle_owenership = ? or third_vehicle_owenership = ? or fourth_vehicle_owenership = ? or fifth_vehicle_owenership = ? or sixth_vehicle_owenership = ? or seventh_vehicle_owenership = ? or eighth_vehicle_owenership = ? or ninth_vehicle_owenership = ? or tenth_vehicle_owenership = ?)' , [$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString]);
+        }
+       if(request()->uses && request()->uses != null && trim(request()->uses) != ""){
+            $searchString = trim(request()->uses);
+            $grid->model()
+            ->whereRaw('(first_vehicle_uses = ? or second_vehicle_uses = ? or third_vehicle_uses = ? or fourth_vehicle_uses = ? or fifth_vehicle_uses = ? or sixth_vehicle_uses = ? or seventh_vehicle_uses = ? or eighth_vehicle_uses = ? or ninth_vehicle_uses = ? or tenth_vehicle_uses = ?)' , [$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString]);
+        }
+       if(request()->mileage && request()->mileage != null && trim(request()->mileage) != ""){
+            $searchString = trim(request()->mileage);
+            $grid->model()
+            ->whereRaw('(first_vehicle_mileage = ? or second_vehicle_mileage = ? or third_vehicle_mileage = ? or fourth_vehicle_mileage = ? or fifth_vehicle_mileage = ? or sixth_vehicle_mileage = ? or seventh_vehicle_mileage = ? or eighth_vehicle_mileage = ? or ninth_vehicle_mileage = ? or tenth_vehicle_mileage = ?)' , [$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString,$searchString]);
+        }                
+
+        if(request()->gender && request()->gender != null ){
+            $searchString = trim(request()->gender);
             $grid->model()
             ->where('gender', $searchString);
         }        
 
-        if($request->married && $request->married != null ){
-            $searchString = trim($request->married);
+        if(request()->married && request()->married != null ){
+            $searchString = trim(request()->married);
             $grid->model()
             ->where('married', $searchString);
         }
 
-        if($request->children && $request->children != null ){
-            $searchString = trim($request->children);
+        if(request()->children && request()->children != null ){
+            $searchString = trim(request()->children);
             $grid->model()
             ->where('children', $searchString);
         }
-        if($request->homeowner && $request->homeowner != null ){
-            $searchString = trim($request->homeowner);
+        if(request()->homeowner && request()->homeowner != null ){
+            $searchString = trim(request()->homeowner);
             $grid->model()
             ->where('homeowner', $searchString);
         }
-        if($request->bundled && $request->bundled != null ){
-            $searchString = trim($request->bundled);
+        if(request()->bundled && request()->bundled != null ){
+            $searchString = trim(request()->bundled);
             $grid->model()
             ->where('bundled', $searchString);
         }
-        if($request->body_injury && $request->body_injury != null ){
-            $searchString = trim($request->body_injury);
+        if(request()->body_injury && request()->body_injury != null ){
+            $searchString = trim(request()->body_injury);
             $grid->model()
             ->where('body_injury', $searchString);
         }
-        if($request->deduct && $request->deduct != null ){
-            $searchString = trim($request->deduct);
+        if(request()->deduct && request()->deduct != null ){
+            $searchString = trim(request()->deduct);
             $grid->model()
             ->where('deduct', $searchString);
         }
-        if($request->medical && $request->medical != null ){
-            $searchString = trim($request->medical);
+        if(request()->medical && request()->medical != null ){
+            $searchString = trim(request()->medical);
             $grid->model()
             ->where('medical', $searchString);
         }
-        if($request->towing && $request->towing != null ){
-            $searchString = trim($request->towing);
+        if(request()->towing && request()->towing != null ){
+            $searchString = trim(request()->towing);
             $grid->model()
             ->where('towing', $searchString);
         }                                                     
-        if($request->uninsured && $request->uninsured != null ){
-            $searchString = trim($request->uninsured);
+        if(request()->uninsured && request()->uninsured != null ){
+            $searchString = trim(request()->uninsured);
             $grid->model()
             ->where('uninsured', $searchString);
         }                                                     
-        if($request->rental && $request->rental != null ){
-            $searchString = trim($request->rental);
+        if(request()->rental && request()->rental != null ){
+            $searchString = trim(request()->rental);
             $grid->model()
             ->where('rental', $searchString);
         }
 
-        if($request->previous_insurance && $request->previous_insurance != null ){
-            $searchString = trim($request->previous_insurance);
+        if(request()->previous_insurance && request()->previous_insurance != null ){
+            $searchString = trim(request()->previous_insurance);
             $grid->model()
             ->where('previous_insurance', $searchString);
         }
-        if($request->duration && $request->duration != null ){
-            $searchString = trim($request->duration);
+        if(request()->duration && request()->duration != null ){
+            $searchString = trim(request()->duration);
             $grid->model()
             ->where('duration', $searchString);
         }
-        if($request->current_insurance && $request->current_insurance != null && trim($request->current_insurance) != ""){
-            $searchString = trim($request->current_insurance);
+        if(request()->current_insurance && request()->current_insurance != null && trim(request()->current_insurance) != ""){
+            $searchString = trim(request()->current_insurance);
             $grid->model()
             ->where('current_insurance','like', "%{$searchString}%");
         }
-        if($request->at_fault && $request->at_fault != null ){
-            $searchString = trim($request->at_fault);
+        if(request()->at_fault && request()->at_fault != null ){
+            $searchString = trim(request()->at_fault);
             $grid->model()
             ->where('at_fault', $searchString);
         }
-        if($request->tickets && $request->tickets != null ){
-            $searchString = trim($request->tickets);
+        if(request()->tickets && request()->tickets != null ){
+            $searchString = trim(request()->tickets);
             $grid->model()
             ->where('tickets', $searchString);
         }
-        if($request->dui && $request->dui != null ){
-            $searchString = trim($request->dui);
+        if(request()->dui && request()->dui != null ){
+            $searchString = trim(request()->dui);
             $grid->model()
             ->where('dui', $searchString);
         }
 
-        if($request->quality_provides && $request->quality_provides != null && trim($request->quality_provides) != ""){
-            $searchString = trim($request->quality_provides);
+        if(request()->quality_provides && request()->quality_provides != null && trim(request()->quality_provides) != ""){
+            $searchString = trim(request()->quality_provides);
             $grid->model()
             ->where('quality_provides','like', "%{$searchString}%");
         }
 
-        if($request->agent_in_person && $request->agent_in_person != null ){
-            $searchString = trim($request->agent_in_person);
+        if(request()->agent_in_person && request()->agent_in_person != null ){
+            $searchString = trim(request()->agent_in_person);
             $grid->model()
             ->where('agent_in_person', $searchString);
         }
 
-        if($request->referrer && $request->referrer != null && trim($request->referrer) != ""){
-            $searchString = trim($request->referrer);
+        if(request()->referrer && request()->referrer != null && trim(request()->referrer) != ""){
+            $searchString = trim(request()->referrer);
             $grid->model()
             ->whereRaw('(referrer like ? or referrer_name like ? )',["%{$searchString}%","%{$searchString}%"]);
         }
