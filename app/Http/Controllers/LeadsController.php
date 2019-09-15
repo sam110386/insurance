@@ -503,8 +503,20 @@ class LeadsController extends BaseController
 
 
 	public static function checkAndProcessAffiliateRecord($leadId){
-		if(!request()->has('s1')) return false;
-		$affiliate = Affiliate::where('s1_value',request()->s1)->first();
+		if(!request()->has('s1') && !request()->has('s2') && !request()->has('s3') && !request()->has('s4') && !request()->has('s5')) return false;
+
+		$s1 = false;
+		$s2 = false;
+		$s3 = false;
+		$s4 = false;
+		$s5 = false;
+		if(request()->has('s1')) $s1= true;
+		if(request()->has('s2')) $s2= true;
+		if(request()->has('s3')) $s3= true;
+		if(request()->has('s4')) $s4= true;
+		if(request()->has('s5')) $s5= true;
+
+		$affiliate = Affiliate::where('s1',$s1)->where('s2',$s2)->where('s3',$s3)->where('s4',$s4)->where('s5',$s5)->first();
 		if(!$affiliate) return false;
 
 		$data = [
@@ -512,7 +524,11 @@ class LeadsController extends BaseController
 			'lead_id' => $leadId,
 		];
 		if(AffiliateLead::create($data)){
-			return (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
+			if(!$affiliate->postback_url || trim($affiliate->postback_url) == "") return false;
+
+			$redirect =  (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
+			return $redirect . '&'.http_build_query(request()->query(), '', '&');
+
 		}
 		return false;
 	}
