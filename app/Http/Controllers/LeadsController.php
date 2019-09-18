@@ -525,10 +525,12 @@ class LeadsController extends BaseController
 		];
 		if(AffiliateLead::create($data)){
 			if(!$affiliate->postback_url || trim($affiliate->postback_url) == "") return false;
-
-			$redirect =  (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
-			return $redirect . '&'.http_build_query(request()->query(), '', '&');
-
+			if(request()->has('s1')){
+				$redirect = str_replace("{SUBID}", request()->s1, $affiliate->postback_url) ; 
+			}
+			$redirect = str_replace("{PAYOUT}", $affiliate->payout_amount, $redirect) ; 
+			// $redirect =  (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
+			return $redirect;
 		}
 		return false;
 	}
