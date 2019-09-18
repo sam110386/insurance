@@ -530,7 +530,25 @@ class LeadsController extends BaseController
 			}
 			$redirect = str_replace("{PAYOUT}", $affiliate->payout_amount, $redirect) ; 
 			// $redirect =  (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
-			return $redirect;
+			// return $redirect;
+
+			// $client = new \GuzzleHttp\Client();
+			
+			// $response = $client->request('GET', $redirect);
+			
+			// $statusCode = $response->getStatusCode();
+			// $content = $response->getBody();
+
+	        $ch = curl_init();
+	        curl_setopt($ch, CURLOPT_URL, $redirect);
+	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	        $response = curl_exec($ch);
+	        curl_close($ch);
+
+			$LogFIle = storage_path() . '/logs/affiliate-'.date('Y-m-d'). ".log";
+			error_log("\n" . date('Y-m-d H:i:s') . '=> ' . $redirect . ' <====> ' . $response, 3, $LogFIle);
 		}
 		return false;
 	}
