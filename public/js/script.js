@@ -593,6 +593,8 @@ $(document).ready(function(){
 	});
 
 	$('.final-submit').on('click',function(e){
+		if($(this).hasClass('disabled')) return false;
+		$(this).addClass('disabled');
 		var el = "";
 		var error = false;
 		var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -623,10 +625,11 @@ $(document).ready(function(){
 		if(error){
 		    $([document.documentElement, document.body]).animate({
 		        scrollTop: el.parent().offset().top - ($('header nav').height() + 25)
-		    }, 500);			
+		    }, 500);
+			$(this).removeClass('disabled');
 			return false;
 		}
-		$('form.lead-form').submit();	
+		// $('form.lead-form').submit();	
 	});
 	$('.next-question').on('click',function(e){
 		var targetQuestion = $(this).data('href');
