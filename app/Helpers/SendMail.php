@@ -6,8 +6,8 @@ class SendMail {
 
 	public static function adminLeadSubmitNotification($lead){
 		return \Mail::send('Emails.Lead.admin', ['lead' => $lead],
-			function ($message) {
-				$message->to(Config::get('constants.admin_email'))->bcc(Config::get('constants.admin_bcc_email'))->subject('New Lead - Insurance');
+			function ($message) use($lead) {
+				$message->to(Config::get('constants.admin_email'))->bcc(Config::get('constants.admin_bcc_email'))->subject('New Lead for Auto - #'.$lead['id']);
 			});		
 	}
 

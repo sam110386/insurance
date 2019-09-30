@@ -262,7 +262,7 @@ class AffiliateController extends Controller
             $row->width(5)->text('contact_person', trans('admin.contact_person'))->rules('required');
         });
         $form->row(function ($row) use ( $form) {
-            $row->width(5)->mobile('phone', trans('admin.phone'))->options(['mask' => '9999 999 999'])->attribute(['style' => 'width:100%;'])->rules('required');
+            $row->width(5)->mobile('phone', trans('admin.phone'))->options(['mask' => '999-999-9999'])->attribute(['style' => 'width:100%;'])->rules('required');
             $row->width(5)->email('email', trans('admin.email'))->rules('required');
         });
 

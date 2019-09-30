@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Lead;
 use App\Models\Note;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -135,6 +136,7 @@ class NotesController extends Controller
     protected function gridRecent()
     {
         $grid = new Grid(new Note);
+        $grid->model()->whereRaw("exists (select 1 from leads where id = notes.lead_id)");
         if(!Input::get('_sort')) $grid->model()->orderby('created_at','desc');
         
         $grid->column(trans('ID'))->display(function(){

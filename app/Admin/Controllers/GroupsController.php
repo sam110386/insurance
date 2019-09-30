@@ -61,7 +61,7 @@ class GroupsController extends Controller
         return $content
             ->header('Edit')
             ->description('description')
-            ->body($this->form()->edit($id));
+            ->body($this->form($id)->edit($id));
     }
 
     /**
@@ -212,7 +212,7 @@ class GroupsController extends Controller
      *
      * @return Form
      */
-    protected function form()
+    protected function form($gid = null)
     { 
         $managers = $this->getUsersByRole(['manager']);
         $mg = [];
@@ -222,9 +222,25 @@ class GroupsController extends Controller
         
         $associates = $this->getUsersByRole(['associate']);
         $asso = [];
-        foreach ($associates as $associate) {
-            $asso[$associate->id] = $associate->name; 
+        
+
+
+        if($gid){
+            $allAsso = GroupMember::all()->pluck('member_id');
+            $currentAssoIds = GroupMember::where('group_id',$gid)->get()->pluck('member_id');
+            $currentAsso = AdminUser::select(['id','name'])->whereIn('id',$currentAssoIds)->get();
+
+            foreach ($associates as $associate) {
+                if(!in_array($associate->id, $allAsso->toArray()) || (in_array($associate->id, $allAsso->toArray()) && in_array($associate->id, $currentAssoIds->toArray()))){
+                    $asso[$associate->id] = $associate->name;
+                }        
+            }            
+        }else{
+            foreach ($associates as $associate) {
+                $asso[$associate->id] = $associate->name; 
+            }            
         }
+
 
         $form = new Form(new Group);
         $form->tab('Group Details', function ($form) use($mg){
@@ -239,7 +255,7 @@ class GroupsController extends Controller
     }
 
     private function getUsersByRole($role = ['manager','associate','vendor']){
-        return Administrator::whereHas('roles',  function ($query) use($role) {
+        return AdminUser::whereHas('roles',  function ($query) use($role) {
             $query->whereIn('slug', $role);
         })->get(['id','name']);
     }

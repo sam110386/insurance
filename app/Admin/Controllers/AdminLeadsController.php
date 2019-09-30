@@ -12,6 +12,7 @@ use App\Helpers\SendMail;
 use App\Http\Controllers\Controller;
 use App\Admin\Extensions\Tools\BulkEmailLead;
 use App\Admin\Extensions\Tools\BulkLeadAssignment;
+use App\Admin\Extensions\Tools\BulkLeadCurrentStatus;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -251,7 +252,7 @@ class AdminLeadsController extends Controller
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
                 $batch->add("Assign Leads", new BulkLeadAssignment());
-
+                $batch->add("Update Status", new BulkLeadCurrentStatus());
             });
 
             $users= AdminUser::select(['id','name'])->get();
@@ -324,7 +325,38 @@ class AdminLeadsController extends Controller
                                 </div>
                             </div>
                         </div>
-                    </div>');           
+                    </div>');
+                $tools->append('<div class="modal fade" id="change_status" data-controls-modal="change_status" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="change_status">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Change Leads Status</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.bulk_status_update").'" method="POST">
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
+                                      <div class="form-group">
+                                        <label for="current_status">Status</label>
+                                        <select id="current_status" class="c-select form-control" name="current_status" required>
+                                        <option value="">--Select--</option>
+                                        <option value="0">New</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">In Progress</option>
+                                        <option value="3">Complete</option>
+                                        <option value="4">Incomplete</option>  
+                                        <option value="5">Declined</option>
+                                        <option value="6">Transfer</option>  
+                                        <option value="7">Not Eligible</option>
+                                        </select>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Update Status</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');                
+
         });
         $grid->filter(function($filter){ 
             $filter->disableIdFilter(); 
@@ -851,6 +883,25 @@ SCRIPT;
         }
         return redirect()->route('leads.show',[$id]);
     }
+
+    public function updateBulkCurrentStatus(Request $request){
+        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+            admin_error('Error','Access denied.');
+            return back();
+        }
+        if(isset($request->current_status) && isset($request->lead_ids)){
+            // $lead = Lead::findOrFail($id);
+            $data['current_status'] = $request->current_status;
+            if(Lead::whereIn('id',explode(',', $request->lead_ids))->update($data)){
+                admin_success('Success','Lead(s) updated.');
+            }else{
+                admin_error('Error','Lead(s) not updated! Please try again.');
+            }
+        }else{
+            admin_error('Error','Unautorized request.');
+        }
+        return redirect()->back();        
+    }    
 
     public function updateCurrentStatus($id,Request $request){
         if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){

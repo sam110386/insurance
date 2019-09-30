@@ -38,9 +38,9 @@ class LeadsController extends BaseController
 		/* Email notification to admin  */
 		SendMail::adminLeadSubmitNotification($lead->toArray());
 		/* Email notification to user  */
-		SendMail::userLeadSubmitNotification($lead);
+		// SendMail::userLeadSubmitNotification($lead);
 		
-		$redirect = $this->checkAndProcessAffiliateRecord($lead->id);
+		$redirect = $this->checkAndProcessAffiliateRecord($lead);
 		if($redirect) return redirect()->away($redirect);
 
 		return view('Insurance.urls',$data);
@@ -498,11 +498,15 @@ class LeadsController extends BaseController
 		if($lead['at_fault'] == 1 || $lead['tickets']  == 1 || $lead['dui'] == 1){
 			$data['status'] = 0;
 		}
+
+		if(($lead['at_fault'] == 1 && $lead['tickets']  == 1) || ($lead['dui'] == 1)){
+			$data['current_status'] = 5;
+		}
 		return Lead::create($data);
 	}
 
 
-	public static function checkAndProcessAffiliateRecord($leadId){
+	public static function checkAndProcessAffiliateRecord($lead){
 		if(!request()->has('s1') && !request()->has('s2') && !request()->has('s3') && !request()->has('s4') && !request()->has('s5')) return false;
 
 		$s1 = false;
@@ -521,23 +525,20 @@ class LeadsController extends BaseController
 
 		$data = [
 			'affiliate_id' => $affiliate->id,
-			'lead_id' => $leadId,
+			'lead_id' => $lead->id,
 		];
 		if(AffiliateLead::create($data)){
+			$states = CommonMethod::getStates();
 			if(!$affiliate->postback_url || trim($affiliate->postback_url) == "") return false;
 			if(request()->has('s1')){
 				$redirect = str_replace("{SUBID}", request()->s1, $affiliate->postback_url) ; 
 			}
 			$redirect = str_replace("{PAYOUT}", $affiliate->payout_amount, $redirect) ; 
-			// $redirect =  (strpos($affiliate->postback_url, '?') !== false) ? $affiliate->postback_url . "&payout=".$affiliate->payout_amount : $affiliate->postback_url . "?payout=".$affiliate->payout_amount;
-			// return $redirect;
+			$redirect .= "&state=".array_search ($lead->state,$states);
 
-			// $client = new \GuzzleHttp\Client();
-			
-			// $response = $client->request('GET', $redirect);
-			
-			// $statusCode = $response->getStatusCode();
-			// $content = $response->getBody();
+			if(($lead->dui) || ($lead->at_fault && $lead->tickets)){
+				$redirect .= "&decline=yes";
+			}
 
 	        $ch = curl_init();
 	        curl_setopt($ch, CURLOPT_URL, $redirect);

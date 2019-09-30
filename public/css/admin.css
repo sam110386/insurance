@@ -154,4 +154,6 @@ border-bottom: 1px solid;}
 #payout_amount {text-align: left !important;}
 .input-group-addon {min-width: 43px;}
 
-
+.role-purple .label.label-success{background:#660066 !important;}
+.role-orange .label.label-success{background:#CC6600 !important;}
+.role-blue .label.label-success{background:#0000CC !important;}

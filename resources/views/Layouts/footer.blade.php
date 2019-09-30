@@ -52,7 +52,7 @@
             <img src="{{ asset('img/norton.svg') }}"/>
           </p>
           <p>
-            <a  href="{{route('privacy')}}">Privacy</a> <a href="#">Terms of Services</a>
+            <a  href="{{route('privacy')}}">Privacy</a> <a href="{{route('terms')}}">Terms of Services</a>
           </p>
         </div>
       </div>
