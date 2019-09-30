@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     protected $table = 'groups';
-    protected $fillable = ['name', 'manager_id'];
+    protected $fillable = ['name','email', 'manager_id'];
 	public function members()
     {
         return $this->hasMany('App\Models\GroupMember','group_id','id');

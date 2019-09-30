@@ -118,6 +118,7 @@ class GroupsController extends Controller
         $group = Group::findOrFail($id);
         $group->manager_id = $request->manager_id;
         $group->name = $request->name;
+        $group->email = $request->email;
         $group->update();
 
         $excludeIds = [];
@@ -225,8 +226,8 @@ class GroupsController extends Controller
         
 
 
+        $allAsso = GroupMember::all()->pluck('member_id');
         if($gid){
-            $allAsso = GroupMember::all()->pluck('member_id');
             $currentAssoIds = GroupMember::where('group_id',$gid)->get()->pluck('member_id');
             $currentAsso = AdminUser::select(['id','name'])->whereIn('id',$currentAssoIds)->get();
 
@@ -237,7 +238,9 @@ class GroupsController extends Controller
             }            
         }else{
             foreach ($associates as $associate) {
-                $asso[$associate->id] = $associate->name; 
+                if(!in_array($associate->id, $allAsso->toArray())){
+                    $asso[$associate->id] = $associate->name; 
+                }
             }            
         }
 
@@ -245,6 +248,7 @@ class GroupsController extends Controller
         $form = new Form(new Group);
         $form->tab('Group Details', function ($form) use($mg){
             $form->text('name',trans("Name"))->rules('required');
+            $form->email('email',trans("Email"))->rules('email');
             $form->select('manager_id',trans("Manager"))->options($mg)->rules('required');
         })->tab('Members', function ($form) use($asso) {
             $form->hasMany('members', function (Form\NestedForm $form) use($asso) {
