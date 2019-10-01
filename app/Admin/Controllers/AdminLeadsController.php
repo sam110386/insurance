@@ -161,7 +161,6 @@ class AdminLeadsController extends Controller
                 $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
                 $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id');
                 if(!empty($memberGroups)){
-                    dd($memberGroups);
                     $grid->model()->orWhere('group_id', $memberGroups[0]);
                 }
             }
