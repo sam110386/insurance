@@ -164,7 +164,7 @@ class GroupsController extends Controller
             return count($members);
             // return "<span class='label label-warning'>{$count}</span>";
         });
-        $grid->created_at(trans('admin.created_at'));
+        $grid->created_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
 
         return $grid;
     }

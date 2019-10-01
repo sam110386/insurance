@@ -56,17 +56,32 @@ class AdminLeadsController extends Controller
     public function show($id, Content $content)
     {
         // Check if manager have access for this lead
-        if(LoginAdmin::user()->inRoles(['associate'])){
-            $lead = Lead::findOrFail($id);
-            if($lead->member_id !=Auth::guard('admin')->user()->id){
-                admin_error('Error','Access denied.');
-                return back();                
-            }
+        $lead = Lead::findOrFail($id);
+        $userId = Auth::guard('admin')->user()->id;            
+        if(LoginAdmin::user()->inRoles(['associate'])) {
+            $access = $this->validateAssoShowAccess($lead,$userId);
+            if($access !== true) return $access;
+        }
+        if(LoginAdmin::user()->inRoles(['manager']) &&  $lead->manager_id != $userId) {        
+            admin_error('Error','Access denied.');
+            return back();  
         }
         return $content
         ->header('Lead #'.$id)
         ->description(' ')      
         ->body($this->detail($id));
+    }
+
+    private function validateAssoShowAccess($lead,$userId){
+        if($lead->member_id == $userId){
+            return true;
+        }
+        $memberGroups = GroupMember::where('member_id', $userId)->get()->pluck('group_id');
+        if(!empty($memberGroups) && $lead->group_id == $memberGroups[0]){
+            return true;
+        }
+        admin_error('Error','Access denied.');
+        return redirect()->route('leads.index');  
     }
 
     /**
@@ -144,6 +159,11 @@ class AdminLeadsController extends Controller
                 $grid->model()->where('manager_id', Auth::guard('admin')->user()->id);
             }else{
                 $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
+                $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id');
+                if(!empty($memberGroups)){
+                    dd($memberGroups);
+                    $grid->model()->orWhere('group_id', $memberGroups[0]);
+                }
             }
         }
 
@@ -233,9 +253,9 @@ class AdminLeadsController extends Controller
         // $grid->ip_address(trans('IP Address'))->display(function($text){
         //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         // });
-        $grid->created_at(trans('admin.created_at'))->sortable('desc')->display(function($text){
+        $grid->created_at(trans('admin.timestamp'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
+        })->setAttributes(['width' => '180px']);
         $grid->disableActions();
         // $grid->actions(function ($actions) {
         //     $actions->disableDelete();
@@ -251,7 +271,9 @@ class AdminLeadsController extends Controller
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
                 $batch->add("Send Leads", new BulkEmailLead());
-                $batch->add("Assign Leads", new BulkLeadAssignment());
+                if(LoginAdmin::user()->inRoles(['administrator'])){
+                    $batch->add("Assign Leads", new BulkLeadAssignment());
+                }
                 $batch->add("Update Status", new BulkLeadCurrentStatus());
             });
 
@@ -290,8 +312,8 @@ class AdminLeadsController extends Controller
                             </div>
                         </div>
                     </div>');
-
-                $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
+                if(LoginAdmin::user()->inRoles(['administrator'])){
+                    $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -326,6 +348,33 @@ class AdminLeadsController extends Controller
                             </div>
                         </div>
                     </div>');
+                }
+                /* Manager Leads Assign to Associates
+                if(LoginAdmin::user()->inRoles(['manager'])){
+                    $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Assign Leads</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="'.route("lead.assignment").'" method="POST">
+                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
+                                      <div class="form-group">
+                                        <input type="hidden" name="assign_to" value="member" />
+                                        </div>
+                                      <div class="form-group">
+                                        <label for="assign_id">Select Associate</label>
+                                        <select id="assign_id" class="form-control" name="assign_id" required></select>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Assign</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');
+                }*/
                 $tools->append('<div class="modal fade" id="change_status" data-controls-modal="change_status" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="change_status">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">

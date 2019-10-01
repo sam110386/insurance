@@ -108,7 +108,7 @@ class CustomUserController extends UserController
 			return "<span class='$roleClass'>$text</span>";
 		});
 
-		$grid->created_at(trans('admin.created_at'));
+		$grid->created_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
 
 
 		$grid->actions(function (Grid\Displayers\Actions $actions) {

@@ -132,6 +132,7 @@ return [
     'owenership' => 'Owenership',
     'uses' => 'Uses',
     'mileage' => 'Mileage',
-    'vin' => "Vin"
+    'vin' => "Vin",
+    'timestamp' => 'Timestamp'
 
 ];

@@ -26,6 +26,9 @@ Route::group([
     $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.updates');
+    $router->get('/leads/recent/updates/{id}/edit', 'NotesController@edit')->name('admin.update_note');
+    $router->match(['put','patch'],'/leads/recent/updates/{id}', 'NotesController@updateNote')->name('admin.update_note_post');
+
     $router->post("/leads/{id}/notes/","AdminLeadsController@addNotes")->name('lead.notes.add');
     $router->post("/leads/update/status/{id}","AdminLeadsController@updateStatus")->name('lead.status.update');
     $router->post("/leads/update/bulk/current/status/","AdminLeadsController@updateBulkCurrentStatus")->name('lead.bulk_status_update');

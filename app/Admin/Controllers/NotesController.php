@@ -4,6 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Models\Lead;
 use App\Models\Note;
+use App\Models\Group;
+use App\Models\GroupMember;
+use Encore\Admin\Facades\Admin as LoginAdmin;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -12,6 +15,9 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Input;
 use Encore\Admin\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 
 
 class NotesController extends Controller
@@ -71,6 +77,26 @@ class NotesController extends Controller
      */
     public function edit($id, Content $content)
     {
+        if(!LoginAdmin::user()->inRoles(['administrator'])){
+            $note = Note::findOrFail($id);
+            if(LoginAdmin::user()->inRoles(['associate']) && $note->user_id != Auth::guard('admin')->user()->id){
+                admin_error('Error','Access denied.');
+                return redirect()->route('admin.updates');                 
+            }elseif(LoginAdmin::user()->inRoles(['manager'])){
+                $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
+                $members = [];
+                foreach ($groupsMembers as $groupsMember) {
+                    $members = array_merge($members, $groupsMember->members->toArray()) ;
+                }
+                $userIds = Arr::pluck($members, 'member_id');
+                if(!in_array($note->user_id, $userIds)){
+                    admin_error('Error','Access denied.');
+                    return redirect()->route('admin.updates');
+                }                
+            }
+
+        }
+
         return $content
             ->header('Edit')
             ->description('description')
@@ -136,6 +162,11 @@ class NotesController extends Controller
     protected function gridRecent()
     {
         $grid = new Grid(new Note);
+
+
+        $grid =  $this->leadListConditions($grid);
+
+
         $grid->model()->whereRaw("exists (select 1 from leads where id = notes.lead_id)");
         if(!Input::get('_sort')) $grid->model()->orderby('created_at','desc');
         
@@ -149,14 +180,25 @@ class NotesController extends Controller
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->lead->last_name . "</a>";
         });
 
-        $grid->column(trans('Notes User'))->display(function(){
+        $grid->column(trans('User Name'))->display(function(){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $this->user->name . "</a>";
         });
         $grid->notes(trans('Notes'))->display(function($notes){
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $notes . "</a>";
         });
-        $grid->created_at(trans('admin.created_at'))->sortable();
-        $grid->disableActions();
+        $grid->created_at(trans('admin.timestamp'))->sortable()->setAttributes(['width' => '180px']);
+        // $grid->disableActions();
+        $grid->actions(function ($actions) {
+            $actions->disableDelete();
+            $actions->disableView();
+            if(!LoginAdmin::user()->inRoles(['administrator','manager','associate'])){
+                $actions->disableEdit();
+            }
+            // dd($actions->row);
+            if(LoginAdmin::user()->inRoles(['associate'])){
+                if($actions->row->user_id != Auth::guard('admin')->user()->id)  $actions->disableEdit();
+            }
+        });        
         $grid->disableCreateButton();
         // $grid->disableTools();
         // $grid->disableFilter();
@@ -185,6 +227,26 @@ class NotesController extends Controller
 
         return $grid;
     }
+
+    protected function leadListConditions($grid){
+        if(LoginAdmin::user()->inRoles(['administrator'])) return $grid;
+        if(LoginAdmin::user()->inRoles(['manager'])){
+            $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
+            $members = [];
+            foreach ($groupsMembers as $groupsMember) {
+                $members = array_merge($members, $groupsMember->members->toArray()) ;
+            }
+            $userIds = Arr::pluck($members, 'member_id');
+            $grid->model()->whereIn('user_id', $userIds);
+        }elseif(LoginAdmin::user()->inRoles(['associate'])){
+            $groupId = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->pluck('group_id')->first();
+            $userIds = GroupMember::where('group_id',$groupId)->pluck('member_id');
+            $grid->model()->whereIn('user_id', $userIds);
+        }
+        return $grid;
+
+    }
+
     /**
      * Make a show builder.
      *
@@ -193,7 +255,7 @@ class NotesController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Comment::findOrFail($id));
+        $show = new Show(Note::findOrFail($id));
 
         $show->id('ID');
         $show->created_at('Created at');
@@ -209,12 +271,32 @@ class NotesController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Comment);
-
-        $form->display('ID');
-        $form->display('Created at');
-        $form->display('Updated at');
-
+        $form = new Form(new Note);
+        // $form->setAction(route('admin.update_note_post',$id));
+        $form->display('lead.id');
+        $form->display('lead.first_name',trans('admin.first_name'));
+        $form->display('lead.last_name',trans('admin.last_name'));
+        $form->display('user.name',trans('admin.username'));
+        $form->editor('notes',trans('Notes'));
+        $form->display('created_at','Created at');
+        $form->display('updated_at','Updated at');
+        $form->tools(function (Form\Tools $tools) {
+            $tools->disableView();
+            $tools->disableDelete();
+        });
+        
         return $form;
+    }
+
+    public function updateNote($id,Request $request){
+        $note = Note::findOrFail($id);
+        $note->notes = $request->notes;
+        if($note->update()){
+            admin_success('Success','Note has been updated.');
+            return redirect()->route('admin.updates');
+        }else{
+            admin_error('Error','Note not updated!Please try again.');
+            return redirect()->route('admin.updates');
+        }
     }
 }
