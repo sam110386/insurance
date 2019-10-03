@@ -31,7 +31,13 @@
             <thead>
                 <tr>
                     @foreach($grid->visibleColumns() as $column)
-                    <th>{{$column->getLabel()}}{!! $column->sorter() !!}</th>
+                    <th>
+                        @if($loop->iteration === 1)
+                            <input  type="checkbox" class="grid-select-all" />
+                        @else
+                            {{$column->getLabel()}}{!! $column->sorter() !!}
+                        @endif
+                    </th>
                     @endforeach
                 </tr>
             </thead>

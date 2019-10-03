@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Note extends Model
 {
+    use SoftDeletes;
 	protected $table = 'notes';
     protected $fillable = ['user_ip', 'user_id', 'lead_id','notes'];
     public function lead()

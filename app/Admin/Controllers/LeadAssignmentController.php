@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Encore\Admin\Auth\Database\Administrator;
 use App\Models\Group;
 use App\Models\Lead;
+use App\Models\LeadAssignment;
+
 
 use App\Admin\Controllers\AdminUsersController;
 
@@ -29,15 +31,29 @@ class LeadAssignmentController extends Controller
 	}
 
 	public static function assignLeadToGroup($leads = null, $groupId=null){
-		$group = Group::findOrFail($groupId);
 		$leadIds = explode(',',$leads);
- 		return Lead::whereIn('id',$leadIds)->update(['group_id'=>$groupId,'manager_id' => $group['manager_id'], 'member_id' => 0]);
+		foreach ($leadIds as $leadId) {	
+			$assignment = LeadAssignment::firstOrCreate(array('lead_id' => $leadId));
+			$assignment->group_id = $groupId;
+			if(!$assignment->save()){
+	            admin_error('Error','Error to assign one or more Lead(s).');
+			}
+		}
+		return true;
 	}
 
 
 	public static function adminAssignLeadToUser($leads = null, $memberId=null){
 		$leadIds = explode(',',$leads);
-		return Lead::whereIn('id',$leadIds)->update(['current_status'=>1,'member_id' => $memberId]);
+		foreach ($leadIds as $leadId) {	
+			$assignment = LeadAssignment::firstOrCreate(array('lead_id' => $leadId));
+			$assignment->associate_id = $memberId;
+			if(!$assignment->save()){
+	            admin_error('Error','Error to assign one or more Lead(s).');
+			}
+		}
+		return true;		
+		// return Lead::whereIn('id',$leadIds)->update(['current_status'=>1,'member_id' => $memberId]);
 	}
 
 

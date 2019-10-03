@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Lead;
+use App\Models\LeadAssignment;
 use App\Models\Note;
 use App\Models\AdminUser;
 use App\Models\Group;
@@ -154,15 +155,22 @@ class AdminLeadsController extends Controller
             })
         });");
         $grid = new Grid(new Lead);
+
         if (!LoginAdmin::user()->inRoles(['administrator'])){
             if(LoginAdmin::user()->inRoles(['manager'])){
-                $grid->model()->where('manager_id', Auth::guard('admin')->user()->id);
+                $group_ids = Group::where('manager_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray();
+                $grid->model()->whereHas('assignments', function ($query)  use($group_ids) {
+                    $query->whereIn('group_id', $group_ids);
+                });
+
+            }elseif(LoginAdmin::user()->inRoles(['associate'])){
+                $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id')->toArray();
+                $grid->model()->whereHas('assignments', function ($query) use($memberGroups){
+                    $query->where('associate_id', Auth::guard('admin')->user()->id);
+                    $query->orWhere('group_id', $memberGroups[0]);
+                });
             }else{
-                $grid->model()->where('member_id', Auth::guard('admin')->user()->id);
-                $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id');
-                if(!empty($memberGroups->toArray())){
-                    $grid->model()->orWhere('group_id', $memberGroups[0]);
-                }
+
             }
         }
 
@@ -197,24 +205,23 @@ class AdminLeadsController extends Controller
             }
             return "<a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a>";
         });
-        $grid->column(trans('Assignment'))->display(function(){
-            $member =  ($this->member_id) ? $this->user->name : "";
-            $group =  ($this->group_id) ? $this->group->name : "";
-            $g_pre = "";
-            $g_post = "";
-            $str = "NA";
-            if($member && $group){
-                $g_pre = " (";
-                $g_post = ")";
-            }
-            if($member || $group){
-                $str = $member . $g_pre . $group . $g_post;
-            }
-            return " <a href='/admin/leads/$this->id' class='text-muted'>" . $str . "</a> ";
+        $grid->assignments(trans('Assignment'))->display(function ($assignments) {
+            if(!$assignments) return "";
+            $assignments = array_map(function ($assignment) {
+                $str = "";
+                if($assignment['group_id']){
+                    $group = Group::findOrFail($assignment['group_id']);
+                    $str .="<span class='label bg-primary'>".$group->name."</span> ";
+                }
+
+                if($assignment['associate_id']){
+                    $user = AdminUser::findOrFail($assignment['associate_id']);
+                    $str .="<span class='label label-success'>".$user->name."</span>";
+                }
+                return $str;
+            }, $assignments);
+            return join('&nbsp;', $assignments);
         });
-        // $grid->column(trans('Assign lead'))->display(function(){
-        //     return "<a href='javascript:;' data-toggle='modal' data-target='#assignment' data-lead='" . $this->id ."'><i class='fa fa-pencil-square-o'></i></a>";
-        // });
 
         $grid->current_status(trans('Status'))->display(function($current_status){
             switch ($current_status) {
@@ -249,19 +256,10 @@ class AdminLeadsController extends Controller
             return "<a href='/admin/leads/$this->id' class='text-muted'>$str</a>";
 
         });
-        // $grid->ip_address(trans('IP Address'))->display(function($text){
-        //     return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        // });
         $grid->created_at(trans('admin.timestamp'))->sortable('desc')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         })->setAttributes(['width' => '180px']);
         $grid->disableActions();
-        // $grid->actions(function ($actions) {
-        //     $actions->disableDelete();
-        //     if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
-        //         $actions->disableEdit();            
-        //     }
-        // });
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
             $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
