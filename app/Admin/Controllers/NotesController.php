@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Lead;
+use App\Models\LeadAssignment;
 use App\Models\Note;
 use App\Models\Group;
 use App\Models\GroupMember;
@@ -23,7 +24,10 @@ use Illuminate\Support\Arr;
 class NotesController extends Controller
 {
     use HasResourceActions;
-
+    protected $leadListUsers = ['administrator', 'manager','director','associate','vendor'];
+    protected $leadEditUsers = ['administrator', 'manager','director','associate'];
+    protected $leadStatusUpdateUsers = ['administrator', 'manager','director','associate'];
+    protected $leadAddNoteUsers = ['administrator', 'manager','director','associate','vendor'];
     /**
      * Index interface.
      *
@@ -77,24 +81,10 @@ class NotesController extends Controller
      */
     public function edit($id, Content $content)
     {
-        if(!LoginAdmin::user()->inRoles(['administrator'])){
-            $note = Note::findOrFail($id);
-            if(LoginAdmin::user()->inRoles(['associate']) && $note->user_id != Auth::guard('admin')->user()->id){
-                admin_error('Error','Access denied.');
-                return redirect()->route('admin.updates');                 
-            }elseif(LoginAdmin::user()->inRoles(['manager'])){
-                $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
-                $members = [];
-                foreach ($groupsMembers as $groupsMember) {
-                    $members = array_merge($members, $groupsMember->members->toArray()) ;
-                }
-                $userIds = Arr::pluck($members, 'member_id');
-                if(!in_array($note->user_id, $userIds)){
-                    admin_error('Error','Access denied.');
-                    return redirect()->route('admin.updates');
-                }                
-            }
 
+        if(!$this->noteBelongToUser($id)){
+            admin_error('Error','Access denied.');
+            return redirect()->route('admin.updates');
         }
 
         return $content
@@ -162,11 +152,7 @@ class NotesController extends Controller
     protected function gridRecent()
     {
         $grid = new Grid(new Note);
-
-
         $grid =  $this->leadListConditions($grid);
-
-
         $grid->model()->whereRaw("exists (select 1 from leads where id = notes.lead_id)");
         if(!Input::get('_sort')) $grid->model()->orderby('created_at','desc');
         
@@ -187,23 +173,16 @@ class NotesController extends Controller
             return "<a href='/admin/leads/".$this->lead->id."' class='text-muted'>" . $notes . "</a>";
         });
         $grid->created_at(trans('admin.timestamp'))->sortable()->setAttributes(['width' => '180px']);
-        // $grid->disableActions();
         $grid->actions(function ($actions) {
             $actions->disableDelete();
             $actions->disableView();
-            if(!LoginAdmin::user()->inRoles(['administrator','manager','associate'])){
-                $actions->disableEdit();
-            }
-            // dd($actions->row);
-            if(LoginAdmin::user()->inRoles(['associate'])){
-                if($actions->row->user_id != Auth::guard('admin')->user()->id)  $actions->disableEdit();
+            if(LoginAdmin::user()->inRoles(['associate','vendor'])){
+                if($actions->row->user_id != Auth::guard('admin')->user()->id){
+                    $actions->disableEdit();
+                }  
             }
         });        
         $grid->disableCreateButton();
-        // $grid->disableTools();
-        // $grid->disableFilter();
-        // $grid->disableExport();
-        // $grid->disableRowSelector();
         $grid->filter(function($filter){ 
             $filter->disableIdFilter(); 
             $filter->where(function ($query) {
@@ -224,14 +203,40 @@ class NotesController extends Controller
                 $('.grid-row-checkbox').iCheck('uncheck');
             }
         });");
-
         return $grid;
     }
 
     protected function leadListConditions($grid){
+        $userId = Auth::guard('admin')->user()->id;
         if(LoginAdmin::user()->inRoles(['administrator'])) return $grid;
+        
+        if(LoginAdmin::user()->inRoles(['manager'])){
+            $group_ids = Group::where('manager_id', $userId)->get()->pluck('id')->toArray();
+            $leadIds = LeadAssignment::whereIn('group_id',$group_ids)->get()->pluck('lead_id')->toArray();
+            $grid->model()->whereIn('lead_id',$leadIds);
+        
+        }elseif(LoginAdmin::user()->inRoles(['director'])) {
+            $leadIds = LeadAssignment::where('group_id','>',0)->get()->pluck('lead_id')->toArray();
+            $grid->model()->whereIn('lead_id',$leadIds);
+        
+        }elseif(LoginAdmin::user()->inRoles(['associate'])){
+            $group_ids = GroupMember::where('member_id',$userId)->get()->pluck('group_id')->toArray();
+            $leadIds = LeadAssignment::whereIn('group_id',$group_ids)->orWhere('associate_id',$userId)->get()->pluck('lead_id')->toArray();
+            $grid->model()->whereIn('lead_id',$leadIds);
+        
+        }elseif(LoginAdmin::user()->inRoles(['vendor'])){
+            $leadIds = LeadAssignment::where('vendor_id',$userId)->get()->pluck('lead_id')->toArray();
+            $grid->model()->whereIn('lead_id',$leadIds);
+        
+        }else{
+
+        }
+        return $grid;
+
+
         if(LoginAdmin::user()->inRoles(['manager'])){
             $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
+
             $members = [];
             foreach ($groupsMembers as $groupsMember) {
                 $members = array_merge($members, $groupsMember->members->toArray()) ;
@@ -245,6 +250,54 @@ class NotesController extends Controller
         }
         return $grid;
 
+    }
+
+    protected function noteBelongToUser($noteId){
+        $note = Note::findOrFail($noteId);
+        $access = false;
+        $userId = Auth::guard('admin')->user()->id;
+        // return if user is admin
+        if(LoginAdmin::user()->inRoles(['administrator'])){$access = true;}
+        // Check for director
+        elseif(LoginAdmin::user()->inRoles(['director'])){
+            $leadIds = LeadAssignment::where('group_id','>',0 )->get()->pluck('lead_id')->toArray();
+            if(in_array($note->lead_id,$leadIds )) $access = true;
+        }
+        // Check for manager
+        elseif(LoginAdmin::user()->inRoles(['manager'])){
+            $managerGroups = Group::where('manager_id', $userId)->get()->pluck('id')->toArray();
+            $leadIds = LeadAssignment::whereIn('group_id',$managerGroups)->get()->pluck('lead_id')->toArray();   
+            if(in_array($note->lead_id,$leadIds )) $access = true;
+        }
+        // Check for associate
+        elseif(LoginAdmin::user()->inRoles(['associate','vendor'])){
+            if($note->user_id == $userId) $access = true;
+        }
+        // Check for vendor
+        else{
+
+        } 
+        return $access;
+
+        if(!LoginAdmin::user()->inRoles(['administrator'])){
+            $note = Note::findOrFail($id);
+            if(LoginAdmin::user()->inRoles(['associate']) && $note->user_id != Auth::guard('admin')->user()->id){
+                admin_error('Error','Access denied.');
+                return redirect()->route('admin.updates');                 
+            }elseif(LoginAdmin::user()->inRoles(['manager'])){
+                $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
+                $members = [];
+                foreach ($groupsMembers as $groupsMember) {
+                    $members = array_merge($members, $groupsMember->members->toArray()) ;
+                }
+                $userIds = Arr::pluck($members, 'member_id');
+                if(!in_array($note->user_id, $userIds)){
+                    admin_error('Error','Access denied.');
+                    return redirect()->route('admin.updates');
+                }                
+            }
+
+        }        
     }
 
     /**

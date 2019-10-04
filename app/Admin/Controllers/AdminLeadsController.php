@@ -33,6 +33,11 @@ class AdminLeadsController extends Controller
 {
     use HasResourceActions;
 
+    protected $leadListUsers = ['administrator', 'manager','director','associate','vendor'];
+    protected $leadEditUsers = ['administrator', 'manager','director','associate'];
+    protected $leadStatusUpdateUsers = ['administrator', 'manager','director','associate'];
+    protected $leadAddNoteUsers = ['administrator', 'manager','director','associate','vendor'];
+    protected $leadAddUsers = ['administrator'];
     /**
      * Index interface.
      *
@@ -56,33 +61,16 @@ class AdminLeadsController extends Controller
      */
     public function show($id, Content $content)
     {
-        // Check if manager have access for this lead
-        $lead = Lead::findOrFail($id);
-        $userId = Auth::guard('admin')->user()->id;            
-        if(LoginAdmin::user()->inRoles(['associate'])) {
-            $access = $this->validateAssoShowAccess($lead,$userId);
-            if($access !== true) return $access;
-        }
-        if(LoginAdmin::user()->inRoles(['manager']) &&  $lead->manager_id != $userId) {        
+        // Check if user have access to this lead
+        if(!$this->leadBelongToUser($id)){
             admin_error('Error','Access denied.');
-            return back();  
+            return redirect()->route('leads.index');            
         }
+
         return $content
         ->header('Lead #'.$id)
         ->description(' ')      
         ->body($this->detail($id));
-    }
-
-    private function validateAssoShowAccess($lead,$userId){
-        if($lead->member_id == $userId){
-            return true;
-        }
-        $memberGroups = GroupMember::where('member_id', $userId)->get()->pluck('group_id');
-        if(!empty($memberGroups) && $lead->group_id == $memberGroups[0]){
-            return true;
-        }
-        admin_error('Error','Access denied.');
-        return redirect()->route('leads.index');  
     }
 
     /**
@@ -94,18 +82,11 @@ class AdminLeadsController extends Controller
      */
     public function edit($id, Content $content)
     {
-        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+        if (!LoginAdmin::user()->inRoles($this->leadEditUsers) || !$this->leadBelongToUser($id)){
             admin_error('Error','Access denied.');
-            return back();
+            return redirect()->route('leads.index');
         }
-        // Check if manager have access for this lead
-        if(LoginAdmin::user()->inRoles(['manager'])){
-            $lead = Lead::findOrFail($id);
-            if($lead->manager_id !=Auth::guard('admin')->user()->id){
-                admin_error('Error','Access denied.');
-                return back();                
-            }
-        }
+
         return $content
         ->header('Detail')
         ->description('Edit')
@@ -120,9 +101,9 @@ class AdminLeadsController extends Controller
      */
     public function create(Content $content)
     {
-        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+        if (!LoginAdmin::user()->inRoles($this->leadAddUsers)){
             admin_error('Error','Access denied.');
-            return back();
+            return redirect()->route('leads.index');
         }        
         return $content
         ->header('Create')
@@ -157,21 +138,7 @@ class AdminLeadsController extends Controller
         $grid = new Grid(new Lead);
 
         if (!LoginAdmin::user()->inRoles(['administrator'])){
-            if(LoginAdmin::user()->inRoles(['manager'])){
-                $group_ids = Group::where('manager_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray();
-                $grid->model()->whereHas('assignments', function ($query)  use($group_ids) {
-                    $query->whereIn('group_id', $group_ids);
-                });
-
-            }elseif(LoginAdmin::user()->inRoles(['associate'])){
-                $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id')->toArray();
-                $grid->model()->whereHas('assignments', function ($query) use($memberGroups){
-                    $query->where('associate_id', Auth::guard('admin')->user()->id);
-                    $query->orWhere('group_id', $memberGroups[0]);
-                });
-            }else{
-
-            }
+            $grid = self::leadListUserFilters($grid);
         }
 
         if($from && $to){
@@ -262,7 +229,9 @@ class AdminLeadsController extends Controller
         $grid->disableActions();
         $grid->disableCreateButton();
         $grid->tools(function (Grid\Tools $tools) {
-            $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
+            if(LoginAdmin::user()->inRoles($this->leadAddUsers)){
+                $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
+            }  
             $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
             
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
@@ -326,6 +295,7 @@ class AdminLeadsController extends Controller
                                         <option value="">--Select--</option>
                                         <option value="group">Group</option>
                                         <option value="member">Associate</option>
+                                        <option value="vendor">Vendor</option>
                                         </select>
                                       </div>
                                       <div class="form-group ajax-loader text-center d-none">
@@ -336,7 +306,7 @@ class AdminLeadsController extends Controller
                                         </div>
                                       </div>
                                       <div class="form-group ajax-loader">
-                                        <label for="assign_id">Select Group/Associate</label>
+                                        <label for="assign_id">Select Group/Associate/Vendor</label>
                                         <select id="assign_id" class="form-control" name="assign_id" required></select>
                                       </div>
                                       <button type="submit" class="btn btn-primary">Assign</button>
@@ -431,6 +401,32 @@ class AdminLeadsController extends Controller
         return $grid;
     }
 
+
+    protected function leadListUserFilters($grid){
+        if(LoginAdmin::user()->inRoles(['manager'])){
+            $group_ids = Group::where('manager_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray();
+            $grid->model()->whereHas('assignments', function ($query)  use($group_ids) {
+                $query->whereIn('group_id', $group_ids);
+            });
+        }elseif(LoginAdmin::user()->inRoles(['director'])) {
+            $grid->model()->whereHas('assignments', function ($query){
+                $query->where('group_id','>',0 );
+            });
+        }elseif(LoginAdmin::user()->inRoles(['associate'])){
+            $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id')->toArray();
+            $grid->model()->whereHas('assignments', function ($query) use($memberGroups){
+                $query->where('associate_id', Auth::guard('admin')->user()->id);
+                $query->orWhere('group_id', $memberGroups[0]);
+            });
+        }elseif(LoginAdmin::user()->inRoles(['vendor'])){
+            $grid->model()->whereHas('assignments', function ($query){
+                $query->where('vendor_id', Auth::guard('admin')->user()->id);
+            });            
+        }else{
+
+        }
+        return $grid;
+    }
     /**
      * Make a show builder.
      *
@@ -440,13 +436,7 @@ class AdminLeadsController extends Controller
     protected function detail($id)
     {
         $lead = Lead::findOrFail($id);
-        // $st = CommonMethod::getStates();
-        // $st = array_flip($st);
-        // $lead->first_driver_state = $st[$lead->first_driver_state];
-        // if($lead->second_driver_state){
-        //     $lead->second_driver_state = $st[$lead->second_driver_state];
-        // }
-        return view('Admin.Lead.view',['lead' => $lead,'showIp'=> LoginAdmin::user()->inRoles(['administrator']) , 'updateStatus' => LoginAdmin::user()->inRoles(['administrator', 'manager']),'addNotes' => LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])]);
+        return view('Admin.Lead.view',['lead' => $lead,'showIp'=> LoginAdmin::user()->inRoles(['administrator']) , 'updateStatus' => LoginAdmin::user()->inRoles($this->leadStatusUpdateUsers),'addNotes' => LoginAdmin::user()->inRoles($this->leadAddNoteUsers)]);
     }
 
     /**
@@ -455,11 +445,7 @@ class AdminLeadsController extends Controller
      * @return Form
      */
     protected function form($id=0)
-    {
-        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
-            admin_error('Error','Access denied.');
-            return back();
-        }        
+    {      
         $zipcodes = CommonMethod::getZipcodeInfo();
         $zipJson = json_encode($zipcodes);
         $script = <<<SCRIPT
@@ -834,9 +820,13 @@ SCRIPT;
                     $row->width(12)->html(
                         "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Assign Lead to Group or Associate</h4></div>"
                     );
-                    $row->width(6)->select('assign_type', trans('Assign to'))->options(['group' => 'Group', 'associate' => 'Associate'])->load('assign_id', '/admin/api/assignment/list');
-                    $row->width(6)->select('assign_id', trans('Select Group/Associate'))->options($members);
-                }else if (LoginAdmin::user()->inRoles(['manager'])){
+                    $row->width(6)->select('assign_type', trans('Assign to'))->options(['group' => 'Group', 'associate' => 'Associate','vendor' => 'Vendor'])->load('assign_id', '/admin/api/assignment/list');
+                    $row->width(6)->select('assign_id', trans('Select Group/Associate/Vendor'))->options($members);
+                }else if (LoginAdmin::user()->inRoles(['manager','director'])){
+                   $row->width(12)->html(
+                        "<div class='col-xs-12 bg-primary'><h4 class='text-uppercase'>Assign Lead to Group or Associate</h4></div>"
+                    );
+                    $row->width(6)->select('assign_type', trans('Assign to'))->options(['associate' => 'Associate','vendor' => 'Vendor'])->load('assign_id', '/admin/api/assignment/list');                    
                     $row->width(6)->select('assign_id', trans('Select Associate'))->options($members);
                 }else{}
     
@@ -866,8 +856,12 @@ SCRIPT;
                 if(request()->assign_type=='group'){
                     return LeadAssignmentController::assignLeadToGroup(request()->route('lead'),$assign_id);
                 }elseif(request()->assign_type=='associate'){
-                    return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id);
-                }else{}
+                    return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id,'associate_id');
+                }elseif(request()->assign_type=='vendor'){
+                    return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id,'vendor_id');
+                }else{
+
+                }
             }elseif(LoginAdmin::user()->inRoles(['manager'])){
                     return  LeadAssignmentController::adminAssignLeadToUser(request()->route('lead'),$assign_id);
             }else{}
@@ -908,10 +902,10 @@ SCRIPT;
     }
 
     public function updateStatus($id,Request $request){
-        if (!LoginAdmin::user()->inRoles(['administrator', 'manager'])){
+        if (!LoginAdmin::user()->inRoles($this->leadEditUsers) || !$this->leadBelongToUser($id)){
             admin_error('Error','Access denied.');
             return back();
-        }        
+        }
         if(isset($request->approve) || isset($request->deny)){
             $lead = Lead::findOrFail($id);
             if($lead['status']){
@@ -998,7 +992,7 @@ SCRIPT;
     }
 
     public function addNotes($lead,Request $request){
-        if (!LoginAdmin::user()->inRoles(['administrator', 'manager','associate'])){
+        if (!LoginAdmin::user()->inRoles($this->leadAddNoteUsers) || !$this->leadBelongToUser($lead)){
             admin_error('Error','Access denied.');
             return back();
         }        
@@ -1355,5 +1349,37 @@ SCRIPT;
         }
         return $grid;
     }
+
+    // Check User Lead Access
+    protected function leadBelongToUser($leadId){
+        $access = false;
+        $userId = Auth::guard('admin')->user()->id;
+        // return if user is admin
+        if(LoginAdmin::user()->inRoles(['administrator'])){$access = true;}
+        // Check for director
+        elseif(LoginAdmin::user()->inRoles(['director'])){
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->where('group_id','>',0 )->get()->toArray();
+            if($leadAssignment) $access = true;
+        }
+        // Check for manager
+        elseif(LoginAdmin::user()->inRoles(['manager'])){
+            $managerGroups = Group::where('manager_id', $userId)->get()->pluck('id')->toArray();
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereIn('group_id',$managerGroups)->get()->toArray();
+            if($leadAssignment) $access = true;
+        }
+        // Check for associate
+        elseif(LoginAdmin::user()->inRoles(['associate'])){
+            $userGroup = GroupMember::where('member_id', $userId)->get()->pluck('group_id')->toArray();
+            $userGroup = implode(',', $userGroup);
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereRaw(' ( group_id In (?) OR associate_id = ?)',[$userGroup,$userId])->get()->toArray();
+            if($leadAssignment) $access = true;
+        }
+        // Check for vendor
+        elseif(LoginAdmin::user()->inRoles(['vendor'])){
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->where('vendor_id',$userId)->get()->toArray();
+            if($leadAssignment) $access = true;
+        }else{}
+        return $access;
+    }    
 
 }

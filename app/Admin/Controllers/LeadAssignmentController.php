@@ -17,6 +17,8 @@ class LeadAssignmentController extends Controller
 		$assignType = $request->get('q');
 		if($assignType == 'group'){
 			return $this->getGroups();
+		}elseif($assignType == 'vendor'){
+			return $this->getVendors();
 		}else{
 			return $this->getAssociates();
 		}
@@ -24,6 +26,11 @@ class LeadAssignmentController extends Controller
 
 	private function getGroups(){
 		return Group::get(['id','name as text']);
+	}
+
+	private function getVendors(){
+		$list = new AdminUsersController();
+		return $list->getUsersByRole(['vendor']);
 	}
 	private function getAssociates(){
 		$list = new AdminUsersController();
@@ -43,17 +50,16 @@ class LeadAssignmentController extends Controller
 	}
 
 
-	public static function adminAssignLeadToUser($leads = null, $memberId=null){
+	public static function adminAssignLeadToUser($leads = null, $memberId=null,$userColumn = "associate_id"){
 		$leadIds = explode(',',$leads);
 		foreach ($leadIds as $leadId) {	
 			$assignment = LeadAssignment::firstOrCreate(array('lead_id' => $leadId));
-			$assignment->associate_id = $memberId;
+			$assignment->$userColumn = $memberId;
 			if(!$assignment->save()){
 	            admin_error('Error','Error to assign one or more Lead(s).');
 			}
 		}
-		return true;		
-		// return Lead::whereIn('id',$leadIds)->update(['current_status'=>1,'member_id' => $memberId]);
+		return true;
 	}
 
 
@@ -65,8 +71,10 @@ class LeadAssignmentController extends Controller
 		}else{
 			if($request->assign_to == 'group'){
 				self::assignLeadToGroup($request->lead_ids,$request->assign_id);
+			}elseif($request->assign_to == 'member'){
+				self::adminAssignLeadToUser($request->lead_ids,$request->assign_id,'associate_id');
 			}else{
-				self::adminAssignLeadToUser($request->lead_ids,$request->assign_id);
+				self::adminAssignLeadToUser($request->lead_ids,$request->assign_id,'vendor_id');
 			}
             admin_success('Success','Lead(s) assigned successfully.');
 		}
