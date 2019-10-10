@@ -82,7 +82,7 @@ class NotesController extends Controller
     public function edit($id, Content $content)
     {
 
-        if(!$this->noteBelongToUser($id)){
+        if(!self::noteBelongToUser($id)){
             admin_error('Error','Access denied.');
             return redirect()->route('admin.updates');
         }
@@ -252,7 +252,7 @@ class NotesController extends Controller
 
     }
 
-    protected function noteBelongToUser($noteId){
+    public static function noteBelongToUser($noteId){
         $note = Note::findOrFail($noteId);
         $access = false;
         $userId = Auth::guard('admin')->user()->id;
@@ -269,35 +269,13 @@ class NotesController extends Controller
             $leadIds = LeadAssignment::whereIn('group_id',$managerGroups)->get()->pluck('lead_id')->toArray();   
             if(in_array($note->lead_id,$leadIds )) $access = true;
         }
-        // Check for associate
+        // Check for Associate/Vendor
         elseif(LoginAdmin::user()->inRoles(['associate','vendor'])){
             if($note->user_id == $userId) $access = true;
-        }
-        // Check for vendor
-        else{
+        }else{
 
         } 
         return $access;
-
-        if(!LoginAdmin::user()->inRoles(['administrator'])){
-            $note = Note::findOrFail($id);
-            if(LoginAdmin::user()->inRoles(['associate']) && $note->user_id != Auth::guard('admin')->user()->id){
-                admin_error('Error','Access denied.');
-                return redirect()->route('admin.updates');                 
-            }elseif(LoginAdmin::user()->inRoles(['manager'])){
-                $groupsMembers = Group::where('manager_id',Auth::guard('admin')->user()->id)->with('members')->get();
-                $members = [];
-                foreach ($groupsMembers as $groupsMember) {
-                    $members = array_merge($members, $groupsMember->members->toArray()) ;
-                }
-                $userIds = Arr::pluck($members, 'member_id');
-                if(!in_array($note->user_id, $userIds)){
-                    admin_error('Error','Access denied.');
-                    return redirect()->route('admin.updates');
-                }                
-            }
-
-        }        
     }
 
     /**
@@ -342,14 +320,18 @@ class NotesController extends Controller
     }
 
     public function updateNote($id,Request $request){
+        if(!self::noteBelongToUser($id)){
+            admin_error('Error','Access denied.');
+            return back();
+        }        
         $note = Note::findOrFail($id);
         $note->notes = $request->notes;
         if($note->update()){
             admin_success('Success','Note has been updated.');
-            return redirect()->route('admin.updates');
+            return back();
         }else{
             admin_error('Error','Note not updated!Please try again.');
-            return redirect()->route('admin.updates');
+            return back();
         }
     }
 }

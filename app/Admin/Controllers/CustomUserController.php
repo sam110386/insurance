@@ -102,6 +102,8 @@ class CustomUserController extends UserController
 				$roleClass = "role-orange";
 			}elseif($this->roles()->pluck('slug')[0] == 'vendor'){
 				$roleClass = "role-blue";
+			}elseif($this->roles()->pluck('slug')[0] == 'director'){
+				$roleClass = "role-red";
 			}else{
 				$roleClass = "";
 			}
@@ -109,8 +111,6 @@ class CustomUserController extends UserController
 		});
 
 		$grid->created_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
-
-
 		$grid->actions(function (Grid\Displayers\Actions $actions) {
 			if ($actions->getKey() == 1) {
 				$actions->disableDelete();

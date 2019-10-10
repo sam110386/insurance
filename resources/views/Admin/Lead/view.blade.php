@@ -387,7 +387,7 @@
 								@foreach($lead->notes as $note)
 									<li class="media">
 										<div class="media-left">
-											<img class="media-object img-circle" src="{{Storage::disk('admin')->url(($note->user->avatar) ? $note->user->avatar : 'images/default-user.png' )}}" alt="...">
+											<img class="media-object img-circle" src="{{($note->user->avatar) ? $note->user->avatar : '/images/default-user.png'}}" alt="...">
 										</div>
 										<div class="media-body">
 											<span class="text-muted pull-right">
@@ -399,9 +399,25 @@
 												{{$note->user->name}}
 											</strong> &nbsp;&nbsp;&nbsp; 
 											@if($showIp)
-											<strong><i class="fa fa-map-marker"></i> {{$note->user_ip}}</strong>
+											<strong><i class="fa fa-map-marker"></i> {{$note->user_ip}}</strong> &nbsp;&nbsp;&nbsp; 
 											@endif
-											<p>{!! $note->notes !!}</p>
+											@if(App\Admin\Controllers\NotesController::noteBelongToUser($note->id))
+												<a href="javascript:;" class='edit-note'><i class="fa fa-pencil"></i> Edit</a>
+											@endif
+											<div class="note-container">{!! $note->notes !!}</div>
+											@if(App\Admin\Controllers\NotesController::noteBelongToUser($note->id))
+												<div class="note-container d-none">
+													<form action="{{route('admin.update_note_post',$note->id)}}" method="POST">
+														<div class="form-group">
+															{!! csrf_field() !!}
+															<textarea id="note-{{$note->id}}" name="notes" class="form-control notes-editor editor" rows="3" placeholder="Enter notes..." required >{!! $note->notes !!}</textarea>
+															<input name="_method" type="hidden" value="PATCH">
+														</div>
+														<button type="submit" class="btn btn-sm btn-primary">Save</button>
+														<a href="javascript:;" class="btn btn-sm btn-secondary edit-note d-none">Cancel</a>
+													</form>
+												</div>
+											@endif
 										</div>
 									</li>
 								@endforeach
@@ -421,7 +437,7 @@
 							@endif				
 							<button type="submit" class="btn btn-primary">SAVE NOTES</button>
 						</form>		
-						@endif				
+						@endif
 					</div>
 				</div>
 			</div>
@@ -433,9 +449,19 @@
 <script>
 	setTimeout(function(){
 		CKEDITOR.replace('note',{height:150,removeButtons: ''});
+		$('.notes-editor').each(function(i,note){
+			CKEDITOR.replace(note.id,{height:150,removeButtons: ''});
+		})
 	},1000);
 	function updateCurrentStatus(status){
 		document.getElementById('current_status').value = status;
 		document.getElementById('form-current-status-update').submit();
 	}
+
+	$(document).on('click',".edit-note",function(){
+		var note = $(this).parents('.media-body');
+		note.find('.edit-note').toggleClass('d-none');
+		note.find('.note-container').toggleClass('d-none');
+		
+	});
 </script>

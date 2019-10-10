@@ -80,4 +80,26 @@ class LeadAssignmentController extends Controller
 		}
         return back();
 	}
+
+	/*
+	* Move assignments from old table(leads) to new table(lead_assignments)
+	*/
+	public function moveAssignments(){
+		$leads = Lead::select(['id','group_id','member_id'])->where('group_id','>',0)->orWhere('member_id','>',0)->get()->toArray();
+		$successIds = [];
+		$errorIds = [];
+		foreach ($leads as $lead) {
+			$assignment = LeadAssignment::firstOrCreate(array('lead_id' => $lead['id']));
+			$assignment->associate_id = $lead['member_id'];
+			$assignment->group_id = $lead['group_id'];
+			if(!$assignment->save()){
+				$errorIds[] = $lead['id'];
+			}else{
+				$successIds[] = $lead['id'];
+			}
+	        admin_error('Error','Not assigned '. implode(',', $errorIds));
+	        admin_success('Success','Assigned '.implode(',', $successIds));
+		}
+		return redirect()->route('leads.index');
+	}
 }

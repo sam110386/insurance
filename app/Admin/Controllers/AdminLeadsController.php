@@ -38,6 +38,10 @@ class AdminLeadsController extends Controller
     protected $leadStatusUpdateUsers = ['administrator', 'manager','director','associate'];
     protected $leadAddNoteUsers = ['administrator', 'manager','director','associate','vendor'];
     protected $leadAddUsers = ['administrator'];
+    protected $leadAdvanceSearchUsers = ['administrator', 'manager','director','associate'];
+    protected $leadSendUsers = ['administrator', 'manager','director','associate'];
+    protected $leadAssignUsers = ['administrator'];
+
     /**
      * Index interface.
      *
@@ -231,53 +235,57 @@ class AdminLeadsController extends Controller
         $grid->tools(function (Grid\Tools $tools) {
             if(LoginAdmin::user()->inRoles($this->leadAddUsers)){
                 $tools->append("<a href='/admin/leads/create' class='btn btn-sm btn-success pull-left mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>New</span></a> &nbsp;");
-            }  
-            $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
-            
+            } 
+
+            if(LoginAdmin::user()->inRoles($this->leadAdvanceSearchUsers)){
+                $tools->append("<a href='". route('lead-advance-search') ."' class='btn btn-sm btn-primary pull-right mr-1'><i class='fa fa-plus'></i> <span class='hidden-xs'>Advance Search</span></a> &nbsp;");
+            }            
             $tools->batch(function (Grid\Tools\BatchActions $batch) {
                 $batch->disableDelete();
-                $batch->add("Send Leads", new BulkEmailLead());
+                if(LoginAdmin::user()->inRoles($this->leadSendUsers)){
+                    $batch->add("Send Leads", new BulkEmailLead());
+                }
                 if(LoginAdmin::user()->inRoles(['administrator'])){
                     $batch->add("Assign Leads", new BulkLeadAssignment());
                 }
                 $batch->add("Update Status", new BulkLeadCurrentStatus());
             });
+            if(LoginAdmin::user()->inRoles($this->leadSendUsers)){
+                $users= AdminUser::select(['id','name'])->get();
+                $options= "";
+                foreach ($users as $user) {
+                    $options .= "<option value='". $user->id ."'>". $user->name ."</option>";
+                }
+                $tools->append('<div class="modal fade" id="bulkMail" data-controls-modal="bulkMail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="bulkMail">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button id="cancelSmallBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Send Leads Email</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="'.route("lead.bulk.email").'" method="POST">
+                                          <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
 
-            $users= AdminUser::select(['id','name'])->get();
-            $options= "";
-            foreach ($users as $user) {
-                $options .= "<option value='". $user->id ."'>". $user->name ."</option>";
-            }
-            $tools->append('<div class="modal fade" id="bulkMail" data-controls-modal="bulkMail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="bulkMail">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button id="cancelSmallBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Send Leads Email</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="'.route("lead.bulk.email").'" method="POST">
-                                      <input type="hidden" name="lead_ids" id="lead_ids" />'. csrf_field() .'
-
-                                      <div class="form-group">
-                                        <label for="user">Select User</label>
-                                        <select id="admin_users" class="c-select form-control" name="user">' .$options . '
-                                        </select>
-                                      </div>
-                                      <div class="form-group text-center">
-                                        <h4>OR</h4>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="email">Enter Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
-                                        <small>Note: This field will override above selected User.</small>
-                                      </div>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
+                                          <div class="form-group">
+                                            <label for="user">Select User</label>
+                                            <select id="admin_users" class="c-select form-control" name="user">' .$options . '
+                                            </select>
+                                          </div>
+                                          <div class="form-group text-center">
+                                            <h4>OR</h4>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="email">Enter Email</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
+                                            <small>Note: This field will override above selected User.</small>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>');
+                        </div>');
                 if(LoginAdmin::user()->inRoles(['administrator'])){
                     $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -316,6 +324,7 @@ class AdminLeadsController extends Controller
                         </div>
                     </div>');
                 }
+            }
                 /* Manager Leads Assign to Associates
                 if(LoginAdmin::user()->inRoles(['manager'])){
                     $tools->append('<div class="modal fade" id="assignment" data-controls-modal="assignment" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="assignment">
