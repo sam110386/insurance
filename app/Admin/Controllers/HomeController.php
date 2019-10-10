@@ -119,7 +119,7 @@ class HomeController extends Controller
         }elseif(LoginAdmin::user()->inRoles(['associate'])){
             $activeProfileClass ="success";
         }else{
-            $activeProfileClass = "";
+            $activeProfileClass = "primary";
         }          
         $box = new Box('My Profile',$userInfo);
         $box->collapsable();
