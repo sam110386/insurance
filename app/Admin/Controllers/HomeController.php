@@ -3,6 +3,11 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lead;
+use App\Models\LeadAssignment;
+use App\Models\Group;
+use App\Models\GroupMember;
+use App\Models\AdminUser;
 use Encore\Admin\Layout\Column;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
@@ -10,7 +15,6 @@ use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\InfoBox;
 use Encore\Admin\Widgets\Table;
 use App\Admin\Controllers\AdminLeadsController;
-use App\Models\Lead;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Encore\Admin\Facades\Admin as LoginAdmin;
@@ -69,23 +73,23 @@ class HomeController extends Controller
             });
         })
         ->row(function (Row $row) {
-            $row->column(4, function (Column $column) {
-                $column->append($this->userProfile());
-            });
-            $row->column(8, function (Column $column) {
-
-                $box = new Box('Group Members',"<p>Hey Admin</p>");
-                $box->collapsable();
-                $box->style('info');
-                $box->solid();                    
-                $column->append($box);                
-            });            
+            $this->userDashboard($row);
         });
 
     }
 
-    protected function userProfile(){
+    protected function userDashboard($row){
+        if(LoginAdmin::user()->inRoles(['vendor'])) return;
+        $row->column(4, function (Column $column) {
+            $column->append($this->userProfileBox());
+        });
+        $row->column(8, function (Column $column) {
+            $box = $this->groupMembersBox();
+            $column->append($box);                
+        });
+    }
 
+    protected function userProfileBox(){
         $rows = [
             ['<b>First Name</b>',LoginAdmin::user()->name],
             ['<b>Last Name</b>',LoginAdmin::user()->last_name],
@@ -127,6 +131,50 @@ class HomeController extends Controller
         $box->solid();
         return $box;
     }
+
+    protected function groupMembersBox(){
+        $box = new Box('Group Members',$this->groupList());
+        $box->collapsable();
+        $box->style('info');
+        $box->solid();
+        return $box;
+    }
+
+    protected function groupList(){
+        $html = "";
+        if(LoginAdmin::user()->inRoles(['associate'])){
+            $groups = GroupMember::where('member_id',LoginAdmin::user()->id)->get()->pluck('group_id')->toArray();
+                $html .= $this->groupDetails($groups[0]);
+        }elseif(LoginAdmin::user()->inRoles(['manager'])){
+            $groups = Group::where('manager_id',LoginAdmin::user()->id)->get()->pluck('id')->toArray();
+            foreach($groups as $gid){
+                $html .= $this->groupDetails($gid);
+            }            
+        }
+        return $html;
+    }
+
+    protected function groupDetails($gid){
+        if(LoginAdmin::user()->inRoles(['associate'])) return  $this->groupMembersList($gid);
+        $group = Group::findOrFail($gid);
+        $box = new Box($group->name,$this->groupMembersList($gid));
+        $box->collapsable();
+        $box->style('primary');
+        $box->solid();
+        return $box; 
+    }
+
+    protected function groupMembersList($gid){
+        $html = "";
+        $members = GroupMember::where('group_id',$gid)->get()->pluck('member_id')->toArray();
+        if(!$members) return "";
+        foreach ($members as $mid) {
+            $user = AdminUser::findOrFail($mid);
+            $html .= " <label class='p bg-primary'>{$user->username}</label>";
+        }
+        return $html;
+    }
+
     public function testMail(){
         $email = 'sgstest2505@gmail.com';
         $lead = Lead::findOrFail(5);

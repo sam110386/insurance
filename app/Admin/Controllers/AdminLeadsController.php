@@ -141,8 +141,9 @@ class AdminLeadsController extends Controller
         });");
         $grid = new Grid(new Lead);
 
-        if (!LoginAdmin::user()->inRoles(['administrator'])){
+        if (!LoginAdmin::user()->inRoles(['administrator','director'])){
             $grid = self::leadListUserFilters($grid);
+
         }
 
         if($from && $to){
@@ -153,7 +154,7 @@ class AdminLeadsController extends Controller
         if(!Input::get('_sort')) $grid->model()->orderby('id','desc');
         $grid->id('ID')->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
-        });
+        })->sortable();
         $grid->first_name(trans('First Name'))->sortable()->display(function($text){
             return "<a href='/admin/leads/$this->id' class='text-muted'>$text</a>";
         });
@@ -184,6 +185,7 @@ class AdminLeadsController extends Controller
                     $group = Group::findOrFail($assignment['group_id']);
                     $str .="<span class='label bg-primary'>".$group->name."</span> ";
                 }
+
 
                 if($assignment['associate_id']){
                     $user = AdminUser::findOrFail($assignment['associate_id']);
@@ -413,14 +415,16 @@ class AdminLeadsController extends Controller
 
     protected function leadListUserFilters($grid){
         if(LoginAdmin::user()->inRoles(['manager'])){
-            $group_ids = Group::where('manager_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray();
-            $grid->model()->whereHas('assignments', function ($query)  use($group_ids) {
-                $query->whereIn('group_id', $group_ids);
+            $groupIds = Group::where('manager_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray();
+            $memberIds = GroupMember::whereIn('group_id',$groupIds)->get()->pluck('member_id')->toArray();
+            $grid->model()->whereHas('assignments', function ($query)  use($groupIds,$memberIds) {
+                $query->whereIn('group_id', $groupIds);
+                $query->orWhereIn('associate_id', $memberIds);
             });
         }elseif(LoginAdmin::user()->inRoles(['director'])) {
-            $grid->model()->whereHas('assignments', function ($query){
-                $query->where('group_id','>',0 );
-            });
+            // $grid->model()->whereHas('assignments', function ($query){
+            //     $query->where('group_id','>',0 );
+            // });
         }elseif(LoginAdmin::user()->inRoles(['associate'])){
             $memberGroups = GroupMember::where('member_id',Auth::guard('admin')->user()->id)->get()->pluck('group_id')->toArray();
             $grid->model()->whereHas('assignments', function ($query) use($memberGroups){
@@ -1367,13 +1371,17 @@ SCRIPT;
         if(LoginAdmin::user()->inRoles(['administrator'])){$access = true;}
         // Check for director
         elseif(LoginAdmin::user()->inRoles(['director'])){
-            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->where('group_id','>',0 )->get()->toArray();
-            if($leadAssignment) $access = true;
+            // $leadAssignment = LeadAssignment::where('lead_id',$leadId)->where('group_id','>',0 )->get()->toArray();
+            // if($leadAssignment) $access = true;
+            $access = true;
         }
         // Check for manager
         elseif(LoginAdmin::user()->inRoles(['manager'])){
             $managerGroups = Group::where('manager_id', $userId)->get()->pluck('id')->toArray();
-            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereIn('group_id',$managerGroups)->get()->toArray();
+
+            $memberIds = GroupMember::whereIn('group_id',$managerGroups)->get()->pluck('member_id')->toArray();
+            // $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereIn('group_id',$managerGroups)->get()->toArray();
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereRaw(' ( group_id In (?) OR associate_id = ?)',[$managerGroups,$memberIds])->get()->toArray();
             if($leadAssignment) $access = true;
         }
         // Check for associate

@@ -216,8 +216,8 @@ class NotesController extends Controller
             $grid->model()->whereIn('lead_id',$leadIds);
         
         }elseif(LoginAdmin::user()->inRoles(['director'])) {
-            $leadIds = LeadAssignment::where('group_id','>',0)->get()->pluck('lead_id')->toArray();
-            $grid->model()->whereIn('lead_id',$leadIds);
+            // $leadIds = LeadAssignment::where('group_id','>',0)->get()->pluck('lead_id')->toArray();
+            // $grid->model()->whereIn('lead_id',$leadIds);
         
         }elseif(LoginAdmin::user()->inRoles(['associate'])){
             $group_ids = GroupMember::where('member_id',$userId)->get()->pluck('group_id')->toArray();
@@ -260,8 +260,9 @@ class NotesController extends Controller
         if(LoginAdmin::user()->inRoles(['administrator'])){$access = true;}
         // Check for director
         elseif(LoginAdmin::user()->inRoles(['director'])){
-            $leadIds = LeadAssignment::where('group_id','>',0 )->get()->pluck('lead_id')->toArray();
-            if(in_array($note->lead_id,$leadIds )) $access = true;
+            $access = true;
+            // $leadIds = LeadAssignment::where('group_id','>',0 )->get()->pluck('lead_id')->toArray();
+            // if(in_array($note->lead_id,$leadIds )) $access = true;
         }
         // Check for manager
         elseif(LoginAdmin::user()->inRoles(['manager'])){

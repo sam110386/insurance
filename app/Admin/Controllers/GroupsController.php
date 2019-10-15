@@ -4,7 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Models\Group;
 use App\Models\GroupMember;
+use App\Models\LeadAssignment;
 use App\Http\Controllers\Controller;
+use Encore\Admin\Admin;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -155,6 +157,41 @@ class GroupsController extends Controller
      */
     protected function grid()
     {
+
+        Admin::script("$('.delete-group').on('click', function (event) {
+            var id = $(this).data('id');
+            swal({
+                title: 'Sure to delete this group?<br>This will delete related members and make assigned leads to unassigned.',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Confirm',
+                allowOutsideClick: false,
+                cancelButtonText: 'Cancel'
+            }).then(function(result){
+                if(result.value){
+                    $.ajax({
+                        method: 'post',
+                        url: 'groups/' + id,
+                        data: {
+                            _method:'delete',
+                            _token:LA.token,
+                        },
+                        success: function (data) {
+                            $.pjax.reload('#pjax-container');
+
+                            if (typeof data === 'object') {
+                                if (data.status) {
+                                    swal(data.message, '', 'success');
+                                } else {
+                                    swal(data.message, '', 'error');
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });");        
         $grid = new Grid(new Group);
 
         $grid->id('ID');
@@ -162,9 +199,12 @@ class GroupsController extends Controller
         $grid->column('user.name',trans('Manager'));
         $grid->members(trans('Members'))->display(function($members){
             return count($members);
-            // return "<span class='label label-warning'>{$count}</span>";
         });
         $grid->created_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
+        $grid->actions(function ($actions) {
+            $actions->disableDelete();
+            $actions->append('<a href="javascript:;" class="delete-group" data-id="'.$actions->getKey().'"><i class="fa fa-trash"></i></a>');
+        });
 
         return $grid;
     }
@@ -269,5 +309,23 @@ class GroupsController extends Controller
         foreach ($groups as $group) {
             SendMail::sendMailToMangerOnNewUser(Group::findOrFail($group['group_id']),$user );
         }
-    }    
+    }
+
+    public function destroy($gid,Request $request){
+        $this->removeGroupMembers($gid);
+        $this->removeGroupAssigned($gid);
+        $group = Group::findOrFail($gid);
+        $group->deleted_at = Carbon::now();
+        if(!$group->update()){
+            return response()->json(["status" => false,"message" => "Something went wrong! Please try again."]);
+        }
+        return response()->json(["status" => true,"message" => "Group has been deleted!"]);
+    }
+
+    private function removeGroupMembers($gid){
+        return GroupMember::where('group_id',$gid)->delete();
+    }
+    private function removeGroupAssigned($gid){
+        return LeadAssignment::where('group_id',$gid)->update(['group_id' => null]);
+    }
 }
