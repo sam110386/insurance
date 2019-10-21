@@ -166,10 +166,15 @@ label.asterisk.control-label::after {content: "*";color: #d73925;margin-left: 5p
 
 .manager-box{border-color:#CC6600 !important;}
 .manager-box .box-header{background:#CC6600 !important; color: #FFF !important;}
+
 .border-manager{border: 1px solid #CC6600 !important;}
 
 .associate-box{border-color:#00a65a !important;}
 .associate-box .box-header{background:#00a65a !important;}
+
+.director-box{border-color:#d93025 !important;}
+.director-box .box-header{background:#d93025 !important;}
+
 .pt-1{padding-top: 1rem;}
 .pb-1{padding-bottom: 1rem;}
 .bg-admin{background: #660066 !important; color: #fff;}

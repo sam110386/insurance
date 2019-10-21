@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Insurance',
+    'name' => 'Quote Meow',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<img class="" height="54px" src="/img/logo.png"/>',
+    'logo' => '<img class="" height="54px" src="/img/logo.png" alt="Quote Meow" title="Quote Meow"/>',
 
     /*
     |--------------------------------------------------------------------------

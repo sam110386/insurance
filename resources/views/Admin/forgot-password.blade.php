@@ -21,15 +21,16 @@
   <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body class="hold-transition login-page" @if(config('admin.login_background_image'))style="background: url({{config('admin.login_background_image')}}) no-repeat;background-size: cover;"@endif>
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{ admin_base_path('/') }}"><b>{{config('admin.name')}}</b></a>
+    <a href="{{ admin_base_path('/') }}">{!! config('admin.logo') !!}</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">{{ trans('admin.forgot_password') }}</p>
+    <!--p class="login-box-msg">{{ trans('admin.forgot_password') }}</p-->
     @if(session()->has('message'))
         <div class="alert alert-success">
             {{ session()->get('message') }}

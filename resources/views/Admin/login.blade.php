@@ -13,7 +13,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ admin_asset("vendor/laravel-admin/AdminLTE/dist/css/AdminLTE.min.css") }}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{ admin_asset("vendor/laravel-admin/AdminLTE/plugins/iCheck/square/blue.css") }}">
+  <link rel="stylesheet" href="{{ admin_asset("vendor/laravel-admin/AdminLTE/plugins/iCheck/all.css") }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,15 +21,16 @@
   <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body class="hold-transition login-page" @if(config('admin.login_background_image'))style="background: url({{config('admin.login_background_image')}}) no-repeat;background-size: cover;"@endif>
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{ admin_base_path('/') }}"><b>{{config('admin.name')}}</b></a>
+    <a href="{{ admin_base_path('/') }}">{!! config('admin.logo') !!}</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">{{ trans('admin.login') }}</p>
+    <!--p class="login-box-msg">{{ trans('admin.login') }}</p-->
       @if(session()->has('message'))
           <div class="alert alert-success">
               {{ session()->get('message') }}
@@ -97,7 +98,7 @@
 <script>
   $(function () {
     $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
+      checkboxClass: 'icheckbox_minimal-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
     });

@@ -50,4 +50,6 @@ Route::group([
     $router->post('/assign/lead','LeadAssignmentController@assignLead')->name('lead.assignment');
 
     $router->resource('affiliates', 'AffiliateController');
+
+    $router->match(['put','patch','post'],'auth/setting', 'AuthController@saveProfile')->name('user.profile.update');
 });

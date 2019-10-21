@@ -99,6 +99,9 @@ class HomeController extends Controller
 		}elseif(LoginAdmin::user()->inRoles(['associate'])){
 			$bgClass = "bg-associate";
 			$role = "Associate";
+		}elseif(LoginAdmin::user()->inRoles(['director'])){
+			$bgClass = "bg-director";
+			$role = "Director";
 		}else{
 			$bgClass = "bg-primary";
 			$role = "Vendor";
@@ -153,15 +156,31 @@ class HomeController extends Controller
 	}
 
 	protected function groupList(){
-		$html = "";
+		$html = " ";
 		if(LoginAdmin::user()->inRoles(['associate'])){
 			$groups = GroupMember::where('member_id',LoginAdmin::user()->id)->get()->pluck('group_id')->toArray();
 				$html .= $this->groupDetails($groups[0]);
+
 		}elseif(LoginAdmin::user()->inRoles(['manager'])){
 			$groups = Group::where('manager_id',LoginAdmin::user()->id)->get()->pluck('id')->toArray();
 			foreach($groups as $gid){
 				$html .= $this->groupDetails($gid);
-			}            
+			}
+		}elseif(LoginAdmin::user()->inRoles(['administrator'])){
+			$groups = Group::all()->pluck('id')->toArray();
+			foreach($groups as $gid){
+				$html .= $this->groupDetails($gid);
+			}
+			/* Un Grouped Users */
+			$html .= $this->unGroupedMemberList($gid);
+		}elseif(LoginAdmin::user()->inRoles(['director'])){
+			$groups = Group::all()->pluck('id')->toArray();
+			foreach($groups as $gid){
+				$html .= $this->groupDetails($gid);
+			}
+			$html .= $this->unGroupedMemberList($gid);
+		}else{
+			$html = "Comming soon!";
 		}
 		return $html;
 	}
@@ -173,7 +192,7 @@ class HomeController extends Controller
 		$box->collapsable();
 		$box->style('primary');
 		$box->solid();
-		return $box; 
+		return $box;
 	}
 
 	protected function groupMembersList($group){
@@ -182,16 +201,40 @@ class HomeController extends Controller
 		$userPostHtml = "</div>";
 
 		$members = GroupMember::where('group_id',$group->id)->get()->pluck('member_id')->toArray();
-		if(!$members) return "";
+		if(!$members) return "<h5>No member in this group.</h5>";
 		
 		$currentUser = LoginAdmin::user()->id ;
 		
-		if(LoginAdmin::user()->inRoles(['associate'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id) . $userPostHtml;
+		if(LoginAdmin::user()->inRoles(['associate','administrator','director'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id) . $userPostHtml;
 		foreach ($members as $mid) {
-			// if($currentUser != $mid) $html .= $userPreHtml . $this->memberLeadDetails($mid,$group->id). $userPostHtml; 
 			$html .= $userPreHtml . $this->memberLeadDetails($mid,$group->id). $userPostHtml; 
 		}
 		return $html."</div>";
+	}
+
+
+	protected function unGroupedMemberList(){
+		$html = "<div class='row'>";
+		$userPreHtml = "<div class='col-md-4'>";
+		$userPostHtml = "</div>";
+		$gManagers = Group::all()->pluck('manager_id')->toArray();
+		$gMembers = GroupMember::all()->pluck('member_id')->toArray();
+		$skipIds = array_merge($gManagers,$gMembers);
+		$members  = AdminUser::whereNotIn('id',$skipIds)->whereHas("roles", function($q){
+			$q->where("slug", "associate");
+			$q->orWhere("slug", "manager");
+		})->get()->pluck('id')->toArray();
+
+		if(empty($members)) $html = "<h5>No member to show here.</h5>"; 
+		foreach ($members as $mid) {
+			$html .= $userPreHtml . $this->memberLeadDetails($mid,0). $userPostHtml; 
+		}
+
+		$box = new Box('Ungrouped Members',$html);
+		$box->collapsable();
+		$box->style('primary');
+		$box->solid();
+		return $box;
 	}
 
 	protected function managerLeadDetails($magaerId){
@@ -206,6 +249,20 @@ class HomeController extends Controller
 	}
 
 	protected function userBox($user,$userLeads){
+		if($user->inRoles(['administrator'])){
+			$boxClass = "admin-box";
+			$role = "Administrator";
+		}elseif($user->inRoles(['manager'])){
+			$boxClass = "manager-box";
+			$role = "Manager";
+		}elseif($user->inRoles(['associate'])){
+			$boxClass = "associate-box";
+			$role = "Associate";
+		}else{
+			$boxClass = "vendor-box";
+			$role = "Vendor";
+		}
+
 		$boxClass = ($user->inRoles(['associate'])) ? "associate-box" : "manager-box";
 		$totalLeads = (count($userLeads) > 99) ? "99+" : count($userLeads);
 
@@ -221,7 +278,7 @@ class HomeController extends Controller
 				<img class="img-circle" src="'.$profilePic.'" alt="User Avatar"/>
 				</div>
 				<h3 class="widget-user-username">'.$user->name.'</h3>
-				<h5 class="widget-user-desc">'.$user->username.'</h5>
+				<h5 class="widget-user-desc">'.$role.'</h5>
 			</div>
 			<div class="box-body">			
 				<div class="row">
