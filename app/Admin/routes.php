@@ -23,7 +23,9 @@ Route::group([
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
-    $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->get('/', 'HomeController@dashboard')->name('admin.home');
+    $router->get('/dashboard', 'HomeController@index')->name('admin.dashboard');
+
     $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/move/leads', 'LeadAssignmentController@moveAssignments');
     $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.updates');

@@ -18,20 +18,29 @@ use App\Admin\Controllers\AdminLeadsController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Encore\Admin\Facades\Admin as LoginAdmin;
+use Encore\Admin\Admin;
+
 
 class HomeController extends Controller
 {
+	public function dashboard(Content $content){
+		$script = <<<SCRIPT
+		jQuery.pjax({url: '/admin/dashboard', container: '#pjax-container'})
+SCRIPT;
+		Admin::script($script);
+		return $content
+		->header('Dashboard')
+		->row(function (Row $row) {
+			$row->column(12, function (Column $column) {
+				$column->append("<div class='ajax-container'><center><div class='dashboard-spinner'>Loading...</div></center></div>");
+			});
+		});
+	}
+
 	public function index(Content $content)
 	{
 		return $content
 		->header('Dashboard')
-			// ->row(Dashboard::title())
-		// ->row(function (Row $row) {
-
-		//     $row->column(12, function (Column $column) {
-		//         $column->append('<style>.title {font-size: 50px;color: #636b6f;font-family:"Raleway", sans-serif;font-weight: 100;display: block;text-align: center;margin: 20px 0 10px 0px;}</style><div class="title">Insurance</div>');
-		//     });
-		// })
 		->row(function (Row $row) {
 			$row->column(12, function (Column $column) {
 				$leads = AdminLeadsController::getLeadCounts(); 
