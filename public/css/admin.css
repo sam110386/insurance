@@ -250,3 +250,10 @@ label.asterisk.control-label::after {content: "*";color: #d73925;margin-left: 5p
 .bg-associate{background: #00a65a !important; color: #fff;}
 .bg-vendor{background: #0000CC !important; color: #fff;}
 .widget-user-2 .widget-user-image > img{width: 65px;height: 65px;}
+@media(min-width: 850px){
+  .vehicle-last-update{position: absolute;left: 10px;top: 10px;}
+}
+
+@media(max-width: 849px){
+  .vehicle-last-update{  position: absolute;right: 10px;top: -45px;width: 70%;text-align:right;}
+}
