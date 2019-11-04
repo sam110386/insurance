@@ -102,7 +102,7 @@ class VehiclesController extends Controller
 
     protected function lastUpdateData(){
         $vehicle = Vehicle::whereNotNull('updated_at')->orderBy('updated_at','DESC')->get()->first();
-        return ($vehicle) ? ['date' => $vehicle->updated_at,'username' => $vehicle->user->username] : [];
+        return ($vehicle) ? ['date' => $vehicle->updated_at,'username' => $vehicle->user->username] : ['date' => '','username' => ''];
     }
     /**
      * Make a show builder.
