@@ -11,6 +11,7 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class VehiclesController extends Controller
@@ -156,8 +157,8 @@ class VehiclesController extends Controller
         return $form;
     }
 
-    // public function update($id,Request $request){
-    //     dd($request->all());
-    // }
+    public function updateTimestamp(){
+        $vehicle = Vehicle::where('id','>',0)->update(['created_at' => Carbon::now(),'updated_at' => Carbon::now()]);
+    }
 
 }

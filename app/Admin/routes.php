@@ -54,4 +54,6 @@ Route::group([
     $router->resource('affiliates', 'AffiliateController');
 
     $router->match(['put','patch','post'],'auth/setting', 'AuthController@saveProfile')->name('user.profile.update');
+
+    $router->get('update/vehicles/timestamp','VehiclesController@updateTimestamp');
 });
