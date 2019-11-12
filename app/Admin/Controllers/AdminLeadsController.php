@@ -115,12 +115,32 @@ class AdminLeadsController extends Controller
         ->body($this->form());
     }
 
+
+    public function userLeadsForStatus($user,$leadIds,Content $content){
+        $leadIds = CommonMethod::decryptData($leadIds);
+        if(!$leadIds){
+            admin_error('Error','Invalid url parameters!');
+            return back();
+        }
+        $leadIds = json_decode($leadIds);
+        if(json_last_error() != JSON_ERROR_NONE){
+            admin_error('Error','Invalid url parameters!');
+            return back();
+        }
+
+        return $content
+        ->header('Lead Inventory')
+        ->description(' ')
+        ->body($this->grid(false,false,$leadIds));
+    }
+
+
     /**
      * Make a grid builder.
      *
      * @return Grid
      */
-    protected function grid($from,$to)
+    protected function grid($from,$to,$leadIds=null)
     {   
         $searchText = trans('admin.filter');
         Admin::script("$('#filter-box button.submit').html('<i class=\"fa fa-search\"></i>&nbsp;&nbsp;".$searchText."');");
@@ -148,6 +168,10 @@ class AdminLeadsController extends Controller
 
         if($from && $to){
             $grid->model()->whereBetween('created_at',["$from 00:00:00","$to 23:59:59"]);
+        }
+
+        if($leadIds){
+            $grid->model()->whereIn('id',$leadIds);
         }
 
         $grid = self::advanceSearchConditions($grid);
@@ -1380,8 +1404,8 @@ SCRIPT;
             $managerGroups = Group::where('manager_id', $userId)->get()->pluck('id')->toArray();
 
             $memberIds = GroupMember::whereIn('group_id',$managerGroups)->get()->pluck('member_id')->toArray();
-            // $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereIn('group_id',$managerGroups)->get()->toArray();
-            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereRaw(' ( group_id In (?) OR associate_id = ?)',[$managerGroups,$memberIds])->get()->toArray();
+
+            $leadAssignment = LeadAssignment::where('lead_id',$leadId)->whereRaw(' ( group_id IN (?) OR associate_id IN (?))',[implode(',', $managerGroups),implode(',', $memberIds)])->get()->toArray();
             if($leadAssignment) $access = true;
         }
         // Check for associate

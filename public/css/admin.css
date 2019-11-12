@@ -27,6 +27,8 @@
   font-family: SharpSans,Arial,sans-serif;
 }
 
+.text-white{color:#FFFFFF;}
+a.text-white:hover,a.text-white:focus,a.text-white:active{color:#FFFFFF;}
 .m-0{margin:0;}
 .form-horizontal .control-label{text-align: left;}
 .form-sub-title{text-align: center;
