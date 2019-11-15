@@ -216,9 +216,6 @@ input[type="checkbox"].grid-select-all {opacity: 0;display: none;}
 /*.btn-group {margin-right: 0 !important;}*/
 /*.box-header .btn.btn-sm.btn-success {float: left;margin-right: 0.5rem;}*/
 #app > .content-header > h1 > small {display: none;}
-@media(max-width: 768px){
-	.main-header .logo{width: auto; float: left;}
-}
 
 
 #payout_amount {text-align: left !important;}
@@ -252,6 +249,14 @@ label.asterisk.control-label::after {content: "*";color: #d73925;margin-left: 5p
 .bg-associate{background: #00a65a !important; color: #fff;}
 .bg-vendor{background: #0000CC !important; color: #fff;}
 .widget-user-2 .widget-user-image > img{width: 65px;height: 65px;}
+.total-lead-details{display: none;}
+.associate-box .total-lead-details {display: block;}
+
+
+@media(max-width: 768px){
+  .main-header .logo{width: auto; float: left;}
+}
+
 @media(min-width: 850px){
   .vehicle-last-update{position: absolute;left: 10px;top: 10px;}
 }
@@ -259,3 +264,4 @@ label.asterisk.control-label::after {content: "*";color: #d73925;margin-left: 5p
 @media(max-width: 849px){
   .vehicle-last-update{  position: absolute;right: 10px;top: -45px;width: 70%;text-align:right;}
 }
+

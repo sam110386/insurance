@@ -170,7 +170,11 @@ SCRIPT;
 		$html = " ";
 		if(LoginAdmin::user()->inRoles(['associate'])){
 			$groups = GroupMember::where('member_id',LoginAdmin::user()->id)->get()->pluck('group_id')->toArray();
+			if($groups){
 				$html .= $this->groupDetails($groups[0]);
+			}else{
+				$html .= $this->associateDetailBox();
+			}
 
 		}elseif(LoginAdmin::user()->inRoles(['manager'])){
 			$groups = Group::where('manager_id',LoginAdmin::user()->id)->get()->pluck('id')->toArray();
@@ -183,13 +187,13 @@ SCRIPT;
 				$html .= $this->groupDetails($gid);
 			}
 			/* Un Grouped Users */
-			$html .= $this->unGroupedMemberList($gid);
+			$html .= $this->unGroupedMemberList();
 		}elseif(LoginAdmin::user()->inRoles(['director'])){
 			$groups = Group::all()->pluck('id')->toArray();
 			foreach($groups as $gid){
 				$html .= $this->groupDetails($gid);
 			}
-			$html .= $this->unGroupedMemberList($gid);
+			$html .= $this->unGroupedMemberList();
 		}else{
 			$html = "Comming soon!";
 		}
@@ -207,6 +211,7 @@ SCRIPT;
 	}
 
 	protected function groupMembersList($group){
+
 		$html = "<div class='row'>";
 		$userPreHtml = "<div class='col-md-4'>";
 		$userPostHtml = "</div>";
@@ -216,13 +221,27 @@ SCRIPT;
 		
 		$currentUser = LoginAdmin::user()->id ;
 		
-		if(LoginAdmin::user()->inRoles(['associate','administrator','director'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id) . $userPostHtml;
+		if(LoginAdmin::user()->inRoles(['associate','administrator','director'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id,$group) . $userPostHtml;
 		foreach ($members as $mid) {
-			$html .= $userPreHtml . $this->memberLeadDetails($mid,$group->id). $userPostHtml; 
+			$html .= $userPreHtml . $this->memberLeadDetails($mid,$group). $userPostHtml; 
 		}
 		return $html."</div>";
 	}
 
+
+	protected function associateDetailBox(){
+		$html = "<div class='row'>";
+		$userPreHtml = "<div class='col-md-4'>";
+		$userPostHtml = "</div>";
+
+		return $html .= $userPreHtml . $this->memberLeadDetails(LoginAdmin::user()->id). $userPostHtml; 
+
+		$box = new Box('Ungrouped Member',$html);
+		$box->collapsable();
+		$box->style('primary');
+		$box->solid();
+		return $box;		
+	}
 
 	protected function unGroupedMemberList(){
 		$html = "<div class='row'>";
@@ -238,7 +257,7 @@ SCRIPT;
 
 		if(empty($members)) $html = "<h5>No member to show here.</h5>"; 
 		foreach ($members as $mid) {
-			$html .= $userPreHtml . $this->memberLeadDetails($mid,0). $userPostHtml; 
+			$html .= $userPreHtml . $this->memberLeadDetails($mid). $userPostHtml; 
 		}
 
 		$box = new Box('Ungrouped Members',$html);
@@ -248,77 +267,104 @@ SCRIPT;
 		return $box;
 	}
 
-	protected function managerLeadDetails($magaerId){
+	protected function managerLeadDetails($magaerId,$group){
 		$user = AdminUser::findOrFail($magaerId);
-		$leads = $this->managerLeads($user);
+		$groupLeads = $group->leads->pluck('lead_id')->toArray();
+		$managerleads = $this->managerLeads($user);
+		$leads = ['group' => $groupLeads,'total' => $managerleads];
 		return $this->userBox($user,$leads);
 	}
-	protected function memberLeadDetails($uid,$gid){
+	protected function memberLeadDetails($uid,$group = false){
 		$user = AdminUser::findOrFail($uid);
-		$userLeads = $this->memberLeads($uid,$gid);
-		return $this->userBox($user,$userLeads);
+		$groupLeads = ($group) ? $group->leads->pluck('lead_id')->toArray() : [];
+		$userLeads = $this->memberLeads($uid);
+		return $this->userBox($user,['group' => $groupLeads,'total' => $userLeads]);
 	}
 
-	protected function userBox($user,$userLeads){
+	protected function userBox($user,$leads){
+		$groupLeads = $leads['group'];
+		$groupLeadCount = (count($groupLeads) > 99) ? "99+" : count($groupLeads);
+		$userLeads = $leads['total'];
+		$totalLeads = (count($userLeads) > 99) ? "99+" : count($userLeads);
+
+		$leadWithoutStatusOrNote = $this->leadWithoutStatusOrNote($groupLeads);
+		$leadWithoutStatusOrNoteCount = (count($leadWithoutStatusOrNote) > 99 ) ? '99+' : count($leadWithoutStatusOrNote);
+
+		
 		if($user->inRoles(['administrator'])){
 			$boxClass = "admin-box";
 			$role = "Administrator";
+			$leadDetailsTitle = 'Lead Status';
+			$leadStatuses = $this->leadStatuses($userLeads);
 		}elseif($user->inRoles(['manager'])){
 			$boxClass = "manager-box";
 			$role = "Manager";
+			$leadDetailsTitle = 'Group Lead Status';
+			$leadStatuses = $this->leadStatuses($groupLeads);
 		}elseif($user->inRoles(['associate'])){
 			$boxClass = "associate-box";
 			$role = "Associate";
+			$leadDetailsTitle = 'Personal Lead Status';
+			$leadStatuses = $this->leadStatuses($userLeads);
 		}else{
 			$boxClass = "vendor-box";
 			$role = "Vendor";
+			$leadDetailsTitle = 'Lead Status';
+			$leadStatuses = $this->leadStatuses($userLeads);
 		}
 
-		$boxClass = ($user->inRoles(['associate'])) ? "associate-box" : "manager-box";
-		$totalLeads = (count($userLeads) > 99) ? "99+" : count($userLeads);
+		$groupLeadsLink = "0";
+		if(count($groupLeads) > 0){
+			$groupLeadsLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($groupLeads))]) .'" class="text-white">'.$groupLeadCount.'</a>';
+		}
 
-		$leadWithoutStatusOrNote = $this->leadWithoutStatusOrNote($userLeads);
-		$leadWithoutStatusOrNoteCount = (count($leadWithoutStatusOrNote) > 99 ) ? '99+' : count($leadWithoutStatusOrNote);
+		$totalLeadLink = "0";
+		if(count($userLeads) > 0){
+			$totalLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($userLeads))]) .'" class="text-white">'.$totalLeads.'</a>';
+		}
 
-		$leadStatuses = $this->leadStatuses($userLeads);
+		$leadWithoutStatusOrNoteLink = "0";
+		if(count($leadWithoutStatusOrNote) > 0){
+			$leadWithoutStatusOrNoteLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadWithoutStatusOrNote))]) .'" class="text-white">'.$leadWithoutStatusOrNoteCount.'</a>';			
+		}
 
 		$newLeadLink = "0";
-		if(count($leadStatuses[0]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[0]) > 0){
 			$newLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[0]))]).'" class="text-white">'.count($leadStatuses[0]).'</a>';
 		}
 
 		$pendingLeadLink = "0";
-		if(count($leadStatuses[1]) > 0){
+		if(isset($leadStatuses[0]) &&  count($leadStatuses[1]) > 0){
 			$pendingLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[1]))]).'" class="text-white">'.count($leadStatuses[1]).'</a>';
 		}
 
 		$inProgressLeadLink = "0";
-		if(count($leadStatuses[2]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[2]) > 0){
 			$inProgressLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[2]))]).'" class="text-white">'.count($leadStatuses[2]).'</a>';
 		}
 
 		$completeLeadLink = "0";
-		if(count($leadStatuses[3]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[3]) > 0){
 			$completeLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[3]))]).'" class="text-white">'.count($leadStatuses[3]).'</a>';
 		}
 
 		$incompleteLeadLink = "0";
-		if(count($leadStatuses[4]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[4]) > 0){
 			$incompleteLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[4]))]).'" class="text-white">'.count($leadStatuses[4]).'</a>';
 		}
 
 		$declinedLeadLink = "0";
-		if(count($leadStatuses[5]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[5]) > 0){
 			$declinedLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[5]))]).'" class="text-white">'.count($leadStatuses[5]).'</a>';
 		}
 
 		$transferLeadLink = "0";
-		if(count($leadStatuses[6]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[6]) > 0){
 			$transferLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[6]))]).'" class="text-white">'.count($leadStatuses[6]).'</a>';
 		}
 
 		$notEligibleLeadLink = "0";
-		if(count($leadStatuses[7]) > 0){
+		if(isset($leadStatuses[0]) && count($leadStatuses[7]) > 0){
 			$notEligibleLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[7]))]).'" class="text-white">'.count($leadStatuses[7]).'</a>';
 		}
 
@@ -336,14 +382,15 @@ SCRIPT;
 			<div class="box-body">			
 				<div class="row">
 					<div class="col-xs-12">
-						<h5>Total Leads <span class="pull-right label label-info"><a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($userLeads))]) .'" class="text-white">'.$totalLeads.'</a></span></h5>
+						<h5>Total Group Leads <span class="pull-right label label-info">'.$groupLeadsLink.'</span></h5>
 					</div>
 					<div class="col-xs-12">
-						<h5>Lead without Status/Note  <span class="pull-right label label-danger"><a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadWithoutStatusOrNote))]) .'" class="text-white">'.$leadWithoutStatusOrNoteCount.'</a></span></h5>
+						<h5>Group Leads w/o Updates <span class="pull-right label label-danger">'.$leadWithoutStatusOrNoteLink.'</span></h5>
 					</div>
 					<div class="col-xs-12">
 						<hr/>			
-						<h4>Lead Statuses</h4>
+						<h4>'.$leadDetailsTitle.'</h4>
+						<h5 class="total-lead-details">Total <span class="pull-right label label-primary">'.$totalLeadLink.'</span></h5>
 						<h5>New <span class="pull-right label label-primary">'.$newLeadLink.'</span></h5>
 						<h5>Pending <span class="pull-right label label-primary">'.$pendingLeadLink.'</span></h5>
 						<h5>In Progress <span class="pull-right label label-primary">'.$inProgressLeadLink.'</span></h5>
@@ -361,14 +408,18 @@ SCRIPT;
 
 	/* Lead Ids associated to manager */
 	protected function managerLeads($manager){
+		// $memberIds = GroupMember::where('group_id',$groupId)->get()->pluck('member_id')->toArray();
+
+		// return LeadAssignment::where('group_id',$groupId)->orWhereIn('associate_id',$memberIds)->get()->pluck('lead_id')->toArray();
+
 		$groupIds = $manager->managerGroups->pluck('id')->toArray();
 		$memberIds = GroupMember::whereIn('group_id',$groupIds)->get()->pluck('member_id')->toArray();
 
 		return LeadAssignment::whereIn('group_id',$groupIds)->orWhereIn('associate_id',$memberIds)->get()->pluck('lead_id')->toArray();
 	}
 	/* Lead Ids associated to associate */
-	protected function memberLeads($uid,$gid){
-		return LeadAssignment::where('group_id',$gid)->orWhere('associate_id',$uid)->get()->pluck('lead_id')->toArray();
+	protected function memberLeads($uid,$gid=0){
+		return LeadAssignment::where('associate_id',$uid)->get()->pluck('lead_id')->toArray();
 	}
 
 	protected function leadWithoutStatusOrNote($leads = []){
