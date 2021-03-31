@@ -60,4 +60,11 @@ class SendMail {
 			});
 	}
 
+	public static function sendMailToMangerOnContactUs($user){
+		\Mail::send('Emails.Admin.contact', ['user' => $user],
+			function ($message){
+				$message->to(Config::get('constants.admin_email'))->bcc(Config::get('constants.admin_bcc_email'))->subject('Contact Us - Insurance');
+			});
+	}
+
 }

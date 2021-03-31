@@ -9,10 +9,6 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-
 
 class VehiclesController extends Controller
 {
@@ -83,28 +79,18 @@ class VehiclesController extends Controller
      */
     protected function grid()
     {
-        
         $grid = new Grid(new Vehicle);
+
         $grid->id('ID');
         $grid->year(trans('Year'));
         $grid->make(trans('Make'));
         $grid->vmodel(trans('Model'));
         $grid->trim_1(trans('Trim New'));
         $grid->trim_2(trans('Trim Old'));
-        $grid->updated_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
-
-        // Last updated record
-        $lastUpdateData = $this->lastUpdateData();
-        $grid->tools(function (Grid\Tools $tools) use($lastUpdateData) {
-            $tools->append("<div class='col-12 vehicle-last-update'><span class='mr-1'>Last Update: <strong>{$lastUpdateData['date']}</strong> by <strong>{$lastUpdateData['username']}</strong></span></div>");
-        });        
+        $grid->created_at(trans('admin.timestamp'))->setAttributes(['width' => '180px']);
         return $grid;
     }
 
-    protected function lastUpdateData(){
-        $vehicle = Vehicle::whereNotNull('updated_at')->orderBy('updated_at','DESC')->get()->first();
-        return ($vehicle) ? ['date' => $vehicle->updated_at,'username' => $vehicle->user->username] : ['date' => '','username' => ''];
-    }
     /**
      * Make a show builder.
      *
@@ -151,14 +137,6 @@ class VehiclesController extends Controller
         $form->row(function ($row) use ( $form) {
             $row->width(8)->textarea('description', trans('Description'));
         });
-        $form->saving(function (Form $form) {
-            $form->user_id = Auth::guard('admin')->user()->id;
-        });        
         return $form;
     }
-
-    public function updateTimestamp(){
-        $vehicle = Vehicle::where('id','>',0)->update(['created_at' => Carbon::now(),'updated_at' => Carbon::now()]);
-    }
-
 }

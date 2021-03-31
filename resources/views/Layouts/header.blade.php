@@ -27,7 +27,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/"><img src="{{asset('img/logo.png')}}" alt="Insurance" height="50" /></a>
+        <a class="navbar-brand" href="/"><img src="{{asset('img/logo.jpeg')}}" alt="Insurance" width="120" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>       

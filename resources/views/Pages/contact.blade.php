@@ -1,7 +1,7 @@
 @extends('Layouts.frontend')
 @section('content')
 <div class="pt-5 pb-5 container">
-	<form action="" method="post">
+	<form action="{{route('contactpost')}}" method="post">
 		{{ csrf_field() }}
 		<div class="row">
 			<div class="col-12 col-sm-6">

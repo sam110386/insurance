@@ -19,12 +19,4 @@ class Group extends Model
     {
         return $this->belongsTo('App\Models\AdminUser','manager_id','id');
     }
-
-    /**
-     * Get the leads for this group.
-     */
-    public function leads()
-    {
-        return $this->hasMany('App\Models\LeadAssignment','group_id','id');
-    }    
 }

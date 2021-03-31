@@ -19,8 +19,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Encore\Admin\Facades\Admin as LoginAdmin;
 use Encore\Admin\Admin;
-use Illuminate\Support\Facades\Crypt;
-use App\Helpers\CommonMethod;
 
 
 class HomeController extends Controller
@@ -170,11 +168,7 @@ SCRIPT;
 		$html = " ";
 		if(LoginAdmin::user()->inRoles(['associate'])){
 			$groups = GroupMember::where('member_id',LoginAdmin::user()->id)->get()->pluck('group_id')->toArray();
-			if($groups){
 				$html .= $this->groupDetails($groups[0]);
-			}else{
-				$html .= $this->associateDetailBox();
-			}
 
 		}elseif(LoginAdmin::user()->inRoles(['manager'])){
 			$groups = Group::where('manager_id',LoginAdmin::user()->id)->get()->pluck('id')->toArray();
@@ -187,13 +181,13 @@ SCRIPT;
 				$html .= $this->groupDetails($gid);
 			}
 			/* Un Grouped Users */
-			$html .= $this->unGroupedMemberList();
+			$html .= $this->unGroupedMemberList($gid);
 		}elseif(LoginAdmin::user()->inRoles(['director'])){
 			$groups = Group::all()->pluck('id')->toArray();
 			foreach($groups as $gid){
 				$html .= $this->groupDetails($gid);
 			}
-			$html .= $this->unGroupedMemberList();
+			$html .= $this->unGroupedMemberList($gid);
 		}else{
 			$html = "Comming soon!";
 		}
@@ -211,7 +205,6 @@ SCRIPT;
 	}
 
 	protected function groupMembersList($group){
-
 		$html = "<div class='row'>";
 		$userPreHtml = "<div class='col-md-4'>";
 		$userPostHtml = "</div>";
@@ -221,27 +214,13 @@ SCRIPT;
 		
 		$currentUser = LoginAdmin::user()->id ;
 		
-		if(LoginAdmin::user()->inRoles(['associate','administrator','director'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id,$group) . $userPostHtml;
+		if(LoginAdmin::user()->inRoles(['associate','administrator','director'])) $html .= $userPreHtml.$this->managerLeadDetails($group->manager_id) . $userPostHtml;
 		foreach ($members as $mid) {
-			$html .= $userPreHtml . $this->memberLeadDetails($mid,$group). $userPostHtml; 
+			$html .= $userPreHtml . $this->memberLeadDetails($mid,$group->id). $userPostHtml; 
 		}
 		return $html."</div>";
 	}
 
-
-	protected function associateDetailBox(){
-		$html = "<div class='row'>";
-		$userPreHtml = "<div class='col-md-4'>";
-		$userPostHtml = "</div>";
-
-		return $html .= $userPreHtml . $this->memberLeadDetails(LoginAdmin::user()->id). $userPostHtml; 
-
-		$box = new Box('Ungrouped Member',$html);
-		$box->collapsable();
-		$box->style('primary');
-		$box->solid();
-		return $box;		
-	}
 
 	protected function unGroupedMemberList(){
 		$html = "<div class='row'>";
@@ -257,7 +236,7 @@ SCRIPT;
 
 		if(empty($members)) $html = "<h5>No member to show here.</h5>"; 
 		foreach ($members as $mid) {
-			$html .= $userPreHtml . $this->memberLeadDetails($mid). $userPostHtml; 
+			$html .= $userPreHtml . $this->memberLeadDetails($mid,0). $userPostHtml; 
 		}
 
 		$box = new Box('Ungrouped Members',$html);
@@ -267,109 +246,40 @@ SCRIPT;
 		return $box;
 	}
 
-	protected function managerLeadDetails($magaerId,$group){
+	protected function managerLeadDetails($magaerId){
 		$user = AdminUser::findOrFail($magaerId);
-		$groupLeads = $group->leads->pluck('lead_id')->toArray();
-		$managerleads = $this->managerLeads($user);
-		$leads = ['group' => $groupLeads,'total' => $managerleads];
+		$leads = $this->managerLeads($user);
 		return $this->userBox($user,$leads);
 	}
-	protected function memberLeadDetails($uid,$group = false){
+	protected function memberLeadDetails($uid,$gid){
 		$user = AdminUser::findOrFail($uid);
-		$groupLeads = ($group) ? $group->leads->pluck('lead_id')->toArray() : [];
-		$userLeads = $this->memberLeads($uid);
-		return $this->userBox($user,['group' => $groupLeads,'total' => $userLeads]);
+		$userLeads = $this->memberLeads($uid,$gid);
+		return $this->userBox($user,$userLeads);
 	}
 
-	protected function userBox($user,$leads){
-		$groupLeads = $leads['group'];
-		$groupLeadCount = (count($groupLeads) > 99) ? "99+" : count($groupLeads);
-		$userLeads = $leads['total'];
-		$totalLeads = (count($userLeads) > 99) ? "99+" : count($userLeads);
-
-		$leadWithoutStatusOrNote = $this->leadWithoutStatusOrNote($groupLeads);
-		$leadWithoutStatusOrNoteCount = (count($leadWithoutStatusOrNote) > 99 ) ? '99+' : count($leadWithoutStatusOrNote);
-
-		
+	protected function userBox($user,$userLeads){
 		if($user->inRoles(['administrator'])){
 			$boxClass = "admin-box";
 			$role = "Administrator";
-			$leadDetailsTitle = 'Lead Status';
-			$leadStatuses = $this->leadStatuses($userLeads);
 		}elseif($user->inRoles(['manager'])){
 			$boxClass = "manager-box";
 			$role = "Manager";
-			$leadDetailsTitle = 'Group Lead Status';
-			$leadStatuses = $this->leadStatuses($groupLeads);
 		}elseif($user->inRoles(['associate'])){
 			$boxClass = "associate-box";
 			$role = "Associate";
-			$leadDetailsTitle = 'Personal Lead Status';
-			$leadStatuses = $this->leadStatuses($userLeads);
 		}else{
 			$boxClass = "vendor-box";
 			$role = "Vendor";
-			$leadDetailsTitle = 'Lead Status';
-			$leadStatuses = $this->leadStatuses($userLeads);
 		}
 
-		$groupLeadsLink = "0";
-		if(count($groupLeads) > 0){
-			$groupLeadsLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($groupLeads))]) .'" class="text-white">'.$groupLeadCount.'</a>';
-		}
+		$boxClass = ($user->inRoles(['associate'])) ? "associate-box" : "manager-box";
+		$totalLeads = (count($userLeads) > 99) ? "99+" : count($userLeads);
 
-		$totalLeadLink = "0";
-		if(count($userLeads) > 0){
-			$totalLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($userLeads))]) .'" class="text-white">'.$totalLeads.'</a>';
-		}
+		$leadWithoutStatusOrNote = $this->leadWithoutStatusOrNote($userLeads);
+		$leadWithoutStatusOrNoteCount = (count($leadWithoutStatusOrNote) > 99 ) ? '99+' : count($leadWithoutStatusOrNote);
 
-		$leadWithoutStatusOrNoteLink = "0";
-		if(count($leadWithoutStatusOrNote) > 0){
-			$leadWithoutStatusOrNoteLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadWithoutStatusOrNote))]) .'" class="text-white">'.$leadWithoutStatusOrNoteCount.'</a>';			
-		}
-
-		$newLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[0]) > 0){
-			$newLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[0]))]).'" class="text-white">'.count($leadStatuses[0]).'</a>';
-		}
-
-		$pendingLeadLink = "0";
-		if(isset($leadStatuses[0]) &&  count($leadStatuses[1]) > 0){
-			$pendingLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[1]))]).'" class="text-white">'.count($leadStatuses[1]).'</a>';
-		}
-
-		$inProgressLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[2]) > 0){
-			$inProgressLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[2]))]).'" class="text-white">'.count($leadStatuses[2]).'</a>';
-		}
-
-		$completeLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[3]) > 0){
-			$completeLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[3]))]).'" class="text-white">'.count($leadStatuses[3]).'</a>';
-		}
-
-		$incompleteLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[4]) > 0){
-			$incompleteLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[4]))]).'" class="text-white">'.count($leadStatuses[4]).'</a>';
-		}
-
-		$declinedLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[5]) > 0){
-			$declinedLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[5]))]).'" class="text-white">'.count($leadStatuses[5]).'</a>';
-		}
-
-		$transferLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[6]) > 0){
-			$transferLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[6]))]).'" class="text-white">'.count($leadStatuses[6]).'</a>';
-		}
-
-		$notEligibleLeadLink = "0";
-		if(isset($leadStatuses[0]) && count($leadStatuses[7]) > 0){
-			$notEligibleLeadLink = '<a href="'.route('admin.user-leads',[CommonMethod::encryptData($user->id),CommonMethod::encryptData(json_encode($leadStatuses[7]))]).'" class="text-white">'.count($leadStatuses[7]).'</a>';
-		}
-
-		// $leadStatuses = (empty($leadStatuses)) ? [0,0,0,0,0,0,0,0] : $leadStatuses;
-		$leadStatuses = [0,0,0,0,0,0,0,0];
+		$leadStatuses = $this->leadStatuses($userLeads);
+		$leadStatuses = (empty($leadStatuses)) ? [0,0,0,0,0,0,0,0] : $leadStatuses;
 		$profilePic = ($user->avatar) ? $user->avatar : "/images/default-user.png";
 		$userInfo = '<div class="box box-solid '.$boxClass.' box-success widget-user-2">
 			<div class="box-header">
@@ -382,23 +292,22 @@ SCRIPT;
 			<div class="box-body">			
 				<div class="row">
 					<div class="col-xs-12">
-						<h5>Total Group Leads <span class="pull-right label label-info">'.$groupLeadsLink.'</span></h5>
+						<h5>Total Leads <span class="pull-right label label-info">'.$totalLeads.'</span></h5>
 					</div>
 					<div class="col-xs-12">
-						<h5>Group Leads w/o Updates <span class="pull-right label label-danger">'.$leadWithoutStatusOrNoteLink.'</span></h5>
+						<h5>Lead without Status/Note  <span class="pull-right label label-danger">'.$leadWithoutStatusOrNoteCount.'</span></h5>
 					</div>
 					<div class="col-xs-12">
 						<hr/>			
-						<h4>'.$leadDetailsTitle.'</h4>
-						<h5 class="total-lead-details">Total <span class="pull-right label label-primary">'.$totalLeadLink.'</span></h5>
-						<h5>New <span class="pull-right label label-primary">'.$newLeadLink.'</span></h5>
-						<h5>Pending <span class="pull-right label label-primary">'.$pendingLeadLink.'</span></h5>
-						<h5>In Progress <span class="pull-right label label-primary">'.$inProgressLeadLink.'</span></h5>
-						<h5>Complete <span class="pull-right label label-primary">'.$completeLeadLink.'</span></h5>
-						<h5>Incomplete <span class="pull-right label label-primary">'.$incompleteLeadLink.'</span></h5>
-						<h5>Declined <span class="pull-right label label-primary">'.$declinedLeadLink.'</span></h5>
-						<h5>Transfer <span class="pull-right label label-primary">'.$transferLeadLink.'</span></h5>
-						<h5>Not Eligible <span class="pull-right label label-primary">'.$notEligibleLeadLink.'</span></h5>
+						<h4>Lead Statuses</h4>
+						<h5>New <span class="pull-right label label-primary">'.$leadStatuses[0].'</span></h5>
+						<h5>Pending <span class="pull-right label label-primary">'.$leadStatuses[1].'</span></h5>
+						<h5>In Progress <span class="pull-right label label-primary">'.$leadStatuses[2].'</span></h5>
+						<h5>Complete <span class="pull-right label label-primary">'.$leadStatuses[3].'</span></h5>
+						<h5>Incomplete <span class="pull-right label label-primary">'.$leadStatuses[4].'</span></h5>
+						<h5>Declined <span class="pull-right label label-primary">'.$leadStatuses[5].'</span></h5>
+						<h5>Transfer <span class="pull-right label label-primary">'.$leadStatuses[6].'</span></h5>
+						<h5>Not Eligible <span class="pull-right label label-primary">'.$leadStatuses[7].'</span></h5>
 					</div>
 				</div>
 			</div>
@@ -408,78 +317,43 @@ SCRIPT;
 
 	/* Lead Ids associated to manager */
 	protected function managerLeads($manager){
-		// $memberIds = GroupMember::where('group_id',$groupId)->get()->pluck('member_id')->toArray();
-
-		// return LeadAssignment::where('group_id',$groupId)->orWhereIn('associate_id',$memberIds)->get()->pluck('lead_id')->toArray();
-
 		$groupIds = $manager->managerGroups->pluck('id')->toArray();
 		$memberIds = GroupMember::whereIn('group_id',$groupIds)->get()->pluck('member_id')->toArray();
 
 		return LeadAssignment::whereIn('group_id',$groupIds)->orWhereIn('associate_id',$memberIds)->get()->pluck('lead_id')->toArray();
 	}
 	/* Lead Ids associated to associate */
-	protected function memberLeads($uid,$gid=0){
-		return LeadAssignment::where('associate_id',$uid)->get()->pluck('lead_id')->toArray();
+	protected function memberLeads($uid,$gid){
+		return LeadAssignment::where('group_id',$gid)->orWhere('associate_id',$uid)->get()->pluck('lead_id')->toArray();
 	}
 
 	protected function leadWithoutStatusOrNote($leads = []){
 		if(empty($leads)) return [];
 		$leadsWithoutStatus = Lead::whereIn('id',$leads)->where('current_status',0)->get()->pluck('id')->toArray();
 		$leadsWithoutNotes = Lead::whereIn('id',$leads)->whereDoesntHave('notes')->get()->pluck('id')->toArray();
-		return array_values(array_unique(array_merge($leadsWithoutStatus,$leadsWithoutNotes)));
+		return array_unique(array_merge($leadsWithoutStatus,$leadsWithoutNotes));
 	}
 
 	protected function leadStatuses($leads = []){
 		if(empty($leads)) return [];
-		$leadsIds = Lead::select(['id','current_status'])->whereIn('id',$leads)->get()->toArray();
-		$status = [[],[],[],[],[],[],[],[]];
-		foreach ($leadsIds as $lead) {
-			$status[$lead['current_status']][] = $lead['id'];
+		$statusCounts = Lead::selectRaw('count(*) as total, current_status')->whereIn('id',$leads)->groupBy('current_status')->get()->toArray();
+		$counts = [0,0,0,0,0,0,0,0];
+		foreach ($statusCounts as $value) {
+			$counts[$value['current_status']] = $value['total'];
 		}
-		return $status;
-
-		// $statusCounts = Lead::selectRaw('count(*) as total, current_status')->whereIn('id',$leads)->groupBy('current_status')->get()->toArray();
-		// $counts = [0,0,0,0,0,0,0,0];
-		// foreach ($statusCounts as $value) {
-		// 	$counts[$value['current_status']] = $value['total'];
-		// }
-		// return $counts;
+		return $counts;
 	}
 
 
 
-	public function testMail($id,$status){
-		$parameter =[
-            'user_id' =>1,
-            'leads' => 'new'
-        ];
+	public function testMail(){
+		$email = 'sgstest2505@gmail.com';
+		$lead = Lead::findOrFail(5);
+		$mailStatus = \Mail::send('Admin.Lead.email', ['lead' => $lead],
+				function ($message) use($email){
+					$message->to($email)->subject('New Lead - Insurance');
+		}); 
 
-        for($i = 0; $i<100; $i++) {
-        	$number = rand(1,99999999999);
-        	$encrypt = rtrim(strtr(base64_encode($number), '+/', '-_'), '=');
-        	$decrypt = base64_decode(str_pad(strtr($encrypt, '-_', '+/'), strlen($encrypt) % 4, '=', STR_PAD_RIGHT));
-        	echo "$number -> $encrypt -> $decrypt" ;
-        	echo "<br>";
-        }
-
-  	// 	$data = base64_encode(99999999999999);
-	 	// // $data = str_replace(array('+','/','='),array('-','_','.'),$data);
-   //      echo $data;
-
-		  // $data = str_replace(array('-','_','.'),array('+','/','='),$data);
-		  // $mod4 = strlen($data) % 4;
-		  // if ($mod4) {
-		  //   $data .= substr('====', $mod4);
-		  // }
-		  // echo base64_decode($data);        
-		die;
-		// $email = 'sgstest2505@gmail.com';
-		// $lead = Lead::findOrFail(5);
-		// $mailStatus = \Mail::send('Admin.Lead.email', ['lead' => $lead],
-		// 		function ($message) use($email){
-		// 			$message->to($email)->subject('New Lead - Insurance');
-		// }); 
-
-		// dd($mailStatus);
+		dd($mailStatus);
 	}
 }

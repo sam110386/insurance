@@ -20,7 +20,8 @@ Route::get('/terms', 'PagesControllers@getPage')->name('terms');
 Route::get('/faq', 'PagesControllers@getPage')->name('faq');
 Route::get('/about', 'PagesControllers@getPage')->name('about');
 Route::get('/contact', 'PagesControllers@getPage')->name('contact');
-Route::post('/contact', 'PagesControllers@getPage')->name('contact');
+Route::post('/contactpost', 'PagesControllers@contactpost')->name('contactpost');
+Route::get('/thankyou', 'PagesControllers@getPage')->name('thankyou');
 
 
 Route::group([

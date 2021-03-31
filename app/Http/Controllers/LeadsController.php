@@ -547,9 +547,9 @@ class LeadsController extends BaseController
 	        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	        $response = curl_exec($ch);
 	        curl_close($ch);
-
-			$LogFIle = storage_path() . '/logs/affiliate-'.date('Y-m-d'). ".log";
-			error_log("\n" . date('Y-m-d H:i:s') . '=> ' . $redirect . ' <====> ' . $response, 3, $LogFIle);
+			//$LogFIle = '/var/www/vhosts/quotemeow.com/httpdocs/storage/logs/affiliate-'.date('Y-m-d'). ".log";	
+			//$LogFIle = storage_path() . '/logs/affiliate-'.date('Y-m-d'). ".log";
+			//error_log("\n" . date('Y-m-d H:i:s') . '=> ' . $redirect . ' <====> ' . $response, 3, $LogFIle);
 		}
 		return false;
 	}

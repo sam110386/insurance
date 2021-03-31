@@ -23,15 +23,10 @@ Route::group([
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
-    // Test Url
-    $router->get('/mail/test/{user}/{satus}', 'HomeController@testMail')->name('test.mail');
-
-    // 
-    $router->get('/leads/user/{user}/{lead_ids}', 'AdminLeadsController@userLeadsForStatus')->name('admin.user-leads');
-
     $router->get('/', 'HomeController@dashboard')->name('admin.home');
     $router->get('/dashboard', 'HomeController@index')->name('admin.dashboard');
 
+    $router->get('/mail/test', 'HomeController@testMail')->name('test.mail');
     $router->get('/move/leads', 'LeadAssignmentController@moveAssignments');
     $router->get('/leads/recent/updates', 'NotesController@recent')->name('admin.updates');
     $router->get('/leads/recent/updates/{id}/edit', 'NotesController@edit')->name('admin.update_note');
@@ -59,8 +54,4 @@ Route::group([
     $router->resource('affiliates', 'AffiliateController');
 
     $router->match(['put','patch','post'],'auth/setting', 'AuthController@saveProfile')->name('user.profile.update');
-
-    $router->get('update/vehicles/timestamp','VehiclesController@updateTimestamp');
-
-
 });

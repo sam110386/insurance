@@ -9,9 +9,4 @@ class Vehicle extends Model
 {
     use SoftDeletes;
     protected $table = 'vehicles';
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\AdminUser','user_id','id');
-    }    
 }

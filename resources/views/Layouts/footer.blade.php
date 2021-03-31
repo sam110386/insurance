@@ -41,7 +41,7 @@
 
         <div class="col-12 col-md-4 footer-box-2">
           <!--p class="mb-2"><a href="#"><i class="fa fa-comment"></i> Live chat</a></p-->
-          <p><a href="mailto:meow@quotemeow.com"><i class="fa fa-envelope"></i> meow@quotemeow.com</a></p>
+          <p><a href="mailto:sales@everythingautoinsurance.com"><i class="fa fa-envelope"></i> sales@everythingautoinsurance.com</a></p>
         </div>
         <div class="col-12 col-md-4 col-lg-4 footer-box-1">
           <p class="mt-1">Monday-Friday | 9am-6pm PST <br> Saturday | 9am-1pm PST <br> Sunday closed</p>
